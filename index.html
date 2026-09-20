@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light">
+  <title>English Listening Lab · 英语精听实验室</title>
+  <meta name="description" content="Real Easy English 双语精听学习站：同步音频、中英字幕、音标重音、意群节奏和发音提示。">
+  <script>(()=>{try{document.documentElement.dataset.theme=localStorage.getItem('ell-theme')||'dark'}catch(_){}})()</script>
+  <style>
+    :root{--paper:#070a0f;--surface:#0d1117;--surface2:#111824;--ink:#d8e6f3;--muted:#8090a5;--line:#222d3b;--teal:#42d3ff;--tealSoft:#112332;--orange:#ff8b4c;--purple:#c792ea;--green:#9be564;--shadow:0 24px 70px rgba(0,0,0,.42)}
+    html[data-theme="light"]{--paper:#f5f7fb;--surface:#fff;--surface2:#eef7fb;--ink:#182334;--muted:#64748b;--line:#d8e1eb;--teal:#007fa3;--tealSoft:#dff5fb;--orange:#c45116;--purple:#7c3fb1;--green:#357a16;--shadow:0 18px 52px rgba(30,55,80,.13)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{min-height:100vh;margin:0;color:var(--ink);background:radial-gradient(circle at 12% -8%,color-mix(in srgb,var(--teal) 15%,transparent),transparent 32rem),radial-gradient(circle at 92% 18%,color-mix(in srgb,var(--purple) 12%,transparent),transparent 30rem),var(--paper);font-family:"SFMono-Regular",Menlo,Monaco,Consolas,"PingFang SC","Microsoft YaHei",monospace}body:before{content:"";position:fixed;inset:0;z-index:-1;opacity:.2;background-image:linear-gradient(color-mix(in srgb,var(--muted) 14%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--muted) 14%,transparent) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,#000,transparent 78%)}button,input,select{font:inherit}.page{width:min(1180px,calc(100% - 36px));margin:auto;padding:32px 0 72px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px;color:var(--muted);font-size:12px}.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:.05em}.mark{display:grid;place-items:center;width:34px;height:34px;border:1px solid color-mix(in srgb,var(--teal) 55%,var(--line));border-radius:9px;color:var(--teal);background:var(--tealSoft)}.theme{height:38px;padding:0 13px;border:1px solid var(--line);border-radius:8px;color:var(--teal);background:var(--surface);font-weight:800;cursor:pointer}.hero{padding:clamp(28px,6vw,66px);border:1px solid var(--line);border-radius:18px;background:color-mix(in srgb,var(--surface) 94%,transparent);box-shadow:var(--shadow)}.eyebrow{margin:0 0 14px;color:var(--purple);font-size:12px;font-weight:850;letter-spacing:.09em;text-transform:uppercase}h1{max-width:890px;margin:0;font-size:clamp(36px,7vw,78px);line-height:1.08;letter-spacing:-.06em}h1 .accent{color:var(--teal)}.lead{max-width:790px;margin:22px 0 0;color:var(--muted);font-size:clamp(14px,1.8vw,18px);line-height:1.85}.stats{display:flex;flex-wrap:wrap;gap:12px 26px;margin-top:28px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}.stats b{color:var(--green);font-size:17px}.toolbar{position:sticky;top:8px;z-index:5;display:grid;grid-template-columns:1fr 150px auto;gap:10px;margin:24px 0 18px;padding:12px;border:1px solid var(--line);border-radius:13px;background:color-mix(in srgb,var(--surface) 92%,transparent);box-shadow:0 10px 34px rgba(0,0,0,.12);backdrop-filter:blur(16px)}.toolbar input,.toolbar select{min-width:0;height:42px;padding:0 13px;border:1px solid var(--line);border-radius:8px;color:var(--ink);background:var(--paper);outline:none}.toolbar input:focus,.toolbar select:focus{border-color:var(--teal)}#count{align-self:center;padding:0 8px;color:var(--muted);font-size:11px;white-space:nowrap}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.episode a{display:block;height:100%;padding:22px;border:1px solid var(--line);border-radius:12px;color:inherit;background:color-mix(in srgb,var(--surface) 94%,transparent);text-decoration:none;transition:.2s}.episode a:hover{border-color:color-mix(in srgb,var(--teal) 60%,var(--line));background:var(--surface2);transform:translateY(-2px);box-shadow:0 16px 36px rgba(0,0,0,.12)}.card-top{display:flex;align-items:center;justify-content:space-between;color:var(--purple);font-size:11px;font-weight:750}.latest{padding:4px 7px;border-radius:99px;color:var(--paper);background:var(--green)}.episode h2{margin:15px 0 8px;font-size:clamp(18px,2.3vw,25px);line-height:1.42;letter-spacing:-.03em}.episode p{margin:0;color:var(--green);font-size:14px}.card-meta{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:20px;padding-top:14px;border-top:1px dashed var(--line);color:var(--muted);font-size:10px}.empty{display:none;padding:48px;text-align:center;color:var(--muted)}footer{margin-top:30px;padding:20px 4px;color:var(--muted);font-size:10px;line-height:1.8}footer a{color:var(--teal)}
+    @media(max-width:700px){.page{width:min(100% - 20px,560px);padding-top:20px}.hero{padding:27px 20px}.toolbar{grid-template-columns:1fr 108px}#count{grid-column:1/-1}.grid{grid-template-columns:1fr}.episode a{padding:20px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body><main class="page">
+  <nav class="topbar"><div class="brand"><span class="mark">&lt;/&gt;</span><span>ENGLISH_LISTENING_LAB</span></div><button class="theme" id="theme" type="button">☀ 浅色</button></nav>
+  <header class="hero"><p class="eyebrow">Real Easy English · 2026</p><h1>听见英语的<span class="accent">节奏</span></h1><p class="lead">跟随原声逐句高亮，用中英对照、英式音标、词重音、意群和发音提示完成一次真正可跟读的精听。适配手机与电脑，深色和浅色主题随时切换。</p><div class="stats"><span><b>38</b> 期节目</span><span><b>221.6</b> 分钟音频</span><span><b>2,112</b> 条同步字幕</span><span>更新至 <b>2026-09-18</b></span></div></header>
+  <section class="toolbar" aria-label="筛选课程"><input id="query" type="search" placeholder="搜索英文或中文主题…" aria-label="搜索课程"><select id="month" aria-label="选择月份"><option value="">全部月份</option><option value="01">1 月</option><option value="02">2 月</option><option value="03">3 月</option><option value="04">4 月</option><option value="05">5 月</option><option value="06">6 月</option><option value="07">7 月</option><option value="08">8 月</option><option value="09">9 月</option></select><span id="count"></span></section>
+  <section class="grid" id="grid"><article class="episode" data-month="09" data-search="talking about hard jobs 聊聊难做的工作 2026-09-18">
+          <a href="2026-09-18_talking-about-hard-jobs-standalone.html" aria-label="打开 Talking about hard jobs">
+            <div class="card-top"><time datetime="2026-09-18">2026-09-18</time><span class="latest">最新</span></div>
+            <h2>Talking about hard jobs</h2><p>聊聊难做的工作</p>
+            <div class="card-meta"><span>▶ 06:09</span><span>59 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="09" data-search="talking about desserts 聊聊甜点 2026-09-11">
+          <a href="2026-09-11_talking-about-desserts-standalone.html" aria-label="打开 Talking about desserts">
+            <div class="card-top"><time datetime="2026-09-11">2026-09-11</time></div>
+            <h2>Talking about desserts</h2><p>聊聊甜点</p>
+            <div class="card-meta"><span>▶ 06:56</span><span>62 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="09" data-search="talking about complaining 聊聊投诉 2026-09-04">
+          <a href="2026-09-04_talking-about-complaining-standalone.html" aria-label="打开 Talking about complaining">
+            <div class="card-top"><time datetime="2026-09-04">2026-09-04</time></div>
+            <h2>Talking about complaining</h2><p>聊聊投诉</p>
+            <div class="card-meta"><span>▶ 06:38</span><span>64 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="08" data-search="talking about housework 聊聊家务 2026-08-28">
+          <a href="2026-08-28_talking-about-housework-standalone.html" aria-label="打开 Talking about housework">
+            <div class="card-top"><time datetime="2026-08-28">2026-08-28</time></div>
+            <h2>Talking about housework</h2><p>聊聊家务</p>
+            <div class="card-meta"><span>▶ 06:27</span><span>60 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="08" data-search="talking about coffee 聊聊咖啡 2026-08-21">
+          <a href="2026-08-21_talking-about-coffee-standalone.html" aria-label="打开 Talking about coffee">
+            <div class="card-top"><time datetime="2026-08-21">2026-08-21</time></div>
+            <h2>Talking about coffee</h2><p>聊聊咖啡</p>
+            <div class="card-meta"><span>▶ 06:03</span><span>66 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="08" data-search="talking about being grumpy 聊聊心情烦躁 2026-08-14">
+          <a href="2026-08-14_talking-about-being-grumpy-standalone.html" aria-label="打开 Talking about being grumpy">
+            <div class="card-top"><time datetime="2026-08-14">2026-08-14</time></div>
+            <h2>Talking about being grumpy</h2><p>聊聊心情烦躁</p>
+            <div class="card-meta"><span>▶ 06:08</span><span>62 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="08" data-search="talking about spicy food 聊聊辣味食物 2026-08-07">
+          <a href="2026-08-07_talking-about-spicy-food-standalone.html" aria-label="打开 Talking about spicy food">
+            <div class="card-top"><time datetime="2026-08-07">2026-08-07</time></div>
+            <h2>Talking about spicy food</h2><p>聊聊辣味食物</p>
+            <div class="card-meta"><span>▶ 05:42</span><span>52 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="07" data-search="talking about cities 聊聊城市 2026-07-31">
+          <a href="2026-07-31_talking-about-cities-standalone.html" aria-label="打开 Talking about cities">
+            <div class="card-top"><time datetime="2026-07-31">2026-07-31</time></div>
+            <h2>Talking about cities</h2><p>聊聊城市</p>
+            <div class="card-meta"><span>▶ 05:42</span><span>60 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="07" data-search="talking about family trees 聊聊家谱 2026-07-24">
+          <a href="2026-07-24_talking-about-family-trees-standalone.html" aria-label="打开 Talking about family trees">
+            <div class="card-top"><time datetime="2026-07-24">2026-07-24</time></div>
+            <h2>Talking about family trees</h2><p>聊聊家谱</p>
+            <div class="card-meta"><span>▶ 05:50</span><span>50 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="07" data-search="talking about hair 聊聊头发 2026-07-17">
+          <a href="2026-07-17_talking-about-hair-standalone.html" aria-label="打开 Talking about hair">
+            <div class="card-top"><time datetime="2026-07-17">2026-07-17</time></div>
+            <h2>Talking about hair</h2><p>聊聊头发</p>
+            <div class="card-meta"><span>▶ 05:53</span><span>57 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="07" data-search="talking about climate change 聊聊气候变化 2026-07-10">
+          <a href="2026-07-10_talking-about-climate-change-standalone.html" aria-label="打开 Talking about climate change">
+            <div class="card-top"><time datetime="2026-07-10">2026-07-10</time></div>
+            <h2>Talking about climate change</h2><p>聊聊气候变化</p>
+            <div class="card-meta"><span>▶ 04:38</span><span>38 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="07" data-search="talking about phone habits 聊聊手机使用习惯 2026-07-03">
+          <a href="2026-07-03_talking-about-phone-habits-standalone.html" aria-label="打开 Talking about phone habits">
+            <div class="card-top"><time datetime="2026-07-03">2026-07-03</time></div>
+            <h2>Talking about phone habits</h2><p>聊聊手机使用习惯</p>
+            <div class="card-meta"><span>▶ 05:01</span><span>43 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="06" data-search="talking about moving house 聊聊搬家 2026-06-26">
+          <a href="2026-06-26_talking-about-moving-house-standalone.html" aria-label="打开 Talking about moving house">
+            <div class="card-top"><time datetime="2026-06-26">2026-06-26</time></div>
+            <h2>Talking about moving house</h2><p>聊聊搬家</p>
+            <div class="card-meta"><span>▶ 06:22</span><span>63 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="06" data-search="talking about hates 聊聊讨厌的事 2026-06-19">
+          <a href="2026-06-19_talking-about-hates-standalone.html" aria-label="打开 Talking about hates">
+            <div class="card-top"><time datetime="2026-06-19">2026-06-19</time></div>
+            <h2>Talking about hates</h2><p>聊聊讨厌的事</p>
+            <div class="card-meta"><span>▶ 06:30</span><span>59 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="06" data-search="talking about hot weather 聊聊炎热天气 2026-06-12">
+          <a href="2026-06-12_talking-about-hot-weather-standalone.html" aria-label="打开 Talking about hot weather">
+            <div class="card-top"><time datetime="2026-06-12">2026-06-12</time></div>
+            <h2>Talking about hot weather</h2><p>聊聊炎热天气</p>
+            <div class="card-meta"><span>▶ 05:53</span><span>49 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="06" data-search="talking about old friends 聊聊老朋友 2026-06-05">
+          <a href="2026-06-05_talking-about-old-friends-standalone.html" aria-label="打开 Talking about old friends">
+            <div class="card-top"><time datetime="2026-06-05">2026-06-05</time></div>
+            <h2>Talking about old friends</h2><p>聊聊老朋友</p>
+            <div class="card-meta"><span>▶ 05:52</span><span>48 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="05" data-search="talking about the beach 聊聊海滩 2026-05-29">
+          <a href="2026-05-29_talking-about-the-beach-standalone.html" aria-label="打开 Talking about the beach">
+            <div class="card-top"><time datetime="2026-05-29">2026-05-29</time></div>
+            <h2>Talking about the beach</h2><p>聊聊海滩</p>
+            <div class="card-meta"><span>▶ 06:32</span><span>60 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="05" data-search="talking about names 谈论名字 2026-05-22">
+          <a href="2026-05-22_talking-about-names-standalone.html" aria-label="打开 Talking about names">
+            <div class="card-top"><time datetime="2026-05-22">2026-05-22</time></div>
+            <h2>Talking about names</h2><p>谈论名字</p>
+            <div class="card-meta"><span>▶ 05:31</span><span>50 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="05" data-search="talking about diy 谈论diy 2026-05-15">
+          <a href="2026-05-15_talking-about-diy-standalone.html" aria-label="打开 Talking about DIY">
+            <div class="card-top"><time datetime="2026-05-15">2026-05-15</time></div>
+            <h2>Talking about DIY</h2><p>谈论DIY</p>
+            <div class="card-meta"><span>▶ 05:58</span><span>50 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="05" data-search="talking about fruit 谈论水果 2026-05-08">
+          <a href="2026-05-08_talking-about-fruit-standalone.html" aria-label="打开 Talking about fruit">
+            <div class="card-top"><time datetime="2026-05-08">2026-05-08</time></div>
+            <h2>Talking about fruit</h2><p>谈论水果</p>
+            <div class="card-meta"><span>▶ 05:54</span><span>60 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="05" data-search="talking about the dentist 谈论牙医 2026-05-01">
+          <a href="2026-05-01_talking-about-the-dentist-standalone.html" aria-label="打开 Talking about the dentist">
+            <div class="card-top"><time datetime="2026-05-01">2026-05-01</time></div>
+            <h2>Talking about the dentist</h2><p>谈论牙医</p>
+            <div class="card-meta"><span>▶ 04:18</span><span>37 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="04" data-search="talking about memory 谈论记忆 2026-04-24">
+          <a href="2026-04-24_talking-about-memory-standalone.html" aria-label="打开 Talking about memory">
+            <div class="card-top"><time datetime="2026-04-24">2026-04-24</time></div>
+            <h2>Talking about memory</h2><p>谈论记忆</p>
+            <div class="card-meta"><span>▶ 06:17</span><span>62 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="04" data-search="talking about work 谈论工作 2026-04-17">
+          <a href="2026-04-17_talking-about-work-standalone.html" aria-label="打开 Talking about work">
+            <div class="card-top"><time datetime="2026-04-17">2026-04-17</time></div>
+            <h2>Talking about work</h2><p>谈论工作</p>
+            <div class="card-meta"><span>▶ 06:07</span><span>56 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="04" data-search="talking about sunshine 谈论阳光 2026-04-10">
+          <a href="2026-04-10_talking-about-sunshine-standalone.html" aria-label="打开 Talking about sunshine">
+            <div class="card-top"><time datetime="2026-04-10">2026-04-10</time></div>
+            <h2>Talking about sunshine</h2><p>谈论阳光</p>
+            <div class="card-meta"><span>▶ 05:50</span><span>60 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="04" data-search="talking about books 谈论书籍 2026-04-03">
+          <a href="2026-04-03_talking-about-books-standalone.html" aria-label="打开 Talking about books">
+            <div class="card-top"><time datetime="2026-04-03">2026-04-03</time></div>
+            <h2>Talking about books</h2><p>谈论书籍</p>
+            <div class="card-meta"><span>▶ 06:09</span><span>55 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="03" data-search="talking about water 谈论水 2026-03-27">
+          <a href="2026-03-27_talking-about-water-standalone.html" aria-label="打开 Talking about water">
+            <div class="card-top"><time datetime="2026-03-27">2026-03-27</time></div>
+            <h2>Talking about water</h2><p>谈论水</p>
+            <div class="card-meta"><span>▶ 05:32</span><span>49 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="03" data-search="talking about weekends 谈论周末 2026-03-20">
+          <a href="2026-03-20_talking-about-weekends-standalone.html" aria-label="打开 Talking about weekends">
+            <div class="card-top"><time datetime="2026-03-20">2026-03-20</time></div>
+            <h2>Talking about weekends</h2><p>谈论周末</p>
+            <div class="card-meta"><span>▶ 05:17</span><span>51 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="03" data-search="talking about chocolate 谈论巧克力 2026-03-13">
+          <a href="2026-03-13_talking-about-chocolate-standalone.html" aria-label="打开 Talking about chocolate">
+            <div class="card-top"><time datetime="2026-03-13">2026-03-13</time></div>
+            <h2>Talking about chocolate</h2><p>谈论巧克力</p>
+            <div class="card-meta"><span>▶ 05:58</span><span>61 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="03" data-search="talking about rain 谈论雨 2026-03-06">
+          <a href="2026-03-06_talking-about-rain-standalone.html" aria-label="打开 Talking about rain">
+            <div class="card-top"><time datetime="2026-03-06">2026-03-06</time></div>
+            <h2>Talking about rain</h2><p>谈论雨</p>
+            <div class="card-meta"><span>▶ 05:56</span><span>63 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="02" data-search="talking about playing sport 谈论运动 2026-02-27">
+          <a href="2026-02-27_talking-about-playing-sport-standalone.html" aria-label="打开 Talking about playing sport">
+            <div class="card-top"><time datetime="2026-02-27">2026-02-27</time></div>
+            <h2>Talking about playing sport</h2><p>谈论运动</p>
+            <div class="card-meta"><span>▶ 05:13</span><span>53 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="02" data-search="talking about birthdays 谈论生日 2026-02-20">
+          <a href="2026-02-20_talking-about-birthdays-standalone.html" aria-label="打开 Talking about birthdays">
+            <div class="card-top"><time datetime="2026-02-20">2026-02-20</time></div>
+            <h2>Talking about birthdays</h2><p>谈论生日</p>
+            <div class="card-meta"><span>▶ 05:01</span><span>52 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="02" data-search="talking about having kids 谈论生孩子的事 2026-02-13">
+          <a href="2026-02-13_talking-about-having-kids-standalone.html" aria-label="打开 Talking about having kids">
+            <div class="card-top"><time datetime="2026-02-13">2026-02-13</time></div>
+            <h2>Talking about having kids</h2><p>谈论生孩子的事</p>
+            <div class="card-meta"><span>▶ 04:57</span><span>49 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="02" data-search="talking about extreme sports 谈论极限运动 2026-02-06">
+          <a href="2026-02-06_talking-about-extreme-sports-standalone.html" aria-label="打开 Talking about extreme sports">
+            <div class="card-top"><time datetime="2026-02-06">2026-02-06</time></div>
+            <h2>Talking about extreme sports</h2><p>谈论极限运动</p>
+            <div class="card-meta"><span>▶ 05:33</span><span>57 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="01" data-search="talking about speaking languages 谈论语言 2026-01-30">
+          <a href="2026-01-30_talking-about-speaking-languages-standalone.html" aria-label="打开 Talking about speaking languages">
+            <div class="card-top"><time datetime="2026-01-30">2026-01-30</time></div>
+            <h2>Talking about speaking languages</h2><p>谈论语言</p>
+            <div class="card-meta"><span>▶ 06:15</span><span>53 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="01" data-search="talking about animals 谈论动物 2026-01-23">
+          <a href="2026-01-23_talking-about-animals-standalone.html" aria-label="打开 Talking about animals">
+            <div class="card-top"><time datetime="2026-01-23">2026-01-23</time></div>
+            <h2>Talking about animals</h2><p>谈论动物</p>
+            <div class="card-meta"><span>▶ 05:43</span><span>65 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="01" data-search="talking about drinks 谈论饮料 2026-01-16">
+          <a href="2026-01-16_talking-about-drinks-standalone.html" aria-label="打开 Talking about drinks">
+            <div class="card-top"><time datetime="2026-01-16">2026-01-16</time></div>
+            <h2>Talking about drinks</h2><p>谈论饮料</p>
+            <div class="card-meta"><span>▶ 06:08</span><span>63 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="01" data-search="talking about colours 谈论颜色 2026-01-09">
+          <a href="2026-01-09_talking-about-colours-standalone.html" aria-label="打开 Talking about colours">
+            <div class="card-top"><time datetime="2026-01-09">2026-01-09</time></div>
+            <h2>Talking about colours</h2><p>谈论颜色</p>
+            <div class="card-meta"><span>▶ 05:45</span><span>56 句</span><span>中英同步</span></div>
+          </a>
+        </article><article class="episode" data-month="01" data-search="talking about new year&#x27;s resolutions 谈论新年决心 2026-01-02">
+          <a href="2026-01-02_talking-about-new-year-s-resolutions-standalone.html" aria-label="打开 Talking about New Year&#x27;s resolutions">
+            <div class="card-top"><time datetime="2026-01-02">2026-01-02</time></div>
+            <h2>Talking about New Year&#x27;s resolutions</h2><p>谈论新年决心</p>
+            <div class="card-meta"><span>▶ 06:00</span><span>58 句</span><span>中英同步</span></div>
+          </a>
+        </article></section><div class="empty" id="empty">没有找到匹配的课程。</div>
+  <footer>非 BBC 官方网站，仅作为个人英语学习项目。节目音频与英文文稿归 BBC Learning English 所有；中文翻译、同步时间和发音标注为学习辅助。<br><a href="https://www.bbc.co.uk/learningenglish/english/features/real-easy-english">BBC Real Easy English 官方栏目</a> · <a href="https://github.com/youngcpp/english-listening-lab">GitHub 项目</a></footer>
+</main><script>
+const episodes=[...document.querySelectorAll('.episode')],query=document.getElementById('query'),month=document.getElementById('month'),count=document.getElementById('count'),empty=document.getElementById('empty'),theme=document.getElementById('theme');
+function applyThemeLabel(){const light=document.documentElement.dataset.theme==='light';theme.textContent=light?'☾ 深色':'☀ 浅色';theme.setAttribute('aria-pressed',String(light))}theme.onclick=()=>{const next=document.documentElement.dataset.theme==='light'?'dark':'light';document.documentElement.dataset.theme=next;try{localStorage.setItem('ell-theme',next)}catch(_){}applyThemeLabel()};applyThemeLabel();
+function filter(){const q=query.value.trim().toLowerCase(),m=month.value;let shown=0;episodes.forEach(card=>{const visible=(!q||card.dataset.search.includes(q))&&(!m||card.dataset.month===m);card.hidden=!visible;if(visible)shown++});count.textContent=`显示 ${shown} / ${episodes.length} 期`;empty.style.display=shown?'none':'block'}query.addEventListener('input',filter);month.addEventListener('change',filter);filter();
+</script></body></html>

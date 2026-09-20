@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    (() => { try { document.documentElement.dataset.theme = localStorage.getItem('ell-theme') || 'dark'; } catch (_) { document.documentElement.dataset.theme = 'dark'; } })();
+  </script>
+  <title>Talking about complaining · 双语精听 · English Listening Lab</title>
+  <style>
+    :root {
+      --paper: #070a0f;
+      --surface: #0d1117;
+      --surface-2: #111824;
+      --ink: #d8e6f3;
+      --muted: #75849a;
+      --line: #222d3b;
+      --teal: #42d3ff;
+      --teal-soft: #112332;
+      --orange: #ff8b4c;
+      --orange-soft: #2a1b17;
+      --purple: #c792ea;
+      --pink: #ff5ca8;
+      --green: #9be564;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .44);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% -5%, rgba(66,211,255,.1), transparent 31rem),
+        radial-gradient(circle at 92% 15%, rgba(199,146,234,.09), transparent 28rem),
+        var(--paper);
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+    }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .18; background-image: linear-gradient(rgba(91,112,139,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(91,112,139,.11) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
+    button, input, select { font: inherit; }
+    button, select { color: inherit; }
+    .page { position: relative; z-index: 1; width: min(1040px, calc(100% - 36px)); margin: 0 auto; padding: 34px 0 70px; }
+
+    .site-head { overflow: hidden; margin-bottom: 20px; padding: 0 0 30px; border: 1px solid var(--line); border-radius: 14px; background: rgba(13,17,23,.9); box-shadow: var(--shadow); }
+    .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 11px 15px; border-bottom: 1px solid var(--line); background: #090d13; }
+    .brand { display: flex; align-items: center; gap: 13px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    .window-dots { display: flex; gap: 7px; }
+    .window-dots i { width: 10px; height: 10px; border-radius: 50%; }
+    .window-dots i:nth-child(1) { background: #ff5f57; }
+    .window-dots i:nth-child(2) { background: #febc2e; }
+    .window-dots i:nth-child(3) { background: #28c840; }
+    .file-tab { color: #a9b7c6; }
+    .file-tab::before { content: "<>"; margin-right: 8px; color: var(--orange); font-weight: 850; }
+    .meta { color: #5f6d80; font-size: 11px; font-variant-numeric: tabular-nums; }
+    h1 { margin: 30px 28px 9px; font-size: clamp(26px, 5vw, 50px); font-weight: 650; letter-spacing: -.045em; line-height: 1.3; }
+    .code-keyword { color: var(--purple); }
+    .code-var { color: var(--teal); }
+    .code-op, .code-punct { color: #7f8ea3; }
+    .code-string { color: var(--green); }
+    .cn-title { margin: 0 28px; color: var(--green); font-size: clamp(16px, 2.2vw, 21px); font-weight: 650; letter-spacing: .01em; }
+    .cn-title::before { content: "// "; color: #59687b; }
+    .intro { max-width: 780px; margin: 17px 28px 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .intro::before { content: "/* "; color: var(--purple); }
+    .intro::after { content: " */"; color: var(--purple); }
+
+    .player {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto auto auto minmax(160px,1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 18px;
+      border: 1px solid #283647;
+      border-radius: 12px;
+      background: rgba(13,17,23,.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .round, .play { display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer; transition: transform .18s, background .18s; }
+    .round:hover, .play:hover { transform: translateY(-1px); }
+    .round { width: 38px; height: 38px; color: var(--teal); background: #111b27; font-size: 10px; font-weight: 850; }
+    .play { width: 48px; height: 48px; color: #071015; background: var(--teal); font-size: 16px; box-shadow: 0 0 24px rgba(66,211,255,.22); }
+    .is-playing .play { animation: pulse 1.8s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 24px rgba(66,211,255,.2), 0 0 0 11px rgba(66,211,255,0); } }
+    .timeline { min-width: 0; display: grid; grid-template-columns: minmax(90px,1fr) 93px; align-items: center; gap: 13px; }
+    .progress { width: 100%; height: 5px; margin: 0; accent-color: var(--teal); cursor: pointer; }
+    .time { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .time strong { color: var(--green); }
+    .speed { height: 36px; padding: 0 11px; border: 1px solid #2a3747; border-radius: 7px; background: #0a0f16; font-size: 11px; font-weight: 750; cursor: pointer; }
+
+    .study-tools { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin: 18px 0 16px; padding: 15px 18px; border: 1px solid var(--line); border-radius: 10px; background: rgba(13,17,23,.88); }
+    .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 17px; color: var(--muted); font-size: 12px; }
+    .legend b { color: var(--purple); font-weight: 800; }
+    .legend-stress { color: var(--orange); font-weight: 800; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+    .legend-slash { color: var(--pink); font-size: 17px; font-weight: 900; }
+    .toggles { display: flex; align-items: center; gap: 13px; }
+    .toggle { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .toggle input { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; }
+
+    .transcript-title { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 34px 4px 13px; }
+    .transcript-title h2 { margin: 0; color: var(--teal); font-size: 24px; font-weight: 750; letter-spacing: -.02em; }
+    .transcript-title h2::before { content: "// "; color: #4c5a6d; }
+    .transcript-title span { color: var(--muted); font-size: 11px; }
+    .transcript { display: grid; gap: 12px; }
+    .caption {
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 148px minmax(0,1fr);
+      gap: 22px;
+      padding: 24px 25px 24px 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(13,17,23,.9);
+      text-align: left;
+      cursor: pointer;
+      scroll-margin-top: 116px;
+      transition: border-color .22s, background .22s, box-shadow .22s, transform .22s;
+    }
+    .caption:hover { border-color: #35506a; background: #0f1620; transform: translateY(-1px); }
+    .caption.active { border-color: rgba(66,211,255,.62); background: var(--surface-2); box-shadow: 0 0 0 1px rgba(66,211,255,.08), 0 18px 42px rgba(0,0,0,.32), 0 0 28px rgba(66,211,255,.06); }
+    .caption.active::before { content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px; width: 4px; border-radius: 0 6px 6px 0; background: var(--teal); box-shadow: 0 0 16px rgba(66,211,255,.45); }
+    .caption::after { content: attr(data-line); position: absolute; left: 13px; top: 27px; color: #3d4a5c; font-size: 10px; font-variant-numeric: tabular-nums; }
+    .cue-meta { padding-top: 4px; }
+    .speaker { display: block; overflow: hidden; color: var(--teal); font-size: 10px; font-weight: 850; letter-spacing: .05em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+    .stamp { display: block; margin-top: 7px; color: var(--purple); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .cue-body { min-width: 0; }
+    .english { color: #d6deeb; font-size: clamp(18px, 2.2vw, 23px); line-height: 1.72; letter-spacing: -.025em; }
+    .thought-group { display: inline; }
+    .stress { color: var(--orange); font-weight: 800; text-shadow: 0 0 16px rgba(255,139,76,.12); }
+    .stress-label { text-decoration: underline; text-decoration-color: #ff5f56; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .stress-core { color: #ffe66d; text-decoration-color: #ffe66d; text-shadow: 0 0 13px rgba(255,230,109,.2); }
+    .ipa { margin-left: .38em; color: var(--purple); font-size: .68em; font-weight: 650; letter-spacing: 0; overflow-wrap: anywhere; white-space: normal; }
+    .intonation { display: inline-block; margin-left: .22em; color: var(--teal); font-size: .72em; font-weight: 900; text-decoration: none; transform: translateY(-.06em); }
+    .slash { display: inline-block; margin: 0 .28em; color: var(--pink); font-size: .88em; font-weight: 900; opacity: .92; }
+    .pronunciation { display: flex; flex-wrap: wrap; gap: 7px 13px; margin-top: 14px; padding: 11px 12px; border: 1px solid #233043; border-left: 3px solid var(--purple); border-radius: 7px; color: #9fb1c6; background: #0a1017; font-size: 13px; line-height: 1.65; }
+    .pronunciation::before { content: "// phonetics"; color: var(--purple); font-size: 10px; font-weight: 850; letter-spacing: .04em; }
+    .pron-tip { display: inline; }
+    .pron-tip b { margin-right: 5px; color: var(--teal); font-weight: 850; }
+    .translation { margin-top: 15px; padding-top: 13px; border-top: 1px dashed #273242; color: var(--green); font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", monospace; font-size: 16px; line-height: 1.85; }
+    .translation::before { content: "// zh"; display: inline-grid; place-items: center; width: 47px; height: 22px; margin-right: 9px; border-radius: 4px; color: var(--teal); background: var(--teal-soft); font-size: 9px; font-weight: 850; vertical-align: 1px; }
+    .hide-translation .translation { display: none; }
+    .hide-study .stress { color: inherit; font-weight: inherit; text-shadow: none; }
+    .hide-study .stress-label { text-decoration: none; }
+    .hide-study .stress-core { color: inherit; text-shadow: none; }
+    .hide-study .ipa, .hide-study .intonation, .hide-study .slash, .hide-study .pronunciation { display: none; }
+    .footer { margin: 30px 4px 0; color: #58677b; font-size: 10px; line-height: 1.7; }
+
+    @media (max-width: 680px) {
+      .page { width: min(100% - 20px, 560px); padding-top: 24px; }
+      .site-head { padding-inline: 3px; }
+      .brand-row .meta { display: none; }
+      h1 { margin: 23px 18px 8px; font-size: clamp(23px, 7vw, 34px); }
+      .cn-title, .intro { margin-left: 18px; margin-right: 18px; }
+      .player { top: 7px; grid-template-columns: auto auto minmax(70px,1fr) auto; gap: 7px; padding: 11px; border-radius: 17px; }
+      #forward { display: none; }
+      .round { width: 36px; height: 36px; }
+      .play { width: 45px; height: 45px; }
+      .timeline { grid-template-columns: minmax(48px,1fr) 64px; gap: 7px; }
+      .time { font-size: 9px; }
+      .speed { width: 50px; padding: 0 4px; }
+      .study-tools { display: block; padding: 16px; }
+      .toggles { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
+      .transcript-title { margin-top: 27px; }
+      .caption { grid-template-columns: 1fr; gap: 10px; padding: 20px 17px 20px 39px; scroll-margin-top: 91px; }
+      .caption::after { left: 11px; top: 22px; }
+      .cue-meta { display: flex; align-items: center; gap: 9px; padding-top: 0; }
+      .speaker, .stamp { display: inline; margin: 0; }
+      .english { font-size: 21px; line-height: 1.52; }
+      .ipa { font-size: .58em; }
+      .pronunciation { gap: 6px 10px; font-size: 13px; }
+      .translation { font-size: 16px; line-height: 1.85; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+
+    .home-link, .theme-toggle { color: var(--teal); }
+    .home-link { margin-left: 3px; font-size: 11px; font-weight: 800; text-decoration: none; }
+    .home-link:hover { text-decoration: underline; }
+    .theme-toggle { min-height: 34px; padding: 0 11px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-2); font-size: 11px; font-weight: 800; cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--teal); }
+    html[data-theme="light"] {
+      --paper: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef7fb;
+      --ink: #182334;
+      --muted: #64748b;
+      --line: #d8e1eb;
+      --teal: #007fa3;
+      --teal-soft: #dff5fb;
+      --orange: #c45116;
+      --orange-soft: #fff0e7;
+      --purple: #7c3fb1;
+      --pink: #c72c73;
+      --green: #357a16;
+      --shadow: 0 18px 52px rgba(30, 55, 80, .13);
+    }
+    html[data-theme="light"] body {
+      background: radial-gradient(circle at 10% -5%, rgba(0,127,163,.10), transparent 31rem), radial-gradient(circle at 92% 15%, rgba(124,63,177,.08), transparent 28rem), var(--paper);
+    }
+    html[data-theme="light"] body::before { opacity: .34; background-image: linear-gradient(rgba(72,104,135,.10) 1px, transparent 1px), linear-gradient(90deg, rgba(72,104,135,.10) 1px, transparent 1px); }
+    html[data-theme="light"] .site-head,
+    html[data-theme="light"] .study-tools,
+    html[data-theme="light"] .caption { background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .brand-row { background: #edf3f8; }
+    html[data-theme="light"] .file-tab { color: #496176; }
+    html[data-theme="light"] .meta { color: #718096; }
+    html[data-theme="light"] .player { border-color: #cbd8e5; background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .round { color: var(--teal); background: #e6f3f7; }
+    html[data-theme="light"] .play { color: #fff; }
+    html[data-theme="light"] .speed { border-color: #cbd8e5; background: #f7fafc; }
+    html[data-theme="light"] .caption:hover { border-color: #88aec2; background: #f8fbfd; }
+    html[data-theme="light"] .caption.active { background: #edf8fc; box-shadow: 0 0 0 1px rgba(0,127,163,.07), 0 16px 36px rgba(35,70,95,.12); }
+    html[data-theme="light"] .english { color: #1b2a3d; }
+    html[data-theme="light"] .pronunciation { border-color: #d4ddea; border-left-color: var(--purple); color: #526a7e; background: #f7f9fc; }
+    html[data-theme="light"] .translation { border-top-color: #d7e0e8; }
+    html[data-theme="light"] .footer { color: #697b8c; }
+
+  </style>
+</head>
+<body>
+  <main class="page" id="app">
+    <header class="site-head">
+      <div class="brand-row">
+        <div class="brand"><span class="window-dots"><i></i><i></i><i></i></span><span class="file-tab">transcript.html</span><a class="home-link" href="index.html">← 全部课程</a></div>
+        <div class="meta">UTF-8 · LF · 04 Sep 2026 · 06:38</div>
+      </div>
+      <h1><span class="code-keyword">const</span> <span class="code-var">episode</span> <span class="code-op">=</span> <span class="code-string">"Talking about complaining"</span><span class="code-punct">;</span></h1>
+      <p class="cn-title">聊聊投诉</p>
+      <p class="intro">双语精听稿：跟随音频高亮当前句，用重点词、词重音和意群节奏辅助跟读。点击任意一句可从对应时间开始播放。</p>
+    </header>
+
+    <audio id="audio" preload="metadata" src="audio-2026-09-04_talking-about-complaining.mp3"></audio>
+    <section class="player" aria-label="音频播放器">
+      <button class="round" id="back" type="button" aria-label="后退 10 秒">−10</button>
+      <button class="play" id="play" type="button" aria-label="播放">▶</button>
+      <button class="round" id="forward" type="button" aria-label="前进 10 秒">+10</button>
+      <div class="timeline">
+        <input class="progress" id="progress" type="range" min="0" max="398.361" step="0.01" value="0" aria-label="音频进度">
+        <div class="time"><strong id="elapsed">0:00</strong> / <span id="duration">6:38</span></div>
+      </div>
+      <select class="speed" id="speed" aria-label="播放速度">
+        <option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+      </select>
+    </section>
+
+    <section class="study-tools" aria-label="学习标记">
+      <div class="legend"><b>学习标记</b><span><span class="legend-stress">重点词</span> + 英音 IPA</span><span><span class="legend-slash">↗ / ↘</span> 意群语调</span></div>
+      <div class="toggles">
+        <label class="toggle"><input id="translationToggle" type="checkbox" checked> 中文翻译</label>
+        <label class="toggle"><input id="studyToggle" type="checkbox" checked> 重音/意群</label>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅主题">☀ 浅色</button>
+        <label class="toggle"><input id="autoscroll" type="checkbox" checked> 自动滚动</label>
+      </div>
+    </section>
+
+    <div class="transcript-title"><h2>逐句精听</h2><span>64 句 · 点击跳转</span></div>
+    <section class="transcript" id="transcript" role="list" aria-label="同步双语字幕"></section>
+<details style="margin-top:24px;padding:18px;border:1px solid var(--line);border-radius:10px;background:var(--surface)"><summary style="cursor:pointer;color:var(--purple)">官方文稿补充阅读 · 不参与音频同步</summary><p style="color:var(--muted);font-size:13px;line-height:1.8">以下官方文稿内容或片段未包含在下载音频中，原文及中文保留在此，不插入同步时间轴。</p><article style="padding:18px 0;border-bottom:1px solid var(--line)"><div class="speaker">Neil</div><div class="english">Yes. And people should remember that they can get a free worksheet for this podcast at bbclearningenglish.com.</div><div class="translation">提醒大家，网站 bbclearningenglish.com 有本期免费练习单。</div></article></details>
+    <footer class="footer">文稿及节目归属 BBC Learning English。原文说明该文稿并非逐字稿；中文翻译与词重音/意群标注为精听学习辅助，音标、重音与语调箭头为学习参考；音频开场和附加内容另行标明。<br>Real Easy English · 2026-09-04 · <a style="color:var(--teal)" href="https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260904" target="_blank" rel="noopener">BBC 官方来源</a> · <a style="color:var(--purple)" href="index.html">合集目录</a></footer>
+  </main>
+
+  <script>
+    const captions = [{"speaker":"BBC Learning English","text":"Hello, and welcome to Real Easy English. I'm Georgie. And I'm Neil. Don't forget you can find a video version of this podcast and a worksheet and transcript at our website, bbclearningenglish.com.","start":0.0,"end":13.5,"id":0,"translation":"大家好，欢迎收听《Real Easy English》。我是 Georgie，我是 Neil。网站 bbclearningenglish.com 有视频版、练习单和文稿。","annotation":"Hello, and welcome to **Real Easy English**. I'm Georgie. And I'm Neil. Don't forget you can find a video version of this podcast and a worksheet and **transcript** at our website, **bbclearningenglish**.com.","pronunciation":[{"kind":"连读","text":"Real‿Easy：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Hi Neil. How are you doing?","start":19.7,"end":21.26,"id":1,"translation":"嗨，Neil，最近怎么样？","annotation":"**Hi Neil**. How are you doing?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Hi Neil，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"I'm very well, thank you Georgie. How are you?","start":21.54,"end":23.36,"id":2,"translation":"我很好，谢谢你，Georgie。你呢？","annotation":"I'm very well, **thank** you Georgie. How are you?","pronunciation":[{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"}]},{"speaker":"Georgie","text":"I'm very well too. Neil, in this episode of Real Easy English we're talking about complaining– that is when you say something is wrong,","start":23.54,"end":34.62,"id":3,"translation":"我也很好。本期聊 complaining，也就是指出哪里不对，","annotation":"I'm **very** well too. / Neil, in this episode of **Real Easy English** we're **talking** about **complaining**– that is when you say something is wrong,","pronunciation":[{"kind":"连读","text":"this‿episode：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"or you have a problem and you want to tell someone about it.","start":34.62,"end":37.66,"id":4,"translation":"或者遇到了问题，想向别人反映。","annotation":"or you have a **problem** and you want to **tell** **someone** about it.","pronunciation":[{"kind":"连读","text":"have‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I know that you have a recent experience with this, don't you?","start":38.4,"end":42.34,"id":5,"translation":"我知道你最近有过这样的经历，对吧？","annotation":"I **know** that you have a **recent** **experience** with this, don't you?","pronunciation":[{"kind":"连读","text":"have‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Neil","text":"Ah yes. Yeah, I booked somewhere to stay on a trip and the reviews were all really good.","start":42.46,"end":50.08,"id":6,"translation":"对。我为一次旅行订了住宿，当时评价都很好，","annotation":"Ah yes. Yeah, I **booked** **somewhere** to stay on a trip and the **reviews** were all really good.","pronunciation":[{"kind":"连读","text":"on‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Neil","text":"And then when I checked again, the reviews were all really bad.","start":50.64,"end":53.46,"id":7,"translation":"后来再次查看，评价却都很差。","annotation":"And **then** when I **checked** again, the **reviews** were all really bad.","pronunciation":[{"kind":"连读","text":"when‿I：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Oh no! What were they about?","start":53.94,"end":55.36,"id":8,"translation":"天哪！都说些什么？","annotation":"Oh no! What were **they** about?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 they，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"They said the place was dirty and things were broken.","start":56.12,"end":58.6,"id":9,"translation":"说那里很脏，东西也坏了。","annotation":"They said the **place** was **dirty** and things were **broken**.","pronunciation":[{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Oh no. What did you do? Have you been yet?","start":58.6,"end":62.9,"id":10,"translation":"你怎么办？已经去住了吗？","annotation":"Oh no. **What** did you do? / **Have** you been yet?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 What，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"Not yet. No.","start":63.2,"end":64.94,"id":11,"translation":"还没有。","annotation":"**Not** yet. No.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Not，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"So, what did you do?","start":65.7,"end":66.56,"id":12,"translation":"那你做了什么？","annotation":"So, **what** did you do?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 what，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"I wrote to them. I sent them an email to say I was worried.","start":66.82,"end":71.08,"id":13,"translation":"我写信给他们，发邮件说明自己的担心，","annotation":"I **wrote** to them. / I **sent** them an **email** to say I was **worried**.","pronunciation":[{"kind":"连读","text":"them‿an：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Neil","text":"And I asked them to assure me that the place would be clean and working properly.","start":72.6,"end":79.64,"id":14,"translation":"要求他们保证住宿干净、设施正常。","annotation":"And I asked them to **assure** me that the place would be clean and **working** **properly**.","pronunciation":[{"kind":"连读","text":"And‿I：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"OK. And did you get a response?","start":80.2,"end":82.0,"id":15,"translation":"收到回复了吗？","annotation":"OK. And did you get a **response**?","pronunciation":[{"kind":"连读","text":"get‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"I did, but I really hated the whole process.","start":82.5,"end":86.3,"id":16,"translation":"收到了，但我很讨厌整个过程。","annotation":"I did, but I really **hated** the **whole** **process**.","pronunciation":[{"kind":"连读","text":"but‿I：尾辅音可自然衔接后词元音"}]},{"speaker":"Georgie","text":"Oh no! Why?","start":86.78,"end":88.28,"id":17,"translation":"为什么？","annotation":"Oh no! **Why**?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Why，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"Because I don't like complaining.","start":89.06,"end":90.14,"id":18,"translation":"因为我不喜欢投诉。","annotation":"Because I don't like **complaining**.","pronunciation":[{"kind":"连读","text":"Because‿I：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"}]},{"speaker":"Georgie","text":"No, neither do I. I'm not very good at it. I don't like to make people feel bad. Even if there is a problem,","start":90.76,"end":96.84,"id":19,"translation":"我也不喜欢，而且不擅长。不想让人难堪。即使确实有问题，","annotation":"No, **neither** do I. / I'm not **very** good at it. / I don't like to **make** **people** **feel** bad. / Even if there is a **problem**,","pronunciation":[{"kind":"连读","text":"good‿at：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"and I've paid for something and it should be a certain way, but it's not and I'm entitled to complain,","start":96.84,"end":105.82,"id":20,"translation":"我付了钱，本来应该得到相应的服务，结果没有，而且我有权投诉，","annotation":"and I've **paid** for something and it should be a **certain** way, / but it's not and I'm **entitled** to **complain**,","pronunciation":[{"kind":"连读","text":"and‿I've：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I still don't like it. I just feel... yeah, I feel embarrassed about it.","start":106.26,"end":111.12,"id":21,"translation":"还是不喜欢，总觉得不好意思。","annotation":"I **still** don't like it. / I just **feel**... **yeah**, I **feel** **embarrassed** about it.","pronunciation":[{"kind":"连读","text":"like‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"}]},{"speaker":"Neil","text":"Yeah, it's not an easy thing to do, I think.","start":111.44,"end":114.4,"id":22,"translation":"我觉得这确实不容易。","annotation":"**Yeah**, it's not an **easy** thing to do, I think.","pronunciation":[{"kind":"连读","text":"not‿an：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I think I'm getting better with age. I think I'm getting braver. I had an experience a couple of weeks ago.","start":114.81,"end":122.96,"id":23,"translation":"随着年龄增长，我好像做得更好了，也更勇敢。几周前就有一次经历，","annotation":"I think I'm **getting** **better** with age. / I think I'm **getting** **braver**. / I had an **experience** a **couple** of **weeks** ago.","pronunciation":[{"kind":"连读","text":"think‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"Because I am subscribed to a food delivery service, I get a box of food every week,","start":122.96,"end":131.3,"id":24,"translation":"我订了食材配送服务，每周收到一箱食物，","annotation":"Because I am **subscribed** to a food **delivery** **service**, / I get a box of **food** every **week**,","pronunciation":[{"kind":"连读","text":"Because‿I：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"and the last two weeks the delivery has been very late and I'm not happy about it.","start":132.1,"end":138.1,"id":25,"translation":"但最近两周送得很晚，我很不满意，","annotation":"and the **last** two weeks the delivery has been very **late** and I'm not **happy** about it.","pronunciation":[{"kind":"连读","text":"late‿and：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"And so, I found the courage– found the bravery to call up the customer service and complain.","start":138.1,"end":147.2,"id":26,"translation":"所以鼓起勇气，打电话给客服投诉。","annotation":"And so, I found the **courage**– found the **bravery** to call up the customer service and **complain**.","pronunciation":[{"kind":"连读","text":"call‿up：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"And I was very strong. And I asked for money– a discount on the next order.","start":147.78,"end":153.72,"id":27,"translation":"我态度很坚定，要求赔偿，也就是下一单给个折扣。","annotation":"And I was very **strong**. / And I asked for **money**– a **discount** on the next **order**.","pronunciation":[{"kind":"连读","text":"And‿I：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"Wow, that sounds very well done. I think when you do complain, sometimes you feel bad about it.","start":154.22,"end":164.18,"id":28,"translation":"做得很好。投诉的时候，有时会觉得不舒服，","annotation":"Wow, **that** **sounds** very well **done**. / I think when you do **complain**, sometimes you **feel** bad about it.","pronunciation":[{"kind":"连读","text":"bad‿about：尾辅音可自然衔接后词元音"}]},{"speaker":"Neil","text":"But if it works out well, like with you and hopefully with my accommodation...","start":164.18,"end":170.18,"id":29,"translation":"但如果结果不错，像你这次，也希望我的住宿那件事一样……","annotation":"But if it **works** out well, like with you and **hopefully** with my **accommodation**...","pronunciation":[{"kind":"连读","text":"But‿if：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yes.","start":170.69,"end":170.69,"id":30,"translation":"嗯。","annotation":"**Yes**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yes，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"...afterwards you feel really good.","start":171.2,"end":173.12,"id":31,"translation":"……事后会觉得很好。","annotation":"...**afterwards** you **feel** really good.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 afterwards，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"Yes.","start":173.12,"end":173.12,"id":32,"translation":"是啊。","annotation":"**Yes**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yes，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"Because you did what was right.","start":173.12,"end":177.08,"id":33,"translation":"因为做了正确的事。","annotation":"**Because** you did what was right.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Because，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"Yeah. If you've paid for something, I think you can expect it to be what you paid for. So, if it isn't, I think you're allowed to...","start":177.56,"end":184.78,"id":34,"translation":"你付了钱，就有理由期待得到相应的东西。如果没有，我觉得你有权……","annotation":"**Yeah**. If you've **paid** for something, / I think you can **expect** it to be what you **paid** for. / So, if it isn't, I think you're **allowed** to...","pronunciation":[{"kind":"连读","text":"can‿expect：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"you're 合为一个音组 /jɔː/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"you're allowed to complain. But there is a nice way to do it, isn't there?","start":184.78,"end":189.78,"id":35,"translation":"有权投诉。但可以用友好的方式，对吧？","annotation":"you're **allowed** to **complain**. / But there is a **nice** way to do it, isn't there?","pronunciation":[{"kind":"连读","text":"is‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"you're 合为一个音组 /jɔː/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Neil","text":"There is, yeah. Be polite. Don't be personal. It's not often...","start":189.78,"end":195.2,"id":36,"translation":"对，要有礼貌，不针对个人。通常……","annotation":"There is, **yeah**. Be **polite**. / Don't be **personal**. It's not **often**...","pronunciation":[{"kind":"连读","text":"not‿often：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"}]},{"speaker":"Neil","text":"The person you are complaining to is often not the person responsible for the mistake or whatever.","start":195.2,"end":202.2,"id":37,"translation":"接受投诉的人，并不一定就是犯错、该负责的人。","annotation":"The person you are complaining to is often not the person **responsible** for the **mistake** or **whatever**.","pronunciation":[{"kind":"连读","text":"is‿often：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah.","start":202.7,"end":202.7,"id":38,"translation":"是的。","annotation":"**Yeah**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"So, I think if you are respectful and polite but you know what you want.","start":203.2,"end":208.56,"id":39,"translation":"所以，要尊重对方、保持礼貌，同时清楚自己想要什么。","annotation":"So, I think if you are **respectful** and **polite** but you **know** what you want.","pronunciation":[{"kind":"连读","text":"think‿if：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"So Neil, you and I find complaining quite stressful so we don't do it very often. But do you know anyone that complains all the time?","start":209.08,"end":218.24,"id":40,"translation":"Neil，我们都觉得投诉有压力，所以不常做。你认识总爱投诉的人吗？","annotation":"**So Neil**, you and I find complaining **quite** **stressful** so we don't do it very often. / But do you know **anyone** that **complains** all the **time**?","pronunciation":[{"kind":"连读","text":"and‿I：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"Oh yeah. Some people seem to love complaining and they complain about things that I would not complain about.","start":218.24,"end":227.5,"id":41,"translation":"有些人好像特别爱投诉，连我不会在意的事也会投诉。","annotation":"Oh yeah. Some people **seem** to **love** complaining and they **complain** about things that I would not **complain** about.","pronunciation":[{"kind":"连读","text":"complaining‿and：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah, I've been in restaurants with groups of people where there's been someone that has complained about something that is really embarrassing,","start":228.22,"end":236.4,"id":42,"translation":"有时和一群人去餐馆，其中有人为某件事投诉，让人特别尴尬，","annotation":"Yeah, I've been in restaurants with **groups** of people where there's been someone that has **complained** about something that is really **embarrassing**,","pronunciation":[{"kind":"连读","text":"been‿in：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"there's 合为一个音组 /ðeəz/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"and you just think this is not a real, big issue. Has that ever happened to you?","start":236.4,"end":241.6,"id":43,"translation":"你会觉得根本不是什么大问题。你遇到过吗？","annotation":"and you just think this is not a **real**, big **issue**. / Has **that** **ever** **happened** to you?","pronunciation":[{"kind":"连读","text":"this‿is：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Neil","text":"Yeah, the same thing. I've been having a meal with some friends and one of the people I was with– he used to be a waiter,","start":242.08,"end":250.68,"id":44,"translation":"遇到过。和朋友吃饭时，有个人以前当过服务员，","annotation":"**Yeah**, the same thing. / I've been having a **meal** with some **friends** and one of the people I was with– he used to be a **waiter**,","pronunciation":[{"kind":"连读","text":"having‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}],"studyOverrides":{"ipa":{"used":"juːst"},"stress":{}}},{"speaker":"Neil","text":"and he had a very clear idea about how waiters should behave. And he didn't like something and he complained about it,","start":250.68,"end":260.24,"id":45,"translation":"对服务员应该怎么做，有一套非常明确的标准。遇到不满意的地方就投诉，","annotation":"and he had a very **clear** idea about how **waiters** should **behave**. / And he didn't like something and he **complained** about it,","pronunciation":[{"kind":"连读","text":"had‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"didn't 合为一个音组 /ˈdɪdnt/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"and nobody else really understood what he was talking about or why he was complaining. And it was embarrassing.","start":260.24,"end":267.14,"id":46,"translation":"其他人都不知道他为什么不满、为什么投诉，特别尴尬。","annotation":"and **nobody** else really **understood** what he was **talking** about or why he was complaining. / And it was **embarrassing**.","pronunciation":[{"kind":"连读","text":"talking‿about：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Did he complain to the waiter?","start":267.64,"end":269.18,"id":47,"translation":"他直接向服务员投诉了吗？","annotation":"Did he **complain** to the **waiter**?","pronunciation":[{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Neil","text":"Yeah, but so everyone could hear.","start":269.4,"end":271.14,"id":48,"translation":"对，而且所有人都听得见。","annotation":"**Yeah**, but so **everyone** could **hear**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"Oh no. And how did the waiter respond?","start":271.54,"end":274.32,"id":49,"translation":"天哪，服务员怎么回应？","annotation":"Oh no. And how did the **waiter** **respond**?","pronunciation":[{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"I don't think he liked it very much.","start":275.76,"end":277.56,"id":50,"translation":"我觉得他不太高兴。","annotation":"I don't think he **liked** it very much.","pronunciation":[{"kind":"连读","text":"liked‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"}]},{"speaker":"Georgie","text":"Well, I used to work in restaurants. I've also worked in customer service, but in restaurants, if people have a reason to complain,","start":277.9,"end":287.6,"id":51,"translation":"我以前也在餐馆和客服岗位工作。顾客有理由投诉的话，","annotation":"Well, I **used** to **work** in **restaurants**. / I've also **worked** in **customer** service, but in **restaurants**, / if **people** have a **reason** to **complain**,","pronunciation":[{"kind":"连读","text":"work‿in：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}],"studyOverrides":{"ipa":{"used":"juːst"},"stress":{}}},{"speaker":"Georgie","text":"of course I'm going to try to fix it. But it also depends how they say it.","start":287.92,"end":294.52,"id":52,"translation":"当然会想办法解决，但也要看他们怎么说。","annotation":"of **course** I'm going to try to fix it. / But it also **depends** how **they** say it.","pronunciation":[{"kind":"连读","text":"course‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"If they're very rude, as a waitress you don't really want to help them. But if they're polite and they have a reason to complain,","start":295.16,"end":304.3,"id":53,"translation":"如果态度很粗鲁，作为服务员就不太想帮忙；如果有礼貌，又有合理理由，","annotation":"If **they're** very **rude**, as a **waitress** you don't really want to help them. / But if **they're** polite and they have a **reason** to **complain**,","pronunciation":[{"kind":"连读","text":"as‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"of course I'll try to fix their problems. OK. Neil, it's time to recap the vocabulary we used in this conversation.","start":304.44,"end":318.9,"id":54,"translation":"当然会尽力解决问题。Neil，现在回顾本期词汇。","annotation":"of **course** I'll try to fix their **problems**. / OK. Neil, it's time to **recap** the **vocabulary** we used in this **conversation**.","pronunciation":[{"kind":"连读","text":"course‿I'll：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"We used the verb complain, which is when you say something is wrong or not good enough. And we also heard the noun complaint.","start":319.46,"end":327.08,"id":55,"translation":"complain 是动词，指指出某事不对或不够好；complaint 是对应的名词。","annotation":"We **used** the **verb** **complain**, / which is when you say something is **wrong** or not good **enough**. / And we also **heard** the **noun** **complaint**.","pronunciation":[{"kind":"连读","text":"which‿is：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"We did. And you make a complaint, don't you?","start":327.52,"end":329.82,"id":56,"translation":"对，可以说 make a complaint，提出投诉。","annotation":"We did. And you **make** a **complaint**, don't you?","pronunciation":[{"kind":"连读","text":"make‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yes. We also heard discount, which is when you don't pay the full price of something.","start":330.1,"end":335.22,"id":57,"translation":"discount 指折扣，不用支付全价。","annotation":"Yes. We also heard **discount**, which is when you don't pay the **full** **price** of something.","pronunciation":[{"kind":"连读","text":"which‿is：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Neil","text":"You also said that people are entitled to something, and it means that that is something they should get if they paid for it.","start":335.22,"end":344.18,"id":58,"translation":"be entitled to something 指有权得到某样东西，比如付费后本应获得的东西。","annotation":"You also **said** that **people** are **entitled** to something, / and it means **that** **that** is something **they** should get if **they** **paid** for it.","pronunciation":[{"kind":"连读","text":"people‿are：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"And Neil, you said you were worried about the reviews of the accommodation for your trip, which is when people write what they think about the place.","start":344.68,"end":353.84,"id":59,"translation":"Neil，你担心住宿的 reviews，也就是别人写下的评价、看法。","annotation":"**And Neil**, you said you were worried about the **reviews** of the **accommodation** for your trip, / which is when **people** **write** what they think about the **place**.","pronunciation":[{"kind":"连读","text":"worried‿about：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"That's it then, Georgie, isn't it? But join us again, another time for more Real Easy English.","start":354.62,"end":359.8,"id":60,"translation":"Georgie，本期就到这里，欢迎下次再听《Real Easy English》。","annotation":"That's it **then**, Georgie, isn't it? / But **join** us again, another **time** for more **Real Easy English**.","pronunciation":[{"kind":"连读","text":"That's‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Don't forget, there's a free worksheet on the website. Goodbye for now.","start":360.14,"end":363.08,"id":61,"translation":"别忘了，网站有免费练习单。现在再见。","annotation":"Don't **forget**, there's a **free** **worksheet** on the website. Goodbye for now.","pronunciation":[{"kind":"连读","text":"there's‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"there's 合为一个音组 /ðeəz/"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Neil","text":"Goodbye.","start":363.32,"end":363.5,"id":62,"translation":"再见。","annotation":"**Goodbye**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Goodbye，按意群停顿，不逐词等长朗读"}]},{"speaker":"BBC Learning English","text":"BBC Learning English · Programme outro: more easy English resources.","start":366.46,"end":398.2,"id":63,"translation":"【节目附加内容】BBC 官网更多简单英语资源介绍，官方 PDF 未提供这段文稿。","annotation":"BBC Learning English / **Programme** outro: more easy English resources.","pronunciation":[{"kind":"说明","text":"此处为节目尾声说明，不是逐字字幕。"}]}];
+    const ipaByTerm = {"real easy english":"ˈriəl ˈiːzi ˈɪŋɡlɪʃ","transcript":"ˈtrænskrɪpt","bbclearningenglish":"ˌbiːˈbiːˈklɜːnɪnˌdʒɪŋɡlɪʃ","hi neil":"ˈhaɪ ˈniːl","thank":"ˈθæŋk","very":"ˈveri","talking":"ˈtɔːkɪŋ","complaining":"kəmˈpleɪnɪŋ","problem":"ˈprɒbləm","tell":"ˈtel","someone":"ˈsʌmwɒn","remember":"rɪˈmembə","podcast":"ˈpɒdkɑːst","know":"ˈnəʊ","recent":"ˈriːsənt","experience":"ekˈspiərɪəns","booked":"ˈbʊkt","somewhere":"ˈsʌmweə","reviews":"rɪˈvjuːz","then":"ˈðen","checked":"ˈtʃekt","they":"ðeɪ","place":"ˈpleɪs","dirty":"ˈdɜːti","broken":"ˈbrəʊkən","what":"ˌwɒt","have":"ˈhæv","not":"ˈnɒt","wrote":"ˈrəʊt","sent":"ˈsent","email":"ˈiːmeɪl","worried":"ˈwʌrid","assure":"əˈʃʊə","working":"ˈwɜːkɪŋ","properly":"ˈprɒpəli","response":"rɪˈspɒns","hated":"ˈheɪtɪd","whole":"ˈhəʊl","process":"ˈprəʊses","why":"ˈwaɪ","neither":"ˈnaɪðə","make":"ˈmeɪk","people":"ˈpiːpəl","feel":"ˈfiːl","paid":"ˈpeɪd","certain":"ˈsɜːtən","entitled":"enˈtaɪtəld","complain":"kəmˈpleɪn","still":"ˈstɪl","yeah":"jeə","embarrassed":"emˈbærəst","easy":"ˈiːzi","getting":"ˈɡetɪŋ","better":"ˈbetə","braver":"ˈbreɪvə","couple":"ˈkʌpəl","weeks":"ˈwiːks","subscribed":"səbˈskraɪbd","delivery":"dɪˈlɪvəri","service":"ˈsɜːvɪs","food":"ˈfuːd","week":"ˈwiːk","last":"ˈlæst","late":"ˈleɪt","happy":"ˈhæpi","courage":"ˈkʌrɪdʒ","bravery":"ˈbreɪvəri","strong":"ˈstrɒŋ","money":"ˈmʌni","discount":"ˈdɪskaʊnt","order":"ˈɔːdə","that":"ˈðæt","sounds":"ˈsaʊndz","done":"ˈdʌn","works":"ˈwɜːks","hopefully":"ˈhəʊpfəli","accommodation":"əˌkɒməˈdeɪʃən","yes":"ˈjes","afterwards":"ˈæftəwədz","because":"bɪˈkɒz","expect":"ekˈspekt","allowed":"əˈlaʊd","nice":"ˈnaɪs","polite":"pəˈlaɪt","personal":"ˈpɜːsənəl","often":"ˈɒfən","responsible":"rɪˈspɒnsɪbəl","mistake":"mɪˈsteɪk","whatever":"wɒˈtevə","respectful":"rɪˈspektfəl","so neil":"ˌsəʊ ˈniːl","quite":"ˈkwaɪt","stressful":"ˈstresfəl","anyone":"ˈenɪˌwɒn","complains":"kəmˈpleɪnz","time":"ˈtaɪm","seem":"ˈsiːm","love":"ˈlʌv","groups":"ˈɡruːps","complained":"kəmˈpleɪnd","embarrassing":"emˈbærəsɪŋ","real":"ˈriəl","issue":"ˈɪʃuː","ever":"ˈevə","happened":"ˈhæpənd","meal":"ˈmiːl","friends":"ˈfrendz","waiter":"ˈweɪtə","clear":"ˈkliə","waiters":"ˈweɪtəz","behave":"bɪˈheɪv","nobody":"ˈnəʊbɒdi","understood":"ˌʌndəˈstʊd","everyone":"ˈevrɪˌwɒn","hear":"ˈhiə","respond":"rɪˈspɒnd","liked":"ˈlaɪkt","used":"ˈjuːzd","work":"ˈwɜːk","restaurants":"ˈrestrɒnts","worked":"ˈwɜːkt","customer":"ˈkʌstəmə","reason":"ˈriːzən","course":"ˈkɔːs","depends":"dɪˈpendz","they're":"ðeɪə","rude":"ˈruːd","waitress":"ˈweɪtrəs","problems":"ˈprɒbləmz","recap":"rɪˈkæp","vocabulary":"vəˈkæbjələri","conversation":"kɒnvəˈseɪʃən","verb":"ˈvɜːb","wrong":"ˈrɒŋ","enough":"ɪˈnʌf","heard":"ˈhɜːd","noun":"ˈnaʊn","complaint":"kəmˈpleɪnt","full":"ˈfʊl","price":"ˈpraɪs","said":"ˈsed","and neil":"ænd ˈniːl","write":"ˈraɪt","join":"ˈdʒɔɪn","forget":"fəˈɡet","free":"ˈfriː","worksheet":"ˈwɜːkʃiːt","goodbye":"ɡʊdˈbaɪ","conversations":"kɒnvəˈseɪʃənz","introducing":"ˌɪntrəˈdjuːsɪŋ","london letter challenge":"ˈlʌndən ˈletə ˈtʃælɪndʒ","programme":"ˈprəʊɡræm"};
+    const stressCoreByWord = {"accommodation":"accommod{a}tion","afterwards":"{af}terwards","allowed":"al{lowed}","and":"{and}","anyone":"{any}one","assure":"as{sure}","bbclearningenglish":"bbclearnin{geng}lish","because":"be{cause}","behave":"be{have}","better":"{bet}ter","booked":"{booked}","braver":"{braver}","bravery":"{bravery}","broken":"{broken}","certain":"{cer}tain","challenge":"{chal}lenge","checked":"{checked}","clear":"{clear}","complain":"com{plain}","complained":"com{plained}","complaining":"com{plain}ing","complains":"com{plains}","complaint":"com{plaint}","conversation":"conver{sa}tion","conversations":"conver{sa}tions","couple":"{couple}","courage":"{cour}age","course":"{course}","customer":"{cus}tomer","delivery":"de{liv}ery","depends":"de{pends}","dirty":"{dirty}","discount":"{dis}count","done":"{done}","easy":"{easy}","email":"{email}","embarrassed":"em{bar}rassed","embarrassing":"em{bar}rassing","english":"{eng}lish","enough":"{enough}","entitled":"en{titled}","ever":"{ever}","everyone":"{every}one","expect":"ex{pect}","experience":"ex{per}ience","feel":"{feel}","food":"{food}","forget":"for{get}","free":"{free}","friends":"{friends}","full":"{full}","getting":"{get}ting","goodbye":"good{bye}","groups":"{groups}","happened":"{happened}","happy":"{happy}","hated":"{hated}","have":"{have}","hear":"{hear}","heard":"{heard}","hi":"{hi}","hopefully":"{hope}fully","introducing":"intro{du}cing","issue":"{is}sue","join":"{join}","know":"{know}","last":"{last}","late":"{late}","letter":"{let}ter","liked":"{liked}","london":"{lon}don","love":"{love}","make":"{make}","meal":"{meal}","mistake":"mis{take}","money":"{money}","neil":"{neil}","neither":"{neither}","nice":"{nice}","nobody":"{nobody}","not":"{not}","noun":"{noun}","often":"{of}ten","order":"{or}der","paid":"{paid}","people":"{people}","personal":"{per}sonal","place":"{place}","podcast":"{pod}cast","polite":"po{lite}","price":"{price}","problem":"{prob}lem","problems":"{prob}lems","process":"{pro}cess","properly":"{prop}erly","quite":"{quite}","real":"{real}","reason":"{reas}on","recap":"re{cap}","recent":"{re}cent","remember":"re{mem}ber","respectful":"re{spect}ful","respond":"re{spond}","response":"re{sponse}","responsible":"re{spons}ible","restaurants":"{res}taurants","reviews":"re{views}","rude":"{rude}","said":"{said}","seem":"{seem}","sent":"{sent}","service":"{ser}vice","so":"{so}","someone":"{some}one","somewhere":"{some}where","sounds":"{sounds}","still":"{still}","stressful":"{stress}ful","strong":"{strong}","subscribed":"sub{scribed}","talking":"{talk}ing","tell":"{tell}","thank":"{thank}","that":"{that}","then":"{then}","they":"{they}","they're":"{they're}","time":"{time}","transcript":"{tran}script","understood":"under{stood}","used":"{used}","verb":"{verb}","very":"{very}","vocabulary":"vo{cab}ulary","waiter":"{waiter}","waiters":"{waiters}","waitress":"{wait}ress","week":"{week}","weeks":"{weeks}","what":"{what}","whatever":"what{ev}er","whole":"{whole}","why":"{why}","work":"{work}","worked":"{worked}","working":"{work}ing","works":"{works}","worksheet":"{work}sheet","worried":"{wor}ried","write":"{write}","wrong":"{wrong}","wrote":"{wrote}","yeah":"{yeah}","yes":"{yes}","programme":"{pro}gramme"};
+    const app = document.getElementById('app');
+    const audio = document.getElementById('audio');
+    const transcript = document.getElementById('transcript');
+    const playButton = document.getElementById('play');
+    const progress = document.getElementById('progress');
+    const elapsed = document.getElementById('elapsed');
+    const duration = document.getElementById('duration');
+    const autoscroll = document.getElementById('autoscroll');
+    let activeIndex = -1;
+    let scrubbing = false;
+
+    const formatTime = seconds => {
+      const safe = Number.isFinite(seconds) ? Math.max(0, Math.floor(seconds)) : 0;
+      return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
+    };
+
+    function appendStressTerm(term, container, studyOverrides = {}) {
+      const stress = document.createElement('span');
+      stress.className = 'stress';
+      const orthography = document.createElement('span');
+      orthography.className = 'stress-label';
+      term.split(/([A-Za-z]+(?:['-][A-Za-z]+)*|\d+)/g).filter(Boolean).forEach(token => {
+        const pattern = studyOverrides.stress?.[token.toLowerCase()] || stressCoreByWord[token.toLowerCase()];
+        if (!pattern) {
+          if (/^[A-Za-z0-9]/.test(token)) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = token;
+            orthography.append(core);
+          } else {
+            orthography.append(token);
+          }
+          return;
+        }
+        let offset = 0;
+        pattern.split(/(\{[^{}]+\})/g).filter(Boolean).forEach(piece => {
+          const raw = piece.startsWith('{') && piece.endsWith('}') ? piece.slice(1, -1) : piece;
+          const original = token.slice(offset, offset + raw.length);
+          offset += raw.length;
+          if (piece.startsWith('{') && piece.endsWith('}')) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = original;
+            orthography.append(core);
+          } else {
+            orthography.append(original);
+          }
+        });
+      });
+      const ipa = document.createElement('span');
+      ipa.className = 'ipa';
+      ipa.textContent = `/${studyOverrides.ipa?.[term.toLowerCase()] || ipaByTerm[term.toLowerCase()] || ''}/`;
+      stress.append(orthography, ipa);
+      container.append(stress);
+    }
+
+    function renderGroup(group, container, arrow, studyOverrides = {}) {
+      const wrapper = document.createElement('span');
+      wrapper.className = 'thought-group';
+      group.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).forEach(part => {
+        const span = document.createElement('span');
+        if (part.startsWith('**') && part.endsWith('**')) {
+          appendStressTerm(part.slice(2, -2), wrapper, studyOverrides);
+        } else {
+          span.textContent = part;
+          wrapper.appendChild(span);
+        }
+      });
+      const intonation = document.createElement('span');
+      intonation.className = 'intonation';
+      intonation.textContent = arrow;
+      wrapper.appendChild(intonation);
+      container.appendChild(wrapper);
+    }
+
+    function renderAnnotation(annotation, container, studyOverrides = {}) {
+      const groups = annotation.split(' / ');
+      const yesNoQuestion = /^(is|are|do|does|did|can|could|would|will|have|has|was|were)\b/i.test(annotation);
+      groups.forEach((group, index) => {
+        const last = index === groups.length - 1;
+        renderGroup(group, container, last && annotation.trim().endsWith('?') && yesNoQuestion ? '↗' : last ? '↘' : '↗', studyOverrides);
+        if (!last) {
+          const slash = document.createElement('span');
+          slash.className = 'slash';
+          slash.textContent = '/';
+          container.appendChild(slash);
+        }
+      });
+    }
+
+    captions.forEach((caption, index) => {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'caption';
+      row.dataset.index = index;
+      row.dataset.line = String(index + 1).padStart(2, '0');
+      row.setAttribute('role', 'listitem');
+      row.setAttribute('aria-label', `${caption.speaker}, ${formatTime(caption.start)}. ${caption.text} 。翻译：${caption.translation}`);
+
+      const meta = document.createElement('div');
+      meta.className = 'cue-meta';
+      const speaker = document.createElement('span');
+      speaker.className = 'speaker';
+      speaker.textContent = '@' + caption.speaker.replaceAll(' ', '_');
+      const stamp = document.createElement('span');
+      stamp.className = 'stamp';
+      stamp.textContent = `[${formatTime(caption.start)}]`;
+      meta.append(speaker, stamp);
+
+      const body = document.createElement('div');
+      body.className = 'cue-body';
+      const english = document.createElement('div');
+      english.className = 'english';
+      renderAnnotation(caption.annotation, english, caption.studyOverrides || {});
+      const translation = document.createElement('div');
+      translation.className = 'translation';
+      translation.textContent = caption.translation;
+      const pronunciation = document.createElement('div');
+      pronunciation.className = 'pronunciation';
+      caption.pronunciation.forEach(tip => {
+        const item = document.createElement('span');
+        item.className = 'pron-tip';
+        const label = document.createElement('b');
+        label.textContent = tip.kind;
+        item.append(label, tip.text);
+        pronunciation.appendChild(item);
+      });
+      body.append(english, pronunciation, translation);
+      row.append(meta, body);
+
+      row.addEventListener('click', () => {
+        audio.currentTime = caption.start + .01;
+        setActive(index, false);
+        update();
+        if (audio.paused) audio.play().catch(() => {});
+      });
+      transcript.appendChild(row);
+    });
+
+    const rows = [...transcript.querySelectorAll('.caption')];
+
+    function indexAt(time) {
+      if (time < captions[0].start) return 0;
+      let low = 0, high = captions.length - 1, answer = 0;
+      while (low <= high) {
+        const mid = (low + high) >> 1;
+        if (captions[mid].start <= time) { answer = mid; low = mid + 1; }
+        else high = mid - 1;
+      }
+      return answer;
+    }
+
+    function setActive(index, shouldScroll = true) {
+      if (index === activeIndex) return;
+      if (activeIndex >= 0) {
+        rows[activeIndex].classList.remove('active');
+        rows[activeIndex].removeAttribute('aria-current');
+      }
+      activeIndex = index;
+      rows[index].classList.add('active');
+      rows[index].setAttribute('aria-current', 'true');
+      if (shouldScroll && autoscroll.checked) rows[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function update() {
+      const time = audio.currentTime || 0;
+      if (!scrubbing) progress.value = time;
+      elapsed.textContent = formatTime(time);
+      setActive(indexAt(time));
+      if (!audio.paused) requestAnimationFrame(update);
+    }
+
+    playButton.addEventListener('click', () => audio.paused ? audio.play().catch(() => {}) : audio.pause());
+    document.getElementById('back').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 10); update(); });
+    document.getElementById('forward').addEventListener('click', () => { audio.currentTime = Math.min(audio.duration || 398.361, audio.currentTime + 10); update(); });
+    document.getElementById('speed').addEventListener('change', event => { audio.playbackRate = Number(event.target.value); });
+    progress.addEventListener('input', () => { scrubbing = true; elapsed.textContent = formatTime(Number(progress.value)); });
+    progress.addEventListener('change', () => { audio.currentTime = Number(progress.value); scrubbing = false; update(); });
+    document.getElementById('translationToggle').addEventListener('change', event => app.classList.toggle('hide-translation', !event.target.checked));
+    document.getElementById('studyToggle').addEventListener('change', event => app.classList.toggle('hide-study', !event.target.checked));
+    audio.addEventListener('loadedmetadata', () => { progress.max = audio.duration; duration.textContent = formatTime(audio.duration); });
+    audio.addEventListener('play', () => { app.classList.add('is-playing'); playButton.textContent = '❚❚'; playButton.setAttribute('aria-label', '暂停'); requestAnimationFrame(update); });
+    audio.addEventListener('pause', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; playButton.setAttribute('aria-label', '播放'); update(); });
+    audio.addEventListener('ended', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; });
+    document.addEventListener('keydown', event => {
+      if (['INPUT','SELECT','BUTTON'].includes(document.activeElement.tagName)) return;
+      if (event.code === 'Space') { event.preventDefault(); audio.paused ? audio.play().catch(() => {}) : audio.pause(); }
+      if (event.key === 'ArrowLeft') { audio.currentTime = Math.max(0, audio.currentTime - 5); update(); }
+      if (event.key === 'ArrowRight') { audio.currentTime = Math.min(audio.duration || 398.361, audio.currentTime + 5); update(); }
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    function syncThemeButton() {
+      const light = document.documentElement.dataset.theme === 'light';
+      themeToggle.textContent = light ? '☾ 深色' : '☀ 浅色';
+      themeToggle.setAttribute('aria-pressed', String(light));
+    }
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('ell-theme', next); } catch (_) {}
+      syncThemeButton();
+    });
+    syncThemeButton();
+
+    setActive(0, false);
+    update();
+  </script>
+</body>
+</html>

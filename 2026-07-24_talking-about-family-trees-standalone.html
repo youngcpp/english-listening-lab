@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    (() => { try { document.documentElement.dataset.theme = localStorage.getItem('ell-theme') || 'dark'; } catch (_) { document.documentElement.dataset.theme = 'dark'; } })();
+  </script>
+  <title>Talking about family trees · 双语精听 · English Listening Lab</title>
+  <style>
+    :root {
+      --paper: #070a0f;
+      --surface: #0d1117;
+      --surface-2: #111824;
+      --ink: #d8e6f3;
+      --muted: #75849a;
+      --line: #222d3b;
+      --teal: #42d3ff;
+      --teal-soft: #112332;
+      --orange: #ff8b4c;
+      --orange-soft: #2a1b17;
+      --purple: #c792ea;
+      --pink: #ff5ca8;
+      --green: #9be564;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .44);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% -5%, rgba(66,211,255,.1), transparent 31rem),
+        radial-gradient(circle at 92% 15%, rgba(199,146,234,.09), transparent 28rem),
+        var(--paper);
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+    }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .18; background-image: linear-gradient(rgba(91,112,139,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(91,112,139,.11) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
+    button, input, select { font: inherit; }
+    button, select { color: inherit; }
+    .page { position: relative; z-index: 1; width: min(1040px, calc(100% - 36px)); margin: 0 auto; padding: 34px 0 70px; }
+
+    .site-head { overflow: hidden; margin-bottom: 20px; padding: 0 0 30px; border: 1px solid var(--line); border-radius: 14px; background: rgba(13,17,23,.9); box-shadow: var(--shadow); }
+    .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 11px 15px; border-bottom: 1px solid var(--line); background: #090d13; }
+    .brand { display: flex; align-items: center; gap: 13px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    .window-dots { display: flex; gap: 7px; }
+    .window-dots i { width: 10px; height: 10px; border-radius: 50%; }
+    .window-dots i:nth-child(1) { background: #ff5f57; }
+    .window-dots i:nth-child(2) { background: #febc2e; }
+    .window-dots i:nth-child(3) { background: #28c840; }
+    .file-tab { color: #a9b7c6; }
+    .file-tab::before { content: "<>"; margin-right: 8px; color: var(--orange); font-weight: 850; }
+    .meta { color: #5f6d80; font-size: 11px; font-variant-numeric: tabular-nums; }
+    h1 { margin: 30px 28px 9px; font-size: clamp(26px, 5vw, 50px); font-weight: 650; letter-spacing: -.045em; line-height: 1.3; }
+    .code-keyword { color: var(--purple); }
+    .code-var { color: var(--teal); }
+    .code-op, .code-punct { color: #7f8ea3; }
+    .code-string { color: var(--green); }
+    .cn-title { margin: 0 28px; color: var(--green); font-size: clamp(16px, 2.2vw, 21px); font-weight: 650; letter-spacing: .01em; }
+    .cn-title::before { content: "// "; color: #59687b; }
+    .intro { max-width: 780px; margin: 17px 28px 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .intro::before { content: "/* "; color: var(--purple); }
+    .intro::after { content: " */"; color: var(--purple); }
+
+    .player {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto auto auto minmax(160px,1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 18px;
+      border: 1px solid #283647;
+      border-radius: 12px;
+      background: rgba(13,17,23,.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .round, .play { display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer; transition: transform .18s, background .18s; }
+    .round:hover, .play:hover { transform: translateY(-1px); }
+    .round { width: 38px; height: 38px; color: var(--teal); background: #111b27; font-size: 10px; font-weight: 850; }
+    .play { width: 48px; height: 48px; color: #071015; background: var(--teal); font-size: 16px; box-shadow: 0 0 24px rgba(66,211,255,.22); }
+    .is-playing .play { animation: pulse 1.8s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 24px rgba(66,211,255,.2), 0 0 0 11px rgba(66,211,255,0); } }
+    .timeline { min-width: 0; display: grid; grid-template-columns: minmax(90px,1fr) 93px; align-items: center; gap: 13px; }
+    .progress { width: 100%; height: 5px; margin: 0; accent-color: var(--teal); cursor: pointer; }
+    .time { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .time strong { color: var(--green); }
+    .speed { height: 36px; padding: 0 11px; border: 1px solid #2a3747; border-radius: 7px; background: #0a0f16; font-size: 11px; font-weight: 750; cursor: pointer; }
+
+    .study-tools { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin: 18px 0 16px; padding: 15px 18px; border: 1px solid var(--line); border-radius: 10px; background: rgba(13,17,23,.88); }
+    .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 17px; color: var(--muted); font-size: 12px; }
+    .legend b { color: var(--purple); font-weight: 800; }
+    .legend-stress { color: var(--orange); font-weight: 800; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+    .legend-slash { color: var(--pink); font-size: 17px; font-weight: 900; }
+    .toggles { display: flex; align-items: center; gap: 13px; }
+    .toggle { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .toggle input { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; }
+
+    .transcript-title { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 34px 4px 13px; }
+    .transcript-title h2 { margin: 0; color: var(--teal); font-size: 24px; font-weight: 750; letter-spacing: -.02em; }
+    .transcript-title h2::before { content: "// "; color: #4c5a6d; }
+    .transcript-title span { color: var(--muted); font-size: 11px; }
+    .transcript { display: grid; gap: 12px; }
+    .caption {
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 148px minmax(0,1fr);
+      gap: 22px;
+      padding: 24px 25px 24px 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(13,17,23,.9);
+      text-align: left;
+      cursor: pointer;
+      scroll-margin-top: 116px;
+      transition: border-color .22s, background .22s, box-shadow .22s, transform .22s;
+    }
+    .caption:hover { border-color: #35506a; background: #0f1620; transform: translateY(-1px); }
+    .caption.active { border-color: rgba(66,211,255,.62); background: var(--surface-2); box-shadow: 0 0 0 1px rgba(66,211,255,.08), 0 18px 42px rgba(0,0,0,.32), 0 0 28px rgba(66,211,255,.06); }
+    .caption.active::before { content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px; width: 4px; border-radius: 0 6px 6px 0; background: var(--teal); box-shadow: 0 0 16px rgba(66,211,255,.45); }
+    .caption::after { content: attr(data-line); position: absolute; left: 13px; top: 27px; color: #3d4a5c; font-size: 10px; font-variant-numeric: tabular-nums; }
+    .cue-meta { padding-top: 4px; }
+    .speaker { display: block; overflow: hidden; color: var(--teal); font-size: 10px; font-weight: 850; letter-spacing: .05em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+    .stamp { display: block; margin-top: 7px; color: var(--purple); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .cue-body { min-width: 0; }
+    .english { color: #d6deeb; font-size: clamp(18px, 2.2vw, 23px); line-height: 1.72; letter-spacing: -.025em; }
+    .thought-group { display: inline; }
+    .stress { color: var(--orange); font-weight: 800; text-shadow: 0 0 16px rgba(255,139,76,.12); }
+    .stress-label { text-decoration: underline; text-decoration-color: #ff5f56; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .stress-core { color: #ffe66d; text-decoration-color: #ffe66d; text-shadow: 0 0 13px rgba(255,230,109,.2); }
+    .ipa { margin-left: .38em; color: var(--purple); font-size: .68em; font-weight: 650; letter-spacing: 0; overflow-wrap: anywhere; white-space: normal; }
+    .intonation { display: inline-block; margin-left: .22em; color: var(--teal); font-size: .72em; font-weight: 900; text-decoration: none; transform: translateY(-.06em); }
+    .slash { display: inline-block; margin: 0 .28em; color: var(--pink); font-size: .88em; font-weight: 900; opacity: .92; }
+    .pronunciation { display: flex; flex-wrap: wrap; gap: 7px 13px; margin-top: 14px; padding: 11px 12px; border: 1px solid #233043; border-left: 3px solid var(--purple); border-radius: 7px; color: #9fb1c6; background: #0a1017; font-size: 13px; line-height: 1.65; }
+    .pronunciation::before { content: "// phonetics"; color: var(--purple); font-size: 10px; font-weight: 850; letter-spacing: .04em; }
+    .pron-tip { display: inline; }
+    .pron-tip b { margin-right: 5px; color: var(--teal); font-weight: 850; }
+    .translation { margin-top: 15px; padding-top: 13px; border-top: 1px dashed #273242; color: var(--green); font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", monospace; font-size: 16px; line-height: 1.85; }
+    .translation::before { content: "// zh"; display: inline-grid; place-items: center; width: 47px; height: 22px; margin-right: 9px; border-radius: 4px; color: var(--teal); background: var(--teal-soft); font-size: 9px; font-weight: 850; vertical-align: 1px; }
+    .hide-translation .translation { display: none; }
+    .hide-study .stress { color: inherit; font-weight: inherit; text-shadow: none; }
+    .hide-study .stress-label { text-decoration: none; }
+    .hide-study .stress-core { color: inherit; text-shadow: none; }
+    .hide-study .ipa, .hide-study .intonation, .hide-study .slash, .hide-study .pronunciation { display: none; }
+    .footer { margin: 30px 4px 0; color: #58677b; font-size: 10px; line-height: 1.7; }
+
+    @media (max-width: 680px) {
+      .page { width: min(100% - 20px, 560px); padding-top: 24px; }
+      .site-head { padding-inline: 3px; }
+      .brand-row .meta { display: none; }
+      h1 { margin: 23px 18px 8px; font-size: clamp(23px, 7vw, 34px); }
+      .cn-title, .intro { margin-left: 18px; margin-right: 18px; }
+      .player { top: 7px; grid-template-columns: auto auto minmax(70px,1fr) auto; gap: 7px; padding: 11px; border-radius: 17px; }
+      #forward { display: none; }
+      .round { width: 36px; height: 36px; }
+      .play { width: 45px; height: 45px; }
+      .timeline { grid-template-columns: minmax(48px,1fr) 64px; gap: 7px; }
+      .time { font-size: 9px; }
+      .speed { width: 50px; padding: 0 4px; }
+      .study-tools { display: block; padding: 16px; }
+      .toggles { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
+      .transcript-title { margin-top: 27px; }
+      .caption { grid-template-columns: 1fr; gap: 10px; padding: 20px 17px 20px 39px; scroll-margin-top: 91px; }
+      .caption::after { left: 11px; top: 22px; }
+      .cue-meta { display: flex; align-items: center; gap: 9px; padding-top: 0; }
+      .speaker, .stamp { display: inline; margin: 0; }
+      .english { font-size: 21px; line-height: 1.52; }
+      .ipa { font-size: .58em; }
+      .pronunciation { gap: 6px 10px; font-size: 13px; }
+      .translation { font-size: 16px; line-height: 1.85; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+
+    .home-link, .theme-toggle { color: var(--teal); }
+    .home-link { margin-left: 3px; font-size: 11px; font-weight: 800; text-decoration: none; }
+    .home-link:hover { text-decoration: underline; }
+    .theme-toggle { min-height: 34px; padding: 0 11px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-2); font-size: 11px; font-weight: 800; cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--teal); }
+    html[data-theme="light"] {
+      --paper: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef7fb;
+      --ink: #182334;
+      --muted: #64748b;
+      --line: #d8e1eb;
+      --teal: #007fa3;
+      --teal-soft: #dff5fb;
+      --orange: #c45116;
+      --orange-soft: #fff0e7;
+      --purple: #7c3fb1;
+      --pink: #c72c73;
+      --green: #357a16;
+      --shadow: 0 18px 52px rgba(30, 55, 80, .13);
+    }
+    html[data-theme="light"] body {
+      background: radial-gradient(circle at 10% -5%, rgba(0,127,163,.10), transparent 31rem), radial-gradient(circle at 92% 15%, rgba(124,63,177,.08), transparent 28rem), var(--paper);
+    }
+    html[data-theme="light"] body::before { opacity: .34; background-image: linear-gradient(rgba(72,104,135,.10) 1px, transparent 1px), linear-gradient(90deg, rgba(72,104,135,.10) 1px, transparent 1px); }
+    html[data-theme="light"] .site-head,
+    html[data-theme="light"] .study-tools,
+    html[data-theme="light"] .caption { background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .brand-row { background: #edf3f8; }
+    html[data-theme="light"] .file-tab { color: #496176; }
+    html[data-theme="light"] .meta { color: #718096; }
+    html[data-theme="light"] .player { border-color: #cbd8e5; background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .round { color: var(--teal); background: #e6f3f7; }
+    html[data-theme="light"] .play { color: #fff; }
+    html[data-theme="light"] .speed { border-color: #cbd8e5; background: #f7fafc; }
+    html[data-theme="light"] .caption:hover { border-color: #88aec2; background: #f8fbfd; }
+    html[data-theme="light"] .caption.active { background: #edf8fc; box-shadow: 0 0 0 1px rgba(0,127,163,.07), 0 16px 36px rgba(35,70,95,.12); }
+    html[data-theme="light"] .english { color: #1b2a3d; }
+    html[data-theme="light"] .pronunciation { border-color: #d4ddea; border-left-color: var(--purple); color: #526a7e; background: #f7f9fc; }
+    html[data-theme="light"] .translation { border-top-color: #d7e0e8; }
+    html[data-theme="light"] .footer { color: #697b8c; }
+
+  </style>
+</head>
+<body>
+  <main class="page" id="app">
+    <header class="site-head">
+      <div class="brand-row">
+        <div class="brand"><span class="window-dots"><i></i><i></i><i></i></span><span class="file-tab">transcript.html</span><a class="home-link" href="index.html">← 全部课程</a></div>
+        <div class="meta">UTF-8 · LF · 24 Jul 2026 · 05:49</div>
+      </div>
+      <h1><span class="code-keyword">const</span> <span class="code-var">episode</span> <span class="code-op">=</span> <span class="code-string">"Talking about family trees"</span><span class="code-punct">;</span></h1>
+      <p class="cn-title">聊聊家谱</p>
+      <p class="intro">双语精听稿：跟随音频高亮当前句，用重点词、词重音和意群节奏辅助跟读。点击任意一句可从对应时间开始播放。</p>
+    </header>
+
+    <audio id="audio" preload="metadata" src="audio-2026-07-24_talking-about-family-trees.mp3"></audio>
+    <section class="player" aria-label="音频播放器">
+      <button class="round" id="back" type="button" aria-label="后退 10 秒">−10</button>
+      <button class="play" id="play" type="button" aria-label="播放">▶</button>
+      <button class="round" id="forward" type="button" aria-label="前进 10 秒">+10</button>
+      <div class="timeline">
+        <input class="progress" id="progress" type="range" min="0" max="349.849" step="0.01" value="0" aria-label="音频进度">
+        <div class="time"><strong id="elapsed">0:00</strong> / <span id="duration">5:49</span></div>
+      </div>
+      <select class="speed" id="speed" aria-label="播放速度">
+        <option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+      </select>
+    </section>
+
+    <section class="study-tools" aria-label="学习标记">
+      <div class="legend"><b>学习标记</b><span><span class="legend-stress">重点词</span> + 英音 IPA</span><span><span class="legend-slash">↗ / ↘</span> 意群语调</span></div>
+      <div class="toggles">
+        <label class="toggle"><input id="translationToggle" type="checkbox" checked> 中文翻译</label>
+        <label class="toggle"><input id="studyToggle" type="checkbox" checked> 重音/意群</label>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅主题">☀ 浅色</button>
+        <label class="toggle"><input id="autoscroll" type="checkbox" checked> 自动滚动</label>
+      </div>
+    </section>
+
+    <div class="transcript-title"><h2>逐句精听</h2><span>50 句 · 点击跳转</span></div>
+    <section class="transcript" id="transcript" role="list" aria-label="同步双语字幕"></section>
+    <footer class="footer">文稿及节目归属 BBC Learning English。原文说明该文稿并非逐字稿；中文翻译与词重音/意群标注为精听学习辅助，音标、重音与语调箭头为学习参考；音频开场和附加内容另行标明。<br>Real Easy English · 2026-07-24 · <a style="color:var(--teal)" href="https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260724" target="_blank" rel="noopener">BBC 官方来源</a> · <a style="color:var(--purple)" href="index.html">合集目录</a></footer>
+  </main>
+
+  <script>
+    const captions = [{"speaker":"Phil","text":"Hello, I'm Phil.","start":0.0,"end":1.34,"id":0,"translation":"大家好，我是 Phil。","annotation":"**Hello**, I'm Phil.","pronunciation":[{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"}]},{"speaker":"Georgie","text":"And I'm Georgie.","start":1.6,"end":2.74,"id":1,"translation":"我是 Georgie。","annotation":"And I'm **Georgie**.","pronunciation":[{"kind":"连读","text":"And‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"Welcome to Real Easy English. Remember, you can find the vocabulary from this episode and test yourself with a free worksheet on our website, bbclearningenglish.com.","start":3.48,"end":12.4,"id":2,"translation":"欢迎收听《Real Easy English》。网站 bbclearningenglish.com 有本期词汇和免费练习单，供你检验所学。","annotation":"**Welcome** to **Real Easy English**. / **Remember**, you can find the vocabulary from this episode and test yourself with a free **worksheet** on our website, **bbclearningenglish**.com.","pronunciation":[{"kind":"连读","text":"Real‿Easy：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"Hi Georgie, how are you?","start":18.46,"end":20.12,"id":3,"translation":"嗨，Georgie，你好吗？","annotation":"**Hi Georgie**, how are you?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Hi Georgie，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"I'm very well, thank you, Phil. How are you?","start":20.28,"end":22.48,"id":4,"translation":"我很好，谢谢你，Phil。你呢？","annotation":"I'm very well, **thank** you, Phil. How are you?","pronunciation":[{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"}]},{"speaker":"Phil","text":"I'm really good. Today we're going to talk about our families and particularly our extended families.","start":22.74,"end":30.46,"id":5,"translation":"我也很好。今天聊我们的家庭，特别是直系亲属之外的大家庭。","annotation":"I'm really good. Today we're going to talk about our **families** and **particularly** our **extended** **families**.","pronunciation":[{"kind":"连读","text":"talk‿about：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"Georgie, do you have a big family?","start":31.6,"end":34.14,"id":6,"translation":"Georgie，你家亲戚多吗？","annotation":"Georgie, do you have a big **family**?","pronunciation":[{"kind":"连读","text":"have‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I don't actually. I have my two parents, a sister and then outside of that, my family is quite small.","start":35.16,"end":43.36,"id":7,"translation":"其实不多。我有父母和一个姐妹，除此之外，亲戚不算多。","annotation":"I don't **actually**. I have my two **parents**, / a **sister** and **then** **outside** of that, / my **family** is **quite** **small**.","pronunciation":[{"kind":"连读","text":"don't‿actually：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"I've got one aunt, two uncles, and only one of my uncles has children, so I don't have many cousins.","start":43.9,"end":51.5,"id":8,"translation":"有一位阿姨、两位叔舅，只有一位叔舅有孩子，所以堂表兄弟姐妹也不多。","annotation":"I've got one **aunt**, two **uncles**, / and **only** one of my **uncles** has **children**, / so I don't have many **cousins**.","pronunciation":[{"kind":"连读","text":"one‿aunt：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"What about you? Do you have a big family?","start":52.04,"end":53.84,"id":9,"translation":"你呢？亲戚多吗？","annotation":"What about you? Do you have a big **family**?","pronunciation":[{"kind":"连读","text":"What‿about：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Phil","text":"Actually, my family is probably similar. I've got... I've got a brother, and then I've got two aunts, three uncles.","start":54.04,"end":63.42,"id":10,"translation":"我家情况差不多。我有一个兄弟、两位阿姨、三位叔舅。","annotation":"**Actually**, my family is **probably** **similar**. / I've got... I've got a **brother**, and then I've got two **aunts**, **three** uncles.","pronunciation":[{"kind":"连读","text":"got‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"I've got... Well, I've got three cousins that I know and a cousin somewhere lost in Australia.","start":64.4,"end":70.02,"id":11,"translation":"我认识三位堂表兄弟姐妹，还有一位在澳大利亚，不知道现在在哪里。","annotation":"I've got... Well, I've got three cousins that I know and a **cousin** **somewhere** lost in **Australia**.","pronunciation":[{"kind":"连读","text":"that‿I：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Oh wow! Interesting. So, we both have quite small extended families. Do you see yours much?","start":70.62,"end":77.9,"id":12,"translation":"有意思！所以我们的大家庭都不大。你经常见亲戚吗？","annotation":"Oh wow! **Interesting**. / So, we both have quite **small** **extended** **families**. / Do you see **yours** much?","pronunciation":[{"kind":"连读","text":"small‿extended：尾辅音可自然衔接后词元音"}]},{"speaker":"Phil","text":"Usually only at times, like at Christmas I'll often see especially my uncles and my aunts. I see them fairly regularly.","start":78.44,"end":85.24,"id":13,"translation":"通常在特定时候，比如圣诞节，常会见叔舅和阿姨，见面的频率还算固定。","annotation":"**Usually** only at times, like at **Christmas** I'll often see **especially** my uncles and my aunts. / I see them **fairly** **regularly**.","pronunciation":[{"kind":"连读","text":"like‿at：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"My cousins– yeah, often Christmas or New Year or something like that.","start":85.94,"end":89.94,"id":14,"translation":"堂表兄弟姐妹也是，通常在圣诞节或新年时见。","annotation":"My **cousins**– yeah, often **Christmas** or **New Year** or something like that.","pronunciation":[{"kind":"连读","text":"Christmas‿or：尾辅音可自然衔接后词元音"}]},{"speaker":"Georgie","text":"Same with me, really. Growing up, my uncle, who has children who are my cousins, they lived quite far away,","start":90.42,"end":100.38,"id":15,"translation":"我也是。小时候，有孩子的那位叔舅，也就是我堂表亲的父亲，住得很远，","annotation":"Same with me, **really**. / **Growing** up, my **uncle**, / who has **children** who are my **cousins**, / **they** **lived** quite far **away**,","pronunciation":[{"kind":"连读","text":"Growing‿up：尾辅音可自然衔接后词元音"}]},{"speaker":"Georgie","text":"so it was similar. We only really saw them at Christmas and times like that.","start":100.54,"end":105.28,"id":16,"translation":"所以同样只在圣诞节之类的时候见面。","annotation":"so it was **similar**. / We **only** really saw them at **Christmas** and **times** like that.","pronunciation":[{"kind":"连读","text":"them‿at：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"And nowadays I only really see my extended family at events like weddings and, sadly, funerals.","start":105.78,"end":113.12,"id":17,"translation":"现在通常只在婚礼、还有令人难过的葬礼等场合见亲戚。","annotation":"And **nowadays** I only really see my extended family at events like **weddings** and, sadly, **funerals**.","pronunciation":[{"kind":"连读","text":"nowadays‿I：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"I'd probably like to see them more. But this is life.","start":113.8,"end":117.36,"id":18,"translation":"我希望多见他们，但生活就是这样。","annotation":"I'd **probably** like to see them more. / But this is **life**.","pronunciation":[{"kind":"连读","text":"this‿is：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"OK. Georgie, what about your grandparents? Have you been close with your grandparents?","start":117.81,"end":122.64,"id":19,"translation":"Georgie，你和祖父母、外祖父母亲近吗？","annotation":"OK. Georgie, what about your **grandparents**? / Have you been **close** with your **grandparents**?","pronunciation":[{"kind":"连读","text":"what‿about：尾辅音可自然衔接后词元音"}],"studyOverrides":{"ipa":{"close":"kləʊs"},"stress":{}}},{"speaker":"Georgie","text":"Yeah. So, sadly, I don't have any grandparents left. They've all died, but I was really close with particularly my grandmothers.","start":123.64,"end":133.28,"id":20,"translation":"遗憾的是，他们都已经去世了，但以前我和他们很亲近，尤其是两位祖母。","annotation":"Yeah. So, **sadly**, I don't have any **grandparents** **left**. / **They've** all **died**, but I was really close with particularly my **grandmothers**.","pronunciation":[{"kind":"连读","text":"have‿any：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"}],"studyOverrides":{"ipa":{"close":"kləʊs"},"stress":{}}},{"speaker":"Georgie","text":"Both of them lived quite close to me, so that was really nice. I could spend a lot of time with them.","start":133.74,"end":139.3,"id":21,"translation":"她们都住得很近，这很好，我能花很多时间陪她们。","annotation":"Both of them **lived** **quite** close to me, so that was really **nice**. / I could **spend** a lot of **time** with them.","pronunciation":[{"kind":"连读","text":"Both‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}],"studyOverrides":{"ipa":{"close":"kləʊs"},"stress":{}}},{"speaker":"Georgie","text":"They were big personalities– really funny, really loving, caring. And yeah, I was really close with them. What about you?","start":139.9,"end":149.24,"id":22,"translation":"她们个性鲜明，很幽默，也很有爱心、很关怀人。我和她们特别亲近。你呢？","annotation":"They were big **personalities**– really funny, really **loving**, **caring**. / And **yeah**, I was really **close** with them. What about you?","pronunciation":[{"kind":"连读","text":"What‿about：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}],"studyOverrides":{"ipa":{"close":"kləʊs"},"stress":{}}},{"speaker":"Phil","text":"Yeah, I think for me it's kind of similar to your story, really. I don't have any grandparents now, but when I was younger, the two grandparents that were still alive then,","start":149.68,"end":160.12,"id":23,"translation":"我跟你差不多。现在也没有祖辈在世了，但小时候，那两位还在世的祖辈，","annotation":"Yeah, I think for me it's **kind** of **similar** to your **story**, really. / I don't have any **grandparents** now, / but when I was **younger**, / the two **grandparents** that were still **alive** **then**,","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"I was quite close to. I used to see my granddad every week. He used to come and do the shopping for my mum,","start":160.12,"end":166.84,"id":24,"translation":"我和他们挺亲近。每周都能见到祖父，他会来帮我妈妈买东西，","annotation":"I was **quite** **close** to. / I **used** to see my **granddad** every **week**. / He **used** to **come** and do the **shopping** for my mum,","pronunciation":[{"kind":"连读","text":"granddad‿every：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}],"studyOverrides":{"ipa":{"used":"juːst","close":"kləʊs"},"stress":{}}},{"speaker":"Phil","text":"and I'd see my grandma quite regularly as well. Yeah, I was quite close with them when I was younger.","start":167.36,"end":174.72,"id":25,"translation":"也经常见祖母。小时候和他们很亲近。","annotation":"and I'd see my **grandma** **quite** **regularly** as well. / **Yeah**, I was **quite** close with them when I was **younger**.","pronunciation":[{"kind":"连读","text":"and‿I'd：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}],"studyOverrides":{"ipa":{"close":"kləʊs"},"stress":{}}},{"speaker":"Georgie","text":"To talk about our extended families, we often look at family trees. That's like a diagram that shows your family history.","start":175.12,"end":184.28,"id":26,"translation":"聊大家庭时，我们常看 family tree，也就是展示家族历史的家谱图。","annotation":"To talk about our **extended** **families**, we often look at family **trees**. / That's like a **diagram** that **shows** your family **history**.","pronunciation":[{"kind":"连读","text":"talk‿about：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Have you researched your family tree?","start":185.78,"end":188.02,"id":27,"translation":"你研究过自己的家谱吗？","annotation":"Have you **researched** your **family tree**?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 researched，按意群停顿，不逐词等长朗读"}]},{"speaker":"Phil","text":"I personally haven't researched my family tree, but other people in my family have researched it quite a lot,","start":188.52,"end":196.96,"id":28,"translation":"我自己没有，但家里其他人研究过不少，","annotation":"I **personally** **haven't** researched my **family tree**, / but other **people** in my **family** have **researched** it quite a lot,","pronunciation":[{"kind":"连读","text":"but‿other：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Phil","text":"so I can see the bits of my family going back lots of generations– going back to Scotland, to Ireland, to Norway,","start":197.42,"end":205.48,"id":29,"translation":"所以能看到祖上很多代的分支，追溯到苏格兰、爱尔兰、挪威，","annotation":"so I can see the bits of my family going back lots of **generations**– going back to **Scotland**, to **Ireland**, to Norway,","pronunciation":[{"kind":"连读","text":"bits‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"to Armenia and places like this.","start":205.96,"end":208.46,"id":30,"translation":"还有亚美尼亚等地方。","annotation":"to **Armenia** and **places** like this.","pronunciation":[{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Wow. So, your ancestors are from all over the world, it sounds like?","start":208.72,"end":213.16,"id":31,"translation":"哇，听起来你的祖先来自世界各地？","annotation":"Wow. So, your **ancestors** are from all over the **world**, it **sounds** like?","pronunciation":[{"kind":"连读","text":"ancestors‿are：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 from 可弱读为 /frəm/；强调时使用强读"}]},{"speaker":"Phil","text":"Quite a few places, yeah.","start":213.28,"end":214.26,"id":32,"translation":"确实来自不少地方。","annotation":"**Quite** a few **places**, **yeah**.","pronunciation":[{"kind":"连读","text":"Quite‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah, I also have not researched my family tree, but I really would like to because I do know that my great grandmother was Italian and my great grandfather was from the US,","start":214.58,"end":228.9,"id":33,"translation":"我也没研究过，但很想研究，因为知道曾祖母是意大利人，曾祖父来自美国，","annotation":"**Yeah**, I also have not **researched** my **family tree**, / but I really would like to because I do know that my great **grandmother** was **Italian** and my great **grandfather** was from the US,","pronunciation":[{"kind":"连读","text":"but‿I：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"so I would love to, kind of, find some family members from those countries and maybe become close with them.","start":229.84,"end":237.38,"id":34,"translation":"所以想找找那些国家的亲属，也许能和他们建立亲近的关系。","annotation":"so I would **love** to, **kind** of, / find some family **members** from those **countries** and maybe **become** close with them.","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}],"studyOverrides":{"ipa":{"close":"kləʊs"},"stress":{}}},{"speaker":"Georgie","text":"I think that would be really interesting to, kind of, understand more about my history.","start":238.3,"end":242.66,"id":35,"translation":"多了解自己的家族历史，应该很有意思。","annotation":"I think that would be really **interesting** to, kind of, **understand** more about my **history**.","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"If you want to know more about your family history, I think you can often look it up. You can... you can look it up in records in government offices,","start":243.88,"end":253.88,"id":36,"translation":"想了解家族历史，通常可以查资料，比如政府部门的档案，","annotation":"If you want to **know** more about your **family** **history**, / I think you can **often** **look** it up. / You can... you can look it up in **records** in **government** **offices**,","pronunciation":[{"kind":"连读","text":"can‿often：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"but also I think there's a lot of websites where you can look things up now and find... find out your family history– find out about your ancestors.","start":253.88,"end":262.86,"id":37,"translation":"现在也有很多网站，可以查询家族历史、了解祖先。","annotation":"but also I think there's a lot of **websites** where you can **look** things up now and **find**... / find out your **family** **history**– find out about your **ancestors**.","pronunciation":[{"kind":"连读","text":"but‿also：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"there's 合为一个音组 /ðeəz/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yes. Well, actually, there is a story that my family tells that I'm not sure is true,","start":263.42,"end":268.86,"id":38,"translation":"我们家有个故事，我不确定是不是真的，","annotation":"Yes. Well, **actually**, / there is a **story** that my family **tells** that I'm not **sure** is true,","pronunciation":[{"kind":"连读","text":"is‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"but one of my ancestors apparently has a connection to royalty– a big event in history.","start":268.86,"end":276.9,"id":39,"translation":"据说某位祖先和王室有关，也牵涉到一个重大历史事件。","annotation":"but one of my **ancestors** **apparently** has a **connection** to royalty– a big event in history.","pronunciation":[{"kind":"连读","text":"one‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"But again, I don't know if it's true, so I'd love to look it up and find out the facts. I think that would be good.","start":277.78,"end":285.34,"id":40,"translation":"但不知道是真是假，所以很想查一查、弄清事实。","annotation":"But again, I don't **know** if it's **true**, / so I'd **love** to **look** it up and find out the **facts**. / I think **that** would be good.","pronunciation":[{"kind":"连读","text":"But‿again：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"OK. Let's recap the vocabulary that we've looked at in this episode, starting with close.","start":288.95,"end":298.0,"id":41,"translation":"回顾本期词汇，先从 close 开始。","annotation":"OK. Let's **recap** the vocabulary that we've **looked** at in this episode, **starting** with close.","pronunciation":[{"kind":"连读","text":"looked‿at：尾辅音可自然衔接后词元音"}],"studyOverrides":{"ipa":{"close":"kləʊs"},"stress":{}}},{"speaker":"Phil","text":"If you're close with or close to a family member, then it's someone whom you see a lot and you get on well with.","start":298.34,"end":306.8,"id":42,"translation":"be close with 或 close to 某位家人，指常见面、相处融洽，关系亲近。","annotation":"If you're **close** with or **close** to a **family** **member**, / **then** it's **someone** **whom** you see a lot and you get on well with.","pronunciation":[{"kind":"连读","text":"with‿or：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"you're 合为一个音组 /jɔː/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}],"studyOverrides":{"ipa":{"close":"kləʊs"},"stress":{}}},{"speaker":"Georgie","text":"Your family tree is a diagram or image which shows your family history.","start":307.64,"end":312.14,"id":43,"translation":"family tree 是展示家族历史的图，也就是家谱。","annotation":"Your **family tree** is a **diagram** or **image** which shows your family history.","pronunciation":[{"kind":"连读","text":"is‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Phil","text":"Your ancestors are your relatives from a long time ago.","start":312.58,"end":316.58,"id":44,"translation":"ancestors 指很久以前的家族成员，也就是祖先。","annotation":"Your **ancestors** are your **relatives** from a **long** time ago.","pronunciation":[{"kind":"连读","text":"ancestors‿are：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Lots of people like to look up their ancestors. If you look something up, you try to find out information– for example, by searching online or reading books.","start":317.06,"end":326.18,"id":45,"translation":"很多人喜欢 look up 祖先的信息。look something up 指查询资料，比如上网搜索或查书。","annotation":"**Lots** of people like to **look up** their **ancestors**. / If you **look** something up, / you try to **find** out **information**– for **example**, / by **searching** **online** or **reading** books.","pronunciation":[{"kind":"连读","text":"Lots‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"That's it for this episode of Real Easy English. We'll be back next week with another episode in easy English.","start":327.04,"end":335.16,"id":46,"translation":"本期《Real Easy English》就到这里。下周再一起听新的简单英语节目。","annotation":"That's it for this episode of **Real Easy English**. / We'll be back **next** **week** with another episode in **easy** English.","pronunciation":[{"kind":"连读","text":"That's‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we'll 合为一个音组 /wiːl/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"And if you want to learn to talk more about your family, we have a collection of episodes all about this topic. Go to bbclearningenglish.com.","start":335.62,"end":344.56,"id":47,"translation":"想学更多谈论家庭的表达，我们有一组相关主题的节目，请访问 bbclearningenglish.com。","annotation":"And if you want to **learn** to **talk** more about your **family**, / we have a **collection** of **episodes** all about this **topic**. / Go to **bbclearningenglish**.com.","pronunciation":[{"kind":"连读","text":"And‿if：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"Bye for now!","start":344.98,"end":345.6,"id":48,"translation":"现在再见！","annotation":"**Bye** for now!","pronunciation":[{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Goodbye!","start":345.82,"end":346.18,"id":49,"translation":"再见！","annotation":"**Goodbye**!","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Goodbye，按意群停顿，不逐词等长朗读"}]}];
+    const ipaByTerm = {"hello":"həˈləʊ","georgie":"ˈdʒɔːdʒi","welcome":"ˈwelkʌm","real easy english":"ˈriəl ˈiːzi ˈɪŋɡlɪʃ","remember":"rɪˈmembə","worksheet":"ˈwɜːkʃiːt","bbclearningenglish":"ˌbiːˈbiːˈklɜːnɪnˌdʒɪŋɡlɪʃ","hi georgie":"ˈhaɪ ˈdʒɔːdʒi","thank":"ˈθæŋk","families":"ˈfæmɪliz","particularly":"pəˈtɪkjʊləli","extended":"ekˈstendɪd","family":"ˈfæmɪli","actually":"ˈæktʃuːəli","parents":"ˈpeərənts","sister":"ˈsɪstə","then":"ˈðen","outside":"aʊtˈsaɪd","quite":"ˈkwaɪt","small":"sˈmɔːl","aunt":"ˈænt","uncles":"ˈʌŋkəlz","only":"ˈəʊnli","children":"ˈtʃɪldrən","cousins":"ˈkʌzənz","probably":"ˈprɒbəbli","similar":"ˈsɪmɪlə","brother":"ˈbrʌðə","aunts":"ˈænts","three":"ˈθriː","cousin":"ˈkʌzən","somewhere":"ˈsʌmweə","australia":"ɒˈstreɪliə","interesting":"ˈɪntrestɪŋ","yours":"ˈjɔːz","usually":"ˈjuːʒuːəli","christmas":"ˈkrɪsməs","especially":"ɪˈspeʃəli","fairly":"ˈfeəli","regularly":"ˈreɡjʊləli","new year":"ˈnjuː ˈjiə","really":"ˈriəlɪ","growing":"ˈɡrəʊɪŋ","uncle":"ˈʌŋkəl","they":"ðeɪ","lived":"ˈlɪvd","away":"əˈweɪ","times":"ˈtaɪmz","nowadays":"ˈnaʊəˌdeɪz","weddings":"ˈwedɪŋz","funerals":"ˈfjuːnərəlz","life":"ˈlaɪf","grandparents":"ˈɡrændpeərənts","close":"ˈkləʊs","sadly":"ˈsædli","left":"ˈleft","they've":"ðeɪv","died":"ˈdaɪd","grandmothers":"ˈɡrændmʌðəz","nice":"ˈnaɪs","spend":"ˈspend","time":"ˈtaɪm","personalities":"ˌpɜːsəˈnælɪtiz","loving":"ˈlʌvɪŋ","caring":"ˈkeərɪŋ","yeah":"jeə","kind":"ˈkaɪnd","story":"ˈstɔːri","younger":"ˈjʌŋɡə","alive":"əˈlaɪv","used":"ˈjuːzd","granddad":"ˈɡrændæd","week":"ˈwiːk","come":"ˈkʌm","shopping":"ˈʃɒpɪŋ","grandma":"ˈɡrændmɑː","trees":"ˈtriːz","diagram":"ˈdaɪəˌɡræm","shows":"ˈʃəʊz","history":"ˈhɪstəri","researched":"rɪˈsɜːtʃt","family tree":"ˈfæmɪli ˈtriː","personally":"ˈpɜːsənəli","haven't":"ˈhævənt","people":"ˈpiːpəl","generations":"ˌdʒenəˈreɪʃənz","scotland":"ˈskɒtlənd","ireland":"ˈaɪələnd","armenia":"ɑːˈmiːniə","places":"ˈpleɪsɪz","ancestors":"ˈænsestəz","world":"ˈwɜːld","sounds":"ˈsaʊndz","grandmother":"ˈɡrændmʌðə","italian":"ɪˈtæliən","grandfather":"ˈɡrændfɑːðə","love":"ˈlʌv","members":"ˈmembəz","countries":"ˈkʌntriz","become":"bɪˈkʌm","understand":"ˌʌndəˈstænd","know":"ˈnəʊ","often":"ˈɒfən","look":"ˈlʊk","records":"ˈrekɔːdz","government":"ˈɡʌvənmənt","offices":"ˈɒfɪsɪz","websites":"ˈwebsaɪts","find":"ˈfaɪnd","tells":"ˈtelz","sure":"ˈʃʊə","apparently":"əˈpærəntli","connection":"kəˈnekʃən","true":"ˈtruː","facts":"ˈfækts","that":"ˈðæt","recap":"rɪˈkæp","looked":"ˈlʊkt","starting":"ˈstɑːtɪŋ","member":"ˈmembə","someone":"ˈsʌmwɒn","whom":"ˈhuːm","image":"ˈɪmɪdʒ","relatives":"ˈreləˌtɪvz","long":"ˈlɒŋ","lots":"ˈlɒts","look up":"ˈlʊk ˈʌp","information":"ˌɪnfəˈmeɪʃən","example":"eɡˈzæmpəl","searching":"ˈsɜːtʃɪŋ","online":"ˈɒnlaɪn","reading":"ˈriːdɪŋ","next":"ˈnekst","easy":"ˈiːzi","learn":"ˈlɜːn","talk":"ˈtɔːk","collection":"kəˈlekʃən","episodes":"ˈepɪˌsəʊdz","topic":"ˈtɒpɪk","bye":"ˈbaɪ","goodbye":"ɡʊdˈbaɪ"};
+    const stressCoreByWord = {"actually":"{ac}tually","alive":"{alive}","ancestors":"{an}cestors","apparently":"ap{par}ently","armenia":"ar{menia}","aunt":"{aunt}","aunts":"{aunts}","australia":"aus{tralia}","away":"{away}","bbclearningenglish":"bbclearnin{geng}lish","become":"be{come}","brother":"{broth}er","bye":"{bye}","caring":"{caring}","children":"{chil}dren","christmas":"{christ}mas","close":"{close}","collection":"col{lec}tion","come":"{come}","connection":"con{nec}tion","countries":"{coun}tries","cousin":"{cous}in","cousins":"{cous}ins","diagram":"{dia}gram","died":"{died}","easy":"{easy}","english":"{eng}lish","episodes":"{ep}isodes","especially":"es{pe}cially","example":"ex{am}ple","extended":"ex{ten}ded","facts":"{facts}","fairly":"{fairly}","families":"{fam}ilies","family":"{fam}ily","find":"{find}","funerals":"{fu}nerals","generations":"gener{a}tions","georgie":"{geor}gie","goodbye":"good{bye}","government":"{gov}ernment","granddad":"{grand}dad","grandfather":"{grand}father","grandma":"{grandma}","grandmother":"{grand}mother","grandmothers":"{grand}mothers","grandparents":"{grand}parents","growing":"{grow}ing","haven't":"{have}n't","hello":"{hello}","hi":"{hi}","history":"{his}tory","image":"{im}age","information":"inform{a}tion","interesting":"{in}teresting","ireland":"{ire}land","italian":"itali{an}","kind":"{kind}","know":"{know}","learn":"{learn}","left":"{left}","life":"{life}","lived":"{lived}","long":"{long}","look":"{look}","looked":"{looked}","lots":"{lots}","love":"{love}","loving":"{lov}ing","member":"{mem}ber","members":"{mem}bers","new":"{new}","next":"{next}","nice":"{nice}","nowadays":"{now}adays","offices":"{of}fices","often":"{of}ten","online":"{on}line","only":"{only}","outside":"out{side}","parents":"{par}ents","particularly":"par{tic}ularly","people":"{people}","personalities":"person{al}ities","personally":"{per}sonally","places":"{places}","probably":"{prob}ably","quite":"{quite}","reading":"{read}ing","real":"{real}","really":"{really}","recap":"re{cap}","records":"{re}cords","regularly":"{reg}ularly","relatives":"{re}latives","remember":"re{mem}ber","researched":"re{searched}","sadly":"{sadly}","scotland":"{scot}land","searching":"{search}ing","shopping":"{shop}ping","shows":"{shows}","similar":"{sim}ilar","sister":"{sis}ter","small":"{small}","someone":"{some}one","somewhere":"{some}where","sounds":"{sounds}","spend":"{spend}","starting":"{start}ing","story":"{story}","sure":"{sure}","talk":"{talk}","tells":"{tells}","thank":"{thank}","that":"{that}","then":"{then}","they":"{they}","they've":"{they've}","three":"{three}","time":"{time}","times":"{times}","topic":"{top}ic","tree":"{tree}","trees":"{trees}","true":"{true}","uncle":"{uncle}","uncles":"{uncles}","understand":"under{stand}","up":"{up}","used":"{used}","usually":"{usu}ally","websites":"{web}sites","weddings":"{wed}dings","week":"{week}","welcome":"{wel}come","whom":"{whom}","worksheet":"{work}sheet","world":"{world}","yeah":"{yeah}","year":"{year}","younger":"{young}er","yours":"{yours}"};
+    const app = document.getElementById('app');
+    const audio = document.getElementById('audio');
+    const transcript = document.getElementById('transcript');
+    const playButton = document.getElementById('play');
+    const progress = document.getElementById('progress');
+    const elapsed = document.getElementById('elapsed');
+    const duration = document.getElementById('duration');
+    const autoscroll = document.getElementById('autoscroll');
+    let activeIndex = -1;
+    let scrubbing = false;
+
+    const formatTime = seconds => {
+      const safe = Number.isFinite(seconds) ? Math.max(0, Math.floor(seconds)) : 0;
+      return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
+    };
+
+    function appendStressTerm(term, container, studyOverrides = {}) {
+      const stress = document.createElement('span');
+      stress.className = 'stress';
+      const orthography = document.createElement('span');
+      orthography.className = 'stress-label';
+      term.split(/([A-Za-z]+(?:['-][A-Za-z]+)*|\d+)/g).filter(Boolean).forEach(token => {
+        const pattern = studyOverrides.stress?.[token.toLowerCase()] || stressCoreByWord[token.toLowerCase()];
+        if (!pattern) {
+          if (/^[A-Za-z0-9]/.test(token)) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = token;
+            orthography.append(core);
+          } else {
+            orthography.append(token);
+          }
+          return;
+        }
+        let offset = 0;
+        pattern.split(/(\{[^{}]+\})/g).filter(Boolean).forEach(piece => {
+          const raw = piece.startsWith('{') && piece.endsWith('}') ? piece.slice(1, -1) : piece;
+          const original = token.slice(offset, offset + raw.length);
+          offset += raw.length;
+          if (piece.startsWith('{') && piece.endsWith('}')) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = original;
+            orthography.append(core);
+          } else {
+            orthography.append(original);
+          }
+        });
+      });
+      const ipa = document.createElement('span');
+      ipa.className = 'ipa';
+      ipa.textContent = `/${studyOverrides.ipa?.[term.toLowerCase()] || ipaByTerm[term.toLowerCase()] || ''}/`;
+      stress.append(orthography, ipa);
+      container.append(stress);
+    }
+
+    function renderGroup(group, container, arrow, studyOverrides = {}) {
+      const wrapper = document.createElement('span');
+      wrapper.className = 'thought-group';
+      group.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).forEach(part => {
+        const span = document.createElement('span');
+        if (part.startsWith('**') && part.endsWith('**')) {
+          appendStressTerm(part.slice(2, -2), wrapper, studyOverrides);
+        } else {
+          span.textContent = part;
+          wrapper.appendChild(span);
+        }
+      });
+      const intonation = document.createElement('span');
+      intonation.className = 'intonation';
+      intonation.textContent = arrow;
+      wrapper.appendChild(intonation);
+      container.appendChild(wrapper);
+    }
+
+    function renderAnnotation(annotation, container, studyOverrides = {}) {
+      const groups = annotation.split(' / ');
+      const yesNoQuestion = /^(is|are|do|does|did|can|could|would|will|have|has|was|were)\b/i.test(annotation);
+      groups.forEach((group, index) => {
+        const last = index === groups.length - 1;
+        renderGroup(group, container, last && annotation.trim().endsWith('?') && yesNoQuestion ? '↗' : last ? '↘' : '↗', studyOverrides);
+        if (!last) {
+          const slash = document.createElement('span');
+          slash.className = 'slash';
+          slash.textContent = '/';
+          container.appendChild(slash);
+        }
+      });
+    }
+
+    captions.forEach((caption, index) => {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'caption';
+      row.dataset.index = index;
+      row.dataset.line = String(index + 1).padStart(2, '0');
+      row.setAttribute('role', 'listitem');
+      row.setAttribute('aria-label', `${caption.speaker}, ${formatTime(caption.start)}. ${caption.text} 。翻译：${caption.translation}`);
+
+      const meta = document.createElement('div');
+      meta.className = 'cue-meta';
+      const speaker = document.createElement('span');
+      speaker.className = 'speaker';
+      speaker.textContent = '@' + caption.speaker.replaceAll(' ', '_');
+      const stamp = document.createElement('span');
+      stamp.className = 'stamp';
+      stamp.textContent = `[${formatTime(caption.start)}]`;
+      meta.append(speaker, stamp);
+
+      const body = document.createElement('div');
+      body.className = 'cue-body';
+      const english = document.createElement('div');
+      english.className = 'english';
+      renderAnnotation(caption.annotation, english, caption.studyOverrides || {});
+      const translation = document.createElement('div');
+      translation.className = 'translation';
+      translation.textContent = caption.translation;
+      const pronunciation = document.createElement('div');
+      pronunciation.className = 'pronunciation';
+      caption.pronunciation.forEach(tip => {
+        const item = document.createElement('span');
+        item.className = 'pron-tip';
+        const label = document.createElement('b');
+        label.textContent = tip.kind;
+        item.append(label, tip.text);
+        pronunciation.appendChild(item);
+      });
+      body.append(english, pronunciation, translation);
+      row.append(meta, body);
+
+      row.addEventListener('click', () => {
+        audio.currentTime = caption.start + .01;
+        setActive(index, false);
+        update();
+        if (audio.paused) audio.play().catch(() => {});
+      });
+      transcript.appendChild(row);
+    });
+
+    const rows = [...transcript.querySelectorAll('.caption')];
+
+    function indexAt(time) {
+      if (time < captions[0].start) return 0;
+      let low = 0, high = captions.length - 1, answer = 0;
+      while (low <= high) {
+        const mid = (low + high) >> 1;
+        if (captions[mid].start <= time) { answer = mid; low = mid + 1; }
+        else high = mid - 1;
+      }
+      return answer;
+    }
+
+    function setActive(index, shouldScroll = true) {
+      if (index === activeIndex) return;
+      if (activeIndex >= 0) {
+        rows[activeIndex].classList.remove('active');
+        rows[activeIndex].removeAttribute('aria-current');
+      }
+      activeIndex = index;
+      rows[index].classList.add('active');
+      rows[index].setAttribute('aria-current', 'true');
+      if (shouldScroll && autoscroll.checked) rows[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function update() {
+      const time = audio.currentTime || 0;
+      if (!scrubbing) progress.value = time;
+      elapsed.textContent = formatTime(time);
+      setActive(indexAt(time));
+      if (!audio.paused) requestAnimationFrame(update);
+    }
+
+    playButton.addEventListener('click', () => audio.paused ? audio.play().catch(() => {}) : audio.pause());
+    document.getElementById('back').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 10); update(); });
+    document.getElementById('forward').addEventListener('click', () => { audio.currentTime = Math.min(audio.duration || 349.849, audio.currentTime + 10); update(); });
+    document.getElementById('speed').addEventListener('change', event => { audio.playbackRate = Number(event.target.value); });
+    progress.addEventListener('input', () => { scrubbing = true; elapsed.textContent = formatTime(Number(progress.value)); });
+    progress.addEventListener('change', () => { audio.currentTime = Number(progress.value); scrubbing = false; update(); });
+    document.getElementById('translationToggle').addEventListener('change', event => app.classList.toggle('hide-translation', !event.target.checked));
+    document.getElementById('studyToggle').addEventListener('change', event => app.classList.toggle('hide-study', !event.target.checked));
+    audio.addEventListener('loadedmetadata', () => { progress.max = audio.duration; duration.textContent = formatTime(audio.duration); });
+    audio.addEventListener('play', () => { app.classList.add('is-playing'); playButton.textContent = '❚❚'; playButton.setAttribute('aria-label', '暂停'); requestAnimationFrame(update); });
+    audio.addEventListener('pause', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; playButton.setAttribute('aria-label', '播放'); update(); });
+    audio.addEventListener('ended', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; });
+    document.addEventListener('keydown', event => {
+      if (['INPUT','SELECT','BUTTON'].includes(document.activeElement.tagName)) return;
+      if (event.code === 'Space') { event.preventDefault(); audio.paused ? audio.play().catch(() => {}) : audio.pause(); }
+      if (event.key === 'ArrowLeft') { audio.currentTime = Math.max(0, audio.currentTime - 5); update(); }
+      if (event.key === 'ArrowRight') { audio.currentTime = Math.min(audio.duration || 349.849, audio.currentTime + 5); update(); }
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    function syncThemeButton() {
+      const light = document.documentElement.dataset.theme === 'light';
+      themeToggle.textContent = light ? '☾ 深色' : '☀ 浅色';
+      themeToggle.setAttribute('aria-pressed', String(light));
+    }
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('ell-theme', next); } catch (_) {}
+      syncThemeButton();
+    });
+    syncThemeButton();
+
+    setActive(0, false);
+    update();
+  </script>
+</body>
+</html>

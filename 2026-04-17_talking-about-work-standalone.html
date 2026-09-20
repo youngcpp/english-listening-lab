@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    (() => { try { document.documentElement.dataset.theme = localStorage.getItem('ell-theme') || 'dark'; } catch (_) { document.documentElement.dataset.theme = 'dark'; } })();
+  </script>
+  <title>Talking about work · 双语精听 · English Listening Lab</title>
+  <style>
+    :root {
+      --paper: #070a0f;
+      --surface: #0d1117;
+      --surface-2: #111824;
+      --ink: #d8e6f3;
+      --muted: #75849a;
+      --line: #222d3b;
+      --teal: #42d3ff;
+      --teal-soft: #112332;
+      --orange: #ff8b4c;
+      --orange-soft: #2a1b17;
+      --purple: #c792ea;
+      --pink: #ff5ca8;
+      --green: #9be564;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .44);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% -5%, rgba(66,211,255,.1), transparent 31rem),
+        radial-gradient(circle at 92% 15%, rgba(199,146,234,.09), transparent 28rem),
+        var(--paper);
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+    }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .18; background-image: linear-gradient(rgba(91,112,139,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(91,112,139,.11) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
+    button, input, select { font: inherit; }
+    button, select { color: inherit; }
+    .page { position: relative; z-index: 1; width: min(1040px, calc(100% - 36px)); margin: 0 auto; padding: 34px 0 70px; }
+
+    .site-head { overflow: hidden; margin-bottom: 20px; padding: 0 0 30px; border: 1px solid var(--line); border-radius: 14px; background: rgba(13,17,23,.9); box-shadow: var(--shadow); }
+    .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 11px 15px; border-bottom: 1px solid var(--line); background: #090d13; }
+    .brand { display: flex; align-items: center; gap: 13px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    .window-dots { display: flex; gap: 7px; }
+    .window-dots i { width: 10px; height: 10px; border-radius: 50%; }
+    .window-dots i:nth-child(1) { background: #ff5f57; }
+    .window-dots i:nth-child(2) { background: #febc2e; }
+    .window-dots i:nth-child(3) { background: #28c840; }
+    .file-tab { color: #a9b7c6; }
+    .file-tab::before { content: "<>"; margin-right: 8px; color: var(--orange); font-weight: 850; }
+    .meta { color: #5f6d80; font-size: 11px; font-variant-numeric: tabular-nums; }
+    h1 { margin: 30px 28px 9px; font-size: clamp(26px, 5vw, 50px); font-weight: 650; letter-spacing: -.045em; line-height: 1.3; }
+    .code-keyword { color: var(--purple); }
+    .code-var { color: var(--teal); }
+    .code-op, .code-punct { color: #7f8ea3; }
+    .code-string { color: var(--green); }
+    .cn-title { margin: 0 28px; color: var(--green); font-size: clamp(16px, 2.2vw, 21px); font-weight: 650; letter-spacing: .01em; }
+    .cn-title::before { content: "// "; color: #59687b; }
+    .intro { max-width: 780px; margin: 17px 28px 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .intro::before { content: "/* "; color: var(--purple); }
+    .intro::after { content: " */"; color: var(--purple); }
+
+    .player {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto auto auto minmax(160px,1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 18px;
+      border: 1px solid #283647;
+      border-radius: 12px;
+      background: rgba(13,17,23,.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .round, .play { display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer; transition: transform .18s, background .18s; }
+    .round:hover, .play:hover { transform: translateY(-1px); }
+    .round { width: 38px; height: 38px; color: var(--teal); background: #111b27; font-size: 10px; font-weight: 850; }
+    .play { width: 48px; height: 48px; color: #071015; background: var(--teal); font-size: 16px; box-shadow: 0 0 24px rgba(66,211,255,.22); }
+    .is-playing .play { animation: pulse 1.8s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 24px rgba(66,211,255,.2), 0 0 0 11px rgba(66,211,255,0); } }
+    .timeline { min-width: 0; display: grid; grid-template-columns: minmax(90px,1fr) 93px; align-items: center; gap: 13px; }
+    .progress { width: 100%; height: 5px; margin: 0; accent-color: var(--teal); cursor: pointer; }
+    .time { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .time strong { color: var(--green); }
+    .speed { height: 36px; padding: 0 11px; border: 1px solid #2a3747; border-radius: 7px; background: #0a0f16; font-size: 11px; font-weight: 750; cursor: pointer; }
+
+    .study-tools { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin: 18px 0 16px; padding: 15px 18px; border: 1px solid var(--line); border-radius: 10px; background: rgba(13,17,23,.88); }
+    .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 17px; color: var(--muted); font-size: 12px; }
+    .legend b { color: var(--purple); font-weight: 800; }
+    .legend-stress { color: var(--orange); font-weight: 800; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+    .legend-slash { color: var(--pink); font-size: 17px; font-weight: 900; }
+    .toggles { display: flex; align-items: center; gap: 13px; }
+    .toggle { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .toggle input { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; }
+
+    .transcript-title { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 34px 4px 13px; }
+    .transcript-title h2 { margin: 0; color: var(--teal); font-size: 24px; font-weight: 750; letter-spacing: -.02em; }
+    .transcript-title h2::before { content: "// "; color: #4c5a6d; }
+    .transcript-title span { color: var(--muted); font-size: 11px; }
+    .transcript { display: grid; gap: 12px; }
+    .caption {
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 148px minmax(0,1fr);
+      gap: 22px;
+      padding: 24px 25px 24px 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(13,17,23,.9);
+      text-align: left;
+      cursor: pointer;
+      scroll-margin-top: 116px;
+      transition: border-color .22s, background .22s, box-shadow .22s, transform .22s;
+    }
+    .caption:hover { border-color: #35506a; background: #0f1620; transform: translateY(-1px); }
+    .caption.active { border-color: rgba(66,211,255,.62); background: var(--surface-2); box-shadow: 0 0 0 1px rgba(66,211,255,.08), 0 18px 42px rgba(0,0,0,.32), 0 0 28px rgba(66,211,255,.06); }
+    .caption.active::before { content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px; width: 4px; border-radius: 0 6px 6px 0; background: var(--teal); box-shadow: 0 0 16px rgba(66,211,255,.45); }
+    .caption::after { content: attr(data-line); position: absolute; left: 13px; top: 27px; color: #3d4a5c; font-size: 10px; font-variant-numeric: tabular-nums; }
+    .cue-meta { padding-top: 4px; }
+    .speaker { display: block; overflow: hidden; color: var(--teal); font-size: 10px; font-weight: 850; letter-spacing: .05em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+    .stamp { display: block; margin-top: 7px; color: var(--purple); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .cue-body { min-width: 0; }
+    .english { color: #d6deeb; font-size: clamp(18px, 2.2vw, 23px); line-height: 1.72; letter-spacing: -.025em; }
+    .thought-group { display: inline; }
+    .stress { color: var(--orange); font-weight: 800; text-shadow: 0 0 16px rgba(255,139,76,.12); }
+    .stress-label { text-decoration: underline; text-decoration-color: #ff5f56; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .stress-core { color: #ffe66d; text-decoration-color: #ffe66d; text-shadow: 0 0 13px rgba(255,230,109,.2); }
+    .ipa { margin-left: .38em; color: var(--purple); font-size: .68em; font-weight: 650; letter-spacing: 0; overflow-wrap: anywhere; white-space: normal; }
+    .intonation { display: inline-block; margin-left: .22em; color: var(--teal); font-size: .72em; font-weight: 900; text-decoration: none; transform: translateY(-.06em); }
+    .slash { display: inline-block; margin: 0 .28em; color: var(--pink); font-size: .88em; font-weight: 900; opacity: .92; }
+    .pronunciation { display: flex; flex-wrap: wrap; gap: 7px 13px; margin-top: 14px; padding: 11px 12px; border: 1px solid #233043; border-left: 3px solid var(--purple); border-radius: 7px; color: #9fb1c6; background: #0a1017; font-size: 13px; line-height: 1.65; }
+    .pronunciation::before { content: "// phonetics"; color: var(--purple); font-size: 10px; font-weight: 850; letter-spacing: .04em; }
+    .pron-tip { display: inline; }
+    .pron-tip b { margin-right: 5px; color: var(--teal); font-weight: 850; }
+    .translation { margin-top: 15px; padding-top: 13px; border-top: 1px dashed #273242; color: var(--green); font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", monospace; font-size: 16px; line-height: 1.85; }
+    .translation::before { content: "// zh"; display: inline-grid; place-items: center; width: 47px; height: 22px; margin-right: 9px; border-radius: 4px; color: var(--teal); background: var(--teal-soft); font-size: 9px; font-weight: 850; vertical-align: 1px; }
+    .hide-translation .translation { display: none; }
+    .hide-study .stress { color: inherit; font-weight: inherit; text-shadow: none; }
+    .hide-study .stress-label { text-decoration: none; }
+    .hide-study .stress-core { color: inherit; text-shadow: none; }
+    .hide-study .ipa, .hide-study .intonation, .hide-study .slash, .hide-study .pronunciation { display: none; }
+    .footer { margin: 30px 4px 0; color: #58677b; font-size: 10px; line-height: 1.7; }
+
+    @media (max-width: 680px) {
+      .page { width: min(100% - 20px, 560px); padding-top: 24px; }
+      .site-head { padding-inline: 3px; }
+      .brand-row .meta { display: none; }
+      h1 { margin: 23px 18px 8px; font-size: clamp(23px, 7vw, 34px); }
+      .cn-title, .intro { margin-left: 18px; margin-right: 18px; }
+      .player { top: 7px; grid-template-columns: auto auto minmax(70px,1fr) auto; gap: 7px; padding: 11px; border-radius: 17px; }
+      #forward { display: none; }
+      .round { width: 36px; height: 36px; }
+      .play { width: 45px; height: 45px; }
+      .timeline { grid-template-columns: minmax(48px,1fr) 64px; gap: 7px; }
+      .time { font-size: 9px; }
+      .speed { width: 50px; padding: 0 4px; }
+      .study-tools { display: block; padding: 16px; }
+      .toggles { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
+      .transcript-title { margin-top: 27px; }
+      .caption { grid-template-columns: 1fr; gap: 10px; padding: 20px 17px 20px 39px; scroll-margin-top: 91px; }
+      .caption::after { left: 11px; top: 22px; }
+      .cue-meta { display: flex; align-items: center; gap: 9px; padding-top: 0; }
+      .speaker, .stamp { display: inline; margin: 0; }
+      .english { font-size: 21px; line-height: 1.52; }
+      .ipa { font-size: .58em; }
+      .pronunciation { gap: 6px 10px; font-size: 13px; }
+      .translation { font-size: 16px; line-height: 1.85; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+
+    .home-link, .theme-toggle { color: var(--teal); }
+    .home-link { margin-left: 3px; font-size: 11px; font-weight: 800; text-decoration: none; }
+    .home-link:hover { text-decoration: underline; }
+    .theme-toggle { min-height: 34px; padding: 0 11px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-2); font-size: 11px; font-weight: 800; cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--teal); }
+    html[data-theme="light"] {
+      --paper: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef7fb;
+      --ink: #182334;
+      --muted: #64748b;
+      --line: #d8e1eb;
+      --teal: #007fa3;
+      --teal-soft: #dff5fb;
+      --orange: #c45116;
+      --orange-soft: #fff0e7;
+      --purple: #7c3fb1;
+      --pink: #c72c73;
+      --green: #357a16;
+      --shadow: 0 18px 52px rgba(30, 55, 80, .13);
+    }
+    html[data-theme="light"] body {
+      background: radial-gradient(circle at 10% -5%, rgba(0,127,163,.10), transparent 31rem), radial-gradient(circle at 92% 15%, rgba(124,63,177,.08), transparent 28rem), var(--paper);
+    }
+    html[data-theme="light"] body::before { opacity: .34; background-image: linear-gradient(rgba(72,104,135,.10) 1px, transparent 1px), linear-gradient(90deg, rgba(72,104,135,.10) 1px, transparent 1px); }
+    html[data-theme="light"] .site-head,
+    html[data-theme="light"] .study-tools,
+    html[data-theme="light"] .caption { background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .brand-row { background: #edf3f8; }
+    html[data-theme="light"] .file-tab { color: #496176; }
+    html[data-theme="light"] .meta { color: #718096; }
+    html[data-theme="light"] .player { border-color: #cbd8e5; background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .round { color: var(--teal); background: #e6f3f7; }
+    html[data-theme="light"] .play { color: #fff; }
+    html[data-theme="light"] .speed { border-color: #cbd8e5; background: #f7fafc; }
+    html[data-theme="light"] .caption:hover { border-color: #88aec2; background: #f8fbfd; }
+    html[data-theme="light"] .caption.active { background: #edf8fc; box-shadow: 0 0 0 1px rgba(0,127,163,.07), 0 16px 36px rgba(35,70,95,.12); }
+    html[data-theme="light"] .english { color: #1b2a3d; }
+    html[data-theme="light"] .pronunciation { border-color: #d4ddea; border-left-color: var(--purple); color: #526a7e; background: #f7f9fc; }
+    html[data-theme="light"] .translation { border-top-color: #d7e0e8; }
+    html[data-theme="light"] .footer { color: #697b8c; }
+
+  </style>
+</head>
+<body>
+  <main class="page" id="app">
+    <header class="site-head">
+      <div class="brand-row">
+        <div class="brand"><span class="window-dots"><i></i><i></i><i></i></span><span class="file-tab">transcript.html</span><a class="home-link" href="index.html">← 全部课程</a></div>
+        <div class="meta">UTF-8 · LF · 17 Apr 2026 · 06:07</div>
+      </div>
+      <h1><span class="code-keyword">const</span> <span class="code-var">episode</span> <span class="code-op">=</span> <span class="code-string">"Talking about work"</span><span class="code-punct">;</span></h1>
+      <p class="cn-title">谈论工作</p>
+      <p class="intro">双语精听稿：跟随音频高亮当前句，用重点词、词重音和意群节奏辅助跟读。点击任意一句可从对应时间开始播放。</p>
+    </header>
+
+    <audio id="audio" preload="metadata" src="audio-2026-04-17_talking-about-work.mp3"></audio>
+    <section class="player" aria-label="音频播放器">
+      <button class="round" id="back" type="button" aria-label="后退 10 秒">−10</button>
+      <button class="play" id="play" type="button" aria-label="播放">▶</button>
+      <button class="round" id="forward" type="button" aria-label="前进 10 秒">+10</button>
+      <div class="timeline">
+        <input class="progress" id="progress" type="range" min="0" max="367.492" step="0.01" value="0" aria-label="音频进度">
+        <div class="time"><strong id="elapsed">0:00</strong> / <span id="duration">6:07</span></div>
+      </div>
+      <select class="speed" id="speed" aria-label="播放速度">
+        <option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+      </select>
+    </section>
+
+    <section class="study-tools" aria-label="学习标记">
+      <div class="legend"><b>学习标记</b><span><span class="legend-stress">重点词</span> + 英音 IPA</span><span><span class="legend-slash">↗ / ↘</span> 意群语调</span></div>
+      <div class="toggles">
+        <label class="toggle"><input id="translationToggle" type="checkbox" checked> 中文翻译</label>
+        <label class="toggle"><input id="studyToggle" type="checkbox" checked> 重音/意群</label>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅主题">☀ 浅色</button>
+        <label class="toggle"><input id="autoscroll" type="checkbox" checked> 自动滚动</label>
+      </div>
+    </section>
+
+    <div class="transcript-title"><h2>逐句精听</h2><span>56 句 · 点击跳转</span></div>
+    <section class="transcript" id="transcript" role="list" aria-label="同步双语字幕"></section>
+    <footer class="footer">文稿及节目归属 BBC Learning English。原文说明该文稿并非逐字稿；中文翻译与词重音/意群标注为精听学习辅助，音标、重音与语调箭头为学习参考；音频开场和附加内容另行标明。<br>Real Easy English · 2026-04-17 · <a style="color:var(--teal)" href="https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260417" target="_blank" rel="noopener">BBC 官方来源</a> · <a style="color:var(--purple)" href="index.html">合集目录</a></footer>
+  </main>
+
+  <script>
+    const captions = [{"speaker":"Georgie","text":"Hello and welcome to Real Easy English, where we have real conversations in easy English to help you learn. I'm Georgie.","start":0.0,"end":8.4,"id":0,"translation":"您好，欢迎来到 Real Easy English，在这里我们用简单的英语进行真实的对话，以帮助您学习。我是Georgie。","annotation":"Hello and **welcome** to **Real Easy English**, / where we have **real** **conversations** in easy English to help you **learn**. I'm Georgie.","pronunciation":[{"kind":"连读","text":"Real‿Easy：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Becca","text":"And I'm Becca. You can find a video version of this podcast on our website and test yourself with a worksheet on bbclearningenglish.com.","start":8.84,"end":18.98,"id":1,"translation":"我是Becca。您可以在我们的网站上找到此播客的视频版本，并使用 bbclearningenglish.com 上的工作表进行自我测试。","annotation":"And I'm Becca. You can find a video **version** of this podcast on our website and test yourself with a **worksheet** on **bbclearningenglish**.com.","pronunciation":[{"kind":"连读","text":"And‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Hello Becca. How are you?","start":24.74,"end":26.38,"id":2,"translation":"你好Becca。你好吗？","annotation":"**Hello Becca**. How are you?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Hello Becca，按意群停顿，不逐词等长朗读"}]},{"speaker":"Becca","text":"I'm really well, thank you, Georgie. How about yourself?","start":26.52,"end":29.4,"id":3,"translation":"我真的很好，谢谢你，Georgie。你自己呢？","annotation":"I'm really well, **thank** you, Georgie. How about **yourself**?","pronunciation":[{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"}]},{"speaker":"Georgie","text":"Yes, I'm good, thank you. Are you having a busy week?","start":30.0,"end":32.54,"id":4,"translation":"是的，我很好，谢谢。你这一周很忙吗？","annotation":"Yes, I'm good, **thank** you. / Are you having a **busy** **week**?","pronunciation":[{"kind":"连读","text":"having‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Becca","text":"It has been a little bit busy, but also quite fun. How about yours?","start":33.12,"end":37.6,"id":5,"translation":"虽然有点忙，但也很有趣。你的呢？","annotation":"It has been a little bit **busy**, but also **quite** fun. How about yours?","pronunciation":[{"kind":"连读","text":"been‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Me too. I've had a busy week, but it's going well. And Becca, today we're talking about work. We're going to talk about what we're good at, at work,","start":37.9,"end":47.88,"id":6,"translation":"我也是。我度过了忙碌的一周，但进展顺利。Becca，今天我们谈论工作。我们将讨论工作中我们擅长什么，","annotation":"Me too. I've had a **busy** **week**, but it's going well. / **And Becca**, today we're **talking** about **work**. / We're going to **talk** about what we're good at, at **work**,","pronunciation":[{"kind":"连读","text":"had‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we're 合为一个音组 /wɪə/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"and also what we do when things go wrong.","start":47.88,"end":51.22,"id":7,"translation":"以及当出现问题时我们会做什么。","annotation":"and also what we do when things go **wrong**.","pronunciation":[{"kind":"连读","text":"and‿also：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Becca","text":"Ooh. OK.","start":51.64,"end":52.8,"id":8,"translation":"哦。好的。","annotation":"**Ooh**. OK.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Ooh，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"So, what do you like about work?","start":53.4,"end":55.7,"id":9,"translation":"那么，你喜欢工作什么？","annotation":"So, what do you like about **work**?","pronunciation":[{"kind":"连读","text":"like‿about：尾辅音可自然衔接后词元音"}]},{"speaker":"Becca","text":"I like that we have different tasks to do in the day, and some of them are creative,","start":56.54,"end":63.9,"id":10,"translation":"我喜欢我们每天有不同的任务要做，其中一些任务很有创意，","annotation":"I like **that** we have **different** **tasks** to do in the day, / and some of them are **creative**,","pronunciation":[{"kind":"连读","text":"some‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Becca","text":"and then other tasks you really need to, kind of, put more thought and focus into.","start":65.46,"end":72.78,"id":11,"translation":"然后你确实需要投入更多思考和关注的其他任务。","annotation":"and **then** other **tasks** you really **need** to, kind of, / put more **thought** and **focus** into.","pronunciation":[{"kind":"连读","text":"then‿other：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Becca, do you ever find work stressful?","start":73.32,"end":75.14,"id":12,"translation":"Becca，你觉得工作压力大吗？","annotation":"Becca, do you **ever** **find** work **stressful**?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 ever，按意群停顿，不逐词等长朗读"}]},{"speaker":"Becca","text":"Of course. I think that you will find work stressful at some point during your job or your career.","start":75.9,"end":86.6,"id":13,"translation":"当然。我认为在您的工作或职业生涯中的某个时刻，您会发现工作压力很大。","annotation":"Of **course**. I think that you will find work stressful at some **point** during your job or your **career**.","pronunciation":[{"kind":"连读","text":"stressful‿at：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Becca","text":"Yeah, I think if I haven't planned things well– if I haven't done the preparation well– then I find things a bit stressful.","start":88.26,"end":99.7,"id":14,"translation":"是的，我想如果我没有很好地计划事情——如果我没有做好准备——那么我会觉得事情有点压力。","annotation":"Yeah, I think if I **haven't** **planned** things well– if I **haven't** done the **preparation** well– then I find things a bit stressful.","pronunciation":[{"kind":"连读","text":"think‿if：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah.","start":99.7,"end":99.7,"id":15,"translation":"是的。","annotation":"**Yeah**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Becca","text":"How about yourself?","start":99.7,"end":101.7,"id":16,"translation":"你自己呢？","annotation":"How about **yourself**?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 yourself，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"Yeah, me too. When we have lots of projects as well, I feel like when we have a lot of things going on,","start":101.7,"end":108.14,"id":17,"translation":"是的，我也是。当我们也有很多项目时，我觉得当我们有很多事情正在进行时，","annotation":"**Yeah**, me too. When we have **lots** of **projects** as well, / I **feel** like when we have a lot of things going on,","pronunciation":[{"kind":"连读","text":"lots‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"it can be stressful to, kind of, juggle different tasks.","start":108.24,"end":112.86,"id":18,"translation":"兼顾不同的任务可能会带来压力。","annotation":"it can be **stressful** to, kind of, **juggle** **different** tasks.","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"And when we need to publish a new podcast or a new video series, it can be... there can be a lot of pressure to get things done.","start":113.4,"end":122.44,"id":19,"translation":"当我们需要发布新的播客或新的视频系列时，可能会......完成工作可能会面临很大的压力。","annotation":"And when we **need** to **publish** a new **podcast** or a new video series, it can be... / there can be a lot of **pressure** to get things **done**.","pronunciation":[{"kind":"连读","text":"publish‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Becca","text":"So, would you say that you're someone who gets stressed easily at work? Because you seem to be quite calm all the time.","start":122.84,"end":131.72,"id":20,"translation":"那么，你会说你是一个工作上很容易感到压力的人吗？因为你看起来一直都很平静。","annotation":"So, would you say that you're someone who **gets** **stressed** **easily** at work? / Because you **seem** to be quite **calm** all the **time**.","pronunciation":[{"kind":"连读","text":"stressed‿easily：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"you're 合为一个音组 /jɔː/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah. No, I don't actually get too stressed very often. Even when there's a bit of pressure at work, I tend to stay quite calm.","start":133.1,"end":142.34,"id":21,"translation":"是的。不，我实际上并不经常感到压力太大。即使工作上有一点压力，我也能保持冷静。","annotation":"Yeah. No, I don't **actually** get too **stressed** very **often**. / Even when there's a bit of **pressure** at work, I **tend** to stay quite **calm**.","pronunciation":[{"kind":"连读","text":"don't‿actually：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"there's 合为一个音组 /ðeəz/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I always just think, there's no point in worrying. Worrying doesn't actually fix the issues. And you can only do what you can do.","start":142.62,"end":152.34,"id":22,"translation":"我总是觉得，担心是没有意义的。担心并不能真正解决问题。而你只能做你能做的事。","annotation":"I always just think, there's no **point** in **worrying**. / **Worrying** **doesn't** actually fix the **issues**. / And you can **only** do what you can do.","pronunciation":[{"kind":"连读","text":"point‿in：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"there's 合为一个音组 /ðeəz/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"So, yeah, I tend to stay quite relaxed. What about you? Do you get quite stressed or...","start":152.78,"end":158.24,"id":23,"translation":"所以，是的，我倾向于保持相当放松。你呢？你是否感到压力很大或者...","annotation":"So, yeah, I **tend** to **stay** quite **relaxed**. / What about you? Do you get **quite** **stressed** or...","pronunciation":[{"kind":"连读","text":"What‿about：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Becca","text":"Yeah, as I previously mentioned, I think if... I'm usually quite an organised person but, you know,","start":159.4,"end":166.74,"id":24,"translation":"是的，正如我之前提到的，我想如果……我通常是一个很有组织性的人，但是，你知道，","annotation":"**Yeah**, as I **previously** **mentioned**, I think if... / I'm **usually** quite an **organised** **person** but, you know,","pronunciation":[{"kind":"连读","text":"as‿I：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"}]},{"speaker":"Becca","text":"there are some times where I feel a bit disorganised. And if I don't prepare,","start":166.86,"end":171.92,"id":25,"translation":"有时我感觉有点混乱。如果我不做好准备","annotation":"there are some **times** where I **feel** a bit **disorganised**. / And if I don't **prepare**,","pronunciation":[{"kind":"连读","text":"feel‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Becca","text":"I find myself in stressful situations and I might start feeling a bit nervous,","start":172.42,"end":180.16,"id":26,"translation":"我发现自己处于压力很大的情况下，我可能会开始感到有点紧张，","annotation":"I find myself in stressful **situations** and I might start **feeling** a bit **nervous**,","pronunciation":[{"kind":"连读","text":"myself‿in：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Becca","text":"especially as time gets closer to completing something. I really don't like having things late.","start":180.56,"end":188.1,"id":27,"translation":"尤其是当时间越来越接近完成某件事时。我真的不喜欢迟到的事情。","annotation":"**especially** as time gets **closer** to **completing** something. / I really don't like having things **late**.","pronunciation":[{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah.","start":189.18,"end":189.28,"id":28,"translation":"是的。","annotation":"**Yeah**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Becca","text":"Not just in work, but in my general life.","start":189.62,"end":191.78,"id":29,"translation":"不仅在工作中，而且在我的日常生活中。","annotation":"Not just in **work**, but in my **general** **life**.","pronunciation":[{"kind":"连读","text":"just‿in：尾辅音可自然衔接后词元音"}]},{"speaker":"Georgie","text":"So, you get nervous if you're not feeling organised. But are you good at being organised?","start":192.24,"end":198.34,"id":30,"translation":"所以，如果你感觉没有条理，你就会感到紧张。但你善于组织吗？","annotation":"So, you get **nervous** if you're not **feeling** **organised**. / But are you good at being **organised**?","pronunciation":[{"kind":"连读","text":"nervous‿if：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"you're 合为一个音组 /jɔː/"}]},{"speaker":"Becca","text":"Yes. If I write things down, then I tend to stay organised. It's likely that I won't feel very stressed.","start":199.24,"end":207.94,"id":31,"translation":"是的。如果我把事情写下来，那么我就会保持井井有条。我可能不会感到很大压力。","annotation":"Yes. If I **write** things **down**, then I tend to stay **organised**. / It's **likely** that I **won't** feel very **stressed**.","pronunciation":[{"kind":"连读","text":"If‿I：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Becca","text":"I can start to relax a bit when I know that, you know, I've ticked things off my list. Do you write to-do lists?","start":208.68,"end":215.48,"id":32,"translation":"当我知道，你知道，我已经把清单上的事情勾掉时，我可以开始放松一点。你会写待办事项清单吗？","annotation":"I can **start** to **relax** a bit when I **know** that, you **know**, / I've **ticked** things off my **list**. / Do you **write** **to-do** **lists**?","pronunciation":[{"kind":"连读","text":"relax‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I do. I do write to-do lists. And that can be really helpful to, kind of, keep calm because you have your whole plan on a page that you can see.","start":215.84,"end":225.44,"id":33,"translation":"我愿意。我确实写待办事项清单。这对于保持冷静确实很有帮助，因为您可以在可以看到的页面上写下整个计划。","annotation":"I do. I do **write** **to-do** **lists**. / And **that** can be really **helpful** to, **kind** of, / keep **calm** because you have your **whole** **plan** on a page that you can see.","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"And you can, kind of, know where you are in your week, which is really helpful.","start":225.44,"end":229.7,"id":34,"translation":"而且您可以知道自己一周的进度，这非常有帮助。","annotation":"And you can, kind of, **know** where you are in your **week**, which is really **helpful**.","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Becca","text":"Yeah.","start":230.14,"end":230.32,"id":35,"translation":"是的。","annotation":"**Yeah**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"What happens when things go wrong at work? What... how do you, kind of... how do you deal with these situations?","start":231.26,"end":238.0,"id":36,"translation":"当工作中出现问题时会发生什么？什么...你如何...你如何处理这些情况？","annotation":"What **happens** when things go **wrong** at **work**? / What... how do you, **kind** of... / how do you **deal** with these **situations**?","pronunciation":[{"kind":"连读","text":"wrong‿at：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Becca","text":"Well, I've only been here for a little while in comparison to yourself and the rest of the team.","start":238.72,"end":245.66,"id":37,"translation":"好吧，与你和团队其他成员相比，我只在这里呆了一小会儿。","annotation":"Well, I've only been here for a little while in **comparison** to yourself and the **rest** of the **team**.","pronunciation":[{"kind":"连读","text":"I've‿only：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Becca","text":"And I feel really thankful that you're all very supportive. So, if I do have something that I haven't quite finished,","start":247.16,"end":256.94,"id":38,"translation":"我非常感谢你们的大力支持。所以，如果我确实有一些事情还没有完成，","annotation":"And I **feel** really **thankful** that you're all very **supportive**. / So, if I do have something that I **haven't** **quite** **finished**,","pronunciation":[{"kind":"连读","text":"And‿I：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"you're 合为一个音组 /jɔː/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Becca","text":"or I'm not really sure what I'm doing with it, or it just goes completely wrong,","start":256.94,"end":262.16,"id":39,"translation":"或者我不太确定我在用它做什么，或者它完全出错了，","annotation":"or I'm not really **sure** what I'm doing with it, / or it just **goes** **completely** **wrong**,","pronunciation":[{"kind":"连读","text":"what‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"}]},{"speaker":"Becca","text":"then I feel that I can come to yourself or any of the team to ask for a little bit of help or guidance.","start":262.64,"end":270.34,"id":40,"translation":"然后我觉得我可以向自己或团队中的任何人寻求一点帮助或指导。","annotation":"then I feel that I can **come** to yourself or any of the **team** to ask for a little bit of help or **guidance**.","pronunciation":[{"kind":"连读","text":"then‿I：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Oh, that's good! I don't think anything's gone completely wrong since you've been here.","start":270.78,"end":275.1,"id":41,"translation":"哦，那很好！我认为自从你来到这里以来，没有什么事情完全不对劲。","annotation":"Oh, that's good! I don't think **anything's** **gone** **completely** wrong since you've been here.","pronunciation":[{"kind":"连读","text":"think‿anything's：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"}]},{"speaker":"Becca","text":"Not yet... Audio listeners– fingers crossed!","start":275.14,"end":278.19,"id":42,"translation":"还没有……音频听众——祈祷吧！","annotation":"Not yet... **Audio** **listeners**– fingers **crossed**!","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Audio，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"Fingers crossed! OK.","start":278.32,"end":283.78,"id":43,"translation":"手指交叉！好的。","annotation":"**Fingers** **crossed**! OK.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Fingers，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"Let's recap the language we heard during the conversation, starting with stress. Now, stress is a feeling of worry, usually caused by a particular situation.","start":288.66,"end":299.06,"id":44,"translation":"让我们回顾一下我们在谈话中听到的语言，从压力开始。现在，压力是一种担忧的感觉，通常是由特定情况引起的。","annotation":"Let's recap the **language** we heard during the conversation, **starting** with **stress**. / Now, **stress** is a feeling of worry, usually **caused** by a **particular** situation.","pronunciation":[{"kind":"连读","text":"stress‿is：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"And you can describe a person as being stressed, and that is the feeling of having stress.","start":299.6,"end":305.22,"id":45,"translation":"你可以形容一个人有压力，那就是有压力的感觉。","annotation":"And you can **describe** a **person** as being **stressed**, / and **that** is the **feeling** of having **stress**.","pronunciation":[{"kind":"连读","text":"describe‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"And we can also say stressful, which describes the situation.","start":305.88,"end":310.14,"id":46,"translation":"我们也可以说有压力，它描述了这种情况。","annotation":"And we can also say **stressful**, which **describes** the **situation**.","pronunciation":[{"kind":"连读","text":"can‿also：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Becca","text":"We also had calm, and that's when you don't feel stressed or worried about something. For example, Georgie is always very calm at work.","start":311.08,"end":320.2,"id":47,"translation":"我们也有平静的时候，那就是你不会感到压力或担心某件事。例如，Georgie在工作中总是非常冷静。","annotation":"We also had **calm**, and that's when you don't feel **stressed** or **worried** about something. / For **example**, Georgie is always very **calm** at **work**.","pronunciation":[{"kind":"连读","text":"stressed‿or：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"We also heard nervous, which describes someone who worries a lot.","start":321.34,"end":325.14,"id":48,"translation":"我们也听到过“紧张”，形容一个人非常担心。","annotation":"We also heard **nervous**, which **describes** someone who **worries** a lot.","pronunciation":[{"kind":"连读","text":"worries‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Becca","text":"We had organised– someone who is organised plans very well and prepares very well. The opposite of organised is disorganised.","start":325.5,"end":335.14,"id":49,"translation":"我们已经组织起来了——有组织的人计划得很好，准备得也很好。有组织的反义词是无组织的。","annotation":"We had **organised**– someone who is **organised** **plans** very well and **prepares** very well. / The **opposite** of **organised** is **disorganised**.","pronunciation":[{"kind":"连读","text":"had‿organised：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"And we heard supportive, and if someone is supportive, they help other people.","start":336.08,"end":341.24,"id":50,"translation":"我们听到了支持，如果有人支持，他们就会帮助其他人。","annotation":"And we heard **supportive**, and if someone is **supportive**, **they** help other **people**.","pronunciation":[{"kind":"连读","text":"and‿if：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Becca","text":"That's it for this episode of Real Easy English. We'll be back next week with another easy English conversation.","start":342.54,"end":348.68,"id":51,"translation":"这就是本期《Real Easy English》的内容。下周我们将再次进行简单的英语对话。","annotation":"That's it for this episode of **Real Easy English**. / We'll be **back** **next** week with another easy English **conversation**.","pronunciation":[{"kind":"连读","text":"That's‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we'll 合为一个音组 /wiːl/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"And if you want more easy English, head to our website to try some of our other easy series– for example, the London Letter Challenge.","start":349.38,"end":356.66,"id":52,"translation":"如果您想要更简单的英语，请访问我们的网站尝试我们其他一些简单的系列 - 例如，伦敦字母挑战赛。","annotation":"And if you want more **easy** English, / **head** to our website to try some of our other easy **series**– for **example**, / the **London Letter Challenge**.","pronunciation":[{"kind":"连读","text":"And‿if：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Go to our website, bbclearningenglish.com.","start":357.0,"end":360.02,"id":53,"translation":"访问我们的网站 bbclearningenglish.com。","annotation":"Go to our website, **bbclearningenglish**.com.","pronunciation":[{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Becca","text":"Goodbye for now!","start":360.3,"end":360.88,"id":54,"translation":"暂时再见了！","annotation":"**Goodbye** for now!","pronunciation":[{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Bye!","start":361.16,"end":361.4,"id":55,"translation":"再见！","annotation":"**Bye**!","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Bye，按意群停顿，不逐词等长朗读"}]}];
+    const ipaByTerm = {"welcome":"ˈwelkʌm","real easy english":"ˈriəl ˈiːzi ˈɪŋɡlɪʃ","real":"ˈriəl","conversations":"kɒnvəˈseɪʃənz","learn":"ˈlɜːn","version":"ˈvɜːʃən","worksheet":"ˈwɜːkʃiːt","bbclearningenglish":"ˌbiːˈbiːˈklɜːnɪnˌdʒɪŋɡlɪʃ","hello becca":"həˈləʊ ˈbekə","thank":"ˈθæŋk","yourself":"jɔːˈself","busy":"ˈbɪzi","week":"ˈwiːk","quite":"ˈkwaɪt","and becca":"ænd ˈbekə","talking":"ˈtɔːkɪŋ","work":"ˈwɜːk","talk":"ˈtɔːk","wrong":"ˈrɒŋ","ooh":"ˈuː","that":"ˈðæt","different":"ˈdɪfrənt","tasks":"ˈtæsks","creative":"kriːˈeɪtɪv","then":"ˈðen","need":"ˈniːd","thought":"ˈθɔːt","focus":"ˈfəʊkəs","ever":"ˈevə","find":"ˈfaɪnd","stressful":"ˈstresfəl","course":"ˈkɔːs","point":"ˈpɔɪnt","career":"kəˈriə","haven't":"ˈhævənt","planned":"ˈplænd","preparation":"ˌprepəˈreɪʃən","yeah":"jeə","lots":"ˈlɒts","projects":"ˈprɒdʒekts","feel":"ˈfiːl","juggle":"ˈdʒʌɡəl","publish":"ˈpʌblɪʃ","podcast":"ˈpɒdkɑːst","pressure":"ˈpreʃə","done":"ˈdʌn","gets":"ˈɡets","stressed":"ˈstrest","easily":"ˈiːzili","seem":"ˈsiːm","calm":"ˈkɑːm","time":"ˈtaɪm","actually":"ˈæktʃuːəli","often":"ˈɒfən","tend":"ˈtend","worrying":"ˈwʌriɪŋ","doesn't":"ˈdʌzənt","issues":"ˈɪʃuːz","only":"ˈəʊnli","stay":"ˈsteɪ","relaxed":"rɪˈlækst","previously":"ˈpriːviəsli","mentioned":"ˈmenʃənd","usually":"ˈjuːʒuːəli","organised":"ˈɔːɡəˌnaɪzd","person":"ˈpɜːsən","times":"ˈtaɪmz","disorganised":"dɪˈsɔːɡəˌnaɪzd","prepare":"prɪˈpeə","situations":"ˌsɪtʃuːˈeɪʃənz","feeling":"ˈfiːlɪŋ","nervous":"ˈnɜːvəs","especially":"ɪˈspeʃəli","closer":"ˈkləʊsə","completing":"kəmˈpliːtɪŋ","late":"ˈleɪt","general":"ˈdʒenərəl","life":"ˈlaɪf","write":"ˈraɪt","down":"ˈdaʊn","likely":"ˈlaɪkli","won't":"ˈwəʊnt","start":"ˈstɑːt","relax":"rɪˈlæks","know":"ˈnəʊ","ticked":"ˈtɪkt","list":"ˈlɪst","to-do":"təˈduː","lists":"ˈlɪsts","helpful":"ˈhelpfəl","kind":"ˈkaɪnd","whole":"ˈhəʊl","plan":"ˈplæn","happens":"ˈhæpənz","deal":"ˈdiːl","comparison":"kəmˈpærɪsən","rest":"ˈrest","team":"ˈtiːm","thankful":"ˈθæŋkfəl","supportive":"səˈpɔːtɪv","finished":"ˈfɪnɪʃt","sure":"ˈʃʊə","goes":"ˈɡəʊz","completely":"kəmˈpliːtli","come":"ˈkʌm","guidance":"ˈɡaɪdəns","anything's":"ˈenɪˌθɪŋz","gone":"ˈɡɒn","audio":"ˈɔːdɪˌəʊ","listeners":"ˈlɪsənəz","crossed":"ˈkrɒst","fingers":"ˈfɪŋɡəz","language":"ˈlæŋɡwɪdʒ","starting":"ˈstɑːtɪŋ","stress":"ˈstres","caused":"ˈkɔːzd","particular":"pəˈtɪkjʊlə","describe":"dɪˈskraɪb","describes":"dɪˈskraɪbz","situation":"ˌsɪtʃuːˈeɪʃən","worried":"ˈwʌrid","example":"eɡˈzæmpəl","worries":"ˈwʌriz","plans":"ˈplænz","prepares":"prɪˈpeəz","opposite":"ˈɒpəˌzɪt","they":"ðeɪ","people":"ˈpiːpəl","back":"ˈbæk","next":"ˈnekst","conversation":"kɒnvəˈseɪʃən","easy":"ˈiːzi","head":"ˈhed","series":"ˈsiəriz","london letter challenge":"ˈlʌndən ˈletə ˈtʃælɪndʒ","goodbye":"ɡʊdˈbaɪ","bye":"ˈbaɪ"};
+    const stressCoreByWord = {"actually":"{ac}tually","and":"{and}","anything's":"{any}thing's","audio":"{au}dio","back":"{back}","bbclearningenglish":"bbclearnin{geng}lish","becca":"{becca}","busy":"{busy}","bye":"{bye}","calm":"{calm}","career":"ca{reer}","caused":"{caused}","challenge":"{chal}lenge","closer":"{closer}","come":"{come}","comparison":"com{par}ison","completely":"com{plete}ly","completing":"com{plet}ing","conversation":"conver{sa}tion","conversations":"conver{sa}tions","course":"{course}","creative":"cre{at}ive","crossed":"{crossed}","deal":"{deal}","describe":"de{scribe}","describes":"de{scribes}","different":"{dif}ferent","disorganised":"dis{or}ganised","doesn't":"{does}n't","done":"{done}","down":"{down}","easily":"{eas}ily","easy":"{easy}","english":"{eng}lish","especially":"es{pe}cially","ever":"{ever}","example":"ex{am}ple","feel":"{feel}","feeling":"{feel}ing","find":"{find}","fingers":"{fin}gers","finished":"{fin}ished","focus":"{fo}cus","general":"{gen}eral","gets":"{gets}","goes":"{goes}","gone":"{gone}","goodbye":"good{bye}","guidance":"{guid}ance","happens":"{hap}pens","haven't":"{have}n't","head":"{head}","hello":"{hello}","helpful":"{help}ful","issues":"{is}sues","juggle":"{juggle}","kind":"{kind}","know":"{know}","language":"{lan}guage","late":"{late}","learn":"{learn}","letter":"{let}ter","life":"{life}","likely":"{likely}","list":"{list}","listeners":"{listen}ers","lists":"{lists}","london":"{lon}don","lots":"{lots}","mentioned":"{men}tioned","need":"{need}","nervous":"{ner}vous","next":"{next}","often":"{of}ten","only":"{only}","ooh":"{ooh}","opposite":"{op}posite","organised":"{or}ganised","particular":"par{tic}ular","people":"{people}","person":"{per}son","plan":"{plan}","planned":"{planned}","plans":"{plans}","podcast":"{pod}cast","point":"{point}","preparation":"prepar{a}tion","prepare":"pre{pare}","prepares":"pre{pares}","pressure":"{pres}sure","previously":"{pre}viously","projects":"{pro}jects","publish":"{pub}lish","quite":"{quite}","real":"{real}","relax":"re{lax}","relaxed":"re{laxed}","rest":"{rest}","seem":"{seem}","series":"{series}","situation":"situ{a}tion","situations":"situ{a}tions","start":"{start}","starting":"{start}ing","stay":"{stay}","stress":"{stress}","stressed":"{stressed}","stressful":"{stress}ful","supportive":"sup{port}ive","sure":"{sure}","talk":"{talk}","talking":"{talk}ing","tasks":"{tasks}","team":"{team}","tend":"{tend}","thank":"{thank}","thankful":"{thank}ful","that":"{that}","then":"{then}","they":"{they}","thought":"{thought}","ticked":"{ticked}","time":"{time}","times":"{times}","to-do":"{to}-{do}","usually":"{usu}ally","version":"{ver}sion","week":"{week}","welcome":"{wel}come","whole":"{whole}","won't":"{won't}","work":"{work}","worksheet":"{work}sheet","worried":"{wor}ried","worries":"{wor}ries","worrying":"{wor}rying","write":"{write}","wrong":"{wrong}","yeah":"{yeah}","yourself":"your{self}"};
+    const app = document.getElementById('app');
+    const audio = document.getElementById('audio');
+    const transcript = document.getElementById('transcript');
+    const playButton = document.getElementById('play');
+    const progress = document.getElementById('progress');
+    const elapsed = document.getElementById('elapsed');
+    const duration = document.getElementById('duration');
+    const autoscroll = document.getElementById('autoscroll');
+    let activeIndex = -1;
+    let scrubbing = false;
+
+    const formatTime = seconds => {
+      const safe = Number.isFinite(seconds) ? Math.max(0, Math.floor(seconds)) : 0;
+      return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
+    };
+
+    function appendStressTerm(term, container, studyOverrides = {}) {
+      const stress = document.createElement('span');
+      stress.className = 'stress';
+      const orthography = document.createElement('span');
+      orthography.className = 'stress-label';
+      term.split(/([A-Za-z]+(?:['-][A-Za-z]+)*|\d+)/g).filter(Boolean).forEach(token => {
+        const pattern = studyOverrides.stress?.[token.toLowerCase()] || stressCoreByWord[token.toLowerCase()];
+        if (!pattern) {
+          if (/^[A-Za-z0-9]/.test(token)) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = token;
+            orthography.append(core);
+          } else {
+            orthography.append(token);
+          }
+          return;
+        }
+        let offset = 0;
+        pattern.split(/(\{[^{}]+\})/g).filter(Boolean).forEach(piece => {
+          const raw = piece.startsWith('{') && piece.endsWith('}') ? piece.slice(1, -1) : piece;
+          const original = token.slice(offset, offset + raw.length);
+          offset += raw.length;
+          if (piece.startsWith('{') && piece.endsWith('}')) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = original;
+            orthography.append(core);
+          } else {
+            orthography.append(original);
+          }
+        });
+      });
+      const ipa = document.createElement('span');
+      ipa.className = 'ipa';
+      ipa.textContent = `/${studyOverrides.ipa?.[term.toLowerCase()] || ipaByTerm[term.toLowerCase()] || ''}/`;
+      stress.append(orthography, ipa);
+      container.append(stress);
+    }
+
+    function renderGroup(group, container, arrow, studyOverrides = {}) {
+      const wrapper = document.createElement('span');
+      wrapper.className = 'thought-group';
+      group.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).forEach(part => {
+        const span = document.createElement('span');
+        if (part.startsWith('**') && part.endsWith('**')) {
+          appendStressTerm(part.slice(2, -2), wrapper, studyOverrides);
+        } else {
+          span.textContent = part;
+          wrapper.appendChild(span);
+        }
+      });
+      const intonation = document.createElement('span');
+      intonation.className = 'intonation';
+      intonation.textContent = arrow;
+      wrapper.appendChild(intonation);
+      container.appendChild(wrapper);
+    }
+
+    function renderAnnotation(annotation, container, studyOverrides = {}) {
+      const groups = annotation.split(' / ');
+      const yesNoQuestion = /^(is|are|do|does|did|can|could|would|will|have|has|was|were)\b/i.test(annotation);
+      groups.forEach((group, index) => {
+        const last = index === groups.length - 1;
+        renderGroup(group, container, last && annotation.trim().endsWith('?') && yesNoQuestion ? '↗' : last ? '↘' : '↗', studyOverrides);
+        if (!last) {
+          const slash = document.createElement('span');
+          slash.className = 'slash';
+          slash.textContent = '/';
+          container.appendChild(slash);
+        }
+      });
+    }
+
+    captions.forEach((caption, index) => {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'caption';
+      row.dataset.index = index;
+      row.dataset.line = String(index + 1).padStart(2, '0');
+      row.setAttribute('role', 'listitem');
+      row.setAttribute('aria-label', `${caption.speaker}, ${formatTime(caption.start)}. ${caption.text} 。翻译：${caption.translation}`);
+
+      const meta = document.createElement('div');
+      meta.className = 'cue-meta';
+      const speaker = document.createElement('span');
+      speaker.className = 'speaker';
+      speaker.textContent = '@' + caption.speaker.replaceAll(' ', '_');
+      const stamp = document.createElement('span');
+      stamp.className = 'stamp';
+      stamp.textContent = `[${formatTime(caption.start)}]`;
+      meta.append(speaker, stamp);
+
+      const body = document.createElement('div');
+      body.className = 'cue-body';
+      const english = document.createElement('div');
+      english.className = 'english';
+      renderAnnotation(caption.annotation, english, caption.studyOverrides || {});
+      const translation = document.createElement('div');
+      translation.className = 'translation';
+      translation.textContent = caption.translation;
+      const pronunciation = document.createElement('div');
+      pronunciation.className = 'pronunciation';
+      caption.pronunciation.forEach(tip => {
+        const item = document.createElement('span');
+        item.className = 'pron-tip';
+        const label = document.createElement('b');
+        label.textContent = tip.kind;
+        item.append(label, tip.text);
+        pronunciation.appendChild(item);
+      });
+      body.append(english, pronunciation, translation);
+      row.append(meta, body);
+
+      row.addEventListener('click', () => {
+        audio.currentTime = caption.start + .01;
+        setActive(index, false);
+        update();
+        if (audio.paused) audio.play().catch(() => {});
+      });
+      transcript.appendChild(row);
+    });
+
+    const rows = [...transcript.querySelectorAll('.caption')];
+
+    function indexAt(time) {
+      if (time < captions[0].start) return 0;
+      let low = 0, high = captions.length - 1, answer = 0;
+      while (low <= high) {
+        const mid = (low + high) >> 1;
+        if (captions[mid].start <= time) { answer = mid; low = mid + 1; }
+        else high = mid - 1;
+      }
+      return answer;
+    }
+
+    function setActive(index, shouldScroll = true) {
+      if (index === activeIndex) return;
+      if (activeIndex >= 0) {
+        rows[activeIndex].classList.remove('active');
+        rows[activeIndex].removeAttribute('aria-current');
+      }
+      activeIndex = index;
+      rows[index].classList.add('active');
+      rows[index].setAttribute('aria-current', 'true');
+      if (shouldScroll && autoscroll.checked) rows[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function update() {
+      const time = audio.currentTime || 0;
+      if (!scrubbing) progress.value = time;
+      elapsed.textContent = formatTime(time);
+      setActive(indexAt(time));
+      if (!audio.paused) requestAnimationFrame(update);
+    }
+
+    playButton.addEventListener('click', () => audio.paused ? audio.play().catch(() => {}) : audio.pause());
+    document.getElementById('back').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 10); update(); });
+    document.getElementById('forward').addEventListener('click', () => { audio.currentTime = Math.min(audio.duration || 367.492, audio.currentTime + 10); update(); });
+    document.getElementById('speed').addEventListener('change', event => { audio.playbackRate = Number(event.target.value); });
+    progress.addEventListener('input', () => { scrubbing = true; elapsed.textContent = formatTime(Number(progress.value)); });
+    progress.addEventListener('change', () => { audio.currentTime = Number(progress.value); scrubbing = false; update(); });
+    document.getElementById('translationToggle').addEventListener('change', event => app.classList.toggle('hide-translation', !event.target.checked));
+    document.getElementById('studyToggle').addEventListener('change', event => app.classList.toggle('hide-study', !event.target.checked));
+    audio.addEventListener('loadedmetadata', () => { progress.max = audio.duration; duration.textContent = formatTime(audio.duration); });
+    audio.addEventListener('play', () => { app.classList.add('is-playing'); playButton.textContent = '❚❚'; playButton.setAttribute('aria-label', '暂停'); requestAnimationFrame(update); });
+    audio.addEventListener('pause', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; playButton.setAttribute('aria-label', '播放'); update(); });
+    audio.addEventListener('ended', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; });
+    document.addEventListener('keydown', event => {
+      if (['INPUT','SELECT','BUTTON'].includes(document.activeElement.tagName)) return;
+      if (event.code === 'Space') { event.preventDefault(); audio.paused ? audio.play().catch(() => {}) : audio.pause(); }
+      if (event.key === 'ArrowLeft') { audio.currentTime = Math.max(0, audio.currentTime - 5); update(); }
+      if (event.key === 'ArrowRight') { audio.currentTime = Math.min(audio.duration || 367.492, audio.currentTime + 5); update(); }
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    function syncThemeButton() {
+      const light = document.documentElement.dataset.theme === 'light';
+      themeToggle.textContent = light ? '☾ 深色' : '☀ 浅色';
+      themeToggle.setAttribute('aria-pressed', String(light));
+    }
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('ell-theme', next); } catch (_) {}
+      syncThemeButton();
+    });
+    syncThemeButton();
+
+    setActive(0, false);
+    update();
+  </script>
+</body>
+</html>

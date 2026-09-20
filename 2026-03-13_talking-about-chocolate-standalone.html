@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    (() => { try { document.documentElement.dataset.theme = localStorage.getItem('ell-theme') || 'dark'; } catch (_) { document.documentElement.dataset.theme = 'dark'; } })();
+  </script>
+  <title>Talking about chocolate · 双语精听 · English Listening Lab</title>
+  <style>
+    :root {
+      --paper: #070a0f;
+      --surface: #0d1117;
+      --surface-2: #111824;
+      --ink: #d8e6f3;
+      --muted: #75849a;
+      --line: #222d3b;
+      --teal: #42d3ff;
+      --teal-soft: #112332;
+      --orange: #ff8b4c;
+      --orange-soft: #2a1b17;
+      --purple: #c792ea;
+      --pink: #ff5ca8;
+      --green: #9be564;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .44);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% -5%, rgba(66,211,255,.1), transparent 31rem),
+        radial-gradient(circle at 92% 15%, rgba(199,146,234,.09), transparent 28rem),
+        var(--paper);
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+    }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .18; background-image: linear-gradient(rgba(91,112,139,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(91,112,139,.11) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
+    button, input, select { font: inherit; }
+    button, select { color: inherit; }
+    .page { position: relative; z-index: 1; width: min(1040px, calc(100% - 36px)); margin: 0 auto; padding: 34px 0 70px; }
+
+    .site-head { overflow: hidden; margin-bottom: 20px; padding: 0 0 30px; border: 1px solid var(--line); border-radius: 14px; background: rgba(13,17,23,.9); box-shadow: var(--shadow); }
+    .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 11px 15px; border-bottom: 1px solid var(--line); background: #090d13; }
+    .brand { display: flex; align-items: center; gap: 13px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    .window-dots { display: flex; gap: 7px; }
+    .window-dots i { width: 10px; height: 10px; border-radius: 50%; }
+    .window-dots i:nth-child(1) { background: #ff5f57; }
+    .window-dots i:nth-child(2) { background: #febc2e; }
+    .window-dots i:nth-child(3) { background: #28c840; }
+    .file-tab { color: #a9b7c6; }
+    .file-tab::before { content: "<>"; margin-right: 8px; color: var(--orange); font-weight: 850; }
+    .meta { color: #5f6d80; font-size: 11px; font-variant-numeric: tabular-nums; }
+    h1 { margin: 30px 28px 9px; font-size: clamp(26px, 5vw, 50px); font-weight: 650; letter-spacing: -.045em; line-height: 1.3; }
+    .code-keyword { color: var(--purple); }
+    .code-var { color: var(--teal); }
+    .code-op, .code-punct { color: #7f8ea3; }
+    .code-string { color: var(--green); }
+    .cn-title { margin: 0 28px; color: var(--green); font-size: clamp(16px, 2.2vw, 21px); font-weight: 650; letter-spacing: .01em; }
+    .cn-title::before { content: "// "; color: #59687b; }
+    .intro { max-width: 780px; margin: 17px 28px 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .intro::before { content: "/* "; color: var(--purple); }
+    .intro::after { content: " */"; color: var(--purple); }
+
+    .player {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto auto auto minmax(160px,1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 18px;
+      border: 1px solid #283647;
+      border-radius: 12px;
+      background: rgba(13,17,23,.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .round, .play { display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer; transition: transform .18s, background .18s; }
+    .round:hover, .play:hover { transform: translateY(-1px); }
+    .round { width: 38px; height: 38px; color: var(--teal); background: #111b27; font-size: 10px; font-weight: 850; }
+    .play { width: 48px; height: 48px; color: #071015; background: var(--teal); font-size: 16px; box-shadow: 0 0 24px rgba(66,211,255,.22); }
+    .is-playing .play { animation: pulse 1.8s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 24px rgba(66,211,255,.2), 0 0 0 11px rgba(66,211,255,0); } }
+    .timeline { min-width: 0; display: grid; grid-template-columns: minmax(90px,1fr) 93px; align-items: center; gap: 13px; }
+    .progress { width: 100%; height: 5px; margin: 0; accent-color: var(--teal); cursor: pointer; }
+    .time { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .time strong { color: var(--green); }
+    .speed { height: 36px; padding: 0 11px; border: 1px solid #2a3747; border-radius: 7px; background: #0a0f16; font-size: 11px; font-weight: 750; cursor: pointer; }
+
+    .study-tools { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin: 18px 0 16px; padding: 15px 18px; border: 1px solid var(--line); border-radius: 10px; background: rgba(13,17,23,.88); }
+    .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 17px; color: var(--muted); font-size: 12px; }
+    .legend b { color: var(--purple); font-weight: 800; }
+    .legend-stress { color: var(--orange); font-weight: 800; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+    .legend-slash { color: var(--pink); font-size: 17px; font-weight: 900; }
+    .toggles { display: flex; align-items: center; gap: 13px; }
+    .toggle { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .toggle input { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; }
+
+    .transcript-title { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 34px 4px 13px; }
+    .transcript-title h2 { margin: 0; color: var(--teal); font-size: 24px; font-weight: 750; letter-spacing: -.02em; }
+    .transcript-title h2::before { content: "// "; color: #4c5a6d; }
+    .transcript-title span { color: var(--muted); font-size: 11px; }
+    .transcript { display: grid; gap: 12px; }
+    .caption {
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 148px minmax(0,1fr);
+      gap: 22px;
+      padding: 24px 25px 24px 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(13,17,23,.9);
+      text-align: left;
+      cursor: pointer;
+      scroll-margin-top: 116px;
+      transition: border-color .22s, background .22s, box-shadow .22s, transform .22s;
+    }
+    .caption:hover { border-color: #35506a; background: #0f1620; transform: translateY(-1px); }
+    .caption.active { border-color: rgba(66,211,255,.62); background: var(--surface-2); box-shadow: 0 0 0 1px rgba(66,211,255,.08), 0 18px 42px rgba(0,0,0,.32), 0 0 28px rgba(66,211,255,.06); }
+    .caption.active::before { content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px; width: 4px; border-radius: 0 6px 6px 0; background: var(--teal); box-shadow: 0 0 16px rgba(66,211,255,.45); }
+    .caption::after { content: attr(data-line); position: absolute; left: 13px; top: 27px; color: #3d4a5c; font-size: 10px; font-variant-numeric: tabular-nums; }
+    .cue-meta { padding-top: 4px; }
+    .speaker { display: block; overflow: hidden; color: var(--teal); font-size: 10px; font-weight: 850; letter-spacing: .05em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+    .stamp { display: block; margin-top: 7px; color: var(--purple); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .cue-body { min-width: 0; }
+    .english { color: #d6deeb; font-size: clamp(18px, 2.2vw, 23px); line-height: 1.72; letter-spacing: -.025em; }
+    .thought-group { display: inline; }
+    .stress { color: var(--orange); font-weight: 800; text-shadow: 0 0 16px rgba(255,139,76,.12); }
+    .stress-label { text-decoration: underline; text-decoration-color: #ff5f56; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .stress-core { color: #ffe66d; text-decoration-color: #ffe66d; text-shadow: 0 0 13px rgba(255,230,109,.2); }
+    .ipa { margin-left: .38em; color: var(--purple); font-size: .68em; font-weight: 650; letter-spacing: 0; overflow-wrap: anywhere; white-space: normal; }
+    .intonation { display: inline-block; margin-left: .22em; color: var(--teal); font-size: .72em; font-weight: 900; text-decoration: none; transform: translateY(-.06em); }
+    .slash { display: inline-block; margin: 0 .28em; color: var(--pink); font-size: .88em; font-weight: 900; opacity: .92; }
+    .pronunciation { display: flex; flex-wrap: wrap; gap: 7px 13px; margin-top: 14px; padding: 11px 12px; border: 1px solid #233043; border-left: 3px solid var(--purple); border-radius: 7px; color: #9fb1c6; background: #0a1017; font-size: 13px; line-height: 1.65; }
+    .pronunciation::before { content: "// phonetics"; color: var(--purple); font-size: 10px; font-weight: 850; letter-spacing: .04em; }
+    .pron-tip { display: inline; }
+    .pron-tip b { margin-right: 5px; color: var(--teal); font-weight: 850; }
+    .translation { margin-top: 15px; padding-top: 13px; border-top: 1px dashed #273242; color: var(--green); font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", monospace; font-size: 16px; line-height: 1.85; }
+    .translation::before { content: "// zh"; display: inline-grid; place-items: center; width: 47px; height: 22px; margin-right: 9px; border-radius: 4px; color: var(--teal); background: var(--teal-soft); font-size: 9px; font-weight: 850; vertical-align: 1px; }
+    .hide-translation .translation { display: none; }
+    .hide-study .stress { color: inherit; font-weight: inherit; text-shadow: none; }
+    .hide-study .stress-label { text-decoration: none; }
+    .hide-study .stress-core { color: inherit; text-shadow: none; }
+    .hide-study .ipa, .hide-study .intonation, .hide-study .slash, .hide-study .pronunciation { display: none; }
+    .footer { margin: 30px 4px 0; color: #58677b; font-size: 10px; line-height: 1.7; }
+
+    @media (max-width: 680px) {
+      .page { width: min(100% - 20px, 560px); padding-top: 24px; }
+      .site-head { padding-inline: 3px; }
+      .brand-row .meta { display: none; }
+      h1 { margin: 23px 18px 8px; font-size: clamp(23px, 7vw, 34px); }
+      .cn-title, .intro { margin-left: 18px; margin-right: 18px; }
+      .player { top: 7px; grid-template-columns: auto auto minmax(70px,1fr) auto; gap: 7px; padding: 11px; border-radius: 17px; }
+      #forward { display: none; }
+      .round { width: 36px; height: 36px; }
+      .play { width: 45px; height: 45px; }
+      .timeline { grid-template-columns: minmax(48px,1fr) 64px; gap: 7px; }
+      .time { font-size: 9px; }
+      .speed { width: 50px; padding: 0 4px; }
+      .study-tools { display: block; padding: 16px; }
+      .toggles { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
+      .transcript-title { margin-top: 27px; }
+      .caption { grid-template-columns: 1fr; gap: 10px; padding: 20px 17px 20px 39px; scroll-margin-top: 91px; }
+      .caption::after { left: 11px; top: 22px; }
+      .cue-meta { display: flex; align-items: center; gap: 9px; padding-top: 0; }
+      .speaker, .stamp { display: inline; margin: 0; }
+      .english { font-size: 21px; line-height: 1.52; }
+      .ipa { font-size: .58em; }
+      .pronunciation { gap: 6px 10px; font-size: 13px; }
+      .translation { font-size: 16px; line-height: 1.85; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+
+    .home-link, .theme-toggle { color: var(--teal); }
+    .home-link { margin-left: 3px; font-size: 11px; font-weight: 800; text-decoration: none; }
+    .home-link:hover { text-decoration: underline; }
+    .theme-toggle { min-height: 34px; padding: 0 11px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-2); font-size: 11px; font-weight: 800; cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--teal); }
+    html[data-theme="light"] {
+      --paper: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef7fb;
+      --ink: #182334;
+      --muted: #64748b;
+      --line: #d8e1eb;
+      --teal: #007fa3;
+      --teal-soft: #dff5fb;
+      --orange: #c45116;
+      --orange-soft: #fff0e7;
+      --purple: #7c3fb1;
+      --pink: #c72c73;
+      --green: #357a16;
+      --shadow: 0 18px 52px rgba(30, 55, 80, .13);
+    }
+    html[data-theme="light"] body {
+      background: radial-gradient(circle at 10% -5%, rgba(0,127,163,.10), transparent 31rem), radial-gradient(circle at 92% 15%, rgba(124,63,177,.08), transparent 28rem), var(--paper);
+    }
+    html[data-theme="light"] body::before { opacity: .34; background-image: linear-gradient(rgba(72,104,135,.10) 1px, transparent 1px), linear-gradient(90deg, rgba(72,104,135,.10) 1px, transparent 1px); }
+    html[data-theme="light"] .site-head,
+    html[data-theme="light"] .study-tools,
+    html[data-theme="light"] .caption { background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .brand-row { background: #edf3f8; }
+    html[data-theme="light"] .file-tab { color: #496176; }
+    html[data-theme="light"] .meta { color: #718096; }
+    html[data-theme="light"] .player { border-color: #cbd8e5; background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .round { color: var(--teal); background: #e6f3f7; }
+    html[data-theme="light"] .play { color: #fff; }
+    html[data-theme="light"] .speed { border-color: #cbd8e5; background: #f7fafc; }
+    html[data-theme="light"] .caption:hover { border-color: #88aec2; background: #f8fbfd; }
+    html[data-theme="light"] .caption.active { background: #edf8fc; box-shadow: 0 0 0 1px rgba(0,127,163,.07), 0 16px 36px rgba(35,70,95,.12); }
+    html[data-theme="light"] .english { color: #1b2a3d; }
+    html[data-theme="light"] .pronunciation { border-color: #d4ddea; border-left-color: var(--purple); color: #526a7e; background: #f7f9fc; }
+    html[data-theme="light"] .translation { border-top-color: #d7e0e8; }
+    html[data-theme="light"] .footer { color: #697b8c; }
+
+  </style>
+</head>
+<body>
+  <main class="page" id="app">
+    <header class="site-head">
+      <div class="brand-row">
+        <div class="brand"><span class="window-dots"><i></i><i></i><i></i></span><span class="file-tab">transcript.html</span><a class="home-link" href="index.html">← 全部课程</a></div>
+        <div class="meta">UTF-8 · LF · 13 Mar 2026 · 05:57</div>
+      </div>
+      <h1><span class="code-keyword">const</span> <span class="code-var">episode</span> <span class="code-op">=</span> <span class="code-string">"Talking about chocolate"</span><span class="code-punct">;</span></h1>
+      <p class="cn-title">谈论巧克力</p>
+      <p class="intro">双语精听稿：跟随音频高亮当前句，用重点词、词重音和意群节奏辅助跟读。点击任意一句可从对应时间开始播放。</p>
+    </header>
+
+    <audio id="audio" preload="metadata" src="audio-2026-03-13_talking-about-chocolate.mp3"></audio>
+    <section class="player" aria-label="音频播放器">
+      <button class="round" id="back" type="button" aria-label="后退 10 秒">−10</button>
+      <button class="play" id="play" type="button" aria-label="播放">▶</button>
+      <button class="round" id="forward" type="button" aria-label="前进 10 秒">+10</button>
+      <div class="timeline">
+        <input class="progress" id="progress" type="range" min="0" max="357.941" step="0.01" value="0" aria-label="音频进度">
+        <div class="time"><strong id="elapsed">0:00</strong> / <span id="duration">5:57</span></div>
+      </div>
+      <select class="speed" id="speed" aria-label="播放速度">
+        <option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+      </select>
+    </section>
+
+    <section class="study-tools" aria-label="学习标记">
+      <div class="legend"><b>学习标记</b><span><span class="legend-stress">重点词</span> + 英音 IPA</span><span><span class="legend-slash">↗ / ↘</span> 意群语调</span></div>
+      <div class="toggles">
+        <label class="toggle"><input id="translationToggle" type="checkbox" checked> 中文翻译</label>
+        <label class="toggle"><input id="studyToggle" type="checkbox" checked> 重音/意群</label>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅主题">☀ 浅色</button>
+        <label class="toggle"><input id="autoscroll" type="checkbox" checked> 自动滚动</label>
+      </div>
+    </section>
+
+    <div class="transcript-title"><h2>逐句精听</h2><span>61 句 · 点击跳转</span></div>
+    <section class="transcript" id="transcript" role="list" aria-label="同步双语字幕"></section>
+    <footer class="footer">文稿及节目归属 BBC Learning English。原文说明该文稿并非逐字稿；中文翻译与词重音/意群标注为精听学习辅助，音标、重音与语调箭头为学习参考；音频开场和附加内容另行标明。<br>Real Easy English · 2026-03-13 · <a style="color:var(--teal)" href="https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260313" target="_blank" rel="noopener">BBC 官方来源</a> · <a style="color:var(--purple)" href="index.html">合集目录</a></footer>
+  </main>
+
+  <script>
+    const captions = [{"speaker":"Neil","text":"Hello and welcome to Real Easy English. In this podcast, we have real conversations in easy English to help with your listening. I'm Neil.","start":0.0,"end":9.9,"id":0,"translation":"您好，欢迎来到 Real Easy English。在这个播客中，我们用简单的英语进行真实对话，以帮助您听力。我是Neil。","annotation":"Hello and **welcome** to **Real Easy English**. / In this podcast, we have real **conversations** in easy English to **help** with your **listening**. I'm Neil.","pronunciation":[{"kind":"连读","text":"Real‿Easy：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"And I'm Georgie. Remember, you can watch a video version of this podcast on our website, bbclearningenglish.com.","start":10.26,"end":18.96,"id":1,"translation":"我是Georgie。请记住，您可以在我们的网站 bbclearningenglish.com 上观看此播客的视频版本。","annotation":"And I'm Georgie. **Remember**, you can watch a video **version** of this podcast on our website, **bbclearningenglish**.com.","pronunciation":[{"kind":"连读","text":"And‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"Hi Georgie. How are you?","start":25.26,"end":26.96,"id":2,"translation":"嗨Georgie。你好吗？","annotation":"**Hi Georgie**. How are you?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Hi Georgie，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"I'm very well thank you, Neil. How are you?","start":27.2,"end":29.62,"id":3,"translation":"我很好，谢谢你，Neil。你好吗？","annotation":"I'm very well **thank** you, Neil. How are you?","pronunciation":[{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"}]},{"speaker":"Neil","text":"I'm pretty good.","start":29.88,"end":30.41,"id":4,"translation":"我很好。","annotation":"I'm **pretty** good.","pronunciation":[{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"}]},{"speaker":"Georgie","text":"And what are we talking about in this episode?","start":30.68,"end":33.28,"id":5,"translation":"我们在这一集中谈论什么？","annotation":"And what are we **talking** about in this episode?","pronunciation":[{"kind":"连读","text":"what‿are：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"So today, Georgie, we're talking about chocolate.","start":34.2,"end":37.82,"id":6,"translation":"所以今天，Georgie，我们谈论巧克力。","annotation":"So today, Georgie, we're **talking** about **chocolate**.","pronunciation":[{"kind":"连读","text":"talking‿about：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we're 合为一个音组 /wɪə/"}]},{"speaker":"Georgie","text":"Ooh, I love chocolate.","start":38.3,"end":39.86,"id":7,"translation":"哦，我喜欢巧克力。","annotation":"Ooh, I **love** **chocolate**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 love，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"I know, that's my next question. Do you like chocolate?","start":40.28,"end":43.6,"id":8,"translation":"我知道，这是我的下一个问题。你喜欢巧克力吗？","annotation":"I **know**, that's my **next** question. / Do you like **chocolate**?","pronunciation":[{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"}]},{"speaker":"Georgie","text":"I do. I think you and everyone else in the office knows that I like chocolate a lot.","start":44.68,"end":51.06,"id":9,"translation":"我愿意。我想你和办公室里的其他人都知道我非常喜欢巧克力。","annotation":"I do. I think you and **everyone** else in the **office** **knows** that I like chocolate a lot.","pronunciation":[{"kind":"连读","text":"and‿everyone：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"My dad always jokes when I go home that if they have any chocolate in the house, it will disappear if I go home,","start":51.7,"end":59.72,"id":10,"translation":"当我回家时，我爸爸总是开玩笑说，如果家里有巧克力，我一回家它就会消失，","annotation":"My dad always **jokes** when I go **home** that if **they** have any chocolate in the house, / it will **disappear** if I go **home**,","pronunciation":[{"kind":"连读","text":"dad‿always：尾辅音可自然衔接后词元音"}]},{"speaker":"Georgie","text":"because I'm always looking in the fridge and the cupboards to find it. What about you? Are you a chocolate fan?","start":59.72,"end":66.58,"id":11,"translation":"因为我总是在冰箱和橱柜里寻找它。你呢？你是巧克力迷吗？","annotation":"because I'm always **looking** in the **fridge** and the **cupboards** to find it. / What about you? Are you a **chocolate** fan?","pronunciation":[{"kind":"连读","text":"because‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Neil","text":"I do like chocolate, yeah. I don't think about chocolate all the time, or I don't feel like I need to have chocolate,","start":67.14,"end":76.78,"id":12,"translation":"我确实喜欢巧克力，是的。我不会一直想着巧克力，或者说我不觉得我需要吃巧克力，","annotation":"I do like **chocolate**, **yeah**. / I don't think about **chocolate** all the **time**, / or I don't **feel** like I **need** to have **chocolate**,","pronunciation":[{"kind":"连读","text":"think‿about：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Neil","text":"but I do like it and when I have it, I really enjoy it.","start":76.96,"end":80.7,"id":13,"translation":"但我确实喜欢它，当我拥有它时，我真的很享受它。","annotation":"but I do **like** it and when I have it, / I really **enjoy** it.","pronunciation":[{"kind":"连读","text":"but‿I：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Mmm. What kind of chocolate do you like?","start":81.02,"end":82.98,"id":14,"translation":"嗯。你喜欢什么类型的巧克力？","annotation":"Mmm. What **kind** of **chocolate** do you like?","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Neil","text":"Well, I like really dark chocolate– the one that's kind of bitter.","start":82.98,"end":87.58,"id":15,"translation":"嗯，我真的很喜欢黑巧克力——那种有点苦的。","annotation":"Well, I like really **dark** chocolate– the one that's **kind** of **bitter**.","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah.","start":88.89,"end":88.89,"id":16,"translation":"是的。","annotation":"**Yeah**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"Almost too bitter. I think that's a really, really nice one. You can have a... you only need a really small amount.","start":90.2,"end":98.1,"id":17,"translation":"几乎太苦了。我认为这真的非常非常好。你可以拥有……你只需要很少的量。","annotation":"Almost too **bitter**. I think that's a really, really **nice** one. / You can **have** a... / you **only** need a really **small** **amount**.","pronunciation":[{"kind":"连读","text":"that's‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Neil","text":"So, you are famous in your house for eating chocolate, but how often do you eat chocolate?","start":98.68,"end":105.46,"id":18,"translation":"那么，您在家里因吃巧克力而闻名，但是您多久吃一次巧克力呢？","annotation":"So, you are **famous** in your house for **eating** **chocolate**, / but how **often** do you eat **chocolate**?","pronunciation":[{"kind":"连读","text":"famous‿in：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Well, I have a terrible habit of eating chocolate after most meals. Maybe breakfast, I avoid chocolate...?","start":106.7,"end":115.42,"id":19,"translation":"嗯，我有一个很糟糕的习惯，就是在大多数饭后吃巧克力。也许早餐，我不吃巧克力……？","annotation":"Well, I have a **terrible** **habit** of eating chocolate after most **meals**. / **Maybe** **breakfast**, I **avoid** chocolate...?","pronunciation":[{"kind":"连读","text":"have‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"That's a lie actually! This morning, I had a chocolate croissant, so forget that!","start":115.7,"end":120.3,"id":20,"translation":"这其实是一个谎言！ This morning, I had a chocolate croissant, so forget that!","annotation":"That's a lie **actually**! / This **morning**, I had a chocolate **croissant**, so **forget** that!","pronunciation":[{"kind":"连读","text":"That's‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"After something savoury, I usually want something sweet and so I usually have a chocolate bar after lunch.","start":121.06,"end":128.16,"id":21,"translation":"吃过咸味的东西后，我通常想要吃点甜的东西，所以我通常在午餐后吃一块巧克力。","annotation":"After something **savoury**, I **usually** want something sweet and so I **usually** have a chocolate bar after **lunch**.","pronunciation":[{"kind":"连读","text":"sweet‿and：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Then after dinner, the same thing happens. I get a sugar craving and need something sweet.","start":128.74,"end":135.9,"id":22,"translation":"晚饭后，同样的事情又发生了。我对糖有强烈的渴望，需要一些甜的东西。","annotation":"**Then** after **dinner**, the same thing **happens**. / I get a **sugar** **craving** and need something **sweet**.","pronunciation":[{"kind":"连读","text":"Then‿after：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"A sugar craving means that you really want it. You really need it. Your body is telling you that you want it.","start":136.14,"end":142.16,"id":23,"translation":"对糖的渴望意味着你真的想要它。你真的需要它。你的身体正在告诉你你想要它。","annotation":"A **sugar** **craving** means **that** you really want it. / You really **need** it. / Your **body** is **telling** you **that** you want it.","pronunciation":[{"kind":"连读","text":"want‿it：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Neil","text":"So, it sounds to me like you couldn't give up chocolate.","start":142.5,"end":146.16,"id":24,"translation":"所以，在我看来，你不能放弃巧克力。","annotation":"So, it **sounds** to me like you **couldn't** **give up** chocolate.","pronunciation":[{"kind":"连读","text":"give‿up：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Hmm. I think about it sometimes– giving up chocolate, which means to stop eating it completely.","start":146.97,"end":153.1,"id":25,"translation":"嗯。我有时会想——放弃巧克力，这意味着完全停止吃它。","annotation":"Hmm. I think about it sometimes– **giving** up chocolate, which means to stop **eating** it **completely**.","pronunciation":[{"kind":"连读","text":"think‿about：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"But I think a more realistic option for me would be to cut down on chocolate– so eat less of it,","start":153.8,"end":162.44,"id":26,"translation":"但我认为对我来说更现实的选择是减少巧克力的摄入量——所以少吃一点，","annotation":"But I think a more **realistic** **option** for me would be to **cut down on** chocolate– so eat less of it,","pronunciation":[{"kind":"连读","text":"But‿I：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"reduce my chocolate consumption. I just can't imagine not eating chocolate.","start":162.68,"end":169.34,"id":27,"translation":"减少我的巧克力消耗。我简直无法想象不吃巧克力会怎样。","annotation":"**reduce** my **chocolate** **consumption**. / I just **can't** **imagine** not **eating** chocolate.","pronunciation":[{"kind":"连读","text":"can't‿imagine：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"can't 合为一个音组 /kɑːnt/"},{"kind":"弱读","text":"非重读时 can 可弱读为 /kən/；强调时使用强读"}]},{"speaker":"Georgie","text":"It would take away so much enjoyment from my life. And Neil, life is short.","start":169.54,"end":175.88,"id":28,"translation":"It would take away so much enjoyment from my life.Neil，生命短暂。","annotation":"It would **take** **away** so much **enjoyment** from my life. / **And Neil**, **life** is **short**.","pronunciation":[{"kind":"连读","text":"take‿away：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"There was actually a really sad look in your eyes when you were talking about giving up chocolate, so...","start":176.56,"end":183.07,"id":29,"translation":"当你说要放弃巧克力的时候，你的眼里其实有一种非常悲伤的表情，所以……","annotation":"There was actually a really sad **look** in your **eyes** when you were talking about **giving** up chocolate, so...","pronunciation":[{"kind":"连读","text":"was‿actually：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"So, obviously I like chocolate a lot.","start":183.42,"end":190.86,"id":30,"translation":"所以，显然我非常喜欢巧克力。","annotation":"So, **obviously** I like **chocolate** a lot.","pronunciation":[{"kind":"连读","text":"chocolate‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"You said that you don't like it as much. Does that mean you eat it less? How often do you eat chocolate?","start":190.86,"end":193.6,"id":31,"translation":"你说你不太喜欢它。这是否意味着你少吃一点？你多久吃一次巧克力？","annotation":"You **said** **that** you don't like it as much. / Does **that** mean you eat it **less**? / How **often** do you eat **chocolate**?","pronunciation":[{"kind":"连读","text":"like‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"}]},{"speaker":"Neil","text":"Well, when I have chocolate or when there is chocolate around, I eat lots.","start":195.12,"end":200.44,"id":32,"translation":"嗯，当我吃巧克力或周围有巧克力时，我会吃很多。","annotation":"Well, when I have **chocolate** or when there is **chocolate** around, I eat **lots**.","pronunciation":[{"kind":"连读","text":"when‿I：尾辅音可自然衔接后词元音"}]},{"speaker":"Neil","text":"I eat loads. In fact, it's hard not to finish the whole bar, even if it's a big one.","start":201.12,"end":208.66,"id":33,"translation":"我吃了很多。事实上，即使是一个很大的酒吧，想要不吃完整个酒吧也很难。","annotation":"I eat loads. In fact, it's **hard** not to **finish** the **whole** bar, even if it's a big one.","pronunciation":[{"kind":"连读","text":"even‿if：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Neil","text":"But fortunately, I suppose, I don't really think about chocolate much. It's not like every day I think I need my chocolate,","start":209.16,"end":218.88,"id":34,"translation":"但幸运的是，我想，我并不太想巧克力。我并不是每天都认为我需要巧克力，","annotation":"But **fortunately**, I **suppose**, I don't really think about **chocolate** much. / It's not like every day I think I **need** my **chocolate**,","pronunciation":[{"kind":"连读","text":"think‿about：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"}]},{"speaker":"Neil","text":"but when it's there, I really love it.","start":219.18,"end":221.54,"id":35,"translation":"但当它在那里时，我真的很喜欢它。","annotation":"but when it's **there**, / I really **love** it.","pronunciation":[{"kind":"连读","text":"when‿it's：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"}]},{"speaker":"Georgie","text":"OK. So, do you not buy much chocolate for the house then? Do your kids not eat much chocolate?","start":222.01,"end":226.62,"id":36,"translation":"好的。那么，你不买很多巧克力给家里吗？你的孩子吃巧克力不多吗？","annotation":"OK. So, do you not buy much **chocolate** for the **house** **then**? / Do your **kids** not eat much **chocolate**?","pronunciation":[{"kind":"连读","text":"not‿eat：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Neil","text":"No, not really. I don't think we do. There are times of the year when chocolate is around more often, like Christmas and Easter.","start":227.28,"end":236.82,"id":37,"translation":"不，不是真的。我不认为我们这样做。一年中的某些时候，巧克力的出现频率较高，例如圣诞节和复活节。","annotation":"No, not **really**. I don't think we do. / There are **times** of the year when chocolate is around more often, like **Christmas** and **Easter**.","pronunciation":[{"kind":"连读","text":"times‿of：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Oh yeah.","start":236.98,"end":237.48,"id":38,"translation":"哦，是的。","annotation":"Oh **yeah**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"But the rest of the time, no, we're not a very chocolatey house.","start":238.78,"end":243.14,"id":39,"translation":"但其余时间，不，我们不是一个非常巧克力的房子。","annotation":"But the **rest** of the **time**, no, we're not a very **chocolatey** house.","pronunciation":[{"kind":"连读","text":"rest‿of：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we're 合为一个音组 /wɪə/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"No. Do you prefer plain chocolate– so, just chocolate on its own? Or, you know, flavoured chocolate– things that have...","start":243.62,"end":252.78,"id":40,"translation":"不。您更喜欢纯巧克力吗？那么，就只吃巧克力吗？或者，你知道，调味巧克力——含有……的东西。","annotation":"No. Do you **prefer** **plain** **chocolate**– so, just **chocolate** on its own? / Or, you **know**, **flavoured** **chocolate**– things that have...","pronunciation":[{"kind":"连读","text":"chocolate‿on：尾辅音可自然衔接后词元音"}]},{"speaker":"Georgie","text":"chocolate that has other flavours in it?","start":252.78,"end":255.0,"id":41,"translation":"巧克力里面还有其他口味吗？","annotation":"**chocolate** **that** has other **flavours** in it?","pronunciation":[{"kind":"连读","text":"has‿other：尾辅音可自然衔接后词元音"}]},{"speaker":"Neil","text":"Actually, I do like some maybe unusual combinations. So, some chocolate bars you can get that have got chilli.","start":255.64,"end":264.2,"id":42,"translation":"事实上，我确实喜欢一些可能不寻常的组合。因此，您可以买到一些含有辣椒的巧克力棒。","annotation":"**Actually**, I do like some maybe **unusual** **combinations**. / So, some **chocolate** **bars** you can get that have got **chilli**.","pronunciation":[{"kind":"弱读","text":"非重读时 can 可弱读为 /kən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Mmm.","start":264.81,"end":264.81,"id":43,"translation":"嗯。","annotation":"**Mmm**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Mmm，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"Some even with wasabi.","start":265.42,"end":268.7,"id":44,"translation":"有些甚至还加了芥末。","annotation":"Some even with **wasabi**.","pronunciation":[{"kind":"连读","text":"Some‿even：尾辅音可自然衔接后词元音"}]},{"speaker":"Georgie","text":"Oh! I've never tried that.","start":268.96,"end":270.8,"id":45,"translation":"哦！我从来没有尝试过。","annotation":"Oh! I've never **tried** **that**.","pronunciation":[{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"}]},{"speaker":"Neil","text":"Yeah.","start":270.8,"end":270.8,"id":46,"translation":"是的。","annotation":"**Yeah**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"What's it like?","start":270.8,"end":272.0,"id":47,"translation":"它是什么样的？","annotation":"**What's** it like?","pronunciation":[{"kind":"连读","text":"What's‿it：尾辅音可自然衔接后词元音"}]},{"speaker":"Neil","text":"I'm not sure about the wasabi one but the chilli one is really good.","start":272.22,"end":275.76,"id":48,"translation":"我不确定芥末那一种，但辣椒那一种真的很好吃。","annotation":"I'm not **sure** about the **wasabi** one but the **chilli** one is really good.","pronunciation":[{"kind":"连读","text":"one‿is：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"}]},{"speaker":"Georgie","text":"Another unusual one is salted caramel in chocolate. Or salt– just sea salt with chocolate. That's really good as well.","start":276.3,"end":282.8,"id":49,"translation":"另一种不寻常的做法是巧克力中的咸焦糖。或者盐——只是海盐和巧克力。这也确实很好。","annotation":"Another **unusual** one is **salted** **caramel** in chocolate. / Or **salt**– just sea **salt** with **chocolate**. / **That's** really good as well.","pronunciation":[{"kind":"连读","text":"one‿is：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"}]},{"speaker":"Neil","text":"Yeah. And ginger.","start":283.15,"end":283.76,"id":50,"translation":"是的。还有姜。","annotation":"**Yeah**. And **ginger**.","pronunciation":[{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah. Ginger's good.","start":284.46,"end":285.96,"id":51,"translation":"是的。生姜不错啊","annotation":"**Yeah**. **Ginger's** good.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Neil","text":"The list could go on. OK. Let's recap the vocabulary we've heard in this podcast.","start":286.36,"end":298.48,"id":52,"translation":"这样的例子还可以继续列下去。好的。让我们回顾一下我们在这个播客中听到的词汇。","annotation":"The **list** could go on. / OK. Let's **recap** the **vocabulary** we've heard in this **podcast**.","pronunciation":[{"kind":"连读","text":"heard‿in：尾辅音可自然衔接后词元音"}]},{"speaker":"Neil","text":"We had lots of or a lot of, which means a large amount, and we can also say loads of– loads of chocolate.","start":299.38,"end":308.2,"id":53,"translation":"我们有很多或很多，这意味着大量，我们也可以说很多——很多巧克力。","annotation":"We had **lots** of or a lot of, / which means a **large** **amount**, / and we can also say **loads of**– **loads of** **chocolate**.","pronunciation":[{"kind":"连读","text":"lots‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"We also heard the phrasal verb give up. If you give up a food like chocolate, you stop eating it.","start":308.7,"end":315.64,"id":54,"translation":"我们还听到了短语动词“放弃”。如果你放弃了巧克力这样的食物，你就会停止吃它。","annotation":"We also heard the **phrasal** **verb** **give up**. / If you **give up** a food like chocolate, you **stop** **eating** it.","pronunciation":[{"kind":"连读","text":"give‿up：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Neil","text":"We also heard the phrasal verb cut down on, which means to have less of something.","start":316.1,"end":321.64,"id":55,"translation":"我们还听到短语动词 cut down on，意思是减少某物。","annotation":"We also heard the **phrasal** verb **cut down on**, which means to have **less** of something.","pronunciation":[{"kind":"连读","text":"down‿on：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"For example, I really need to cut down on chocolate. We also heard the word craving,","start":322.54,"end":328.74,"id":56,"translation":"例如，我真的需要减少巧克力的摄入量。我们也听到过“渴望”这个词，","annotation":"For **example**, I really **need** to **cut down on** chocolate. / We also **heard** the **word** **craving**,","pronunciation":[{"kind":"连读","text":"down‿on：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"which is when you have a really strong feeling of needing or wanting something like a food.","start":328.92,"end":334.12,"id":57,"translation":"当你非常强烈地需要或想要食物之类的东西时。","annotation":"which is when you have a really strong **feeling** of **needing** or **wanting** something like a food.","pronunciation":[{"kind":"连读","text":"which‿is：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Neil","text":"That's it for this episode of Real Easy English, but why not test what you've learnt with a free worksheet that's on our website, bbclearningenglish.com.","start":335.14,"end":344.94,"id":58,"translation":"这就是本期《Real Easy English》的内容，但为什么不使用我们网站 bbclearningenglish.com 上的免费工作表来测试您所学的内容呢？","annotation":"That's it for this episode of **Real Easy English**, / but why not test what you've **learnt** with a free **worksheet** that's on our website, **bbclearningenglish**.com.","pronunciation":[{"kind":"连读","text":"That's‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"And we'll be back next week with another episode. Thank you for joining us and goodbye.","start":346.08,"end":350.96,"id":59,"translation":"下周我们将带着另一集回来。感谢您加入我们，再见。","annotation":"And we'll be **back** **next** **week** with another episode. / **Thank** you for **joining** us and goodbye.","pronunciation":[{"kind":"连读","text":"with‿another：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we'll 合为一个音组 /wiːl/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Neil","text":"Goodbye!","start":351.5,"end":351.72,"id":60,"translation":"再见！","annotation":"**Goodbye**!","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Goodbye，按意群停顿，不逐词等长朗读"}]}];
+    const ipaByTerm = {"welcome":"ˈwelkʌm","real easy english":"ˈriəl ˈiːzi ˈɪŋɡlɪʃ","conversations":"kɒnvəˈseɪʃənz","help":"ˈhelp","listening":"ˈlɪsənɪŋ","remember":"rɪˈmembə","version":"ˈvɜːʃən","bbclearningenglish":"ˌbiːˈbiːˈklɜːnɪnˌdʒɪŋɡlɪʃ","hi georgie":"ˈhaɪ ˈdʒɔːdʒi","thank":"ˈθæŋk","pretty":"ˈprɪti","talking":"ˈtɔːkɪŋ","chocolate":"ˈtʃɒklət","love":"ˈlʌv","know":"ˈnəʊ","next":"ˈnekst","everyone":"ˈevrɪˌwɒn","office":"ˈɒfɪs","knows":"ˈnəʊz","jokes":"ˈdʒəʊks","home":"ˈhəʊm","they":"ðeɪ","disappear":"ˌdɪsəˈpiə","looking":"ˈlʊkɪŋ","fridge":"ˈfrɪdʒ","cupboards":"ˈkʌbədz","yeah":"jeə","time":"ˈtaɪm","feel":"ˈfiːl","need":"ˈniːd","like":"ˈlaɪk","enjoy":"enˈdʒɔɪ","kind":"ˈkaɪnd","dark":"ˈdɑːk","bitter":"ˈbɪtə","nice":"ˈnaɪs","have":"ˈhæv","only":"ˈəʊnli","small":"sˈmɔːl","amount":"əˈmaʊnt","famous":"ˈfeɪməs","eating":"ˈiːtɪŋ","often":"ˈɒfən","terrible":"ˈterɪbəl","habit":"ˈhæbɪt","meals":"ˈmiːlz","maybe":"ˈmeɪbiː","breakfast":"ˈbrekfəst","avoid":"əˈvɔɪd","actually":"ˈæktʃuːəli","morning":"ˈmɔːnɪŋ","croissant":"ˈkwæsɒ̃","forget":"fəˈɡet","savoury":"ˈseɪvəri","usually":"ˈjuːʒuːəli","lunch":"ˈlʌntʃ","then":"ˈðen","dinner":"ˈdɪnə","happens":"ˈhæpənz","sugar":"ˈʃʊɡə","craving":"ˈkreɪvɪŋ","sweet":"ˈswiːt","that":"ˈðæt","body":"ˈbɒdi","telling":"ˈtelɪŋ","sounds":"ˈsaʊndz","couldn't":"ˈkʊdənt","give up":"ˈɡɪv ˈʌp","giving":"ˈɡɪvɪŋ","completely":"kəmˈpliːtli","realistic":"riəˈlɪstɪk","option":"ˈɒpʃən","cut down on":"ˈkʌt ˌdaʊn ˈɒn","reduce":"rɪˈdjuːs","consumption":"kənˈsʌmpʃən","can't":"ˈkɑːnt","imagine":"ɪˈmædʒɪn","take":"ˈteɪk","away":"əˈweɪ","enjoyment":"enˈdʒɔɪmənt","and neil":"ænd ˈniːl","life":"ˈlaɪf","short":"ˈʃɔːt","look":"ˈlʊk","eyes":"ˈaɪz","obviously":"ˈɒbviəsli","said":"ˈsed","less":"ˈles","lots":"ˈlɒts","hard":"ˈhɑːd","finish":"ˈfɪnɪʃ","whole":"ˈhəʊl","fortunately":"ˈfɔːtʃənətli","suppose":"səˈpəʊz","there":"ˈðeə","house":"ˈhaʊs","kids":"ˈkɪdz","really":"ˈriəlɪ","times":"ˈtaɪmz","christmas":"ˈkrɪsməs","easter":"ˈiːstə","rest":"ˈrest","chocolatey":"ˈtʃɒkəˌleɪti","prefer":"prɪˈfɜː","plain":"ˈpleɪn","flavoured":"ˈfleɪvəd","flavours":"ˈfleɪvəz","unusual":"ʌˈnjuːʒuːəl","combinations":"ˌkɒmbɪˈneɪʃənz","bars":"ˈbɑːz","chilli":"ˈtʃɪli","mmm":"ˌeˌmeˈmem","wasabi":"wəˈsɑːbi","tried":"ˈtraɪd","what's":"ˌwɒts","sure":"ˈʃʊə","salted":"ˈsɒltɪd","caramel":"ˈkærəˌmel","salt":"ˈsɒlt","that's":"ˈðæts","ginger":"ˈdʒɪndʒə","ginger's":"ˈdʒɪndʒəz","list":"ˈlɪst","recap":"rɪˈkæp","vocabulary":"vəˈkæbjələri","podcast":"ˈpɒdkɑːst","large":"ˈlɑːdʒ","loads of":"ˈləʊdz ɒv","phrasal":"ˈfreɪzəl","verb":"ˈvɜːb","stop":"ˈstɒp","example":"eɡˈzæmpəl","heard":"ˈhɜːd","word":"ˈwɜːd","feeling":"ˈfiːlɪŋ","needing":"ˈniːdɪŋ","wanting":"ˈwɒntɪŋ","learnt":"ˈlɜːnt","worksheet":"ˈwɜːkʃiːt","back":"ˈbæk","week":"ˈwiːk","joining":"ˈdʒɔɪnɪŋ","goodbye":"ɡʊdˈbaɪ"};
+    const stressCoreByWord = {"actually":"{ac}tually","amount":"{amount}","and":"{and}","avoid":"{avoid}","away":"{away}","back":"{back}","bars":"{bars}","bbclearningenglish":"bbclearnin{geng}lish","bitter":"{bit}ter","body":"{body}","breakfast":"{break}fast","can't":"{can}'t","caramel":"{car}amel","chilli":"{chilli}","chocolate":"{choc}olate","chocolatey":"{choc}olatey","christmas":"{christ}mas","combinations":"combin{a}tions","completely":"com{plete}ly","consumption":"con{sump}tion","conversations":"conver{sa}tions","couldn't":"{could}n't","craving":"{crav}ing","croissant":"{crois}sant","cupboards":"{cup}boards","cut":"{cut}","dark":"{dark}","dinner":"{din}ner","disappear":"disap{pear}","down":"{down}","easter":"{east}er","easy":"{easy}","eating":"{eat}ing","english":"{eng}lish","enjoy":"en{joy}","enjoyment":"en{joy}ment","everyone":"{every}one","example":"ex{am}ple","eyes":"{eyes}","famous":"{fam}ous","feel":"{feel}","feeling":"{feel}ing","finish":"{fin}ish","flavoured":"{fla}voured","flavours":"{fla}vours","forget":"for{get}","fortunately":"{for}tunately","fridge":"{fridge}","georgie":"{geor}gie","ginger":"{ginger}","ginger's":"{ginger}'s","give":"{give}","giving":"{giv}ing","goodbye":"good{bye}","habit":"{habit}","happens":"{hap}pens","hard":"{hard}","have":"{have}","heard":"{heard}","help":"{help}","hi":"{hi}","home":"{home}","house":"{house}","imagine":"i{mag}ine","joining":"{join}ing","jokes":"{jokes}","kids":"{kids}","kind":"{kind}","know":"{know}","knows":"{knows}","large":"{large}","learnt":"{learnt}","less":"{less}","life":"{life}","like":"{like}","list":"{list}","listening":"{listen}ing","loads":"{loads}","look":"{look}","looking":"{look}ing","lots":"{lots}","love":"{love}","lunch":"{lunch}","maybe":"{maybe}","meals":"{meals}","mmm":"{mmm}","morning":"{morn}ing","need":"{need}","needing":"{need}ing","neil":"{neil}","next":"{next}","nice":"{nice}","obviously":"{ob}viously","of":"{of}","office":"{of}fice","often":"{of}ten","on":"{on}","only":"{only}","option":"{op}tion","phrasal":"{phras}al","plain":"{plain}","podcast":"{pod}cast","prefer":"{prefer}","pretty":"{pretty}","real":"{real}","realistic":"real{ist}ic","really":"{really}","recap":"re{cap}","reduce":"re{duce}","remember":"re{mem}ber","rest":"{rest}","said":"{said}","salt":"{salt}","salted":"{salted}","savoury":"{sa}voury","short":"{short}","small":"{small}","sounds":"{sounds}","stop":"{stop}","sugar":"{sug}ar","suppose":"sup{pose}","sure":"{sure}","sweet":"{sweet}","take":"{take}","talking":"{talk}ing","telling":"{tell}ing","terrible":"{ter}rible","thank":"{thank}","that":"{that}","that's":"{that's}","then":"{then}","there":"{there}","they":"{they}","time":"{time}","times":"{times}","tried":"{tried}","unusual":"un{usu}al","up":"{up}","usually":"{usu}ally","verb":"{verb}","version":"{ver}sion","vocabulary":"vo{cab}ulary","wanting":"{want}ing","wasabi":"was{abi}","week":"{week}","welcome":"{wel}come","what's":"{what's}","whole":"{whole}","word":"{word}","worksheet":"{work}sheet","yeah":"{yeah}"};
+    const app = document.getElementById('app');
+    const audio = document.getElementById('audio');
+    const transcript = document.getElementById('transcript');
+    const playButton = document.getElementById('play');
+    const progress = document.getElementById('progress');
+    const elapsed = document.getElementById('elapsed');
+    const duration = document.getElementById('duration');
+    const autoscroll = document.getElementById('autoscroll');
+    let activeIndex = -1;
+    let scrubbing = false;
+
+    const formatTime = seconds => {
+      const safe = Number.isFinite(seconds) ? Math.max(0, Math.floor(seconds)) : 0;
+      return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
+    };
+
+    function appendStressTerm(term, container, studyOverrides = {}) {
+      const stress = document.createElement('span');
+      stress.className = 'stress';
+      const orthography = document.createElement('span');
+      orthography.className = 'stress-label';
+      term.split(/([A-Za-z]+(?:['-][A-Za-z]+)*|\d+)/g).filter(Boolean).forEach(token => {
+        const pattern = studyOverrides.stress?.[token.toLowerCase()] || stressCoreByWord[token.toLowerCase()];
+        if (!pattern) {
+          if (/^[A-Za-z0-9]/.test(token)) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = token;
+            orthography.append(core);
+          } else {
+            orthography.append(token);
+          }
+          return;
+        }
+        let offset = 0;
+        pattern.split(/(\{[^{}]+\})/g).filter(Boolean).forEach(piece => {
+          const raw = piece.startsWith('{') && piece.endsWith('}') ? piece.slice(1, -1) : piece;
+          const original = token.slice(offset, offset + raw.length);
+          offset += raw.length;
+          if (piece.startsWith('{') && piece.endsWith('}')) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = original;
+            orthography.append(core);
+          } else {
+            orthography.append(original);
+          }
+        });
+      });
+      const ipa = document.createElement('span');
+      ipa.className = 'ipa';
+      ipa.textContent = `/${studyOverrides.ipa?.[term.toLowerCase()] || ipaByTerm[term.toLowerCase()] || ''}/`;
+      stress.append(orthography, ipa);
+      container.append(stress);
+    }
+
+    function renderGroup(group, container, arrow, studyOverrides = {}) {
+      const wrapper = document.createElement('span');
+      wrapper.className = 'thought-group';
+      group.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).forEach(part => {
+        const span = document.createElement('span');
+        if (part.startsWith('**') && part.endsWith('**')) {
+          appendStressTerm(part.slice(2, -2), wrapper, studyOverrides);
+        } else {
+          span.textContent = part;
+          wrapper.appendChild(span);
+        }
+      });
+      const intonation = document.createElement('span');
+      intonation.className = 'intonation';
+      intonation.textContent = arrow;
+      wrapper.appendChild(intonation);
+      container.appendChild(wrapper);
+    }
+
+    function renderAnnotation(annotation, container, studyOverrides = {}) {
+      const groups = annotation.split(' / ');
+      const yesNoQuestion = /^(is|are|do|does|did|can|could|would|will|have|has|was|were)\b/i.test(annotation);
+      groups.forEach((group, index) => {
+        const last = index === groups.length - 1;
+        renderGroup(group, container, last && annotation.trim().endsWith('?') && yesNoQuestion ? '↗' : last ? '↘' : '↗', studyOverrides);
+        if (!last) {
+          const slash = document.createElement('span');
+          slash.className = 'slash';
+          slash.textContent = '/';
+          container.appendChild(slash);
+        }
+      });
+    }
+
+    captions.forEach((caption, index) => {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'caption';
+      row.dataset.index = index;
+      row.dataset.line = String(index + 1).padStart(2, '0');
+      row.setAttribute('role', 'listitem');
+      row.setAttribute('aria-label', `${caption.speaker}, ${formatTime(caption.start)}. ${caption.text} 。翻译：${caption.translation}`);
+
+      const meta = document.createElement('div');
+      meta.className = 'cue-meta';
+      const speaker = document.createElement('span');
+      speaker.className = 'speaker';
+      speaker.textContent = '@' + caption.speaker.replaceAll(' ', '_');
+      const stamp = document.createElement('span');
+      stamp.className = 'stamp';
+      stamp.textContent = `[${formatTime(caption.start)}]`;
+      meta.append(speaker, stamp);
+
+      const body = document.createElement('div');
+      body.className = 'cue-body';
+      const english = document.createElement('div');
+      english.className = 'english';
+      renderAnnotation(caption.annotation, english, caption.studyOverrides || {});
+      const translation = document.createElement('div');
+      translation.className = 'translation';
+      translation.textContent = caption.translation;
+      const pronunciation = document.createElement('div');
+      pronunciation.className = 'pronunciation';
+      caption.pronunciation.forEach(tip => {
+        const item = document.createElement('span');
+        item.className = 'pron-tip';
+        const label = document.createElement('b');
+        label.textContent = tip.kind;
+        item.append(label, tip.text);
+        pronunciation.appendChild(item);
+      });
+      body.append(english, pronunciation, translation);
+      row.append(meta, body);
+
+      row.addEventListener('click', () => {
+        audio.currentTime = caption.start + .01;
+        setActive(index, false);
+        update();
+        if (audio.paused) audio.play().catch(() => {});
+      });
+      transcript.appendChild(row);
+    });
+
+    const rows = [...transcript.querySelectorAll('.caption')];
+
+    function indexAt(time) {
+      if (time < captions[0].start) return 0;
+      let low = 0, high = captions.length - 1, answer = 0;
+      while (low <= high) {
+        const mid = (low + high) >> 1;
+        if (captions[mid].start <= time) { answer = mid; low = mid + 1; }
+        else high = mid - 1;
+      }
+      return answer;
+    }
+
+    function setActive(index, shouldScroll = true) {
+      if (index === activeIndex) return;
+      if (activeIndex >= 0) {
+        rows[activeIndex].classList.remove('active');
+        rows[activeIndex].removeAttribute('aria-current');
+      }
+      activeIndex = index;
+      rows[index].classList.add('active');
+      rows[index].setAttribute('aria-current', 'true');
+      if (shouldScroll && autoscroll.checked) rows[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function update() {
+      const time = audio.currentTime || 0;
+      if (!scrubbing) progress.value = time;
+      elapsed.textContent = formatTime(time);
+      setActive(indexAt(time));
+      if (!audio.paused) requestAnimationFrame(update);
+    }
+
+    playButton.addEventListener('click', () => audio.paused ? audio.play().catch(() => {}) : audio.pause());
+    document.getElementById('back').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 10); update(); });
+    document.getElementById('forward').addEventListener('click', () => { audio.currentTime = Math.min(audio.duration || 357.941, audio.currentTime + 10); update(); });
+    document.getElementById('speed').addEventListener('change', event => { audio.playbackRate = Number(event.target.value); });
+    progress.addEventListener('input', () => { scrubbing = true; elapsed.textContent = formatTime(Number(progress.value)); });
+    progress.addEventListener('change', () => { audio.currentTime = Number(progress.value); scrubbing = false; update(); });
+    document.getElementById('translationToggle').addEventListener('change', event => app.classList.toggle('hide-translation', !event.target.checked));
+    document.getElementById('studyToggle').addEventListener('change', event => app.classList.toggle('hide-study', !event.target.checked));
+    audio.addEventListener('loadedmetadata', () => { progress.max = audio.duration; duration.textContent = formatTime(audio.duration); });
+    audio.addEventListener('play', () => { app.classList.add('is-playing'); playButton.textContent = '❚❚'; playButton.setAttribute('aria-label', '暂停'); requestAnimationFrame(update); });
+    audio.addEventListener('pause', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; playButton.setAttribute('aria-label', '播放'); update(); });
+    audio.addEventListener('ended', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; });
+    document.addEventListener('keydown', event => {
+      if (['INPUT','SELECT','BUTTON'].includes(document.activeElement.tagName)) return;
+      if (event.code === 'Space') { event.preventDefault(); audio.paused ? audio.play().catch(() => {}) : audio.pause(); }
+      if (event.key === 'ArrowLeft') { audio.currentTime = Math.max(0, audio.currentTime - 5); update(); }
+      if (event.key === 'ArrowRight') { audio.currentTime = Math.min(audio.duration || 357.941, audio.currentTime + 5); update(); }
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    function syncThemeButton() {
+      const light = document.documentElement.dataset.theme === 'light';
+      themeToggle.textContent = light ? '☾ 深色' : '☀ 浅色';
+      themeToggle.setAttribute('aria-pressed', String(light));
+    }
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('ell-theme', next); } catch (_) {}
+      syncThemeButton();
+    });
+    syncThemeButton();
+
+    setActive(0, false);
+    update();
+  </script>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    (() => { try { document.documentElement.dataset.theme = localStorage.getItem('ell-theme') || 'dark'; } catch (_) { document.documentElement.dataset.theme = 'dark'; } })();
+  </script>
+  <title>Talking about weekends · 双语精听 · English Listening Lab</title>
+  <style>
+    :root {
+      --paper: #070a0f;
+      --surface: #0d1117;
+      --surface-2: #111824;
+      --ink: #d8e6f3;
+      --muted: #75849a;
+      --line: #222d3b;
+      --teal: #42d3ff;
+      --teal-soft: #112332;
+      --orange: #ff8b4c;
+      --orange-soft: #2a1b17;
+      --purple: #c792ea;
+      --pink: #ff5ca8;
+      --green: #9be564;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .44);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% -5%, rgba(66,211,255,.1), transparent 31rem),
+        radial-gradient(circle at 92% 15%, rgba(199,146,234,.09), transparent 28rem),
+        var(--paper);
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+    }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .18; background-image: linear-gradient(rgba(91,112,139,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(91,112,139,.11) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
+    button, input, select { font: inherit; }
+    button, select { color: inherit; }
+    .page { position: relative; z-index: 1; width: min(1040px, calc(100% - 36px)); margin: 0 auto; padding: 34px 0 70px; }
+
+    .site-head { overflow: hidden; margin-bottom: 20px; padding: 0 0 30px; border: 1px solid var(--line); border-radius: 14px; background: rgba(13,17,23,.9); box-shadow: var(--shadow); }
+    .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 11px 15px; border-bottom: 1px solid var(--line); background: #090d13; }
+    .brand { display: flex; align-items: center; gap: 13px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    .window-dots { display: flex; gap: 7px; }
+    .window-dots i { width: 10px; height: 10px; border-radius: 50%; }
+    .window-dots i:nth-child(1) { background: #ff5f57; }
+    .window-dots i:nth-child(2) { background: #febc2e; }
+    .window-dots i:nth-child(3) { background: #28c840; }
+    .file-tab { color: #a9b7c6; }
+    .file-tab::before { content: "<>"; margin-right: 8px; color: var(--orange); font-weight: 850; }
+    .meta { color: #5f6d80; font-size: 11px; font-variant-numeric: tabular-nums; }
+    h1 { margin: 30px 28px 9px; font-size: clamp(26px, 5vw, 50px); font-weight: 650; letter-spacing: -.045em; line-height: 1.3; }
+    .code-keyword { color: var(--purple); }
+    .code-var { color: var(--teal); }
+    .code-op, .code-punct { color: #7f8ea3; }
+    .code-string { color: var(--green); }
+    .cn-title { margin: 0 28px; color: var(--green); font-size: clamp(16px, 2.2vw, 21px); font-weight: 650; letter-spacing: .01em; }
+    .cn-title::before { content: "// "; color: #59687b; }
+    .intro { max-width: 780px; margin: 17px 28px 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .intro::before { content: "/* "; color: var(--purple); }
+    .intro::after { content: " */"; color: var(--purple); }
+
+    .player {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto auto auto minmax(160px,1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 18px;
+      border: 1px solid #283647;
+      border-radius: 12px;
+      background: rgba(13,17,23,.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .round, .play { display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer; transition: transform .18s, background .18s; }
+    .round:hover, .play:hover { transform: translateY(-1px); }
+    .round { width: 38px; height: 38px; color: var(--teal); background: #111b27; font-size: 10px; font-weight: 850; }
+    .play { width: 48px; height: 48px; color: #071015; background: var(--teal); font-size: 16px; box-shadow: 0 0 24px rgba(66,211,255,.22); }
+    .is-playing .play { animation: pulse 1.8s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 24px rgba(66,211,255,.2), 0 0 0 11px rgba(66,211,255,0); } }
+    .timeline { min-width: 0; display: grid; grid-template-columns: minmax(90px,1fr) 93px; align-items: center; gap: 13px; }
+    .progress { width: 100%; height: 5px; margin: 0; accent-color: var(--teal); cursor: pointer; }
+    .time { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .time strong { color: var(--green); }
+    .speed { height: 36px; padding: 0 11px; border: 1px solid #2a3747; border-radius: 7px; background: #0a0f16; font-size: 11px; font-weight: 750; cursor: pointer; }
+
+    .study-tools { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin: 18px 0 16px; padding: 15px 18px; border: 1px solid var(--line); border-radius: 10px; background: rgba(13,17,23,.88); }
+    .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 17px; color: var(--muted); font-size: 12px; }
+    .legend b { color: var(--purple); font-weight: 800; }
+    .legend-stress { color: var(--orange); font-weight: 800; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+    .legend-slash { color: var(--pink); font-size: 17px; font-weight: 900; }
+    .toggles { display: flex; align-items: center; gap: 13px; }
+    .toggle { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .toggle input { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; }
+
+    .transcript-title { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 34px 4px 13px; }
+    .transcript-title h2 { margin: 0; color: var(--teal); font-size: 24px; font-weight: 750; letter-spacing: -.02em; }
+    .transcript-title h2::before { content: "// "; color: #4c5a6d; }
+    .transcript-title span { color: var(--muted); font-size: 11px; }
+    .transcript { display: grid; gap: 12px; }
+    .caption {
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 148px minmax(0,1fr);
+      gap: 22px;
+      padding: 24px 25px 24px 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(13,17,23,.9);
+      text-align: left;
+      cursor: pointer;
+      scroll-margin-top: 116px;
+      transition: border-color .22s, background .22s, box-shadow .22s, transform .22s;
+    }
+    .caption:hover { border-color: #35506a; background: #0f1620; transform: translateY(-1px); }
+    .caption.active { border-color: rgba(66,211,255,.62); background: var(--surface-2); box-shadow: 0 0 0 1px rgba(66,211,255,.08), 0 18px 42px rgba(0,0,0,.32), 0 0 28px rgba(66,211,255,.06); }
+    .caption.active::before { content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px; width: 4px; border-radius: 0 6px 6px 0; background: var(--teal); box-shadow: 0 0 16px rgba(66,211,255,.45); }
+    .caption::after { content: attr(data-line); position: absolute; left: 13px; top: 27px; color: #3d4a5c; font-size: 10px; font-variant-numeric: tabular-nums; }
+    .cue-meta { padding-top: 4px; }
+    .speaker { display: block; overflow: hidden; color: var(--teal); font-size: 10px; font-weight: 850; letter-spacing: .05em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+    .stamp { display: block; margin-top: 7px; color: var(--purple); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .cue-body { min-width: 0; }
+    .english { color: #d6deeb; font-size: clamp(18px, 2.2vw, 23px); line-height: 1.72; letter-spacing: -.025em; }
+    .thought-group { display: inline; }
+    .stress { color: var(--orange); font-weight: 800; text-shadow: 0 0 16px rgba(255,139,76,.12); }
+    .stress-label { text-decoration: underline; text-decoration-color: #ff5f56; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .stress-core { color: #ffe66d; text-decoration-color: #ffe66d; text-shadow: 0 0 13px rgba(255,230,109,.2); }
+    .ipa { margin-left: .38em; color: var(--purple); font-size: .68em; font-weight: 650; letter-spacing: 0; overflow-wrap: anywhere; white-space: normal; }
+    .intonation { display: inline-block; margin-left: .22em; color: var(--teal); font-size: .72em; font-weight: 900; text-decoration: none; transform: translateY(-.06em); }
+    .slash { display: inline-block; margin: 0 .28em; color: var(--pink); font-size: .88em; font-weight: 900; opacity: .92; }
+    .pronunciation { display: flex; flex-wrap: wrap; gap: 7px 13px; margin-top: 14px; padding: 11px 12px; border: 1px solid #233043; border-left: 3px solid var(--purple); border-radius: 7px; color: #9fb1c6; background: #0a1017; font-size: 13px; line-height: 1.65; }
+    .pronunciation::before { content: "// phonetics"; color: var(--purple); font-size: 10px; font-weight: 850; letter-spacing: .04em; }
+    .pron-tip { display: inline; }
+    .pron-tip b { margin-right: 5px; color: var(--teal); font-weight: 850; }
+    .translation { margin-top: 15px; padding-top: 13px; border-top: 1px dashed #273242; color: var(--green); font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", monospace; font-size: 16px; line-height: 1.85; }
+    .translation::before { content: "// zh"; display: inline-grid; place-items: center; width: 47px; height: 22px; margin-right: 9px; border-radius: 4px; color: var(--teal); background: var(--teal-soft); font-size: 9px; font-weight: 850; vertical-align: 1px; }
+    .hide-translation .translation { display: none; }
+    .hide-study .stress { color: inherit; font-weight: inherit; text-shadow: none; }
+    .hide-study .stress-label { text-decoration: none; }
+    .hide-study .stress-core { color: inherit; text-shadow: none; }
+    .hide-study .ipa, .hide-study .intonation, .hide-study .slash, .hide-study .pronunciation { display: none; }
+    .footer { margin: 30px 4px 0; color: #58677b; font-size: 10px; line-height: 1.7; }
+
+    @media (max-width: 680px) {
+      .page { width: min(100% - 20px, 560px); padding-top: 24px; }
+      .site-head { padding-inline: 3px; }
+      .brand-row .meta { display: none; }
+      h1 { margin: 23px 18px 8px; font-size: clamp(23px, 7vw, 34px); }
+      .cn-title, .intro { margin-left: 18px; margin-right: 18px; }
+      .player { top: 7px; grid-template-columns: auto auto minmax(70px,1fr) auto; gap: 7px; padding: 11px; border-radius: 17px; }
+      #forward { display: none; }
+      .round { width: 36px; height: 36px; }
+      .play { width: 45px; height: 45px; }
+      .timeline { grid-template-columns: minmax(48px,1fr) 64px; gap: 7px; }
+      .time { font-size: 9px; }
+      .speed { width: 50px; padding: 0 4px; }
+      .study-tools { display: block; padding: 16px; }
+      .toggles { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
+      .transcript-title { margin-top: 27px; }
+      .caption { grid-template-columns: 1fr; gap: 10px; padding: 20px 17px 20px 39px; scroll-margin-top: 91px; }
+      .caption::after { left: 11px; top: 22px; }
+      .cue-meta { display: flex; align-items: center; gap: 9px; padding-top: 0; }
+      .speaker, .stamp { display: inline; margin: 0; }
+      .english { font-size: 21px; line-height: 1.52; }
+      .ipa { font-size: .58em; }
+      .pronunciation { gap: 6px 10px; font-size: 13px; }
+      .translation { font-size: 16px; line-height: 1.85; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+
+    .home-link, .theme-toggle { color: var(--teal); }
+    .home-link { margin-left: 3px; font-size: 11px; font-weight: 800; text-decoration: none; }
+    .home-link:hover { text-decoration: underline; }
+    .theme-toggle { min-height: 34px; padding: 0 11px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-2); font-size: 11px; font-weight: 800; cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--teal); }
+    html[data-theme="light"] {
+      --paper: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef7fb;
+      --ink: #182334;
+      --muted: #64748b;
+      --line: #d8e1eb;
+      --teal: #007fa3;
+      --teal-soft: #dff5fb;
+      --orange: #c45116;
+      --orange-soft: #fff0e7;
+      --purple: #7c3fb1;
+      --pink: #c72c73;
+      --green: #357a16;
+      --shadow: 0 18px 52px rgba(30, 55, 80, .13);
+    }
+    html[data-theme="light"] body {
+      background: radial-gradient(circle at 10% -5%, rgba(0,127,163,.10), transparent 31rem), radial-gradient(circle at 92% 15%, rgba(124,63,177,.08), transparent 28rem), var(--paper);
+    }
+    html[data-theme="light"] body::before { opacity: .34; background-image: linear-gradient(rgba(72,104,135,.10) 1px, transparent 1px), linear-gradient(90deg, rgba(72,104,135,.10) 1px, transparent 1px); }
+    html[data-theme="light"] .site-head,
+    html[data-theme="light"] .study-tools,
+    html[data-theme="light"] .caption { background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .brand-row { background: #edf3f8; }
+    html[data-theme="light"] .file-tab { color: #496176; }
+    html[data-theme="light"] .meta { color: #718096; }
+    html[data-theme="light"] .player { border-color: #cbd8e5; background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .round { color: var(--teal); background: #e6f3f7; }
+    html[data-theme="light"] .play { color: #fff; }
+    html[data-theme="light"] .speed { border-color: #cbd8e5; background: #f7fafc; }
+    html[data-theme="light"] .caption:hover { border-color: #88aec2; background: #f8fbfd; }
+    html[data-theme="light"] .caption.active { background: #edf8fc; box-shadow: 0 0 0 1px rgba(0,127,163,.07), 0 16px 36px rgba(35,70,95,.12); }
+    html[data-theme="light"] .english { color: #1b2a3d; }
+    html[data-theme="light"] .pronunciation { border-color: #d4ddea; border-left-color: var(--purple); color: #526a7e; background: #f7f9fc; }
+    html[data-theme="light"] .translation { border-top-color: #d7e0e8; }
+    html[data-theme="light"] .footer { color: #697b8c; }
+
+  </style>
+</head>
+<body>
+  <main class="page" id="app">
+    <header class="site-head">
+      <div class="brand-row">
+        <div class="brand"><span class="window-dots"><i></i><i></i><i></i></span><span class="file-tab">transcript.html</span><a class="home-link" href="index.html">← 全部课程</a></div>
+        <div class="meta">UTF-8 · LF · 20 Mar 2026 · 05:16</div>
+      </div>
+      <h1><span class="code-keyword">const</span> <span class="code-var">episode</span> <span class="code-op">=</span> <span class="code-string">"Talking about weekends"</span><span class="code-punct">;</span></h1>
+      <p class="cn-title">谈论周末</p>
+      <p class="intro">双语精听稿：跟随音频高亮当前句，用重点词、词重音和意群节奏辅助跟读。点击任意一句可从对应时间开始播放。</p>
+    </header>
+
+    <audio id="audio" preload="metadata" src="audio-2026-03-20_talking-about-weekends.mp3"></audio>
+    <section class="player" aria-label="音频播放器">
+      <button class="round" id="back" type="button" aria-label="后退 10 秒">−10</button>
+      <button class="play" id="play" type="button" aria-label="播放">▶</button>
+      <button class="round" id="forward" type="button" aria-label="前进 10 秒">+10</button>
+      <div class="timeline">
+        <input class="progress" id="progress" type="range" min="0" max="316.775" step="0.01" value="0" aria-label="音频进度">
+        <div class="time"><strong id="elapsed">0:00</strong> / <span id="duration">5:16</span></div>
+      </div>
+      <select class="speed" id="speed" aria-label="播放速度">
+        <option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+      </select>
+    </section>
+
+    <section class="study-tools" aria-label="学习标记">
+      <div class="legend"><b>学习标记</b><span><span class="legend-stress">重点词</span> + 英音 IPA</span><span><span class="legend-slash">↗ / ↘</span> 意群语调</span></div>
+      <div class="toggles">
+        <label class="toggle"><input id="translationToggle" type="checkbox" checked> 中文翻译</label>
+        <label class="toggle"><input id="studyToggle" type="checkbox" checked> 重音/意群</label>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅主题">☀ 浅色</button>
+        <label class="toggle"><input id="autoscroll" type="checkbox" checked> 自动滚动</label>
+      </div>
+    </section>
+
+    <div class="transcript-title"><h2>逐句精听</h2><span>51 句 · 点击跳转</span></div>
+    <section class="transcript" id="transcript" role="list" aria-label="同步双语字幕"></section>
+    <footer class="footer">文稿及节目归属 BBC Learning English。原文说明该文稿并非逐字稿；中文翻译与词重音/意群标注为精听学习辅助，音标、重音与语调箭头为学习参考；音频开场和附加内容另行标明。<br>Real Easy English · 2026-03-20 · <a style="color:var(--teal)" href="https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260320" target="_blank" rel="noopener">BBC 官方来源</a> · <a style="color:var(--purple)" href="index.html">合集目录</a></footer>
+  </main>
+
+  <script>
+    const captions = [{"speaker":"Georgie","text":"Hello and welcome to Real Easy English. In this podcast, we have real conversations in easy English to help you learn. I'm Georgie.","start":0.0,"end":9.26,"id":0,"translation":"您好，欢迎来到 Real Easy English。在这个播客中，我们用简单的英语进行真实对话，以帮助您学习。我是Georgie。","annotation":"Hello and **welcome** to **Real Easy English**. / In this **podcast**, we have real **conversations** in easy English to help you **learn**. I'm Georgie.","pronunciation":[{"kind":"连读","text":"Real‿Easy：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"And I'm Phil. Remember, you can watch a video of this podcast on our website with subtitles to help you understand it.","start":9.62,"end":17.36,"id":1,"translation":"我是Phil。请记住，您可以在我们的网站上观看该播客的视频，并附有字幕以帮助您理解它。","annotation":"And I'm Phil. **Remember**, / you can watch a video of this **podcast** on our website with **subtitles** to help you **understand** it.","pronunciation":[{"kind":"连读","text":"And‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"And that's bbclearningenglish.com.","start":17.6,"end":20.92,"id":2,"translation":"这就是 bbclearningenglish.com。","annotation":"And that's **bbclearningenglish**.com.","pronunciation":[{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Hello Phil. How are you doing?","start":26.9,"end":28.88,"id":3,"translation":"你好Phil。你好吗？","annotation":"**Hello Phil**. How are you doing?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Hello Phil，按意群停顿，不逐词等长朗读"}]},{"speaker":"Phil","text":"I'm good, I'm good. And I'm looking forward to the weekend.","start":28.88,"end":32.0,"id":4,"translation":"我很好，我很好。我很期待周末的到来。","annotation":"I'm **good**, I'm **good**. / And I'm **looking** **forward** to the **weekend**.","pronunciation":[{"kind":"连读","text":"And‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Me too. It's been a busy week and actually today we're talking about weekends. We'll talk about what we usually do at the weekends.","start":32.62,"end":40.96,"id":5,"translation":"我也是。这是忙碌的一周，实际上今天我们谈论的是周末。我们将讨论周末通常做什么。","annotation":"Me too. It's been a busy week and **actually** today we're **talking** about **weekends**. / We'll **talk** about what we **usually** do at the **weekends**.","pronunciation":[{"kind":"连读","text":"been‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we're 合为一个音组 /wɪə/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"So, Phil, do you like weekends?","start":41.34,"end":43.94,"id":6,"translation":"那么，Phil，你喜欢周末吗？","annotation":"So, Phil, do you like **weekends**?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 weekends，按意群停顿，不逐词等长朗读"}]},{"speaker":"Phil","text":"I love weekends. It's just great. You don't need to get up as early as you do during the week. And it's just a bit more relaxed. That's nice.","start":44.5,"end":53.94,"id":7,"translation":"我喜欢周末。太棒了。您不需要像工作日那样早起。而且只是放松了一点。那很好。","annotation":"I **love** **weekends**. It's just great. / You don't **need** to get up as **early** as you do during the **week**. / And it's just a bit more **relaxed**. That's **nice**.","pronunciation":[{"kind":"连读","text":"get‿up：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I know. Who doesn't like weekends? Everyone needs some time off and time not doing work. What do you usually do at the weekends?","start":53.94,"end":63.16,"id":8,"translation":"我知道。谁不喜欢周末？每个人都需要一些休息时间和不工作的时间。周末你通常做什么？","annotation":"I **know**. Who **doesn't** like **weekends**? / **Everyone** **needs** some time off and time not doing **work**. / What do you **usually** do at the **weekends**?","pronunciation":[{"kind":"连读","text":"time‿off：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"Usually, as I say, I usually get up not very early, certainly not as early as during the week.","start":64.3,"end":71.8,"id":9,"translation":"通常，正如我所说，我起床的时间通常不会很早，当然也不会像工作日那样早。","annotation":"**Usually**, as I say, / I **usually** get up not very **early**, / **certainly** not as **early** as during the **week**.","pronunciation":[{"kind":"连读","text":"as‿I：尾辅音可自然衔接后词元音"}]},{"speaker":"Phil","text":"My children go to play music at the weekends, so we have to make sure that they have breakfast and maybe we take them there or we pick them up, but apart from that, it's time...","start":73.1,"end":82.97,"id":10,"translation":"我的孩子们周末去演奏音乐，所以我们必须确保他们吃早餐，也许我们带他们去那里或者接他们，但除此之外，是时候了......","annotation":"My **children** go to **play** **music** at the weekends, / so we have to make **sure** that **they** have **breakfast** and maybe we take them there or we pick them up, / but **apart** from **that**, it's **time**...","pronunciation":[{"kind":"连读","text":"music‿at：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"it's time when you don't have to do something specific.","start":83.1,"end":88.18,"id":11,"translation":"是时候你不必做特定的事情了。","annotation":"it's **time** when you don't have to do something **specific**.","pronunciation":[{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"So, maybe there's things to catch up on, maybe clean the house, but it's less pressure.","start":88.68,"end":94.58,"id":12,"translation":"所以，也许有事情要赶，也许打扫房子，但压力较小。","annotation":"So, maybe there's things to catch up on, maybe **clean** the house, but it's **less** **pressure**.","pronunciation":[{"kind":"连读","text":"catch‿up：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"there's 合为一个音组 /ðeəz/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah, you can kind of choose what you feel like doing. For me, it depends whether I've had a busy week.","start":94.98,"end":102.16,"id":13,"translation":"是的，你可以选择你想做的事情。对我来说，这取决于我这一周是否忙碌。","annotation":"**Yeah**, you can kind of **choose** what you **feel** like doing. / For me, it **depends** whether I've had a **busy** **week**.","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"If I've had a busy week of work, and sometimes I have social plans every evening,","start":102.36,"end":108.9,"id":14,"translation":"如果我工作忙碌了一周，有时每天晚上都有社交计划，","annotation":"If I've had a **busy** **week** of **work**, / and sometimes I have **social** **plans** every **evening**,","pronunciation":[{"kind":"连读","text":"If‿I've：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"then at the weekends I prefer to just chill and catch up on my home things, like cleaning.","start":109.26,"end":116.16,"id":15,"translation":"然后在周末，我更喜欢放松一下，处理家里的事情，比如打扫卫生。","annotation":"**then** at the weekends I **prefer** to just **chill** and catch up on my home things, like cleaning.","pronunciation":[{"kind":"连读","text":"then‿at：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"But if I've had quite a quiet week, I like to be quite active. So, I like to make plans with friends, do some exercise.","start":117.28,"end":125.5,"id":16,"translation":"但如果我度过了相当安静的一周，我就会喜欢变得活跃起来。所以，我喜欢和朋友一起制定计划，做一些运动。","annotation":"But if I've had **quite** a **quiet** week, I like to be **quite** **active**. / So, I like to make **plans** with **friends**, do some **exercise**.","pronunciation":[{"kind":"连读","text":"But‿if：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah, so it kind of depends, but that's why weekends are good, because you can kind of choose what you do.","start":128.04,"end":134.48,"id":17,"translation":"是的，所以这取决于情况，但这就是为什么周末很好，因为你可以选择你做什么。","annotation":"**Yeah**, so it **kind** of **depends**, / but that's why **weekends** are good, / because you can **kind** of **choose** what you do.","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Phil","text":"Yeah. I always think it's nice to make the most of the weekend when you can, particularly... especially, you get up on a Saturday or a Sunday","start":134.48,"end":142.78,"id":18,"translation":"是的。我一直认为，如果可以的话，充分利用周末是件好事，特别是……特别是，你在周六或周日起床","annotation":"Yeah. I always think it's nice to **make the most of** the **weekend** when you can, **particularly**... / **especially**, you get up on a **Saturday** or a **Sunday**","pronunciation":[{"kind":"连读","text":"think‿it's：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"and it's really sunny and it's nice– you kind of want to do something don't you? Go out for a walk or visit somewhere new.","start":142.78,"end":150.3,"id":19,"translation":"天气真的很晴朗，很好——你有点想做点什么，不是吗？出去散步或参观新的地方。","annotation":"and it's really **sunny** and it's **nice**– you **kind** of want to do something don't you? / Go out for a **walk** or **visit** **somewhere** new.","pronunciation":[{"kind":"连读","text":"and‿it's：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah, that's true. But if it's raining, my favourite thing at the weekend is to, yeah, not set my alarm,","start":150.7,"end":159.18,"id":20,"translation":"是的，确实如此。但如果下雨，周末我最喜欢做的事情就是，是的，不设置闹钟，","annotation":"**Yeah**, that's **true**. But if it's **raining**, / my **favourite** thing at the **weekend** is to, **yeah**, / not set my **alarm**,","pronunciation":[{"kind":"连读","text":"But‿if：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"wake up still kind of early, go down, make a coffee, bring it to bed, have a coffee in bed,","start":159.96,"end":165.92,"id":21,"translation":"起得还早，下楼，煮杯咖啡，带到床上，在床上喝杯咖啡，","annotation":"**wake** up still kind of early, go **down**, make a **coffee**, / **bring** it to bed, / have a **coffee** in bed,","pronunciation":[{"kind":"连读","text":"wake‿up：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"and either read or watch an episode of something, a YouTube video. That's my favourite thing, because you don't have to suddenly get up and go.","start":166.22,"end":175.78,"id":22,"translation":"阅读或观看某个节目的一集（YouTube 视频）。这是我最喜欢的事情，因为你不必突然起身离开。","annotation":"and either **read** or **watch** an episode of something, a **YouTube** video. / That's my **favourite** thing, because you don't have to **suddenly** get up and go.","pronunciation":[{"kind":"连读","text":"and‿either：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"OK. So, we're talking about weekends, Georgie. Do you have any plans for this weekend?","start":176.38,"end":181.82,"id":23,"translation":"好的。所以，我们正在谈论周末，Georgie。这个周末你有什么计划吗？","annotation":"OK. So, we're **talking** about **weekends**, Georgie. / Do you have any **plans** for **this weekend**?","pronunciation":[{"kind":"连读","text":"talking‿about：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we're 合为一个音组 /wɪə/"},{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yes, I do. So, a lot of my friends are turning 30 years old this year, and on Saturday I have a 30th birthday party,","start":182.88,"end":192.86,"id":24,"translation":"是的，我愿意。所以，今年我很多朋友都30岁了，周六我有一个30岁生日聚会，","annotation":"**Yes**, I do. So, / a lot of my friends are **turning** 30 **years** old this **year**, / and on **Saturday** I have a 30th **birthday** **party**,","pronunciation":[{"kind":"连读","text":"lot‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"so that's in the evening. I think it will probably be a late night, so on Sunday I think I'm going to take it easy.","start":193.62,"end":203.0,"id":25,"translation":"那是在晚上。我想这可能会是一个深夜，所以周日我想我会放松一下。","annotation":"so that's in the **evening**. / I think it will **probably** be a **late** **night**, / so on **Sunday** I think I'm going to **take it easy**.","pronunciation":[{"kind":"连读","text":"that's‿in：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"So, just relax, not make any plans and just see... see where the wind blows me!","start":203.24,"end":209.2,"id":26,"translation":"所以，放松点，不要做任何计划，只是看看……看看风把我吹向哪里！","annotation":"So, just **relax**, not **make** any **plans** and just see... / see where the **wind** **blows** me!","pronunciation":[{"kind":"连读","text":"make‿any：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"That's nice.","start":210.4,"end":211.18,"id":27,"translation":"那很好。","annotation":"That's **nice**.","pronunciation":[{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"}]},{"speaker":"Georgie","text":"What about you, Phil?","start":211.42,"end":212.16,"id":28,"translation":"你呢，Phil？","annotation":"What **about** you, Phil?","pronunciation":[{"kind":"连读","text":"What‿about：尾辅音可自然衔接后词元音"}]},{"speaker":"Phil","text":"Well, we had quite a busy weekend last weekend, so this weekend, there's a lot of things that we need to get done.","start":212.5,"end":220.96,"id":29,"translation":"嗯，上周末我们度过了一个非常忙碌的周末，所以这个周末，我们有很多事情需要完成。","annotation":"Well, we had **quite** a busy weekend **last** weekend, so **this weekend**, / there's a lot of things **that** we **need** to **get done**.","pronunciation":[{"kind":"连读","text":"quite‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"there's 合为一个音组 /ðeəz/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"We can't just take it easy.","start":221.54,"end":222.76,"id":30,"translation":"我们不能掉以轻心。","annotation":"We **can't** just **take it easy**.","pronunciation":[{"kind":"连读","text":"take‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"can't 合为一个音组 /kɑːnt/"},{"kind":"弱读","text":"非重读时 can 可弱读为 /kən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Urgh.","start":223.32,"end":223.32,"id":31,"translation":"呃。","annotation":"**Urgh**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Urgh，按意群停顿，不逐词等长朗读"}]},{"speaker":"Phil","text":"We need to clean the house and just organise some of those... those life admin things– those little tasks that we haven't done.","start":223.88,"end":231.66,"id":32,"translation":"我们需要打扫房子，然后组织一些……那些生活管理的事情——那些我们还没有完成的小任务。","annotation":"We **need** to **clean** the house and just **organise** some of those... / those life **admin** things– those little **tasks** that we **haven't** done.","pronunciation":[{"kind":"连读","text":"house‿and：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"We need to get them done...","start":231.84,"end":233.0,"id":33,"translation":"我们需要完成它们......","annotation":"We **need** to get them **done**...","pronunciation":[{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah.","start":233.26,"end":233.26,"id":34,"translation":"是的。","annotation":"**Yeah**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Yeah，按意群停顿，不逐词等长朗读"}]},{"speaker":"Phil","text":"...this weekend.","start":233.52,"end":234.28,"id":35,"translation":"...这个周末。","annotation":"...**this weekend**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 this weekend，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"Will you do anything fun?","start":234.68,"end":236.18,"id":36,"translation":"你会做一些有趣的事情吗？","annotation":"Will you do **anything** fun?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 anything，按意群停顿，不逐词等长朗读"}]},{"speaker":"Phil","text":"We'll see. If we get time, yeah.","start":238.26,"end":239.74,"id":37,"translation":"我们拭目以待。如果我们有时间的话，是的。","annotation":"We'll see. If we get **time**, **yeah**.","pronunciation":[{"kind":"缩读","text":"we'll 合为一个音组 /wiːl/"}]},{"speaker":"Georgie","text":"If you get the... if you get the things done.","start":239.8,"end":241.7,"id":38,"translation":"如果你得到了……如果你把事情做好了。","annotation":"If **you** get the... / if you get the things **done**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 you，按意群停顿，不逐词等长朗读"}]},{"speaker":"Phil","text":"Yes. If we get everything done, we can... Well, we can chill or we can do something nice.","start":242.16,"end":246.92,"id":39,"translation":"是的。如果我们把一切都完成了，我们就可以……好吧，我们可以放松一下，或者我们可以做一些好事。","annotation":"Yes. If we get **everything** **done**, we can... / Well, we can **chill** or we can do something **nice**.","pronunciation":[{"kind":"连读","text":"get‿everything：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 can 可弱读为 /kən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Ah nice. OK.","start":247.13,"end":251.79,"id":40,"translation":"啊，不错。好的。","annotation":"Ah **nice**. OK.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 nice，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"Let's recap the language we heard during the conversation. We heard make the most of something. If you make the most of your weekend,","start":255.9,"end":263.88,"id":41,"translation":"回顾对话中的表达。我们听到了 make the most of something。如果你充分利用周末，","annotation":"Let's **recap** the **language** we heard during the **conversation**. / We **heard** **make the most of** something. / If you **make the most of** your **weekend**,","pronunciation":[{"kind":"连读","text":"most‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Georgie","text":"you use the time well– you don't waste it.","start":264.28,"end":266.94,"id":42,"translation":"就是把时间用好，不浪费它。","annotation":"you use the **time** well– you don't **waste** it.","pronunciation":[{"kind":"连读","text":"waste‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"}]},{"speaker":"Phil","text":"We also heard get something done, which means to complete a task. It might be something like cleaning your house.","start":267.56,"end":275.14,"id":43,"translation":"我们也听说get some done，意思是完成一项任务。这可能就像打扫你的房子一样。","annotation":"We also **heard** get something done, which means to **complete** a **task**. / It might be something like **cleaning** your **house**.","pronunciation":[{"kind":"连读","text":"complete‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"If you do that, you got something done over the weekend.","start":275.34,"end":278.3,"id":44,"translation":"如果你这样做了，你就在周末完成了一些事情。","annotation":"If you do **that**, you got something done **over** the **weekend**.","pronunciation":[{"kind":"连读","text":"done‿over：尾辅音可自然衔接后词元音"}]},{"speaker":"Georgie","text":"We also heard take it easy or chill, which means you relax and don't do much.","start":278.3,"end":284.52,"id":45,"translation":"我们还听说过“take it easy”或“Chill”，意思是放松，不要做太多事情。","annotation":"We also heard **take it easy** or **chill**, which means you **relax** and don't do much.","pronunciation":[{"kind":"连读","text":"take‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"don't 合为一个音组 /dəʊnt/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"We talked about this weekend and when we say this weekend, we mean the one that's coming– the one that's at the end of this week.","start":284.9,"end":293.84,"id":46,"translation":"我们说到 this weekend，也就是即将到来的、这个星期末的周末。","annotation":"We **talked** about **this weekend** and when we say **this weekend**, / we mean the one that's **coming**– the one that's at the end of this **week**.","pronunciation":[{"kind":"连读","text":"talked‿about：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"And that's it for this episode of Real Easy English, but we'll be back next week with another conversation in easy English.","start":294.12,"end":301.5,"id":47,"translation":"这就是本期《真正简单英语》的内容，但我们下周会用简单英语进行另一场对话。","annotation":"And that's it for this episode of **Real Easy English**, / but we'll be **back** **next** week with another **conversation** in easy English.","pronunciation":[{"kind":"连读","text":"that's‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we'll 合为一个音组 /wiːl/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"Try the worksheet on our website to practise what you've learnt. And that's at bbclearningenglish.com.","start":302.08,"end":309.26,"id":48,"translation":"尝试我们网站上的工作表来练习您所学到的知识。这是在 bbclearningenglish.com 上。","annotation":"Try the **worksheet** on our website to **practise** what you've **learnt**. / And that's at **bbclearningenglish**.com.","pronunciation":[{"kind":"连读","text":"worksheet‿on：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Goodbye for now!","start":309.64,"end":310.32,"id":49,"translation":"暂时再见了！","annotation":"**Goodbye** for now!","pronunciation":[{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Phil","text":"Bye!","start":310.64,"end":310.9,"id":50,"translation":"再见！","annotation":"**Bye**!","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Bye，按意群停顿，不逐词等长朗读"}]}];
+    const ipaByTerm = {"welcome":"ˈwelkʌm","real easy english":"ˈriəl ˈiːzi ˈɪŋɡlɪʃ","podcast":"ˈpɒdkɑːst","conversations":"kɒnvəˈseɪʃənz","learn":"ˈlɜːn","remember":"rɪˈmembə","subtitles":"ˈsʌbtaɪtəlz","understand":"ˌʌndəˈstænd","bbclearningenglish":"ˌbiːˈbiːˈklɜːnɪnˌdʒɪŋɡlɪʃ","hello phil":"həˈləʊ ˈfɪl","good":"ˈɡʊd","looking":"ˈlʊkɪŋ","forward":"ˈfɔːwəd","weekend":"wiːˈkend","actually":"ˈæktʃuːəli","talking":"ˈtɔːkɪŋ","weekends":"wiːˈkendz","talk":"ˈtɔːk","usually":"ˈjuːʒuːəli","love":"ˈlʌv","need":"ˈniːd","early":"ˈɜːlɪ","week":"ˈwiːk","relaxed":"rɪˈlækst","nice":"ˈnaɪs","know":"ˈnəʊ","doesn't":"ˈdʌzənt","everyone":"ˈevrɪˌwɒn","needs":"ˈniːdz","work":"ˈwɜːk","certainly":"ˈsɜːtənli","children":"ˈtʃɪldrən","play":"ˈpleɪ","music":"ˈmjuːzɪk","sure":"ˈʃʊə","they":"ðeɪ","breakfast":"ˈbrekfəst","apart":"əˈpɑːt","that":"ˈðæt","time":"ˈtaɪm","specific":"spəˈsɪfɪk","clean":"ˈkliːn","less":"ˈles","pressure":"ˈpreʃə","yeah":"jeə","choose":"ˈtʃuːz","feel":"ˈfiːl","depends":"dɪˈpendz","busy":"ˈbɪzi","social":"ˈsəʊʃəl","plans":"ˈplænz","evening":"ˈiːvnɪŋ","then":"ˈðen","prefer":"prɪˈfɜː","chill":"ˈtʃɪl","quite":"ˈkwaɪt","quiet":"ˈkwaɪət","active":"ˈæktɪv","friends":"ˈfrendz","exercise":"ˈeksəˌsaɪz","kind":"ˈkaɪnd","make the most of":"ˌmeɪk ðə ˈməʊst əv","particularly":"pəˈtɪkjʊləli","especially":"ɪˈspeʃəli","saturday":"ˈsætəˌdeɪ","sunday":"ˈsʌndeɪ","sunny":"ˈsʌni","walk":"ˈwɔːk","visit":"ˈvɪzɪt","somewhere":"ˈsʌmweə","true":"ˈtruː","raining":"ˈreɪnɪŋ","favourite":"ˈfeɪvrɪt","alarm":"əˈlɑːm","wake":"ˈweɪk","down":"ˈdaʊn","coffee":"ˈkɒfi","bring":"ˈbrɪŋ","read":"ˈriːd","watch":"ˈwɒtʃ","youtube":"ˈjuːtjuːb","suddenly":"ˈsʌdənli","this weekend":"ðɪs wiːˈkend","yes":"ˈjes","turning":"ˈtɜːnɪŋ","years":"ˈjiəz","year":"ˈjiə","birthday":"ˈbɜːθdeɪ","party":"ˈpɑːti","probably":"ˈprɒbəbli","late":"ˈleɪt","night":"ˈnaɪt","take it easy":"ˈteɪk ɪt ˈiːzi","relax":"rɪˈlæks","make":"ˈmeɪk","wind":"ˈwɪnd","blows":"ˈbləʊz","about":"əˈbaʊt","last":"ˈlæst","get done":"ɡet ˈdʌn","can't":"ˈkɑːnt","urgh":"ˈɜːɡ","organise":"ˈɔːɡəˌnaɪz","admin":"ˈædmɪn","tasks":"ˈtæsks","haven't":"ˈhævənt","done":"ˈdʌn","anything":"ˈenɪˌθɪŋ","you":"juː","everything":"ˈevrɪˌθɪŋ","recap":"rɪˈkæp","language":"ˈlæŋɡwɪdʒ","conversation":"kɒnvəˈseɪʃən","heard":"ˈhɜːd","waste":"ˈweɪst","complete":"kəmˈpliːt","task":"ˈtæsk","cleaning":"ˈkliːnɪŋ","house":"ˈhaʊs","over":"ˈəʊvə","talked":"ˈtɔːkt","coming":"ˈkʌmɪŋ","back":"ˈbæk","next":"ˈnekst","worksheet":"ˈwɜːkʃiːt","practise":"ˈpræktɪs","learnt":"ˈlɜːnt","goodbye":"ɡʊdˈbaɪ","bye":"ˈbaɪ"};
+    const stressCoreByWord = {"about":"{about}","active":"{act}ive","actually":"{ac}tually","admin":"{ad}min","alarm":"{alarm}","anything":"{any}thing","apart":"{apart}","back":"{back}","bbclearningenglish":"bbclearnin{geng}lish","birthday":"{birth}day","blows":"{blows}","breakfast":"{break}fast","bring":"{bring}","busy":"{busy}","bye":"{bye}","can't":"{can}'t","certainly":"{cer}tainly","children":"{chil}dren","chill":"{chill}","choose":"{choose}","clean":"{clean}","cleaning":"{clean}ing","coffee":"{cof}fee","coming":"{com}ing","complete":"com{plete}","conversation":"conver{sa}tion","conversations":"conver{sa}tions","depends":"de{pends}","doesn't":"{does}n't","done":"{done}","down":"{down}","early":"{early}","easy":"{easy}","english":"{eng}lish","especially":"es{pe}cially","evening":"{even}ing","everyone":"{every}one","everything":"{ev}erything","exercise":"{ex}ercise","favourite":"{fa}vourite","feel":"{feel}","forward":"{for}ward","friends":"{friends}","get":"{get}","good":"{good}","goodbye":"good{bye}","haven't":"{have}n't","heard":"{heard}","hello":"{hello}","house":"{house}","it":"{it}","kind":"{kind}","know":"{know}","language":"{lan}guage","last":"{last}","late":"{late}","learn":"{learn}","learnt":"{learnt}","less":"{less}","looking":"{look}ing","love":"{love}","make":"{make}","most":"{most}","music":"{mu}sic","need":"{need}","needs":"{needs}","next":"{next}","nice":"{nice}","night":"{night}","of":"{of}","organise":"{or}ganise","over":"{over}","particularly":"par{tic}ularly","party":"{party}","phil":"{phil}","plans":"{plans}","play":"{play}","podcast":"{pod}cast","practise":"{prac}tise","prefer":"{prefer}","pressure":"{pres}sure","probably":"{prob}ably","quiet":"{quiet}","quite":"{quite}","raining":"{rain}ing","read":"{read}","real":"{real}","recap":"re{cap}","relax":"re{lax}","relaxed":"re{laxed}","remember":"re{mem}ber","saturday":"{sat}urday","social":"{so}cial","somewhere":"{some}where","specific":"spe{cif}ic","subtitles":"{sub}titles","suddenly":"{sud}denly","sunday":"{sunday}","sunny":"{sunny}","sure":"{sure}","take":"{take}","talk":"{talk}","talked":"{talked}","talking":"{talk}ing","task":"{task}","tasks":"{tasks}","that":"{that}","the":"{the}","then":"{then}","they":"{they}","this":"{this}","time":"{time}","true":"{true}","turning":"{turn}ing","understand":"under{stand}","urgh":"{urgh}","usually":"{usu}ally","visit":"{vis}it","wake":"{wake}","walk":"{walk}","waste":"{waste}","watch":"{watch}","week":"{week}","weekend":"week{end}","weekends":"week{ends}","welcome":"{wel}come","wind":"{wind}","work":"{work}","worksheet":"{work}sheet","yeah":"{yeah}","year":"{year}","years":"{years}","yes":"{yes}","you":"{you}","youtube":"{you}tube"};
+    const app = document.getElementById('app');
+    const audio = document.getElementById('audio');
+    const transcript = document.getElementById('transcript');
+    const playButton = document.getElementById('play');
+    const progress = document.getElementById('progress');
+    const elapsed = document.getElementById('elapsed');
+    const duration = document.getElementById('duration');
+    const autoscroll = document.getElementById('autoscroll');
+    let activeIndex = -1;
+    let scrubbing = false;
+
+    const formatTime = seconds => {
+      const safe = Number.isFinite(seconds) ? Math.max(0, Math.floor(seconds)) : 0;
+      return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
+    };
+
+    function appendStressTerm(term, container, studyOverrides = {}) {
+      const stress = document.createElement('span');
+      stress.className = 'stress';
+      const orthography = document.createElement('span');
+      orthography.className = 'stress-label';
+      term.split(/([A-Za-z]+(?:['-][A-Za-z]+)*|\d+)/g).filter(Boolean).forEach(token => {
+        const pattern = studyOverrides.stress?.[token.toLowerCase()] || stressCoreByWord[token.toLowerCase()];
+        if (!pattern) {
+          if (/^[A-Za-z0-9]/.test(token)) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = token;
+            orthography.append(core);
+          } else {
+            orthography.append(token);
+          }
+          return;
+        }
+        let offset = 0;
+        pattern.split(/(\{[^{}]+\})/g).filter(Boolean).forEach(piece => {
+          const raw = piece.startsWith('{') && piece.endsWith('}') ? piece.slice(1, -1) : piece;
+          const original = token.slice(offset, offset + raw.length);
+          offset += raw.length;
+          if (piece.startsWith('{') && piece.endsWith('}')) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = original;
+            orthography.append(core);
+          } else {
+            orthography.append(original);
+          }
+        });
+      });
+      const ipa = document.createElement('span');
+      ipa.className = 'ipa';
+      ipa.textContent = `/${studyOverrides.ipa?.[term.toLowerCase()] || ipaByTerm[term.toLowerCase()] || ''}/`;
+      stress.append(orthography, ipa);
+      container.append(stress);
+    }
+
+    function renderGroup(group, container, arrow, studyOverrides = {}) {
+      const wrapper = document.createElement('span');
+      wrapper.className = 'thought-group';
+      group.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).forEach(part => {
+        const span = document.createElement('span');
+        if (part.startsWith('**') && part.endsWith('**')) {
+          appendStressTerm(part.slice(2, -2), wrapper, studyOverrides);
+        } else {
+          span.textContent = part;
+          wrapper.appendChild(span);
+        }
+      });
+      const intonation = document.createElement('span');
+      intonation.className = 'intonation';
+      intonation.textContent = arrow;
+      wrapper.appendChild(intonation);
+      container.appendChild(wrapper);
+    }
+
+    function renderAnnotation(annotation, container, studyOverrides = {}) {
+      const groups = annotation.split(' / ');
+      const yesNoQuestion = /^(is|are|do|does|did|can|could|would|will|have|has|was|were)\b/i.test(annotation);
+      groups.forEach((group, index) => {
+        const last = index === groups.length - 1;
+        renderGroup(group, container, last && annotation.trim().endsWith('?') && yesNoQuestion ? '↗' : last ? '↘' : '↗', studyOverrides);
+        if (!last) {
+          const slash = document.createElement('span');
+          slash.className = 'slash';
+          slash.textContent = '/';
+          container.appendChild(slash);
+        }
+      });
+    }
+
+    captions.forEach((caption, index) => {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'caption';
+      row.dataset.index = index;
+      row.dataset.line = String(index + 1).padStart(2, '0');
+      row.setAttribute('role', 'listitem');
+      row.setAttribute('aria-label', `${caption.speaker}, ${formatTime(caption.start)}. ${caption.text} 。翻译：${caption.translation}`);
+
+      const meta = document.createElement('div');
+      meta.className = 'cue-meta';
+      const speaker = document.createElement('span');
+      speaker.className = 'speaker';
+      speaker.textContent = '@' + caption.speaker.replaceAll(' ', '_');
+      const stamp = document.createElement('span');
+      stamp.className = 'stamp';
+      stamp.textContent = `[${formatTime(caption.start)}]`;
+      meta.append(speaker, stamp);
+
+      const body = document.createElement('div');
+      body.className = 'cue-body';
+      const english = document.createElement('div');
+      english.className = 'english';
+      renderAnnotation(caption.annotation, english, caption.studyOverrides || {});
+      const translation = document.createElement('div');
+      translation.className = 'translation';
+      translation.textContent = caption.translation;
+      const pronunciation = document.createElement('div');
+      pronunciation.className = 'pronunciation';
+      caption.pronunciation.forEach(tip => {
+        const item = document.createElement('span');
+        item.className = 'pron-tip';
+        const label = document.createElement('b');
+        label.textContent = tip.kind;
+        item.append(label, tip.text);
+        pronunciation.appendChild(item);
+      });
+      body.append(english, pronunciation, translation);
+      row.append(meta, body);
+
+      row.addEventListener('click', () => {
+        audio.currentTime = caption.start + .01;
+        setActive(index, false);
+        update();
+        if (audio.paused) audio.play().catch(() => {});
+      });
+      transcript.appendChild(row);
+    });
+
+    const rows = [...transcript.querySelectorAll('.caption')];
+
+    function indexAt(time) {
+      if (time < captions[0].start) return 0;
+      let low = 0, high = captions.length - 1, answer = 0;
+      while (low <= high) {
+        const mid = (low + high) >> 1;
+        if (captions[mid].start <= time) { answer = mid; low = mid + 1; }
+        else high = mid - 1;
+      }
+      return answer;
+    }
+
+    function setActive(index, shouldScroll = true) {
+      if (index === activeIndex) return;
+      if (activeIndex >= 0) {
+        rows[activeIndex].classList.remove('active');
+        rows[activeIndex].removeAttribute('aria-current');
+      }
+      activeIndex = index;
+      rows[index].classList.add('active');
+      rows[index].setAttribute('aria-current', 'true');
+      if (shouldScroll && autoscroll.checked) rows[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function update() {
+      const time = audio.currentTime || 0;
+      if (!scrubbing) progress.value = time;
+      elapsed.textContent = formatTime(time);
+      setActive(indexAt(time));
+      if (!audio.paused) requestAnimationFrame(update);
+    }
+
+    playButton.addEventListener('click', () => audio.paused ? audio.play().catch(() => {}) : audio.pause());
+    document.getElementById('back').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 10); update(); });
+    document.getElementById('forward').addEventListener('click', () => { audio.currentTime = Math.min(audio.duration || 316.775, audio.currentTime + 10); update(); });
+    document.getElementById('speed').addEventListener('change', event => { audio.playbackRate = Number(event.target.value); });
+    progress.addEventListener('input', () => { scrubbing = true; elapsed.textContent = formatTime(Number(progress.value)); });
+    progress.addEventListener('change', () => { audio.currentTime = Number(progress.value); scrubbing = false; update(); });
+    document.getElementById('translationToggle').addEventListener('change', event => app.classList.toggle('hide-translation', !event.target.checked));
+    document.getElementById('studyToggle').addEventListener('change', event => app.classList.toggle('hide-study', !event.target.checked));
+    audio.addEventListener('loadedmetadata', () => { progress.max = audio.duration; duration.textContent = formatTime(audio.duration); });
+    audio.addEventListener('play', () => { app.classList.add('is-playing'); playButton.textContent = '❚❚'; playButton.setAttribute('aria-label', '暂停'); requestAnimationFrame(update); });
+    audio.addEventListener('pause', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; playButton.setAttribute('aria-label', '播放'); update(); });
+    audio.addEventListener('ended', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; });
+    document.addEventListener('keydown', event => {
+      if (['INPUT','SELECT','BUTTON'].includes(document.activeElement.tagName)) return;
+      if (event.code === 'Space') { event.preventDefault(); audio.paused ? audio.play().catch(() => {}) : audio.pause(); }
+      if (event.key === 'ArrowLeft') { audio.currentTime = Math.max(0, audio.currentTime - 5); update(); }
+      if (event.key === 'ArrowRight') { audio.currentTime = Math.min(audio.duration || 316.775, audio.currentTime + 5); update(); }
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    function syncThemeButton() {
+      const light = document.documentElement.dataset.theme === 'light';
+      themeToggle.textContent = light ? '☾ 深色' : '☀ 浅色';
+      themeToggle.setAttribute('aria-pressed', String(light));
+    }
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('ell-theme', next); } catch (_) {}
+      syncThemeButton();
+    });
+    syncThemeButton();
+
+    setActive(0, false);
+    update();
+  </script>
+</body>
+</html>

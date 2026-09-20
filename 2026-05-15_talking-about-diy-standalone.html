@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <script>
+    (() => { try { document.documentElement.dataset.theme = localStorage.getItem('ell-theme') || 'dark'; } catch (_) { document.documentElement.dataset.theme = 'dark'; } })();
+  </script>
+  <title>Talking about DIY · 双语精听 · English Listening Lab</title>
+  <style>
+    :root {
+      --paper: #070a0f;
+      --surface: #0d1117;
+      --surface-2: #111824;
+      --ink: #d8e6f3;
+      --muted: #75849a;
+      --line: #222d3b;
+      --teal: #42d3ff;
+      --teal-soft: #112332;
+      --orange: #ff8b4c;
+      --orange-soft: #2a1b17;
+      --purple: #c792ea;
+      --pink: #ff5ca8;
+      --green: #9be564;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .44);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 10% -5%, rgba(66,211,255,.1), transparent 31rem),
+        radial-gradient(circle at 92% 15%, rgba(199,146,234,.09), transparent 28rem),
+        var(--paper);
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", "Microsoft YaHei", monospace;
+    }
+    body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .18; background-image: linear-gradient(rgba(91,112,139,.11) 1px, transparent 1px), linear-gradient(90deg, rgba(91,112,139,.11) 1px, transparent 1px); background-size: 32px 32px; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
+    button, input, select { font: inherit; }
+    button, select { color: inherit; }
+    .page { position: relative; z-index: 1; width: min(1040px, calc(100% - 36px)); margin: 0 auto; padding: 34px 0 70px; }
+
+    .site-head { overflow: hidden; margin-bottom: 20px; padding: 0 0 30px; border: 1px solid var(--line); border-radius: 14px; background: rgba(13,17,23,.9); box-shadow: var(--shadow); }
+    .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 11px 15px; border-bottom: 1px solid var(--line); background: #090d13; }
+    .brand { display: flex; align-items: center; gap: 13px; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .04em; }
+    .window-dots { display: flex; gap: 7px; }
+    .window-dots i { width: 10px; height: 10px; border-radius: 50%; }
+    .window-dots i:nth-child(1) { background: #ff5f57; }
+    .window-dots i:nth-child(2) { background: #febc2e; }
+    .window-dots i:nth-child(3) { background: #28c840; }
+    .file-tab { color: #a9b7c6; }
+    .file-tab::before { content: "<>"; margin-right: 8px; color: var(--orange); font-weight: 850; }
+    .meta { color: #5f6d80; font-size: 11px; font-variant-numeric: tabular-nums; }
+    h1 { margin: 30px 28px 9px; font-size: clamp(26px, 5vw, 50px); font-weight: 650; letter-spacing: -.045em; line-height: 1.3; }
+    .code-keyword { color: var(--purple); }
+    .code-var { color: var(--teal); }
+    .code-op, .code-punct { color: #7f8ea3; }
+    .code-string { color: var(--green); }
+    .cn-title { margin: 0 28px; color: var(--green); font-size: clamp(16px, 2.2vw, 21px); font-weight: 650; letter-spacing: .01em; }
+    .cn-title::before { content: "// "; color: #59687b; }
+    .intro { max-width: 780px; margin: 17px 28px 0; color: var(--muted); font-size: 13px; line-height: 1.75; }
+    .intro::before { content: "/* "; color: var(--purple); }
+    .intro::after { content: " */"; color: var(--purple); }
+
+    .player {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: auto auto auto minmax(160px,1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 18px;
+      border: 1px solid #283647;
+      border-radius: 12px;
+      background: rgba(13,17,23,.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+    .round, .play { display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer; transition: transform .18s, background .18s; }
+    .round:hover, .play:hover { transform: translateY(-1px); }
+    .round { width: 38px; height: 38px; color: var(--teal); background: #111b27; font-size: 10px; font-weight: 850; }
+    .play { width: 48px; height: 48px; color: #071015; background: var(--teal); font-size: 16px; box-shadow: 0 0 24px rgba(66,211,255,.22); }
+    .is-playing .play { animation: pulse 1.8s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 24px rgba(66,211,255,.2), 0 0 0 11px rgba(66,211,255,0); } }
+    .timeline { min-width: 0; display: grid; grid-template-columns: minmax(90px,1fr) 93px; align-items: center; gap: 13px; }
+    .progress { width: 100%; height: 5px; margin: 0; accent-color: var(--teal); cursor: pointer; }
+    .time { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .time strong { color: var(--green); }
+    .speed { height: 36px; padding: 0 11px; border: 1px solid #2a3747; border-radius: 7px; background: #0a0f16; font-size: 11px; font-weight: 750; cursor: pointer; }
+
+    .study-tools { display: flex; align-items: center; justify-content: space-between; gap: 22px; margin: 18px 0 16px; padding: 15px 18px; border: 1px solid var(--line); border-radius: 10px; background: rgba(13,17,23,.88); }
+    .legend { display: flex; flex-wrap: wrap; align-items: center; gap: 17px; color: var(--muted); font-size: 12px; }
+    .legend b { color: var(--purple); font-weight: 800; }
+    .legend-stress { color: var(--orange); font-weight: 800; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+    .legend-slash { color: var(--pink); font-size: 17px; font-weight: 900; }
+    .toggles { display: flex; align-items: center; gap: 13px; }
+    .toggle { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+    .toggle input { width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; }
+
+    .transcript-title { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 34px 4px 13px; }
+    .transcript-title h2 { margin: 0; color: var(--teal); font-size: 24px; font-weight: 750; letter-spacing: -.02em; }
+    .transcript-title h2::before { content: "// "; color: #4c5a6d; }
+    .transcript-title span { color: var(--muted); font-size: 11px; }
+    .transcript { display: grid; gap: 12px; }
+    .caption {
+      position: relative;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 148px minmax(0,1fr);
+      gap: 22px;
+      padding: 24px 25px 24px 44px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: rgba(13,17,23,.9);
+      text-align: left;
+      cursor: pointer;
+      scroll-margin-top: 116px;
+      transition: border-color .22s, background .22s, box-shadow .22s, transform .22s;
+    }
+    .caption:hover { border-color: #35506a; background: #0f1620; transform: translateY(-1px); }
+    .caption.active { border-color: rgba(66,211,255,.62); background: var(--surface-2); box-shadow: 0 0 0 1px rgba(66,211,255,.08), 0 18px 42px rgba(0,0,0,.32), 0 0 28px rgba(66,211,255,.06); }
+    .caption.active::before { content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px; width: 4px; border-radius: 0 6px 6px 0; background: var(--teal); box-shadow: 0 0 16px rgba(66,211,255,.45); }
+    .caption::after { content: attr(data-line); position: absolute; left: 13px; top: 27px; color: #3d4a5c; font-size: 10px; font-variant-numeric: tabular-nums; }
+    .cue-meta { padding-top: 4px; }
+    .speaker { display: block; overflow: hidden; color: var(--teal); font-size: 10px; font-weight: 850; letter-spacing: .05em; text-overflow: ellipsis; text-transform: uppercase; white-space: nowrap; }
+    .stamp { display: block; margin-top: 7px; color: var(--purple); font-size: 11px; font-variant-numeric: tabular-nums; }
+    .cue-body { min-width: 0; }
+    .english { color: #d6deeb; font-size: clamp(18px, 2.2vw, 23px); line-height: 1.72; letter-spacing: -.025em; }
+    .thought-group { display: inline; }
+    .stress { color: var(--orange); font-weight: 800; text-shadow: 0 0 16px rgba(255,139,76,.12); }
+    .stress-label { text-decoration: underline; text-decoration-color: #ff5f56; text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .stress-core { color: #ffe66d; text-decoration-color: #ffe66d; text-shadow: 0 0 13px rgba(255,230,109,.2); }
+    .ipa { margin-left: .38em; color: var(--purple); font-size: .68em; font-weight: 650; letter-spacing: 0; overflow-wrap: anywhere; white-space: normal; }
+    .intonation { display: inline-block; margin-left: .22em; color: var(--teal); font-size: .72em; font-weight: 900; text-decoration: none; transform: translateY(-.06em); }
+    .slash { display: inline-block; margin: 0 .28em; color: var(--pink); font-size: .88em; font-weight: 900; opacity: .92; }
+    .pronunciation { display: flex; flex-wrap: wrap; gap: 7px 13px; margin-top: 14px; padding: 11px 12px; border: 1px solid #233043; border-left: 3px solid var(--purple); border-radius: 7px; color: #9fb1c6; background: #0a1017; font-size: 13px; line-height: 1.65; }
+    .pronunciation::before { content: "// phonetics"; color: var(--purple); font-size: 10px; font-weight: 850; letter-spacing: .04em; }
+    .pron-tip { display: inline; }
+    .pron-tip b { margin-right: 5px; color: var(--teal); font-weight: 850; }
+    .translation { margin-top: 15px; padding-top: 13px; border-top: 1px dashed #273242; color: var(--green); font-family: "SFMono-Regular", Menlo, Monaco, Consolas, "PingFang SC", monospace; font-size: 16px; line-height: 1.85; }
+    .translation::before { content: "// zh"; display: inline-grid; place-items: center; width: 47px; height: 22px; margin-right: 9px; border-radius: 4px; color: var(--teal); background: var(--teal-soft); font-size: 9px; font-weight: 850; vertical-align: 1px; }
+    .hide-translation .translation { display: none; }
+    .hide-study .stress { color: inherit; font-weight: inherit; text-shadow: none; }
+    .hide-study .stress-label { text-decoration: none; }
+    .hide-study .stress-core { color: inherit; text-shadow: none; }
+    .hide-study .ipa, .hide-study .intonation, .hide-study .slash, .hide-study .pronunciation { display: none; }
+    .footer { margin: 30px 4px 0; color: #58677b; font-size: 10px; line-height: 1.7; }
+
+    @media (max-width: 680px) {
+      .page { width: min(100% - 20px, 560px); padding-top: 24px; }
+      .site-head { padding-inline: 3px; }
+      .brand-row .meta { display: none; }
+      h1 { margin: 23px 18px 8px; font-size: clamp(23px, 7vw, 34px); }
+      .cn-title, .intro { margin-left: 18px; margin-right: 18px; }
+      .player { top: 7px; grid-template-columns: auto auto minmax(70px,1fr) auto; gap: 7px; padding: 11px; border-radius: 17px; }
+      #forward { display: none; }
+      .round { width: 36px; height: 36px; }
+      .play { width: 45px; height: 45px; }
+      .timeline { grid-template-columns: minmax(48px,1fr) 64px; gap: 7px; }
+      .time { font-size: 9px; }
+      .speed { width: 50px; padding: 0 4px; }
+      .study-tools { display: block; padding: 16px; }
+      .toggles { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); }
+      .transcript-title { margin-top: 27px; }
+      .caption { grid-template-columns: 1fr; gap: 10px; padding: 20px 17px 20px 39px; scroll-margin-top: 91px; }
+      .caption::after { left: 11px; top: 22px; }
+      .cue-meta { display: flex; align-items: center; gap: 9px; padding-top: 0; }
+      .speaker, .stamp { display: inline; margin: 0; }
+      .english { font-size: 21px; line-height: 1.52; }
+      .ipa { font-size: .58em; }
+      .pronunciation { gap: 6px 10px; font-size: 13px; }
+      .translation { font-size: 16px; line-height: 1.85; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+
+    .home-link, .theme-toggle { color: var(--teal); }
+    .home-link { margin-left: 3px; font-size: 11px; font-weight: 800; text-decoration: none; }
+    .home-link:hover { text-decoration: underline; }
+    .theme-toggle { min-height: 34px; padding: 0 11px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-2); font-size: 11px; font-weight: 800; cursor: pointer; }
+    .theme-toggle:hover { border-color: var(--teal); }
+    html[data-theme="light"] {
+      --paper: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef7fb;
+      --ink: #182334;
+      --muted: #64748b;
+      --line: #d8e1eb;
+      --teal: #007fa3;
+      --teal-soft: #dff5fb;
+      --orange: #c45116;
+      --orange-soft: #fff0e7;
+      --purple: #7c3fb1;
+      --pink: #c72c73;
+      --green: #357a16;
+      --shadow: 0 18px 52px rgba(30, 55, 80, .13);
+    }
+    html[data-theme="light"] body {
+      background: radial-gradient(circle at 10% -5%, rgba(0,127,163,.10), transparent 31rem), radial-gradient(circle at 92% 15%, rgba(124,63,177,.08), transparent 28rem), var(--paper);
+    }
+    html[data-theme="light"] body::before { opacity: .34; background-image: linear-gradient(rgba(72,104,135,.10) 1px, transparent 1px), linear-gradient(90deg, rgba(72,104,135,.10) 1px, transparent 1px); }
+    html[data-theme="light"] .site-head,
+    html[data-theme="light"] .study-tools,
+    html[data-theme="light"] .caption { background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .brand-row { background: #edf3f8; }
+    html[data-theme="light"] .file-tab { color: #496176; }
+    html[data-theme="light"] .meta { color: #718096; }
+    html[data-theme="light"] .player { border-color: #cbd8e5; background: rgba(255,255,255,.94); }
+    html[data-theme="light"] .round { color: var(--teal); background: #e6f3f7; }
+    html[data-theme="light"] .play { color: #fff; }
+    html[data-theme="light"] .speed { border-color: #cbd8e5; background: #f7fafc; }
+    html[data-theme="light"] .caption:hover { border-color: #88aec2; background: #f8fbfd; }
+    html[data-theme="light"] .caption.active { background: #edf8fc; box-shadow: 0 0 0 1px rgba(0,127,163,.07), 0 16px 36px rgba(35,70,95,.12); }
+    html[data-theme="light"] .english { color: #1b2a3d; }
+    html[data-theme="light"] .pronunciation { border-color: #d4ddea; border-left-color: var(--purple); color: #526a7e; background: #f7f9fc; }
+    html[data-theme="light"] .translation { border-top-color: #d7e0e8; }
+    html[data-theme="light"] .footer { color: #697b8c; }
+
+  </style>
+</head>
+<body>
+  <main class="page" id="app">
+    <header class="site-head">
+      <div class="brand-row">
+        <div class="brand"><span class="window-dots"><i></i><i></i><i></i></span><span class="file-tab">transcript.html</span><a class="home-link" href="index.html">← 全部课程</a></div>
+        <div class="meta">UTF-8 · LF · 15 May 2026 · 05:58</div>
+      </div>
+      <h1><span class="code-keyword">const</span> <span class="code-var">episode</span> <span class="code-op">=</span> <span class="code-string">"Talking about DIY"</span><span class="code-punct">;</span></h1>
+      <p class="cn-title">谈论DIY</p>
+      <p class="intro">双语精听稿：跟随音频高亮当前句，用重点词、词重音和意群节奏辅助跟读。点击任意一句可从对应时间开始播放。</p>
+    </header>
+
+    <audio id="audio" preload="metadata" src="audio-2026-05-15_talking-about-diy.mp3"></audio>
+    <section class="player" aria-label="音频播放器">
+      <button class="round" id="back" type="button" aria-label="后退 10 秒">−10</button>
+      <button class="play" id="play" type="button" aria-label="播放">▶</button>
+      <button class="round" id="forward" type="button" aria-label="前进 10 秒">+10</button>
+      <div class="timeline">
+        <input class="progress" id="progress" type="range" min="0" max="358.233" step="0.01" value="0" aria-label="音频进度">
+        <div class="time"><strong id="elapsed">0:00</strong> / <span id="duration">5:58</span></div>
+      </div>
+      <select class="speed" id="speed" aria-label="播放速度">
+        <option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option>
+      </select>
+    </section>
+
+    <section class="study-tools" aria-label="学习标记">
+      <div class="legend"><b>学习标记</b><span><span class="legend-stress">重点词</span> + 英音 IPA</span><span><span class="legend-slash">↗ / ↘</span> 意群语调</span></div>
+      <div class="toggles">
+        <label class="toggle"><input id="translationToggle" type="checkbox" checked> 中文翻译</label>
+        <label class="toggle"><input id="studyToggle" type="checkbox" checked> 重音/意群</label>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅主题">☀ 浅色</button>
+        <label class="toggle"><input id="autoscroll" type="checkbox" checked> 自动滚动</label>
+      </div>
+    </section>
+
+    <div class="transcript-title"><h2>逐句精听</h2><span>50 句 · 点击跳转</span></div>
+    <section class="transcript" id="transcript" role="list" aria-label="同步双语字幕"></section>
+    <footer class="footer">文稿及节目归属 BBC Learning English。原文说明该文稿并非逐字稿；中文翻译与词重音/意群标注为精听学习辅助，音标、重音与语调箭头为学习参考；音频开场和附加内容另行标明。<br>Real Easy English · 2026-05-15 · <a style="color:var(--teal)" href="https://www.bbc.co.uk/learningenglish/english/features/real-easy-english/260515" target="_blank" rel="noopener">BBC 官方来源</a> · <a style="color:var(--purple)" href="index.html">合集目录</a></footer>
+  </main>
+
+  <script>
+    const captions = [{"speaker":"Georgie","text":"Hello and welcome to Real Easy English. We're back with another conversation in easy English to help you learn. I'm Georgie.","start":0.0,"end":8.2,"id":0,"translation":"您好，欢迎来到 Real Easy English。我们又推出了另一段简单英语对话，以帮助您学习。我是Georgie。","annotation":"Hello and **welcome** to **Real Easy English**. / We're back with another **conversation** in easy English to **help** you **learn**. I'm Georgie.","pronunciation":[{"kind":"连读","text":"Real‿Easy：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"And I'm Phil. And you can find a video version of this podcast with subtitles to help you on our website.","start":8.44,"end":16.14,"id":1,"translation":"我是Phil。您可以在我们的网站上找到该播客的视频版本（带字幕）以帮助您。","annotation":"And I'm Phil. And you can find a video **version** of this **podcast** with **subtitles** to help you on our website.","pronunciation":[{"kind":"连读","text":"And‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"And that's at bbclearningenglish.com.","start":16.14,"end":19.52,"id":2,"translation":"这是在 bbclearningenglish.com 上。","annotation":"And that's at **bbclearningenglish**.com.","pronunciation":[{"kind":"连读","text":"that's‿at：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Hello Phil. How are you?","start":25.88,"end":27.6,"id":3,"translation":"你好Phil。你好吗？","annotation":"**Hello Phil**. How are you?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Hello Phil，按意群停顿，不逐词等长朗读"}]},{"speaker":"Phil","text":"I'm good, but I'm also a little bit tired because I've been doing DIY all weekend.","start":28.32,"end":36.12,"id":4,"translation":"我很好，但我也有点累，因为我整个周末都在做 DIY。","annotation":"I'm good, but I'm also a little bit **tired** because I've been doing **DIY** all **weekend**.","pronunciation":[{"kind":"连读","text":"but‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Well, that's lucky because today we're talking about DIY. DIY stands for Do It Yourself and it means doing things to your home,","start":37.22,"end":46.92,"id":5,"translation":"嗯，这很幸运，因为今天我们谈论的是 DIY。 DIY代表Do It Yourself，意思是为你的家做一些事情，","annotation":"Well, that's **lucky** because today we're **talking** about **DIY**. / **DIY** stands for **Do It Yourself** and it means doing things to your **home**,","pronunciation":[{"kind":"连读","text":"talking‿about：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we're 合为一个音组 /wɪə/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"such as fixing and painting. So, what kind of DIY have you been doing this weekend?","start":46.92,"end":53.8,"id":6,"translation":"例如固定和油漆。那么，这个周末你做了什么DIY呢？","annotation":"such as **fixing** and **painting**. / So, what **kind** of **DIY** have you been doing this **weekend**?","pronunciation":[{"kind":"连读","text":"such‿as：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"Yes, I've been trying to fix my water tank.","start":54.24,"end":57.66,"id":7,"translation":"是的，我一直在尝试修理我的水箱。","annotation":"Yes, I've been **trying** to fix my **water** **tank**.","pronunciation":[{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"OK. And do you do a lot of DIY?","start":58.44,"end":61.44,"id":8,"translation":"好的。你做很多DIY吗？","annotation":"OK. And do you do a lot of **DIY**?","pronunciation":[{"kind":"连读","text":"lot‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"More than I want to. I'm not very good at DIY.","start":63.54,"end":69.16,"id":9,"translation":"比我想要的还要多。我不太擅长DIY。","annotation":"More **than** I want to. / I'm not very good at **DIY**.","pronunciation":[{"kind":"连读","text":"than‿I：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"If it's something I can do, I will try and do it. Some things I would never touch, like electrics.","start":70.02,"end":78.28,"id":10,"translation":"如果这是我能做的事情，我会尝试去做。有些东西我永远不会碰，比如电器。","annotation":"If it's **something** I can do, I will try and do it. / Some things I would never **touch**, like **electrics**.","pronunciation":[{"kind":"连读","text":"If‿it's：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"I wouldn't go anywhere near that or gas because it's not safe. But if it's something that looks safe and I think I can do it,","start":79.08,"end":88.38,"id":11,"translation":"我不会去任何靠近那个或天然气的地方，因为它不安全。但如果它看起来很安全并且我认为我能做到，","annotation":"I **wouldn't** go **anywhere** **near** that or gas because it's not safe. / But if it's something **that** **looks** **safe** and I think I can do it,","pronunciation":[{"kind":"连读","text":"that‿or：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"I will try it.","start":88.88,"end":90.26,"id":12,"translation":"我会尝试一下。","annotation":"I **will** try it.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 will，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"OK. So, what kinds of things do you do around the house?","start":90.63,"end":94.8,"id":13,"translation":"好的。那么，你在家里做了哪些事情呢？","annotation":"OK. So, what **kinds** of things do you do around the **house**?","pronunciation":[{"kind":"连读","text":"kinds‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 of 可弱读为 /əv/；强调时使用强读"}]},{"speaker":"Phil","text":"It could be things like painting and decorating your house, making it look nice– that I quite like. I can do that.","start":97.02,"end":103.74,"id":14,"translation":"可以是粉刷和装饰你的房子，让它看起来很漂亮——我很喜欢。我能做到。","annotation":"It could be things like **painting** and **decorating** your **house**, / **making** it **look** nice– that I **quite** like. / I can do **that**.","pronunciation":[{"kind":"连读","text":"painting‿and：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"Sometimes fixing things with bits of wood that need to go somewhere– I can do that.","start":106.28,"end":113.73,"id":15,"translation":"有时用一些需要去某个地方的木头来修理东西——我可以做到。","annotation":"Sometimes fixing things with **bits** of wood that **need** to go **somewhere**– I can do that.","pronunciation":[{"kind":"连读","text":"bits‿of：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"Putting up fences– I could do that, but that's probably it. What about you, Georgie?","start":114.38,"end":122.46,"id":16,"translation":"竖起栅栏——我可以这么做，但可能就是这样了。你呢，Georgie？","annotation":"**Putting** up **fences**– I could do that, but that's **probably** it. / What about you, **Georgie**?","pronunciation":[{"kind":"连读","text":"Putting‿up：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"}]},{"speaker":"Phil","text":"Do you do much DIY?","start":122.66,"end":123.92,"id":17,"translation":"你做很多DIY吗？","annotation":"Do you do much **DIY**?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 DIY，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"No, I don't. I actually rent my flat, so that means I can't really do much to the place because it's not mine.","start":125.62,"end":132.9,"id":18,"translation":"不，我不。我实际上租了我的公寓，所以这意味着我不能对这个地方做太多事情，因为它不是我的。","annotation":"No, I don't. I **actually** **rent** my **flat**, / so that means I **can't** really do much to the **place** because it's not **mine**.","pronunciation":[{"kind":"连读","text":"means‿I：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"But recently I have put up some lights in my room, because I changed rooms,","start":133.86,"end":140.22,"id":19,"translation":"但是最近我在房间里放了一些灯，因为我换了房间，","annotation":"But **recently** I have **put up** some lights in my **room**, / because I **changed** **rooms**,","pronunciation":[{"kind":"连读","text":"put‿up：尾辅音可自然衔接后词元音"}]},{"speaker":"Georgie","text":"so I've put up some nice fairy lights on the wall, and I've put up some frames with art and photos,","start":140.22,"end":148.84,"id":20,"translation":"所以我在墙上挂了一些漂亮的童话灯，还挂了一些画有艺术品和照片的相框，","annotation":"so I've **put up** some nice **fairy** lights on the **wall**, / and I've **put up** some **frames** with art and **photos**,","pronunciation":[{"kind":"连读","text":"put‿up：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i've 合为一个音组 /aɪv/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Georgie","text":"so that's probably my limit. I wouldn't do anything else.","start":149.66,"end":153.88,"id":21,"translation":"所以这可能是我的极限。我不会做任何其他事情。","annotation":"so that's **probably** my **limit**. / I **wouldn't** do **anything** else.","pronunciation":[{"kind":"连读","text":"anything‿else：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"}]},{"speaker":"Phil","text":"Do you enjoy DIY?","start":154.72,"end":156.06,"id":22,"translation":"你喜欢DIY吗？","annotation":"Do you **enjoy** **DIY**?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 enjoy，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"No, I don't, because I'm quite a lazy person. So, if I see that something is broken or needs fixing,","start":158.18,"end":166.68,"id":23,"translation":"不，我不喜欢，因为我是一个很懒的人。所以，如果我发现有什么东西坏了或者需要修理，","annotation":"No, I don't, because I'm **quite** a **lazy** **person**. / So, if I see that something is **broken** or **needs** **fixing**,","pronunciation":[{"kind":"连读","text":"because‿I'm：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I will just ignore it– procrastinate, which means to delay something, postpone it– and wait for someone else to do it.","start":166.68,"end":176.24,"id":24,"translation":"我会忽略它——拖延，意思是推迟某件事，推迟它——然后等待别人去做。","annotation":"I will just **ignore** it– **procrastinate**, / which means to **delay** something, / **postpone** it– and **wait** for **someone** else to do it.","pronunciation":[{"kind":"连读","text":"just‿ignore：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I kind of get used to things being broken and forget that it's like that. So, yeah, I'm just a bit lazy.","start":176.38,"end":185.2,"id":25,"translation":"我有点习惯了东西被破坏，却忘记了事情就是这样的。所以，是的，我只是有点懒。","annotation":"I kind of get **used** to things being **broken** and **forget** that it's like that. / So, **yeah**, I'm just a bit **lazy**.","pronunciation":[{"kind":"连读","text":"kind‿of：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}],"studyOverrides":{"ipa":{"used":"juːst"},"stress":{}}},{"speaker":"Georgie","text":"Phil, have you ever put together furniture, like flat-pack furniture?","start":185.9,"end":190.72,"id":26,"translation":"Phil，你曾经组装过家具吗，比如平板家具？","annotation":"Phil, have you **ever** **put together** furniture, like **flat-pack furniture**?","pronunciation":[{"kind":"节奏","text":"跟读时可突出 ever，按意群停顿，不逐词等长朗读"}]},{"speaker":"Phil","text":"Yes. Yes, I've done that. Yeah, quite a lot. Because, yeah, a lot of furniture you buy that's fairly cheap– you have to do that.","start":191.54,"end":201.78,"id":27,"translation":"是的。是的，我已经这么做了。是的，相当多。因为，是的，你买的很多家具相当便宜——你必须这样做。","annotation":"Yes. Yes, I've **done** **that**. / **Yeah**, **quite** a lot. / Because, yeah, a lot of **furniture** you buy that's **fairly** **cheap**– you have to do that.","pronunciation":[{"kind":"连读","text":"quite‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"I don't actually mind that. I quite like that. It's quite good to do it with someone and you work as a team.","start":203.08,"end":212.42,"id":28,"translation":"我其实并不介意这一点。我很喜欢这样。与某人一起做这件事并且你们作为一个团队工作是非常好的。","annotation":"I don't **actually** **mind** **that**. / I **quite** like **that**. / It's quite good to do it with **someone** and you **work** as a **team**.","pronunciation":[{"kind":"连读","text":"don't‿actually：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Mmm. Like an activity?","start":212.92,"end":214.02,"id":29,"translation":"嗯。比如一个活动？","annotation":"Mmm. Like an **activity**?","pronunciation":[{"kind":"连读","text":"Like‿an：尾辅音可自然衔接后词元音"}]},{"speaker":"Phil","text":"Yes. Yes, it can... Well, sometimes it's fun. Sometimes it's stressful.","start":214.74,"end":219.62,"id":30,"translation":"是的。是的，它可以...嗯，有时很有趣。有时压力很大。","annotation":"**Yes**. **Yes**, it can... / Well, sometimes it's fun. Sometimes it's **stressful**.","pronunciation":[{"kind":"连读","text":"sometimes‿it's：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 can 可弱读为 /kən/；强调时使用强读"}]},{"speaker":"Georgie","text":"Yeah. If it goes well that can be a nice thing to do with someone, but if it goes badly it could lead to an argument.","start":219.62,"end":227.78,"id":31,"translation":"是的。如果进展顺利，这对某人来说可能是一件好事，但如果进展不好​​，可能会导致争吵。","annotation":"**Yeah**. If it **goes** well that can be a nice thing to do with **someone**, / but if it goes **badly** it could **lead** to an **argument**.","pronunciation":[{"kind":"连读","text":"If‿it：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"Do you have any big plans for your house?","start":228.82,"end":230.82,"id":32,"translation":"你对你的房子有什么大的计划吗？","annotation":"Do you have any big **plans** for your **house**?","pronunciation":[{"kind":"连读","text":"have‿any：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Phil","text":"I would really like to get a very nice bit of wood and make a nice bar for my kitchen.","start":232.0,"end":238.16,"id":33,"translation":"我真的很想买一块非常好的木头，为我的厨房做一个漂亮的吧台。","annotation":"I would really like to get a very nice bit of **wood** and **make** a nice bar for my **kitchen**.","pronunciation":[{"kind":"连读","text":"get‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"I'd love to do that, but it's expensive and I haven't done it yet. I keep procrastinating and not doing it. What about you?","start":238.7,"end":247.44,"id":34,"translation":"我很想这么做，但是太贵了，而且我还没有这么做。我总是拖延而不去做。你呢？","annotation":"I'd **love** to do that, but it's **expensive** and I **haven't** done it yet. / I **keep** **procrastinating** and not doing it. What about you?","pronunciation":[{"kind":"连读","text":"but‿it's：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I rent my flat so I can't do anything big. I don't have big plans, but we do have an outdoor terrace, which at the moment it's not very...","start":247.8,"end":257.64,"id":35,"translation":"我租了公寓，所以我不能做任何大事。我没有什么大计划，但我们确实有一个室外露台，目前还不是很......","annotation":"I **rent** my flat so I **can't** do **anything** big. / I don't have big **plans**, / but we do have an **outdoor** **terrace**, / which at the **moment** it's not very...","pronunciation":[{"kind":"连读","text":"have‿an：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 can 可弱读为 /kən/；强调时使用强读"}]},{"speaker":"Georgie","text":"it's not in a very good state. So, I would like to clean it, maybe get some plants for it.","start":257.64,"end":265.82,"id":36,"translation":"它的状态不太好。所以，我想清理它，也许为它买些植物。","annotation":"it's not in a very good **state**. / So, I would like to **clean** it, **maybe** get some **plants** for it.","pronunciation":[{"kind":"连读","text":"not‿in：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"it's 合为一个音组 /ɪts/"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"I'd like to put some lights out there, actually, so that when people come round it will be really nice in the evenings.","start":266.38,"end":273.3,"id":37,"translation":"事实上，我想在那里放一些灯，这样当人们过来的时候，晚上就会很漂亮。","annotation":"I'd like to put some **lights** out there, **actually**, / so that when **people** come **round** it will be really nice in the **evenings**.","pronunciation":[{"kind":"连读","text":"lights‿out：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"So, yeah, that's my plan. Ready for the summer.","start":274.06,"end":276.5,"id":38,"translation":"所以，是的，这就是我的计划。为夏天做好准备。","annotation":"So, **yeah**, that's my **plan**. / **Ready** for the **summer**.","pronunciation":[{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Phil","text":"That sounds lovely.","start":277.08,"end":278.2,"id":39,"translation":"听起来很可爱。","annotation":"**That** **sounds** **lovely**.","pronunciation":[{"kind":"节奏","text":"跟读时可突出 That，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"OK. Let's recap the language we heard during the conversation, starting with DIY,","start":281.89,"end":290.72,"id":40,"translation":"好的。让我们回顾一下我们在谈话中听到的语言，从 DIY 开始，","annotation":"OK. Let's recap the **language** we heard during the conversation, **starting** with **DIY**,","pronunciation":[{"kind":"节奏","text":"跟读时可突出 language，按意群停顿，不逐词等长朗读"}]},{"speaker":"Georgie","text":"which stands for Do It Yourself. These are jobs you do around the house, like fixing or painting. For example, I don't like DIY– I'm too lazy.","start":291.08,"end":300.48,"id":41,"translation":"它代表“Do It Yourself”。这些是你在房子周围做的工作，比如修理或油漆。例如，我不喜欢DIY——我太懒了。","annotation":"which **stands** for **Do It Yourself**. / These are **jobs** you do around the house, like **fixing** or **painting**. / For **example**, I don't like **DIY**– I'm too **lazy**.","pronunciation":[{"kind":"连读","text":"These‿are：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"i'm 合为一个音组 /aɪm/"},{"kind":"弱读","text":"非重读时 for 可弱读为 /fə/；强调时使用强读"}]},{"speaker":"Phil","text":"We also heard decorate, which means paint a room or change how it looks.","start":301.58,"end":306.12,"id":42,"translation":"我们还听说过装饰，这意味着粉刷房间或改变它的外观。","annotation":"We also heard **decorate**, which means **paint** a room or **change** how it looks.","pronunciation":[{"kind":"连读","text":"paint‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"We heard flat-pack furniture, which is furniture which comes with instructions so that you can build it yourself.","start":306.92,"end":313.2,"id":43,"translation":"我们听说过平板包装家具，即带有说明的家具，以便您可以自己组装。","annotation":"We **heard** **flat-pack furniture**, / which is furniture which **comes** with **instructions** so that you can build it **yourself**.","pronunciation":[{"kind":"连读","text":"which‿is：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 can 可弱读为 /kən/；强调时使用强读"}]},{"speaker":"Phil","text":"And we heard a couple of phrasal verbs. If you put something up, you fix it to the wall. So, for example, Georgie put up some picture frames in her bedroom.","start":314.58,"end":324.82,"id":44,"translation":"我们听到了几个短语动词。如果你放了一些东西，你就把它固定在墙上。例如，Georgie在她的卧室里放了一些相框。","annotation":"And we heard a **couple** of **phrasal** **verbs**. / If you put something up, you fix it to the **wall**. / So, for example, Georgie **put up** some **picture** frames in her **bedroom**.","pronunciation":[{"kind":"连读","text":"heard‿a：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Georgie","text":"And if you put something together, you build it. For example, Phil likes to put together flat-pack furniture with someone else.","start":325.36,"end":333.04,"id":45,"translation":"如果你把一些东西放在一起，你就构建了它。例如，Phil喜欢与其他人一起组装平板包装家具。","annotation":"And if you put something together, you **build** it. / For example, Phil **likes** to **put together** **flat-pack furniture** with someone else.","pronunciation":[{"kind":"连读","text":"And‿if：尾辅音可自然衔接后词元音"},{"kind":"弱读","text":"非重读时 to 可弱读为 /tə/；强调时使用强读"}]},{"speaker":"Phil","text":"And that's it for this episode of Real Easy English.","start":333.94,"end":338.18,"id":46,"translation":"这就是本期《Real Easy English》的内容。","annotation":"And that's it for this episode of **Real Easy English**.","pronunciation":[{"kind":"连读","text":"that's‿it：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"You can practise what you've learnt with a worksheet that's on our website, bbclearningenglish.com.","start":338.7,"end":345.94,"id":47,"translation":"您可以使用我们网站 bbclearningenglish.com 上的工作表练习所学内容。","annotation":"You can **practise** what you've learnt with a **worksheet** that's on our website, **bbclearningenglish**.com.","pronunciation":[{"kind":"连读","text":"with‿a：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"that's 合为一个音组 /ðæts/"},{"kind":"弱读","text":"非重读时 a 可弱读为 /ə/；强调时使用强读"}]},{"speaker":"Georgie","text":"And we'll be back next week with another conversation in easy English. Goodbye for now.","start":346.06,"end":351.48,"id":48,"translation":"下周我们将用简单的英语进行另一场对话。暂时再见了。","annotation":"And we'll be back **next** **week** with another **conversation** in easy English. Goodbye for now.","pronunciation":[{"kind":"连读","text":"with‿another：尾辅音可自然衔接后词元音"},{"kind":"缩读","text":"we'll 合为一个音组 /wiːl/"},{"kind":"弱读","text":"非重读时 and 可弱读为 /ən/；强调时使用强读"}]},{"speaker":"Phil","text":"Bye!","start":351.48,"end":352.24,"id":49,"translation":"再见！","annotation":"**Bye**!","pronunciation":[{"kind":"节奏","text":"跟读时可突出 Bye，按意群停顿，不逐词等长朗读"}]}];
+    const ipaByTerm = {"welcome":"ˈwelkʌm","real easy english":"ˈriəl ˈiːzi ˈɪŋɡlɪʃ","conversation":"kɒnvəˈseɪʃən","help":"ˈhelp","learn":"ˈlɜːn","version":"ˈvɜːʃən","podcast":"ˈpɒdkɑːst","subtitles":"ˈsʌbtaɪtəlz","bbclearningenglish":"ˌbiːˈbiːˈklɜːnɪnˌdʒɪŋɡlɪʃ","hello phil":"həˈləʊ ˈfɪl","tired":"ˈtaɪəd","diy":"ˌdiːˌaɪˈwaɪ","weekend":"wiːˈkend","lucky":"ˈlʌki","talking":"ˈtɔːkɪŋ","do it yourself":"ˈduː ɪt jɔːˈself","home":"ˈhəʊm","fixing":"ˈfɪksɪŋ","painting":"ˈpeɪntɪŋ","kind":"ˈkaɪnd","trying":"ˈtraɪɪŋ","water":"ˈwɔːtə","tank":"ˈtæŋk","than":"ðən","something":"ˈsʌmθɪŋ","touch":"ˈtʌtʃ","electrics":"ɪˈlektrɪks","wouldn't":"ˈwʊdənt","anywhere":"ˈenɪˌweə","near":"ˈniə","that":"ˈðæt","looks":"ˈlʊks","safe":"ˈseɪf","will":"ˈwɪl","kinds":"ˈkaɪndz","house":"ˈhaʊs","decorating":"ˈdekəˌreɪtɪŋ","making":"ˈmeɪkɪŋ","look":"ˈlʊk","quite":"ˈkwaɪt","bits":"ˈbɪts","need":"ˈniːd","somewhere":"ˈsʌmweə","putting":"ˈpʊtɪŋ","fences":"ˈfensɪz","probably":"ˈprɒbəbli","georgie":"ˈdʒɔːdʒi","actually":"ˈæktʃuːəli","rent":"ˈrent","flat":"ˈflæt","can't":"ˈkɑːnt","place":"ˈpleɪs","mine":"ˈmaɪn","recently":"ˈriːsəntli","put up":"ˌpʊt ˈʌp","room":"ˈruːm","changed":"ˈtʃeɪndʒd","rooms":"ˈruːmz","fairy":"ˈfeəri","wall":"ˈwɔːl","frames":"ˈfreɪmz","photos":"ˈfəʊtəʊz","limit":"ˈlɪmɪt","anything":"ˈenɪˌθɪŋ","enjoy":"enˈdʒɔɪ","lazy":"ˈleɪzi","person":"ˈpɜːsən","broken":"ˈbrəʊkən","needs":"ˈniːdz","ignore":"ɪɡˈnɔː","procrastinate":"prəʊˈkræstɪˌneɪt","delay":"dɪˈleɪ","postpone":"pəʊstˈpəʊn","wait":"ˈweɪt","someone":"ˈsʌmwɒn","used":"ˈjuːzd","forget":"fəˈɡet","yeah":"jeə","ever":"ˈevə","put together":"ˌpʊt təˈɡeðə","flat-pack furniture":"ˈflætˈpæk ˈfɜːnɪtʃə","done":"ˈdʌn","furniture":"ˈfɜːnɪtʃə","fairly":"ˈfeəli","cheap":"ˈtʃiːp","mind":"ˈmaɪnd","work":"ˈwɜːk","team":"ˈtiːm","activity":"ækˈtɪvɪti","yes":"ˈjes","stressful":"ˈstresfəl","goes":"ˈɡəʊz","badly":"ˈbædli","lead":"ˈliːd","argument":"ˈɑːɡjuːmənt","plans":"ˈplænz","wood":"ˈwʊd","make":"ˈmeɪk","kitchen":"ˈkɪtʃən","love":"ˈlʌv","expensive":"ekˈspensɪv","haven't":"ˈhævənt","keep":"ˈkiːp","procrastinating":"prəʊˈkræstɪˌneɪtɪŋ","outdoor":"aʊtˈdɔː","terrace":"ˈterɪs","moment":"ˈməʊmənt","state":"ˈsteɪt","clean":"ˈkliːn","maybe":"ˈmeɪbiː","plants":"ˈplænts","lights":"ˈlaɪts","people":"ˈpiːpəl","round":"ˈraʊnd","evenings":"ˈiːvnɪŋz","plan":"ˈplæn","ready":"ˈredi","summer":"ˈsʌmə","sounds":"ˈsaʊndz","lovely":"ˈlʌvli","language":"ˈlæŋɡwɪdʒ","starting":"ˈstɑːtɪŋ","stands":"ˈstændz","jobs":"ˈdʒɒbz","example":"eɡˈzæmpəl","decorate":"ˈdekəˌreɪt","paint":"ˈpeɪnt","change":"ˈtʃeɪndʒ","heard":"ˈhɜːd","comes":"ˈkʌmz","instructions":"ɪnˈstrʌkʃənz","yourself":"jɔːˈself","couple":"ˈkʌpəl","phrasal":"ˈfreɪzəl","verbs":"ˈvɜːbz","picture":"ˈpɪktʃə","bedroom":"ˈbedruːm","build":"ˈbɪld","likes":"ˈlaɪks","practise":"ˈpræktɪs","worksheet":"ˈwɜːkʃiːt","next":"ˈnekst","week":"ˈwiːk","bye":"ˈbaɪ"};
+    const stressCoreByWord = {"activity":"ac{tiv}ity","actually":"{ac}tually","anything":"{any}thing","anywhere":"{any}where","argument":"{ar}gument","badly":"{badly}","bbclearningenglish":"bbclearnin{geng}lish","bedroom":"{bed}room","bits":"{bits}","broken":"{broken}","build":"{build}","bye":"{bye}","can't":"{can}'t","change":"{change}","changed":"{changed}","cheap":"{cheap}","clean":"{clean}","comes":"{comes}","conversation":"conver{sa}tion","couple":"{couple}","decorate":"{dec}orate","decorating":"{dec}orating","delay":"{delay}","diy":"{diy}","do":"{do}","done":"{done}","easy":"{easy}","electrics":"elec{trics}","english":"{eng}lish","enjoy":"en{joy}","evenings":"{even}ings","ever":"{ever}","example":"ex{am}ple","expensive":"ex{pens}ive","fairly":"{fairly}","fairy":"{fairy}","fences":"{fences}","fixing":"{fix}ing","flat":"{flat}","flat-pack":"{flat}-pack","forget":"for{get}","frames":"{frames}","furniture":"{fur}niture","georgie":"{geor}gie","goes":"{goes}","haven't":"{have}n't","heard":"{heard}","hello":"{hello}","help":"{help}","home":"{home}","house":"{house}","ignore":"ig{nore}","instructions":"in{struc}tions","it":"{it}","jobs":"{jobs}","keep":"{keep}","kind":"{kind}","kinds":"{kinds}","kitchen":"{kit}chen","language":"{lan}guage","lazy":"{lazy}","lead":"{lead}","learn":"{learn}","lights":"{lights}","likes":"{likes}","limit":"{lim}it","look":"{look}","looks":"{looks}","love":"{love}","lovely":"{lovely}","lucky":"{lucky}","make":"{make}","making":"{mak}ing","maybe":"{maybe}","mind":"{mind}","mine":"{mine}","moment":"{mo}ment","near":"{near}","need":"{need}","needs":"{needs}","next":"{next}","outdoor":"out{door}","paint":"{paint}","painting":"{paint}ing","people":"{people}","person":"{per}son","phil":"{phil}","photos":"{pho}tos","phrasal":"{phras}al","picture":"{pic}ture","place":"{place}","plan":"{plan}","plans":"{plans}","plants":"{plants}","podcast":"{pod}cast","postpone":"post{pone}","practise":"{prac}tise","probably":"{prob}ably","procrastinate":"pro{cras}tinate","procrastinating":"pro{cras}tinating","put":"{put}","putting":"{put}ting","quite":"{quite}","ready":"{ready}","real":"{real}","recently":"{re}cently","rent":"{rent}","room":"{room}","rooms":"{rooms}","round":"{round}","safe":"{safe}","someone":"{some}one","something":"{some}thing","somewhere":"{some}where","sounds":"{sounds}","stands":"{stands}","starting":"{start}ing","state":"{state}","stressful":"{stress}ful","subtitles":"{sub}titles","summer":"{sum}mer","talking":"{talk}ing","tank":"{tank}","team":"{team}","terrace":"{ter}race","than":"{than}","that":"{that}","tired":"{tired}","together":"to{geth}er","touch":"{touch}","trying":"{try}ing","up":"{up}","used":"{used}","verbs":"{verbs}","version":"{ver}sion","wait":"{wait}","wall":"{wall}","water":"{wa}ter","week":"{week}","weekend":"week{end}","welcome":"{wel}come","will":"{will}","wood":"{wood}","work":"{work}","worksheet":"{work}sheet","wouldn't":"{would}n't","yeah":"{yeah}","yes":"{yes}","yourself":"your{self}"};
+    const app = document.getElementById('app');
+    const audio = document.getElementById('audio');
+    const transcript = document.getElementById('transcript');
+    const playButton = document.getElementById('play');
+    const progress = document.getElementById('progress');
+    const elapsed = document.getElementById('elapsed');
+    const duration = document.getElementById('duration');
+    const autoscroll = document.getElementById('autoscroll');
+    let activeIndex = -1;
+    let scrubbing = false;
+
+    const formatTime = seconds => {
+      const safe = Number.isFinite(seconds) ? Math.max(0, Math.floor(seconds)) : 0;
+      return `${Math.floor(safe / 60)}:${String(safe % 60).padStart(2, '0')}`;
+    };
+
+    function appendStressTerm(term, container, studyOverrides = {}) {
+      const stress = document.createElement('span');
+      stress.className = 'stress';
+      const orthography = document.createElement('span');
+      orthography.className = 'stress-label';
+      term.split(/([A-Za-z]+(?:['-][A-Za-z]+)*|\d+)/g).filter(Boolean).forEach(token => {
+        const pattern = studyOverrides.stress?.[token.toLowerCase()] || stressCoreByWord[token.toLowerCase()];
+        if (!pattern) {
+          if (/^[A-Za-z0-9]/.test(token)) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = token;
+            orthography.append(core);
+          } else {
+            orthography.append(token);
+          }
+          return;
+        }
+        let offset = 0;
+        pattern.split(/(\{[^{}]+\})/g).filter(Boolean).forEach(piece => {
+          const raw = piece.startsWith('{') && piece.endsWith('}') ? piece.slice(1, -1) : piece;
+          const original = token.slice(offset, offset + raw.length);
+          offset += raw.length;
+          if (piece.startsWith('{') && piece.endsWith('}')) {
+            const core = document.createElement('span');
+            core.className = 'stress-core';
+            core.textContent = original;
+            orthography.append(core);
+          } else {
+            orthography.append(original);
+          }
+        });
+      });
+      const ipa = document.createElement('span');
+      ipa.className = 'ipa';
+      ipa.textContent = `/${studyOverrides.ipa?.[term.toLowerCase()] || ipaByTerm[term.toLowerCase()] || ''}/`;
+      stress.append(orthography, ipa);
+      container.append(stress);
+    }
+
+    function renderGroup(group, container, arrow, studyOverrides = {}) {
+      const wrapper = document.createElement('span');
+      wrapper.className = 'thought-group';
+      group.split(/(\*\*[^*]+\*\*)/g).filter(Boolean).forEach(part => {
+        const span = document.createElement('span');
+        if (part.startsWith('**') && part.endsWith('**')) {
+          appendStressTerm(part.slice(2, -2), wrapper, studyOverrides);
+        } else {
+          span.textContent = part;
+          wrapper.appendChild(span);
+        }
+      });
+      const intonation = document.createElement('span');
+      intonation.className = 'intonation';
+      intonation.textContent = arrow;
+      wrapper.appendChild(intonation);
+      container.appendChild(wrapper);
+    }
+
+    function renderAnnotation(annotation, container, studyOverrides = {}) {
+      const groups = annotation.split(' / ');
+      const yesNoQuestion = /^(is|are|do|does|did|can|could|would|will|have|has|was|were)\b/i.test(annotation);
+      groups.forEach((group, index) => {
+        const last = index === groups.length - 1;
+        renderGroup(group, container, last && annotation.trim().endsWith('?') && yesNoQuestion ? '↗' : last ? '↘' : '↗', studyOverrides);
+        if (!last) {
+          const slash = document.createElement('span');
+          slash.className = 'slash';
+          slash.textContent = '/';
+          container.appendChild(slash);
+        }
+      });
+    }
+
+    captions.forEach((caption, index) => {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'caption';
+      row.dataset.index = index;
+      row.dataset.line = String(index + 1).padStart(2, '0');
+      row.setAttribute('role', 'listitem');
+      row.setAttribute('aria-label', `${caption.speaker}, ${formatTime(caption.start)}. ${caption.text} 。翻译：${caption.translation}`);
+
+      const meta = document.createElement('div');
+      meta.className = 'cue-meta';
+      const speaker = document.createElement('span');
+      speaker.className = 'speaker';
+      speaker.textContent = '@' + caption.speaker.replaceAll(' ', '_');
+      const stamp = document.createElement('span');
+      stamp.className = 'stamp';
+      stamp.textContent = `[${formatTime(caption.start)}]`;
+      meta.append(speaker, stamp);
+
+      const body = document.createElement('div');
+      body.className = 'cue-body';
+      const english = document.createElement('div');
+      english.className = 'english';
+      renderAnnotation(caption.annotation, english, caption.studyOverrides || {});
+      const translation = document.createElement('div');
+      translation.className = 'translation';
+      translation.textContent = caption.translation;
+      const pronunciation = document.createElement('div');
+      pronunciation.className = 'pronunciation';
+      caption.pronunciation.forEach(tip => {
+        const item = document.createElement('span');
+        item.className = 'pron-tip';
+        const label = document.createElement('b');
+        label.textContent = tip.kind;
+        item.append(label, tip.text);
+        pronunciation.appendChild(item);
+      });
+      body.append(english, pronunciation, translation);
+      row.append(meta, body);
+
+      row.addEventListener('click', () => {
+        audio.currentTime = caption.start + .01;
+        setActive(index, false);
+        update();
+        if (audio.paused) audio.play().catch(() => {});
+      });
+      transcript.appendChild(row);
+    });
+
+    const rows = [...transcript.querySelectorAll('.caption')];
+
+    function indexAt(time) {
+      if (time < captions[0].start) return 0;
+      let low = 0, high = captions.length - 1, answer = 0;
+      while (low <= high) {
+        const mid = (low + high) >> 1;
+        if (captions[mid].start <= time) { answer = mid; low = mid + 1; }
+        else high = mid - 1;
+      }
+      return answer;
+    }
+
+    function setActive(index, shouldScroll = true) {
+      if (index === activeIndex) return;
+      if (activeIndex >= 0) {
+        rows[activeIndex].classList.remove('active');
+        rows[activeIndex].removeAttribute('aria-current');
+      }
+      activeIndex = index;
+      rows[index].classList.add('active');
+      rows[index].setAttribute('aria-current', 'true');
+      if (shouldScroll && autoscroll.checked) rows[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function update() {
+      const time = audio.currentTime || 0;
+      if (!scrubbing) progress.value = time;
+      elapsed.textContent = formatTime(time);
+      setActive(indexAt(time));
+      if (!audio.paused) requestAnimationFrame(update);
+    }
+
+    playButton.addEventListener('click', () => audio.paused ? audio.play().catch(() => {}) : audio.pause());
+    document.getElementById('back').addEventListener('click', () => { audio.currentTime = Math.max(0, audio.currentTime - 10); update(); });
+    document.getElementById('forward').addEventListener('click', () => { audio.currentTime = Math.min(audio.duration || 358.233, audio.currentTime + 10); update(); });
+    document.getElementById('speed').addEventListener('change', event => { audio.playbackRate = Number(event.target.value); });
+    progress.addEventListener('input', () => { scrubbing = true; elapsed.textContent = formatTime(Number(progress.value)); });
+    progress.addEventListener('change', () => { audio.currentTime = Number(progress.value); scrubbing = false; update(); });
+    document.getElementById('translationToggle').addEventListener('change', event => app.classList.toggle('hide-translation', !event.target.checked));
+    document.getElementById('studyToggle').addEventListener('change', event => app.classList.toggle('hide-study', !event.target.checked));
+    audio.addEventListener('loadedmetadata', () => { progress.max = audio.duration; duration.textContent = formatTime(audio.duration); });
+    audio.addEventListener('play', () => { app.classList.add('is-playing'); playButton.textContent = '❚❚'; playButton.setAttribute('aria-label', '暂停'); requestAnimationFrame(update); });
+    audio.addEventListener('pause', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; playButton.setAttribute('aria-label', '播放'); update(); });
+    audio.addEventListener('ended', () => { app.classList.remove('is-playing'); playButton.textContent = '▶'; });
+    document.addEventListener('keydown', event => {
+      if (['INPUT','SELECT','BUTTON'].includes(document.activeElement.tagName)) return;
+      if (event.code === 'Space') { event.preventDefault(); audio.paused ? audio.play().catch(() => {}) : audio.pause(); }
+      if (event.key === 'ArrowLeft') { audio.currentTime = Math.max(0, audio.currentTime - 5); update(); }
+      if (event.key === 'ArrowRight') { audio.currentTime = Math.min(audio.duration || 358.233, audio.currentTime + 5); update(); }
+    });
+
+    const themeToggle = document.getElementById('themeToggle');
+    function syncThemeButton() {
+      const light = document.documentElement.dataset.theme === 'light';
+      themeToggle.textContent = light ? '☾ 深色' : '☀ 浅色';
+      themeToggle.setAttribute('aria-pressed', String(light));
+    }
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.dataset.theme = next;
+      try { localStorage.setItem('ell-theme', next); } catch (_) {}
+      syncThemeButton();
+    });
+    syncThemeButton();
+
+    setActive(0, false);
+    update();
+  </script>
+</body>
+</html>
