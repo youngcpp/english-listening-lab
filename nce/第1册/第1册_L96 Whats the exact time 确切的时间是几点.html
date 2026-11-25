@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>新概念 第1册第96课 What's the exact time?</title>
+<style>:root{
+    --ink:#1f2d3d;
+    --paper:#eee7d7;
+    --card:#fffdf7;
+    --line:#ddd2bb;
+    --sub:#2563eb;
+    --pred:#dc2626;
+    --obj:#047857;
+    --adv:#7c3aed;
+    --attr:#b45309;
+    --teal:#0f766e;
+    --conj:#64748b;
+    --quote:#be185d;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;color:var(--ink);
+    background:
+      radial-gradient(1100px 560px at 12% -8%, #f8f2e3 0%, transparent 60%),
+      radial-gradient(900px 520px at 92% 0%, #f1ead9 0%, transparent 55%),
+      var(--paper);
+    font-family:"Palatino Linotype","Palatino","Songti SC","STSong",serif;
+  }
+  .page{max-width:1220px;margin:0 auto;padding:48px 28px 90px;}
+
+  .kicker{font-size:12px;letter-spacing:2.4px;color:#8b7a5e;text-transform:uppercase;margin:0 0 10px;}
+  h1{font-size:40px;line-height:1.16;margin:0;font-weight:600;letter-spacing:-.3px;}
+  h1 .zh{display:inline-block;font-size:23px;font-weight:500;letter-spacing:2px;color:#7a5c33;margin-left:13px;vertical-align:4px;}
+  .standfirst{margin:14px 0 0;font-size:14.5px;line-height:1.9;color:#5b5344;max-width:900px;}
+  .standfirst b{color:#3f3628;}
+  .rule{height:5px;margin:22px 0 0;border-radius:3px;
+    background:linear-gradient(90deg,var(--sub),var(--pred) 24%,var(--obj) 46%,var(--adv) 64%,var(--attr) 82%,var(--teal));opacity:.85;}
+  .controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;}
+  .ctl{
+    font:600 12.5px/1 "Kaiti SC","STKaiti","Songti SC",serif;color:#5a4c36;
+    background:#fffdf6;border:1px solid #d8c9a9;border-radius:999px;
+    padding:8px 15px;cursor:pointer;letter-spacing:.6px;transition:.18s;
+  }
+  .ctl:hover{border-color:#b9a37a;transform:translateY(-1px);}
+  .ctl.on{background:#e9f4ec;border-color:#9cc7ab;color:#245c43;}
+
+  .legend{
+    display:flex;flex-wrap:wrap;gap:11px 22px;align-items:center;
+    background:#fffdf6;border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin:24px 0 0;font-size:13px;color:#443c2e;
+  }
+  .legend .item{display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .legend .hint{color:#6d6250;font-size:12.5px;}
+  .sample{font-size:15.5px;opacity:.95;}
+
+  .sub{border-bottom:3px double var(--sub);padding-bottom:1px;}
+  .pred{border-bottom:3px solid var(--pred);padding-bottom:1px;}
+  .obj{border-bottom:2px dotted var(--obj);padding-bottom:2px;}
+  .adv{border-bottom:2px dashed var(--adv);padding-bottom:2px;}
+  .attr{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--attr);
+    text-decoration-thickness:1.4px;text-underline-offset:5px;}
+  .q{background:linear-gradient(180deg,transparent 58%,rgba(244,114,182,.16) 58%);border-radius:2px;}
+  .tg{
+    display:inline-block;font:600 9px/1 "Kaiti SC","STKaiti",serif;color:#8a5a1a;
+    background:#f6ecd6;border:1px solid #e6d3ab;border-radius:4px;
+    padding:2px 4px;margin-left:4px;vertical-align:.55em;letter-spacing:.5px;
+  }
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin:24px 0 0;
+    box-shadow:0 10px 30px -24px rgba(64,44,12,.55);
+  }
+  .panel h2{margin:0 0 14px;font:600 13px/1 "Kaiti SC","STKaiti",serif;letter-spacing:2px;color:#7a5c33;}
+
+  /* ---------- 时间轴 ---------- */
+  .tl{display:flex;flex-direction:column;gap:14px;}
+  .lane{display:grid;grid-template-columns:130px minmax(0,1fr);gap:16px;align-items:center;}
+  .lane .lab{font:600 12.5px/1.35 "Kaiti SC","STKaiti",serif;color:#4b4130;text-align:right;}
+  .lane .lab span{display:block;font:400 10.5px/1.5 "Songti SC",serif;color:#8b7a5e;letter-spacing:.5px;}
+  .track{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:34px;}
+  .band{
+    display:inline-flex;align-items:center;gap:6px;
+    border:1.5px dashed #6aa899;background:#e7f4ef;color:#175e4b;
+    border-radius:999px;padding:7px 13px;font:600 12.5px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .band::before{content:"";width:7px;height:7px;border-radius:50%;background:#2f7a5e;}
+  .dot{
+    display:inline-flex;align-items:center;gap:6px;color:#7f1d1d;
+    background:#fff6f4;border:1px solid #ecc9c1;border-radius:999px;
+    padding:6px 11px;font:600 12px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .dot::before{content:"";width:6px;height:6px;border-radius:50%;background:#dc2626;}
+  .tl-cap{margin:14px 0 0;font-size:12.8px;line-height:1.85;color:#6d6250;}
+  .tl-cap b{color:#3f3628;}
+
+  /* ---------- 正文布局 ---------- */
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:26px;align-items:start;margin-top:26px;}
+  .col-main{min-width:0;}
+  .col-side{position:sticky;top:18px;display:flex;flex-direction:column;gap:16px;}
+
+  .card{
+    position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 30px 18px;margin:0 0 22px;
+    box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 10px 30px -24px rgba(64,44,12,.5);
+  }
+  .sec{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;border-bottom:1px dashed #ded2b8;padding-bottom:12px;margin-bottom:8px;}
+  .sec-no{font:600 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:1.4px;color:#b6a888;}
+  .sec h3{margin:0;font:600 17px/1.4 "Kaiti SC","STKaiti",serif;color:#2d2417;letter-spacing:.5px;}
+  .sec h3 em{font-style:normal;color:#8a7857;font-weight:400;font-size:12.5px;margin-left:8px;letter-spacing:0;}
+  .sec-note{margin-left:auto;font:400 11.5px/1.5 "Songti SC",serif;color:#9b8b6f;}
+
+  .row{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:8px 0 10px;}
+  .row + .row{border-top:1px dotted #e7ddc7;}
+  .idx{
+    font:600 11px/1 ui-monospace,"SF Mono",Menlo,monospace;color:#b6a888;
+    padding-top:24px;text-align:right;
+  }
+  .sent{
+    position:relative;font-size:19px;line-height:1.72;letter-spacing:.1px;
+    padding:6px 0 12px;
+  }
+  .sent.ann-top{padding-top:42px;}
+  .sent.ann-bottom{padding-bottom:70px;}
+  svg.ann{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+  .tip{margin:2px 0 0;font-size:12.2px;line-height:1.7;color:#8a7c66;}
+  .tip b{color:#6b5a3c;}
+
+  /* ---------- 侧栏 ---------- */
+  .side{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px;
+    box-shadow:0 8px 26px -22px rgba(64,44,12,.5);}
+  .side h3{margin:0 0 10px;font:600 12px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.8px;color:#7a5c33;}
+  .map{list-style:none;margin:0;padding:0;}
+  .map li{display:grid;grid-template-columns:20px 1fr;gap:8px;padding:7px 0;border-top:1px dotted #e7ddc7;font-size:12px;line-height:1.6;color:#5e5545;}
+  .map li:first-child{border-top:none;}
+  .map .n{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:#b6a888;padding-top:3px;}
+  .map b{display:block;font-weight:600;color:#3b3325;font-size:12.5px;}
+  .arc{display:flex;flex-wrap:wrap;gap:5px 3px;margin-top:2px;}
+  .arc span{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;color:#5c4b2f;background:#f7efdd;border:1px solid #e6d6b6;border-radius:999px;padding:4px 7px;letter-spacing:0;}
+  .arc i{font-style:normal;color:#b6a888;align-self:center;font-size:9px;}
+  .side p{margin:8px 0 0;font-size:11.8px;line-height:1.75;color:#7e7160;}
+
+  /* ---------- 译文 ---------- */
+  .translation p{font-size:13.5px;line-height:2;color:#4b4436;margin:0 0 8px;}
+  .translation .lab{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1px;color:#fff;background:#6b5a3c;border-radius:3px;padding:2px 5px 3px;margin-right:7px;vertical-align:1px;}
+
+  .closing{
+    margin-top:30px;padding:18px 22px;border-radius:12px;border:1px dashed #cdbf9f;
+    background:#fffdf6;font-size:12.8px;line-height:1.95;color:#5b5242;
+  }
+
+  body.no-mark .sent.ann-top{padding-top:8px;}
+  body.no-mark .sent.ann-bottom{padding-bottom:12px;}
+  body.no-mark .sub,body.no-mark .pred,body.no-mark .obj,body.no-mark .adv,body.no-mark .attr{text-decoration:none;border-bottom:none;}
+  body.no-mark .tg,body.no-mark svg.ann{display:none;}
+  body.no-mark .q{background:none;}
+
+  @media (max-width:1020px){
+    .layout{grid-template-columns:1fr;}
+    .col-side{position:static;flex-direction:row;flex-wrap:wrap;}
+    .col-side .side{flex:1 1 260px;}
+  }
+  @media (max-width:640px){
+    h1{font-size:32px;}
+    h1 .zh{display:block;margin:8px 0 0;vertical-align:0;}
+    .card{padding:18px 18px 12px;}
+    .lane{grid-template-columns:76px minmax(0,1fr);}
+    .lane .lab{text-align:left;}
+    .sent{font-size:17.5px;}
+    .sec-note{display:none;}
+  }
+  @media print{
+    body{background:#fff;}
+    .page{max-width:none;padding:0;}
+    .card,.panel{break-inside:avoid;box-shadow:none;}
+    .col-side{position:static;}
+    .controls{display:none;}
+    .translation[hidden]{display:block;}
+  }
+/* 本册补充 */
+
+  .thread{display:flex;flex-direction:column;gap:14px;margin:26px 0 0;max-width:960px;}
+  .bub{display:flex;gap:12px;align-items:flex-start;max-width:88%;width:fit-content;}
+  .bub.a{align-self:flex-start;}
+  .bub.b{align-self:flex-end;flex-direction:row-reverse;}
+  .who{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;
+    font:600 11px/1.2 "Kaiti SC","STKaiti",serif;color:#8b7a5e;padding-top:6px;}
+  .av{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
+    font:600 12px/1 "Avenir Next",sans-serif;color:#fff;}
+  .bub.a .av{background:#8a6a44;} .bub.b .av{background:#9a5c6b;}
+  .bb{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:10px 20px 6px;min-width:150px;box-shadow:0 8px 24px -18px rgba(64,44,12,.5);}
+  .bub.b .bb{text-align:left;}
+  .bb .sent{font-size:21px;padding:4px 0 8px;}
+  .bb .zh{margin:0 0 6px;font:400 13px/1.7 "Songti SC",serif;color:#94846a;}
+  .pat{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;margin:10px 0 0;
+    padding:12px 14px;border:1px dashed #ded2b8;border-radius:10px;background:#fffdf6;}
+  .pat .main{font-size:19px;}
+  .pat .note{font-size:12.4px;color:#7e7160;flex-basis:100%;}
+  .slot{display:inline-block;min-width:96px;text-align:center;color:#0b5c4c;
+    border-bottom:2px dashed var(--teal);padding:0 8px;background:#eaf6f2;border-radius:5px;}
+
+
+  .sent .clause{border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .tint-attr{background:linear-gradient(180deg,transparent 56%,rgba(251,191,36,.34) 56%);}
+  .tint-adv{background:linear-gradient(180deg,transparent 56%,rgba(196,181,253,.38) 56%);}
+  .tint-obj{background:linear-gradient(180deg,transparent 56%,rgba(167,243,208,.42) 56%);}
+  .tint-app{background:linear-gradient(180deg,transparent 56%,rgba(253,186,116,.38) 56%);}
+  .sent .conj{color:var(--conj);font-style:italic;}
+  .sent .inton{display:inline-block;font-size:.7em;line-height:1;margin-left:5px;font-weight:700;}
+  .inton.up{color:#0f766e;} .inton.down{color:#b45309;}
+  .qline{display:flex;gap:10px;align-items:baseline;background:#fff8ec;border:1px dashed #e0c796;
+    border-radius:10px;padding:12px 16px;margin:20px 0 0;font-size:17px;color:#5b4a2d;}
+  .qline .lab{flex:0 0 auto;font:600 11px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.6px;
+    color:#fff;background:#a9843f;border-radius:4px;padding:4px 7px;}
+  .wlist{list-style:none;margin:0;padding:0;}
+  .wlist li{display:grid;gap:2px;padding:7px 0;border-top:1px dotted #e7ddc7;
+    font-size:12.4px;line-height:1.55;color:#5e5545;}
+  .wlist li:first-child{border-top:none;}
+  .wlist .en{font-weight:600;color:#2d2417;font-size:13px;}
+  .wlist .ph{color:#8a7c66;font-style:italic;}
+  .note{margin:0;padding-left:22px;color:#4e4638;font-size:12.6px;line-height:1.9;}
+  .note li{margin-bottom:6px;}
+  .warn{font:600 11px/1 "Kaiti SC",serif;color:#8a2f2f;background:#fdecec;border:1px solid #f0c9c9;
+    border-radius:4px;padding:3px 6px;margin-left:6px;}
+  body.no-mark .sent .inton{display:none;}
+
+</style>
+</head>
+<body>
+<div class="page">
+<header><p class="kicker">New Concept English · Book 1 · Lesson 96</p><h1>What's the exact time?<span class="zh">确切的时间是几点</span></h1><p class="standfirst">本课 <b>22</b> 句（本课无配套朗读音频）　·　主线时态 <b>情态动词 + 动词原形</b>　·　从句 <b>1</b> 处</p><div class="controls"><button class="ctl on" id="btnMark">标注：隐藏</button></div><div class="rule"></div></header>
+<section class="legend"><span class="item"><span class="sample sub">The boy</span>主语</span><span class="item"><span class="sample pred">is</span>谓语</span><span class="item"><span class="sample obj">a book</span>宾语</span><span class="item"><span class="sample adv">at the moment</span>状语</span><span class="item"><span class="sample inton up">↗</span>一般疑问句升调</span><span class="item"><span class="sample inton down">↘</span>陈述句/特殊疑问句降调</span><span class="item hint"><b>上方括号</b>＝时态／句型</span><span class="item hint"><b>弧线箭头</b>＝修饰关系</span><span class="item hint">点任意一句只听那一句</span></section>
+<section class="panel focus"><h2>本课句型与语调</h2><ol><li><b>特殊疑问句</b>（7 句）：以疑问词 <span class="pred">Examples:</span> 开头，句末降调。例：Examples: I went to Beijing a year ago. Wha…</li><li><b>陈述句</b>（11 句）：例：Written exercises A Rewrite these sentences…</li><li><b>祈使句</b>（2 句）：动词原形开头，主语 you 省略。例：Listen to the tape and answer the questions.</li></ol><div class="pat"><div class="main">谓语+谓语+宾语</div><div class="note">例：Listen to the tape and answer the questions.</div></div><div class="pat"><div class="main">主语+主语+谓语</div><div class="note">例：Written exercises A Rewrite these sentences using had bette…</div></div><div class="pat"><div class="main">主语+谓语</div><div class="note">例：Example: We must go back to the station.</div></div><div class="pat"><div class="main">主语+谓语+谓语</div><div class="note">例：We had better go back to the station.</div></div></section>
+
+<div class="layout">
+<main class="thread"><article class="bub a"><div class="who"><span class="av">A</span>1</div><div class="bb"><div id="s1" class="sent ann-top" data-id="s1"><span class="pred" data-k="s1-pred">Listen</span> <span class="adv" data-k="s1-adv">to the tape</span> and <span class="pred" data-k="s1-pred-2">answer</span> <span class="obj" data-k="s1-obj">the questions</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：Listen ＋ answer ＋ the questions　动词原形开头，主语 you 省略；否定用 Don't + 动词原形。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>2</div><div class="bb"><div id="s2" class="sent ann-top" data-id="s2"><span class="sub" data-k="s2-sub">Written exercises</span> <span class="sub" data-k="s2-sub-1">A Rewrite these sentences using</span> <span class="pred" data-k="s2-pred">had</span> <span class="adv" data-k="s2-adv">better</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：Written exercises ＋ A Rewrite these sen… ＋ had　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>3</div><div class="bb"><div id="s3" class="sent ann-top" data-id="s3"><span class="adv" data-k="s3-adv">Example</span>: <span class="sub" data-k="s3-sub">We</span> <span class="pred" data-k="s3-pred">must go</span> <span class="adv" data-k="s3-adv-3">back to the station</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：We ＋ must go　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>4</div><div class="bb"><div id="s4" class="sent ann-top" data-id="s4"><span class="sub" data-k="s4-sub">We</span> <span class="pred" data-k="s4-pred">had</span> <span class="adv" data-k="s4-adv">better</span> <span class="pred" data-k="s4-pred-3">go</span> <span class="adv" data-k="s4-adv-4">back to the station</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：We ＋ had ＋ go　had + 过去分词，表示“过去的过去”，即在过去某动作之前已经完成。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>5</div><div class="bb"><div id="s5" class="sent ann-top" data-id="s5"><span class="sub" data-k="s5-sub">I</span> <span class="pred" data-k="s5-pred">must stay</span> <span class="adv" data-k="s5-adv">here</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：I ＋ must stay　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>6</div><div class="bb"><div id="s6" class="sent ann-top" data-id="s6"><span class="sub" data-k="s6-sub">We</span> <span class="pred" data-k="s6-pred">must wait</span> <span class="adv" data-k="s6-adv">for him</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：We ＋ must wait　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>7</div><div class="bb"><div id="s7" class="sent ann-top" data-id="s7"><span class="sub" data-k="s7-sub">You</span> <span class="pred" data-k="s7-pred">must call</span> <span class="obj" data-k="s7-obj">a doctor</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：You ＋ must call ＋ a doctor　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>8</div><div class="bb"><div id="s8" class="sent ann-top" data-id="s8"><span class="sub" data-k="s8-sub">They</span> <span class="pred" data-k="s8-pred">must go</span> <span class="adv" data-k="s8-adv">home</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：They ＋ must go　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>9</div><div class="bb"><div id="s9" class="sent ann-top" data-id="s9"><span class="sub" data-k="s9-sub">She</span> <span class="pred" data-k="s9-pred">must hurry</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：She ＋ must hurry　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>10</div><div class="bb"><div id="s10" class="sent ann-top" data-id="s10"><span class="sub" data-k="s10-sub">You</span> <span class="pred" data-k="s10-pred">must be</span> <span class="obj" data-k="s10-obj">careful</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：You ＋ must be ＋ careful　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>11</div><div class="bb"><div id="s11" class="sent ann-top ann-bottom" data-id="s11">B <span class="pred" data-k="s11-pred">Answer</span> <span class="obj" data-k="s11-obj">these questions</span> <span class="clause tint-adv" data-k="s11-cl">using 'll</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：Answer ＋ these questions　动词原形开头，主语 you 省略；否定用 Don't + 动词原形。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>12</div><div class="bb"><div id="s12" class="sent ann-top" data-id="s12">Examples: <span class="sub" data-k="s12-sub">I</span> <span class="pred" data-k="s12-pred">went</span> <span class="adv" data-k="s12-adv">to Beijing</span> <span class="adv" data-k="s12-adv-3">a year ago</span>. What about you?<span class="inton up" title="一般疑问句用升调">↗</span><svg class="ann"></svg></div><p class="tip">主干：I ＋ went　疑问词放句首，语序为“疑问词 + 一般疑问句语序”。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>13</div><div class="bb"><div id="s13" class="sent ann-top" data-id="s13">a year's time I'll go to Beijing in a year's time.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">本课跟读句：先把语流读顺，句子成分这里不强行拆。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>14</div><div class="bb"><div id="s14" class="sent ann-top" data-id="s14"><span class="sub" data-k="s14-sub">Tom</span> <span class="pred" data-k="s14-pred">flew</span> <span class="adv" data-k="s14-adv">to Stockholm</span> <span class="adv" data-k="s14-adv-3">two weeks ago</span>. What about Pamela?<span class="inton up" title="一般疑问句用升调">↗</span><svg class="ann"></svg></div><p class="tip">主干：Tom ＋ flew　疑问词放句首，语序为“疑问词 + 一般疑问句语序”。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>15</div><div class="bb"><div id="s15" class="sent ann-top" data-id="s15"><span class="adv" data-k="s15-adv">two weeks' time</span> <span class="sub" data-k="s15-sub">She</span><span class="pred" data-k="s15-pred">'ll fly</span> <span class="adv" data-k="s15-adv-3">to Stockholm</span> <span class="adv" data-k="s15-adv-4">in two weeks' time</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：She ＋ 'll fly　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>16</div><div class="bb"><div id="s16" class="sent ann-top" data-id="s16"><span class="sub" data-k="s16-sub">Dave and Alan</span> <span class="pred" data-k="s16-pred">returned</span> <span class="adv" data-k="s16-adv">to Tokyo</span> <span class="adv" data-k="s16-adv-3">two days ago</span>. What about you and Jean?<span class="inton up" title="一般疑问句用升调">↗</span><svg class="ann"></svg></div><p class="tip">主干：Dave and Alan ＋ returned　疑问词放句首，语序为“疑问词 + 一般疑问句语序”。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>17</div><div class="bb"><div id="s17" class="sent ann-top" data-id="s17"><span class="adv" data-k="s17-adv">two days' time</span> <span class="sub" data-k="s17-sub">We</span><span class="pred" data-k="s17-pred">'ll return</span> <span class="adv" data-k="s17-adv-3">to Tokyo</span> <span class="adv" data-k="s17-adv-4">in two days' time</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：We ＋ 'll return　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>18</div><div class="bb"><div id="s18" class="sent ann-top" data-id="s18"><span class="sub" data-k="s18-sub">I</span> <span class="pred" data-k="s18-pred">went</span> <span class="adv" data-k="s18-adv">to Sydney</span> <span class="adv" data-k="s18-adv-3">a month ago</span>. What about you?<span class="inton up" title="一般疑问句用升调">↗</span><svg class="ann"></svg></div><p class="tip">主干：I ＋ went　疑问词放句首，语序为“疑问词 + 一般疑问句语序”。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>19</div><div class="bb"><div id="s19" class="sent ann-top" data-id="s19">a month's time A train left for Geneva an hour ago. What about the next one?<span class="inton up" title="一般疑问句用升调">↗</span><svg class="ann"></svg></div><p class="tip">本课跟读句：先把语流读顺，句子成分这里不强行拆。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>20</div><div class="bb"><div id="s20" class="sent ann-top" data-id="s20">an hour's time Carol flew to Beijing two days ago. What about you?<span class="inton up" title="一般疑问句用升调">↗</span><svg class="ann"></svg></div><p class="tip">本课跟读句：先把语流读顺，句子成分这里不强行拆。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>21</div><div class="bb"><div id="s21" class="sent ann-top" data-id="s21"><span class="adv" data-k="s21-adv">two days' time</span> <span class="sub" data-k="s21-sub">Tom and Mary</span> <span class="pred" data-k="s21-pred">went</span> <span class="adv" data-k="s21-adv-3">to London</span> <span class="adv" data-k="s21-adv-4">an hour ago</span>. What about you and Jean?<span class="inton up" title="一般疑问句用升调">↗</span><svg class="ann"></svg></div><p class="tip">主干：Tom and Mary ＋ went　疑问词放句首，语序为“疑问词 + 一般疑问句语序”。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>22</div><div class="bb"><div id="s22" class="sent ann-top" data-id="s22">an hour's time<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">本课跟读句：先把语流读顺，句子成分这里不强行拆。</p></div></article></main>
+<div class="col-side"><aside class="side"><h3>句子骨架</h3><ul class="map"><li><span class="n">1</span><div><b>谓语＋谓语＋宾语</b>动词原形</div></li><li><span class="n">2</span><div><b>主语＋主语＋谓语</b>一般过去时</div></li><li><span class="n">3</span><div><b>主语＋谓语</b>情态动词 + 动词原形</div></li><li><span class="n">4</span><div><b>主语＋谓语＋谓语</b>过去完成时</div></li><li><span class="n">5</span><div><b>主语＋谓语</b>情态动词 + 动词原形</div></li><li><span class="n">6</span><div><b>主语＋谓语</b>情态动词 + 动词原形</div></li><li><span class="n">7</span><div><b>主语＋谓语＋宾语</b>情态动词 + 动词原形</div></li><li><span class="n">8</span><div><b>主语＋谓语</b>情态动词 + 动词原形</div></li><li><span class="n">9</span><div><b>主语＋谓语</b>情态动词 + 动词原形</div></li><li><span class="n">10</span><div><b>主语＋谓语＋宾语</b>情态动词 + 动词原形</div></li><li><span class="n">11</span><div><b>谓语＋宾语＋从句</b>动词原形　状语从句（分词/不定式，无引导词）</div></li><li><span class="n">12</span><div><b>主语＋谓语</b>一般过去时</div></li><li><span class="n">13</span><div><b>—</b>片段</div></li><li><span class="n">14</span><div><b>主语＋谓语</b>一般过去时</div></li><li><span class="n">15</span><div><b>主语＋谓语</b>情态动词 + 动词原形</div></li><li><span class="n">16</span><div><b>主语＋谓语</b>一般过去时</div></li><li><span class="n">17</span><div><b>主语＋谓语</b>情态动词 + 动词原形</div></li><li><span class="n">18</span><div><b>主语＋谓语</b>一般过去时</div></li><li><span class="n">19</span><div><b>—</b>特殊疑问句</div></li><li><span class="n">20</span><div><b>—</b>特殊疑问句</div></li><li><span class="n">21</span><div><b>主语＋谓语</b>一般过去时</div></li><li><span class="n">22</span><div><b>—</b>片段</div></li></ul></aside></div>
+</div>
+
+<div class="closing">第1册第96课 · 文本以课文朗读音频逐句为基准 · 语法标注由依存句法分析自动生成，只对结构清楚的句子画括号，拿不准的宁可空着 · 点句听读的时间按本地逐词转写重新对过轴</div>
+</div>
+<script>(function(){
+  var NS = 'http://www.w3.org/2000/svg';
+  var ANN = {"s1": [{"t": "brace", "sel": "s1-pred", "side": "top", "color": "#0f766e", "label": "动词原形"}, {"t": "arrow", "from": "s1-adv", "to": "s1-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s2": [{"t": "brace", "sel": "s2-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s2-adv", "to": "s2-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s3": [{"t": "brace", "sel": "s3-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}, {"t": "arrow", "from": "s3-adv", "to": "s3-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s4": [{"t": "brace", "sel": "s4-pred", "side": "top", "color": "#0f766e", "label": "过去完成时"}, {"t": "arrow", "from": "s4-adv", "to": "s4-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s5": [{"t": "brace", "sel": "s5-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}], "s6": [{"t": "brace", "sel": "s6-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}], "s7": [{"t": "brace", "sel": "s7-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}], "s8": [{"t": "brace", "sel": "s8-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}], "s9": [{"t": "brace", "sel": "s9-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}], "s10": [{"t": "brace", "sel": "s10-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}], "s11": [{"t": "brace", "sel": "s11-pred", "side": "top", "color": "#0f766e", "label": "动词原形"}, {"t": "brace", "sel": "s11-cl", "side": "bottom", "color": "#b45309", "label": "状语从句（分词/不定式，无引导词）"}], "s12": [{"t": "brace", "sel": "s12-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s12-adv", "to": "s12-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s14": [{"t": "brace", "sel": "s14-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s14-adv", "to": "s14-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s15": [{"t": "brace", "sel": "s15-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}, {"t": "arrow", "from": "s15-adv", "to": "s15-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s16": [{"t": "brace", "sel": "s16-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s16-adv", "to": "s16-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s17": [{"t": "brace", "sel": "s17-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}, {"t": "arrow", "from": "s17-adv", "to": "s17-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s18": [{"t": "brace", "sel": "s18-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s18-adv", "to": "s18-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s21": [{"t": "brace", "sel": "s21-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s21-adv", "to": "s21-pred", "color": "#7c3aed", "label": "状语修饰谓语"}]};
+
+  function mk(tag, attrs){
+    const el = document.createElementNS(NS, tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+  function rectOf(sent, box, key){
+    const el = sent.querySelector('[data-k="' + key + '"]');
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return {x:r.left-box.left, y:r.top-box.top, w:r.width, h:r.height,
+            cx:r.left-box.left+r.width/2, bottom:r.bottom-box.top};
+  }
+  function drawBrace(svg, W, H, r, side, color, label, row){
+    let x1 = clamp(r.x + 2, 4, W - 4);
+    let x2 = clamp(r.x + r.w - 2, x1 + 24, W - 4);
+    const up = side === 'top';
+    const n = row || 0;                       // 同一句里第几条花括号：逐层下移，标签不再叠字
+    const y = up ? Math.max(14, r.y - 8 - n * 13) : Math.min(H - 10, r.bottom + 8 + n * 13);
+    const d = up ? -1 : 1;
+    const h1 = 8, tip = 14;
+    const mx = (x1 + x2) / 2;
+    const p = [
+      'M', x1, y,
+      'C', x1, y + d*h1, x1 + 8, y + d*h1, x1 + 13, y + d*h1,
+      'L', mx - 14, y + d*h1,
+      'C', mx - 7, y + d*h1, mx - 7, y + d*tip, mx, y + d*tip,
+      'C', mx + 7, y + d*tip, mx + 7, y + d*h1, mx + 14, y + d*h1,
+      'L', x2 - 13, y + d*h1,
+      'C', x2 - 8, y + d*h1, x2, y + d*h1, x2, y
+    ].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', 'stroke-linejoin':'round', opacity:.95}));
+    const tx = clamp(mx, 80, W - 80);
+    const ty = up ? y + d*tip - 9 : y + d*tip + 17;
+    const text = mk('text', {x:tx, y:ty, 'text-anchor':'middle', fill:color, 'font-size':12,
+      'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+      'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+    text.textContent = label;
+    svg.appendChild(text);
+  }
+  function curvePoint(p0,p1,p2,t){const u=1-t;return u*u*p0[0]+2*u*t*p1[0]+t*t*p2[0];}
+  function curvePointY(p0,p1,p2,t){const u=1-t;return u*u*p0[1]+2*u*t*p1[1]+t*t*p2[1];}
+  function drawArrow(svg, W, H, a, b, color, label, idx){
+    const x1 = a.cx, y1 = a.bottom + 6;
+    const x2 = b.cx, y2 = b.bottom + 6;
+    const sameLine = Math.abs(a.bottom - b.bottom) < 6;
+    const depth = sameLine ? 22 + idx*6 : 30 + idx*8;
+    const c1 = [x1, y1+depth], c2 = [x2, y2+depth];
+    const p = ['M',x1,y1,'C',c1[0],c1[1],c2[0],c2[1],x2,y2].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', opacity:.9}));
+    let dx = x2-c2[0], dy = y2-c2[1];
+    const len = Math.hypot(dx,dy)||1; dx/=len; dy/=len;
+    const size=7.5, spread=.46;
+    const ax = x2-dx*size*Math.cos(spread)-dy*size*Math.sin(spread);
+    const ay = y2-dy*size*Math.cos(spread)+dx*size*Math.sin(spread);
+    const bx = x2-dx*size*Math.cos(spread)+dy*size*Math.sin(spread);
+    const by = y2-dy*size*Math.cos(spread)-dx*size*Math.sin(spread);
+    svg.appendChild(mk('path', {d:`M ${x2} ${y2} L ${ax} ${ay} M ${x2} ${y2} L ${bx} ${by}`,
+      fill:'none', stroke:color, 'stroke-width':1.5, 'stroke-linecap':'round'}));
+    if (label){
+      const mx = curvePoint([x1,y1],c1,[x2,y2],.5);
+      const my = curvePointY([x1,y1],c1,[x2,y2],.5)+15;
+      const text = mk('text', {x:clamp(mx,66,W-66), y:Math.min(my,H-4), 'text-anchor':'middle',
+        fill:color, 'font-size':11.5,
+        'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+        'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+      text.textContent = label;
+      svg.appendChild(text);
+    }
+  }
+  function drawSent(sent){
+    const cfg = ANN[sent.dataset.id];
+    if (!cfg) return;
+    const box = sent.getBoundingClientRect();
+    const W = sent.clientWidth, H = sent.clientHeight;
+    const svg = sent.querySelector('svg.ann');
+    if (!svg) return;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width', W);
+    svg.setAttribute('height', H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const nb = {top:0, bottom:0};             // 上下各自的括号层数
+    cfg.forEach((an,i) => {
+      if (an.t === 'brace'){
+        const r = rectOf(sent, box, an.sel);
+        if (r) drawBrace(svg, W, H, r, an.side, an.color, an.label, nb[an.side]++);
+      } else {
+        const a = rectOf(sent, box, an.from);
+        const b = rectOf(sent, box, an.to);
+        if (a && b) drawArrow(svg, W, H, a, b, an.color, an.label, i);
+      }
+    });
+  }
+  function drawAll(){
+    document.querySelectorAll('.sent').forEach(drawSent);
+  }
+
+  const btnMark = document.getElementById('btnMark');
+  if (btnMark) btnMark.addEventListener('click', () => {
+    const off = document.body.classList.toggle('no-mark');
+    btnMark.classList.toggle('on', !off);
+    btnMark.textContent = off ? '标注：隐藏' : '标注：显示';
+  });
+  const btnTrans = document.getElementById('btnTrans');
+  const trans = document.getElementById('trans');
+  if (btnTrans && trans) btnTrans.addEventListener('click', () => {
+    const showing = !trans.hidden;
+    trans.hidden = showing;
+    btnTrans.classList.toggle('on', !showing);
+    btnTrans.textContent = showing ? '参考译文：展开' : '参考译文：收起';
+    if (!showing) trans.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  window.addEventListener('load', () => {
+    drawAll();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
+  });
+  let t;
+  window.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(drawAll, 120);
+  });
+})();</script>
+</body>
+</html>

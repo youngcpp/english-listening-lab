@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>新概念 第3册第32课 A lost ship</title>
+<style>:root{
+    --ink:#1f2d3d;
+    --paper:#eee7d7;
+    --card:#fffdf7;
+    --line:#ddd2bb;
+    --sub:#2563eb;
+    --pred:#dc2626;
+    --obj:#047857;
+    --adv:#7c3aed;
+    --attr:#b45309;
+    --teal:#0f766e;
+    --conj:#64748b;
+    --quote:#be185d;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;color:var(--ink);
+    background:
+      radial-gradient(1100px 560px at 12% -8%, #f8f2e3 0%, transparent 60%),
+      radial-gradient(900px 520px at 92% 0%, #f1ead9 0%, transparent 55%),
+      var(--paper);
+    font-family:"Palatino Linotype","Palatino","Songti SC","STSong",serif;
+  }
+  .page{max-width:1220px;margin:0 auto;padding:48px 28px 90px;}
+
+  .kicker{font-size:12px;letter-spacing:2.4px;color:#8b7a5e;text-transform:uppercase;margin:0 0 10px;}
+  h1{font-size:40px;line-height:1.16;margin:0;font-weight:600;letter-spacing:-.3px;}
+  h1 .zh{display:inline-block;font-size:23px;font-weight:500;letter-spacing:2px;color:#7a5c33;margin-left:13px;vertical-align:4px;}
+  .standfirst{margin:14px 0 0;font-size:14.5px;line-height:1.9;color:#5b5344;max-width:900px;}
+  .standfirst b{color:#3f3628;}
+  .rule{height:5px;margin:22px 0 0;border-radius:3px;
+    background:linear-gradient(90deg,var(--sub),var(--pred) 24%,var(--obj) 46%,var(--adv) 64%,var(--attr) 82%,var(--teal));opacity:.85;}
+  .controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;}
+  .ctl{
+    font:600 12.5px/1 "Kaiti SC","STKaiti","Songti SC",serif;color:#5a4c36;
+    background:#fffdf6;border:1px solid #d8c9a9;border-radius:999px;
+    padding:8px 15px;cursor:pointer;letter-spacing:.6px;transition:.18s;
+  }
+  .ctl:hover{border-color:#b9a37a;transform:translateY(-1px);}
+  .ctl.on{background:#e9f4ec;border-color:#9cc7ab;color:#245c43;}
+
+  .legend{
+    display:flex;flex-wrap:wrap;gap:11px 22px;align-items:center;
+    background:#fffdf6;border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin:24px 0 0;font-size:13px;color:#443c2e;
+  }
+  .legend .item{display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .legend .hint{color:#6d6250;font-size:12.5px;}
+  .sample{font-size:15.5px;opacity:.95;}
+
+  .sub{border-bottom:3px double var(--sub);padding-bottom:1px;}
+  .pred{border-bottom:3px solid var(--pred);padding-bottom:1px;}
+  .obj{border-bottom:2px dotted var(--obj);padding-bottom:2px;}
+  .adv{border-bottom:2px dashed var(--adv);padding-bottom:2px;}
+  .attr{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--attr);
+    text-decoration-thickness:1.4px;text-underline-offset:5px;}
+  .q{background:linear-gradient(180deg,transparent 58%,rgba(244,114,182,.16) 58%);border-radius:2px;}
+  .tg{
+    display:inline-block;font:600 9px/1 "Kaiti SC","STKaiti",serif;color:#8a5a1a;
+    background:#f6ecd6;border:1px solid #e6d3ab;border-radius:4px;
+    padding:2px 4px;margin-left:4px;vertical-align:.55em;letter-spacing:.5px;
+  }
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin:24px 0 0;
+    box-shadow:0 10px 30px -24px rgba(64,44,12,.55);
+  }
+  .panel h2{margin:0 0 14px;font:600 13px/1 "Kaiti SC","STKaiti",serif;letter-spacing:2px;color:#7a5c33;}
+
+  /* ---------- 时间轴 ---------- */
+  .tl{display:flex;flex-direction:column;gap:14px;}
+  .lane{display:grid;grid-template-columns:130px minmax(0,1fr);gap:16px;align-items:center;}
+  .lane .lab{font:600 12.5px/1.35 "Kaiti SC","STKaiti",serif;color:#4b4130;text-align:right;}
+  .lane .lab span{display:block;font:400 10.5px/1.5 "Songti SC",serif;color:#8b7a5e;letter-spacing:.5px;}
+  .track{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:34px;}
+  .band{
+    display:inline-flex;align-items:center;gap:6px;
+    border:1.5px dashed #6aa899;background:#e7f4ef;color:#175e4b;
+    border-radius:999px;padding:7px 13px;font:600 12.5px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .band::before{content:"";width:7px;height:7px;border-radius:50%;background:#2f7a5e;}
+  .dot{
+    display:inline-flex;align-items:center;gap:6px;color:#7f1d1d;
+    background:#fff6f4;border:1px solid #ecc9c1;border-radius:999px;
+    padding:6px 11px;font:600 12px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .dot::before{content:"";width:6px;height:6px;border-radius:50%;background:#dc2626;}
+  .tl-cap{margin:14px 0 0;font-size:12.8px;line-height:1.85;color:#6d6250;}
+  .tl-cap b{color:#3f3628;}
+
+  /* ---------- 正文布局 ---------- */
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:26px;align-items:start;margin-top:26px;}
+  .col-main{min-width:0;}
+  .col-side{position:sticky;top:18px;display:flex;flex-direction:column;gap:16px;}
+
+  .card{
+    position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 30px 18px;margin:0 0 22px;
+    box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 10px 30px -24px rgba(64,44,12,.5);
+  }
+  .sec{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;border-bottom:1px dashed #ded2b8;padding-bottom:12px;margin-bottom:8px;}
+  .sec-no{font:600 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:1.4px;color:#b6a888;}
+  .sec h3{margin:0;font:600 17px/1.4 "Kaiti SC","STKaiti",serif;color:#2d2417;letter-spacing:.5px;}
+  .sec h3 em{font-style:normal;color:#8a7857;font-weight:400;font-size:12.5px;margin-left:8px;letter-spacing:0;}
+  .sec-note{margin-left:auto;font:400 11.5px/1.5 "Songti SC",serif;color:#9b8b6f;}
+
+  .row{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:8px 0 10px;}
+  .row + .row{border-top:1px dotted #e7ddc7;}
+  .idx{
+    font:600 11px/1 ui-monospace,"SF Mono",Menlo,monospace;color:#b6a888;
+    padding-top:24px;text-align:right;
+  }
+  .sent{
+    position:relative;font-size:19px;line-height:1.72;letter-spacing:.1px;
+    padding:6px 0 12px;
+  }
+  .sent.ann-top{padding-top:42px;}
+  .sent.ann-bottom{padding-bottom:70px;}
+  svg.ann{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+  .tip{margin:2px 0 0;font-size:12.2px;line-height:1.7;color:#8a7c66;}
+  .tip b{color:#6b5a3c;}
+
+  /* ---------- 侧栏 ---------- */
+  .side{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px;
+    box-shadow:0 8px 26px -22px rgba(64,44,12,.5);}
+  .side h3{margin:0 0 10px;font:600 12px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.8px;color:#7a5c33;}
+  .map{list-style:none;margin:0;padding:0;}
+  .map li{display:grid;grid-template-columns:20px 1fr;gap:8px;padding:7px 0;border-top:1px dotted #e7ddc7;font-size:12px;line-height:1.6;color:#5e5545;}
+  .map li:first-child{border-top:none;}
+  .map .n{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:#b6a888;padding-top:3px;}
+  .map b{display:block;font-weight:600;color:#3b3325;font-size:12.5px;}
+  .arc{display:flex;flex-wrap:wrap;gap:5px 3px;margin-top:2px;}
+  .arc span{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;color:#5c4b2f;background:#f7efdd;border:1px solid #e6d6b6;border-radius:999px;padding:4px 7px;letter-spacing:0;}
+  .arc i{font-style:normal;color:#b6a888;align-self:center;font-size:9px;}
+  .side p{margin:8px 0 0;font-size:11.8px;line-height:1.75;color:#7e7160;}
+
+  /* ---------- 译文 ---------- */
+  .translation p{font-size:13.5px;line-height:2;color:#4b4436;margin:0 0 8px;}
+  .translation .lab{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1px;color:#fff;background:#6b5a3c;border-radius:3px;padding:2px 5px 3px;margin-right:7px;vertical-align:1px;}
+
+  .closing{
+    margin-top:30px;padding:18px 22px;border-radius:12px;border:1px dashed #cdbf9f;
+    background:#fffdf6;font-size:12.8px;line-height:1.95;color:#5b5242;
+  }
+
+  body.no-mark .sent.ann-top{padding-top:8px;}
+  body.no-mark .sent.ann-bottom{padding-bottom:12px;}
+  body.no-mark .sub,body.no-mark .pred,body.no-mark .obj,body.no-mark .adv,body.no-mark .attr{text-decoration:none;border-bottom:none;}
+  body.no-mark .tg,body.no-mark svg.ann{display:none;}
+  body.no-mark .q{background:none;}
+
+  @media (max-width:1020px){
+    .layout{grid-template-columns:1fr;}
+    .col-side{position:static;flex-direction:row;flex-wrap:wrap;}
+    .col-side .side{flex:1 1 260px;}
+  }
+  @media (max-width:640px){
+    h1{font-size:32px;}
+    h1 .zh{display:block;margin:8px 0 0;vertical-align:0;}
+    .card{padding:18px 18px 12px;}
+    .lane{grid-template-columns:76px minmax(0,1fr);}
+    .lane .lab{text-align:left;}
+    .sent{font-size:17.5px;}
+    .sec-note{display:none;}
+  }
+  @media print{
+    body{background:#fff;}
+    .page{max-width:none;padding:0;}
+    .card,.panel{break-inside:avoid;box-shadow:none;}
+    .col-side{position:static;}
+    .controls{display:none;}
+    .translation[hidden]{display:block;}
+  }
+/* 本册补充 */
+
+  .ln{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 0;
+    font:600 11.5px/1.7 "Kaiti SC","STKaiti",serif;color:#6d6250;}
+  .ln .seg{display:flex;gap:6px;align-items:center;}
+  .ln .arr{color:#b6a888;font-style:normal;}
+  .c-sub{color:var(--sub);} .c-pred{color:var(--pred);} .c-obj{color:var(--obj);}
+  .c-adv{color:var(--adv);} .c-attr{color:var(--attr);} .c-cl{color:var(--teal);}
+  .map{list-style:none;margin:0;padding:0;}
+  .map li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;padding:7px 0;
+    border-top:1px dotted #e7ddc7;font-size:12px;line-height:1.6;color:#5e5545;}
+  .map li:first-child{border-top:none;}
+  .map .n{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:#b6a888;padding-top:3px;}
+
+
+  .sent .clause{border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .tint-attr{background:linear-gradient(180deg,transparent 56%,rgba(251,191,36,.34) 56%);}
+  .tint-adv{background:linear-gradient(180deg,transparent 56%,rgba(196,181,253,.38) 56%);}
+  .tint-obj{background:linear-gradient(180deg,transparent 56%,rgba(167,243,208,.42) 56%);}
+  .tint-app{background:linear-gradient(180deg,transparent 56%,rgba(253,186,116,.38) 56%);}
+  .sent .conj{color:var(--conj);font-style:italic;}
+  .sent .inton{display:inline-block;font-size:.7em;line-height:1;margin-left:5px;font-weight:700;}
+  .inton.up{color:#0f766e;} .inton.down{color:#b45309;}
+  .qline{display:flex;gap:10px;align-items:baseline;background:#fff8ec;border:1px dashed #e0c796;
+    border-radius:10px;padding:12px 16px;margin:20px 0 0;font-size:17px;color:#5b4a2d;}
+  .qline .lab{flex:0 0 auto;font:600 11px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.6px;
+    color:#fff;background:#a9843f;border-radius:4px;padding:4px 7px;}
+  .wlist{list-style:none;margin:0;padding:0;}
+  .wlist li{display:grid;gap:2px;padding:7px 0;border-top:1px dotted #e7ddc7;
+    font-size:12.4px;line-height:1.55;color:#5e5545;}
+  .wlist li:first-child{border-top:none;}
+  .wlist .en{font-weight:600;color:#2d2417;font-size:13px;}
+  .wlist .ph{color:#8a7c66;font-style:italic;}
+  .note{margin:0;padding-left:22px;color:#4e4638;font-size:12.6px;line-height:1.9;}
+  .note li{margin-bottom:6px;}
+  .warn{font:600 11px/1 "Kaiti SC",serif;color:#8a2f2f;background:#fdecec;border:1px solid #f0c9c9;
+    border-radius:4px;padding:3px 6px;margin-left:6px;}
+  body.no-mark .sent .inton{display:none;}
+
+</style>
+</head>
+<body>
+
+<!-- ==== 点句听读（自动生成，勿手改） ==== -->
+<div id="nce-bar">
+  <span id="nce-tag">点句听读</span>
+  <button id="nce-play">▶ 全文连播</button>
+  <button id="nce-loop">↻ 本句循环</button>
+  <span class="nce-sep"></span>
+  <label>语速 <select id="nce-rate"><option value="0.75">0.75×</option><option value="0.9">0.9×</option><option value="1" selected>1×</option><option value="1.2">1.2×</option></select></label>
+  <span id="nce-stat">…</span>
+  <span id="nce-hint">点任意一句只听那一句（整段排版也按你点的那句播）</span>
+</div>
+<audio id="nce-audio" src="../音频/b3_L32.m4a" preload="auto"></audio>
+<style>
+  #nce-bar{position:sticky;top:0;z-index:99;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    background:#12161d;color:#eef2f7;padding:9px 14px;font:13px/1.4 -apple-system,"PingFang SC",sans-serif;
+    border-bottom:1px solid #2b3340}
+  #nce-bar #nce-tag{font-weight:700;letter-spacing:.06em;color:#ffd36a}
+  #nce-bar button{background:#242c38;color:#eef2f7;border:1px solid #3a4557;border-radius:6px;
+    padding:5px 11px;cursor:pointer;font-size:13px}
+  #nce-bar button:hover{background:#313b4a}
+  #nce-bar button.on{background:#ffd36a;color:#12161d;border-color:#ffd36a;font-weight:600}
+  #nce-bar select{background:#242c38;color:#eef2f7;border:1px solid #3a4557;border-radius:5px;padding:3px 6px}
+  #nce-stat{color:#8fd3a8;font-variant-numeric:tabular-nums}
+  #nce-hint{margin-left:auto;color:#8b98ab}
+  .nce-sep{width:1px;height:18px;background:#3a4557}
+  [nce-s]{cursor:pointer;border-radius:4px;transition:background .15s,box-shadow .15s}
+  [nce-s]:hover{background:rgba(255,211,106,.14);box-shadow:0 0 0 1px rgba(255,211,106,.4) inset}
+  [nce-s].nce-now{background:rgba(255,211,106,.22);box-shadow:0 0 0 2px #ffd36a inset}
+  [nce-s].nce-done{opacity:.62}
+  @media print{#nce-bar{display:none}}
+</style>
+<script>
+function __nce_init(){
+(function(){
+  var S = [{"t": 10.18, "t0": 9.03, "text": "Did the crew of the Elkor find what they were looking for? Why?", "e": 19.26}, {"t": 20.44, "t0": 15.38, "text": "The salvage operation had been a complete failure.", "e": 24.12}, {"t": 24.14, "t0": 19.2, "text": "The small ship, Elkor, which had been searching the Barents Sea for weeks, was on its way home.", "e": 31.08}, {"t": 31.1, "t0": 26.72, "text": "A radio message from the mainland had been received by the ship's captain instructing him to give up the search.", "e": 39.22}, {"t": 39.24, "t0": 34.53, "text": "The captain knew that another attempt would be made later,", "e": 43.66}, {"t": 43.68, "t0": 38.1, "text": "for the sunken ship he was trying to find had been carrying a precious cargo of gold bullion.", "e": 50.86}, {"t": 50.88, "t0": 45.33, "text": "Despite the message, the captain of the Elkor decided to try once more.", "e": 55.88}, {"t": 55.9, "t0": 51.89, "text": "The sea bed was scoured with powerful nets and there was tremendous excitement on board when a chest was raised from the bottom.", "e": 66.18}, {"t": 66.2, "t0": 60.76, "text": "Though the crew were at first under the impression that the lost ship had been found,", "e": 71.1}, {"t": 71.12, "t0": 65.99, "text": "the contents of the chest proved them wrong.", "e": 74.74}, {"t": 74.76, "t0": 69.52, "text": "What they had in fact found was a ship which had been sunk many years before.", "e": 80.82}, {"t": 80.84, "t0": 75.62, "text": "The chest contained the personal belongings of a seaman, Alan Fielding.", "e": 86.0}, {"t": 86.34, "t0": 80.76, "text": "There were books, clothing and photographs, together with letters which the seaman had once received from his wife.", "e": 94.3}, {"t": 94.32, "t0": 88.34, "text": "The captain of the Elkor ordered his men to salvage as much as possible from the wreck.", "e": 100.1}, {"t": 100.12, "t0": 94.32, "text": "Nothing of value was found,", "e": 102.18}, {"t": 102.2, "t0": 96.48, "text": "but the numerous items which were brought to the surface proved to be of great interest.", "e": 107.48}, {"t": 107.5, "t0": 101.75, "text": "From a heavy gun that was raised, the captain realized that the ship must have been a cruiser.", "e": 113.74}, {"t": 113.76, "t0": 108.01, "text": "In another chest which contained the belongings of a ship's officer,", "e": 117.74}, {"t": 117.76, "t0": 112.68, "text": "there was an unfinished letter which had been written on March 14th, 1943.", "e": 123.52}, {"t": 123.54, "t0": 120.01, "text": "The captain learnt from the letter that the name of the lost ship was the Karen.", "e": 128.58}, {"t": 128.6, "t0": 125.21, "text": "The most valuable find of all was the ship's log book, parts of which it was still possible to read.", "e": 136.74}, {"t": 136.76, "t0": 133.41, "text": "From this the captain was able to piece together all the information that had come to light.", "e": 143.28}, {"t": 143.3, "t0": 139.06, "text": "The Karen had been sailing in a convoy to Russia when she was torpedoed by an enemy submarine.", "e": 150.88}, {"t": 150.9, "t0": 145.63, "text": "This was later confirmed by a naval official at the Ministry of Defence after the Elkor had returned home.", "e": 158.54}, {"t": 158.56, "t0": 153.16, "text": "All the items that were found were sent to the War Museum.", "e": 163.02}];
+  var audio = document.getElementById('nce-audio');
+  var stat = document.getElementById('nce-stat');
+  var bPlay = document.getElementById('nce-play'), bLoop = document.getElementById('nce-loop');
+  var rate = document.getElementById('nce-rate');
+  var loop = false, streaming = false, cur = -1;
+  function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'');}
+  S.forEach(function(x){x.k = norm(x.text);});
+  var cands = [].slice.call(document.querySelectorAll('body *')).filter(function(el){
+    if (el.closest('#nce-bar') || el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return false;
+    if (el.querySelector('p, li, blockquote, .sent, .para')) return false;   // 只认最里层的整段/整句元素
+    var t = el.textContent || '';
+    return t.replace(/[^A-Za-z]/g, '').length >= 3 && t.length < 3000;
+  });
+  var used = {};
+  // 生成器已按字幕下标绑定好（新点读页）——直接认这些属性，不再靠文字猜
+  var pre = [].slice.call(document.querySelectorAll('[nce-s]'));
+  pre = pre.filter(function (el) {
+    var a = +el.getAttribute('nce-s');
+    return a >= 0 && a < S.length && el.getAttribute('nce-bar') === null;
+  });
+  if (pre.length) {
+    pre.forEach(function (el) {
+      var a = +el.getAttribute('nce-s');
+      var b = el.hasAttribute('nce-to') ? +el.getAttribute('nce-to') : a;
+      b = Math.min(b, S.length - 1);
+      for (var i = a; i <= b; i++) used[i] = el;
+      el.addEventListener('click', handlerFor(el));
+    });
+  } else {
+  // 按文档顺序 + 指针单调推进：外层元素先认领整句，内层碎片不会再抢，行被拆/被并都能对上
+  var p = 0;
+  cands.forEach(function(el){
+    if (p >= S.length) return;
+    var k = norm(el.textContent);
+    if (k.length < 3) return;
+    var start = -1;
+    for (var q = p; q < Math.min(p + 4, S.length); q++) {
+      var x = S[q].k;
+      if (!x) continue;
+      if (k === x) { start = q; break; }
+      if (x.length >= 6 && k.length >= x.length && k.indexOf(x) >= 0) { start = q; break; }
+      if (k.length >= 20 && x.length >= k.length && x.indexOf(k) === 0) { start = q; break; }
+    }
+    if (start < 0) return;
+    var end = start;
+    for (var r = start + 1; r < Math.min(start + 8, S.length); r++) {
+      var y = S[r].k;
+      if (y && y.length >= 6 && k.indexOf(y) >= 0) end = r; else break;
+    }
+    el.setAttribute('nce-s', start);
+    if (end > start) el.setAttribute('nce-to', end);
+    for (var i2 = start; i2 <= end; i2++) used[i2] = el;
+    p = end + 1;
+    el.addEventListener('click', handlerFor(el));
+  });
+  }
+  var bound = Object.keys(used).length;
+  stat.textContent = '已绑定 ' + bound + '/' + S.length + ' 句';
+  function ends(){
+    var dur = audio.duration || 0;
+    for (var i=0;i<S.length;i++) S[i].end = S[i].e ? S[i].e : ((i+1<S.length) ? S[i+1].t : (dur || S[i].t+8));
+  }
+  function mark(i){
+    [].slice.call(document.querySelectorAll('[nce-s].nce-now')).forEach(function(e){e.classList.remove('nce-now');});
+    var el = used[i]; if (el){el.classList.add('nce-now'); el.scrollIntoView({block:'nearest',behavior:'smooth'});}
+    cur = i;
+  }
+  function handlerFor(el){
+    return function(ev){
+      ev.stopPropagation();
+      var a = +el.getAttribute('nce-s');
+      var b = el.getAttribute('nce-to');
+      b = b === null ? a : +b;
+      if (b > a) {                     // 一个块里排了好几句（第4册整段排版）：看点到的那句
+        var g = groups(a, b, el);
+        if (g) {
+          var m = pickGroup(g, el, ev.clientX, ev.clientY);
+          b = (m + 1 < g.length) ? g[m + 1].i - 1 : b;
+          a = g[m].i;
+        }
+      }
+      playOne(a, b);
+    };
+  }
+  // 块内的「显示句」起点：上一行字幕没有句末标点 = 同一句被拆开的续行，不算新句
+  function isCont(t){ return !/[.!?:;]["')\]）”’\]]\s*$/.test((t||'').trim()) && !/[.!?]$/.test((t||'').trim()); }
+  function groups(a, b, el){
+    var ix = textIndex(el), pos = 0, out = [];
+    for (var i = a; i <= b; i++) {
+      if (i === a || !isCont(S[i-1].text)) {
+        var at = ix.n.indexOf(S[i].k, pos);
+        if (at < 0) return null;          // 对不上文字，退回整块播放
+        out.push({i: i, at: at}); pos = at + S[i].k.length;
+      }
+    }
+    return out.length > 1 ? out : null;
+  }
+  function textIndex(el){
+    if (el.__ix) return el.__ix;
+    var n = '', nodes = [], offs = [], w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), t;
+    while (t = w.nextNode()) {
+      var pe = t.parentElement;                       // 脚注序号 / ¶1 这类标记不算正文
+      if (pe && (pe.tagName === 'SUP' || pe.tagName === 'SUB' || /(^|\s)(fn|pn)(\s|$)/.test(pe.className || ''))) continue;
+      for (var i = 0; i < t.length; i++) {
+        var c = t.nodeValue[i].toLowerCase();
+        if (c >= 'a' && c <= 'z' || c >= '0' && c <= '9') { n += c; nodes.push(t); offs.push(i); }
+      }
+    }
+    el.__ix = {n: n, nodes: nodes, offs: offs};
+    return el.__ix;
+  }
+  function anchorRect(ix, at){
+    var node = ix.nodes[at], off = ix.offs[at];
+    if (!node || off === undefined) return null;
+    var r = document.createRange();
+    try { r.setStart(node, off); r.setEnd(node, Math.min(off + 1, node.length)); } catch(e){ return null; }
+    var box = r.getBoundingClientRect();
+    return (box && (box.height || box.width)) ? box : null;
+  }
+  // 用「每句第一个字母在屏幕上的位置」判断点到的是哪一句：版面再乱也不依赖光标命中
+  function pickGroup(g, el, x, y){
+    var ix = textIndex(el), box = g.map(function(q){ return anchorRect(ix, q.at); });
+    var cand = [];
+    for (var i = 0; i < g.length; i++) if (box[i] && box[i].top <= y + 4) cand.push(i);
+    if (!cand.length) return 0;
+    var top = -1e9;
+    cand.forEach(function(i){ if (box[i].top > top) top = box[i].top; });
+    var line = cand.filter(function(i){ return Math.abs(box[i].top - top) <= 3; });
+    var left = line.filter(function(i){ return box[i].left <= x + 4; });
+    var pool = left.length ? left : line, best = pool[0];
+    pool.forEach(function(i){
+      if (left.length) { if (box[i].left > box[best].left) best = i; }
+      else if (box[i].left < box[best].left) best = i;
+    });
+    return best;
+  }
+  function playOne(i, last){
+    if (last === undefined) last = i;
+    ends(); streaming = false; mark(i);
+    var el = used[i], stop = S[last].end + 0.25;   // 句尾留一点余量，别把最后一个词切掉
+    if (el) el.setAttribute('nce-stop', stop);
+    audio.currentTime = Math.max(0, S[i].t - 0.15);
+    audio.playbackRate = parseFloat(rate.value);
+    audio.play();
+  }
+  audio.addEventListener('timeupdate', function(){
+    if (audio.paused) return;
+    var now = audio.currentTime;
+    if (streaming){
+      var i = S.reduce(function(a,x,n){return (x.t<=now)?n:a;}, 0);
+      if (i !== cur) mark(i);
+      var last = S[S.length - 1];
+      ends();
+      if (last && now >= last.end - 0.05) audio.pause();   // 连播也只播到最后一句的结尾
+    } else if (cur >= 0) {
+      var el = used[cur], stop = el ? parseFloat(el.getAttribute('nce-stop') || S[cur].end) : S[cur].end;
+      if (loop){ if (now >= stop) { audio.currentTime = S[cur].t; } }
+      else if (now >= stop - 0.02){ audio.pause(); }
+    }
+    var m = Math.floor(now/60), s = ('0'+Math.floor(now%60)).slice(-2);
+    stat.textContent = '已绑定 ' + Object.keys(used).length + '/' + S.length + ' 句 · ' + m+':'+s;
+  });
+  bPlay.addEventListener('click', function(){
+    ends(); streaming = true; bPlay.classList.add('on');
+    audio.currentTime = S.length ? S[0].t - 0.2 : 0; audio.playbackRate = parseFloat(rate.value); audio.play();
+  });
+  bLoop.addEventListener('click', function(){
+    loop = !loop; bLoop.classList.toggle('on', loop);
+  });
+  audio.addEventListener('play', function(){ bPlay.classList.toggle('on', streaming); });
+  audio.addEventListener('pause', function(){ bPlay.classList.remove('on'); });
+  audio.addEventListener('error', function(){ stat.textContent = '音频未找到：'+audio.getAttribute('src'); });
+  rate.addEventListener('change', function(){ audio.playbackRate = parseFloat(rate.value); });
+})();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', __nce_init);
+else __nce_init();
+</script>
+<!-- ==== 点句听读 结束 ==== -->
+
+<div class="page">
+<header><p class="kicker">New Concept English · Book 3 · Lesson 32</p><h1>A lost ship<span class="zh">一艘沉船</span></h1><p class="standfirst">本课 <b>21</b> 句（配音频 21 句）　·　主线时态 <b>一般过去时</b>　·　从句 <b>22</b> 处</p><div class="controls"><button class="ctl on" id="btnMark">标注：隐藏</button><button class="ctl" id="btnTrans">参考译文：展开</button></div><div class="rule"></div></header>
+<section class="legend"><span class="item"><span class="sample sub">Experts</span>主语</span><span class="item"><span class="sample pred">confirmed</span>谓语</span><span class="item"><span class="sample obj">the story</span>宾语</span><span class="item"><span class="sample adv">in the morning</span>状语</span><span class="item"><span class="sample attr">blackberry</span>定语</span><span class="item"><span class="sample clause tint-attr">who claimed…</span>从句整体</span><span class="item"><span class="sample conj">for</span>引导词</span><span class="item hint"><b>上方括号</b>＝时态／句型</span><span class="item hint"><b>弧线箭头</b>＝修饰关系</span><span class="item hint">点任意一句只听那一句</span></section>
+<section class="panel"><h2>本课从句一览</h2><ul class="map"><li><span class="n">1</span><div><b>宾语从句</b>what they were looking for</div></li><li><span class="n">4</span><div><b>定语从句</b>which had been searching the Barents Sea for weeks</div></li><li><span class="n">5</span><div><b>宾补从句（不定式）</b>to give up the search</div></li><li><span class="n">6</span><div><b>宾语从句（that）</b>another attempt would be made later, for the sunken…</div></li><li><span class="n">7</span><div><b>宾补从句（不定式）</b>to try once more</div></li><li><span class="n">8</span><div><b>时间状语从句（when）</b>when a chest was raised from the bottom</div></li><li><span class="n">9</span><div><b>让步状语从句（Though）</b>the crew were at first under the impression that th…</div></li><li><span class="n">10</span><div><b>定语从句</b>which had been sunk many years before</div></li><li><span class="n">12</span><div><b>定语从句</b>which the seaman had once received from his wife</div></li><li><span class="n">13</span><div><b>宾补从句（不定式）</b>to salvage as much as possible from the wreck</div></li><li><span class="n">14</span><div><b>定语从句</b>which were brought to the surface</div></li><li><span class="n">14</span><div><b>宾补从句（不定式）</b>to be of great interest</div></li><li><span class="n">14</span><div><b>定语从句</b>that was raised</div></li><li><span class="n">14</span><div><b>宾语从句（that）</b>the ship must have been a cruiser</div></li><li><span class="n">15</span><div><b>定语从句</b>which contained the belongings of a ship's officer</div></li><li><span class="n">15</span><div><b>定语从句</b>which had been written on March 14th, 1943</div></li></ul></section>
+
+<div class="layout">
+<main class="col-main"><article class="card"><div class="row"><span class="idx">1</span><div><div id="s1" class="sent ann-top ann-bottom" data-id="s1" nce-s="0"><span class="pred" data-k="s1-pred">Did</span> <span class="sub" data-k="s1-sub">the crew of the Elkor</span> <span class="pred" data-k="s1-pred-2">find</span> <span class="clause tint-obj" data-k="s1-cl">what they were looking for</span>?<svg class="ann"></svg></div><p class="tip">主干：Did ＋ the crew of the Elk… ＋ find　把助动词/情态动词/be 提到主语前，回答用 Yes…/No…。　宾语从句：整个句子作动词的宾语，引导词 that 常可省略。</p></div></div><div class="row"><span class="idx">2</span><div><div id="s2" class="sent ann-top" data-id="s2" nce-s="0">Why?<svg class="ann"></svg></div><p class="tip">本课跟读句：先把语流读顺，句子成分这里不强行拆。</p></div></div><div class="row"><span class="idx">3</span><div><div id="s3" class="sent ann-top" data-id="s3" nce-s="1"><span class="sub" data-k="s3-sub">The salvage operation</span> <span class="pred" data-k="s3-pred">had been</span> <span class="obj" data-k="s3-obj">a complete failure</span>.<svg class="ann"></svg></div><p class="tip">主干：The salvage operati… ＋ had been ＋ a complete failure　had + 过去分词，表示“过去的过去”，即在过去某动作之前已经完成。</p></div></div><div class="row"><span class="idx">4</span><div><div id="s4" class="sent ann-top ann-bottom" data-id="s4" nce-s="2"><span class="sub" data-k="s4-sub">The small ship, Elkor, </span><span class="clause tint-attr" data-k="s4-cl">which had been searching the Barents Sea for weeks</span>, <span class="pred" data-k="s4-pred">was</span> <span class="adv" data-k="s4-adv">on its way home</span>.<svg class="ann"></svg></div><p class="tip">主干：The small ship, Elk… ＋ was　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">5</span><div><div id="s5" class="sent ann-top ann-bottom" data-id="s5" nce-s="3"><span class="sub" data-k="s5-sub">A radio message from the mainland</span> <span class="pred" data-k="s5-pred">had been received</span> by the ship's captain instructing him <span class="clause tint-adv" data-k="s5-cl">to give up the search</span>.<svg class="ann"></svg></div><p class="tip">主干：A radio message fro… ＋ had been received　had been + 过去分词，说在过去某时之前已被完成。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">6</span><div><div id="s6" class="sent ann-top" data-id="s6" nce-s="4" nce-to="5"><span class="sub" data-k="s6-sub">The captain</span> <span class="pred" data-k="s6-pred">knew</span> <span class="conj" data-k="s6-conj">that</span> another attempt would be made later, for the <span class="attr" data-k="s6-attr">sunken</span> ship he was trying to find had been carrying a <span class="attr" data-k="s6-attr-4">precious</span> cargo <span class="attr" data-k="s6-attr-5">of gold bullion</span>.<svg class="ann"></svg></div><p class="tip">主干：The captain ＋ knew　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾语从句（that）：整个句子作动词的宾语，引导词 that 常可省略。</p></div></div><div class="row"><span class="idx">7</span><div><div id="s7" class="sent ann-top" data-id="s7" nce-s="6"><span class="adv" data-k="s7-adv">Despite the message</span>, <span class="sub" data-k="s7-sub">the captain of the Elkor</span> <span class="pred" data-k="s7-pred">decided</span> <span class="obj" data-k="s7-obj">to try once more</span>.<svg class="ann"></svg></div><p class="tip">主干：the captain of the… ＋ decided ＋ to try once more　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">8</span><div><div id="s8" class="sent ann-top" data-id="s8" nce-s="7"><span class="sub" data-k="s8-sub">The sea bed</span> <span class="pred" data-k="s8-pred">was scoured</span> <span class="adv" data-k="s8-adv">with powerful nets</span> and there <span class="pred" data-k="s8-pred-3">was</span> <span class="attr" data-k="s8-attr">tremendous</span> excitement <span class="attr" data-k="s8-attr-5">on board</span> <span class="conj" data-k="s8-conj">when</span> a chest was raised from the bottom.<svg class="ann"></svg></div><p class="tip">主干：The sea bed ＋ was scoured ＋ was　was/were + 过去分词，强调动作的承受者，施动者用 by 短语引出。　时间状语从句（when）：说主句动作发生的时间，注意从句用现在时表将来。</p></div></div><div class="row"><span class="idx">9</span><div><div id="s9" class="sent ann-top ann-bottom" data-id="s9" nce-s="8" nce-to="9"><span class="conj" data-k="s9-conj">Though</span> <span class="clause tint-adv" data-k="s9-cl">the crew were at first under the impression that the lost ship had been found</span>, <span class="sub" data-k="s9-sub">the contents of the chest</span> <span class="pred" data-k="s9-pred">proved</span> them wrong.<svg class="ann"></svg></div><p class="tip">主干：the contents of the… ＋ proved　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　让步状语从句（Though）：退一步说“即使／尽管”，常见 although / even if / no matter…。</p></div></div></article><article class="card"><div class="row"><span class="idx">10</span><div><div id="s10" class="sent ann-top ann-bottom" data-id="s10" nce-s="10"><span class="sub" data-k="s10-sub">What they had in fact found</span> <span class="pred" data-k="s10-pred">was</span> <span class="obj" data-k="s10-obj">a ship </span><span class="clause tint-attr" data-k="s10-cl">which had been sunk many years before</span>.<svg class="ann"></svg></div><p class="tip">主干：What they had in fa… ＋ was ＋ a ship　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">11</span><div><div id="s11" class="sent ann-top" data-id="s11" nce-s="11"><span class="sub" data-k="s11-sub">The chest</span> <span class="pred" data-k="s11-pred">contained</span> <span class="obj" data-k="s11-obj">the personal belongings of a seaman, Alan Fielding</span>.<svg class="ann"></svg></div><p class="tip">主干：The chest ＋ contained ＋ the personal belong…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。</p></div></div><div class="row"><span class="idx">12</span><div><div id="s12" class="sent ann-top ann-bottom" data-id="s12" nce-s="12"><span class="sub" data-k="s12-sub">There</span> <span class="pred" data-k="s12-pred">were</span> <span class="obj" data-k="s12-obj">books, clothing and photographs, together with letters </span><span class="clause tint-attr" data-k="s12-cl">which the seaman had once received from his wife</span>.<svg class="ann"></svg></div><p class="tip">主干：There ＋ were ＋ books, clothing and…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">13</span><div><div id="s13" class="sent ann-top" data-id="s13" nce-s="13"><span class="sub" data-k="s13-sub">The captain of the Elkor</span> <span class="pred" data-k="s13-pred">ordered</span> <span class="obj" data-k="s13-obj">his men</span> <span class="obj" data-k="s13-obj-3">to salvage as much as possible from the wreck</span>.<svg class="ann"></svg></div><p class="tip">主干：The captain of the… ＋ ordered ＋ his men ＋ to salvage as much…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">14</span><div><div id="s14" class="sent ann-top ann-bottom" data-id="s14" nce-s="14" nce-to="16"><span class="sub" data-k="s14-sub">Nothing of value</span> <span class="pred" data-k="s14-pred">was found</span>, but the <span class="attr" data-k="s14-attr">numerous</span> items <span class="clause tint-attr" data-k="s14-cl">which were brought to the surface</span> <span class="pred" data-k="s14-pred-4">proved</span> <span class="clause tint-adv" data-k="s14-cl-5">to be of great interest</span>. <span class="adv" data-k="s14-adv">From a heavy gun </span><span class="clause tint-attr" data-k="s14-cl-7">that was raised</span>, <span class="sub" data-k="s14-sub-8">the captain</span> <span class="pred" data-k="s14-pred-9">realized</span> <span class="conj" data-k="s14-conj">that</span> <span class="clause tint-obj" data-k="s14-cl-11">the ship must have been a cruiser</span>.<svg class="ann"></svg></div><p class="tip">主干：Nothing of value ＋ was found ＋ proved ＋ the captain ＋ realized　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">15</span><div><div id="s15" class="sent ann-top ann-bottom" data-id="s15" nce-s="17" nce-to="18"><span class="adv" data-k="s15-adv">In another chest, </span><span class="clause tint-attr" data-k="s15-cl">which contained the belongings of a ship's officer</span>, <span class="sub" data-k="s15-sub">there</span> <span class="pred" data-k="s15-pred">was</span> <span class="obj" data-k="s15-obj">an unfinished letter </span><span class="clause tint-attr" data-k="s15-cl-5">which had been written on March 14th, 1943</span>.<svg class="ann"></svg></div><p class="tip">主干：there ＋ was ＋ an unfinished letter　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">16</span><div><div id="s16" class="sent ann-top ann-bottom" data-id="s16" nce-s="19"><span class="sub" data-k="s16-sub">The captain</span> <span class="pred" data-k="s16-pred">learnt</span> <span class="adv" data-k="s16-adv">from the letter that </span><span class="clause tint-attr" data-k="s16-cl">the name of the lost ship was the Karen</span>.<svg class="ann"></svg></div><p class="tip">主干：The captain ＋ learnt　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语从句（that）：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">17</span><div><div id="s17" class="sent ann-top ann-bottom" data-id="s17" nce-s="20"><span class="sub" data-k="s17-sub">The most valuable find of all</span> <span class="pred" data-k="s17-pred">was</span> <span class="obj" data-k="s17-obj">the ship's log book, parts </span><span class="clause tint-attr" data-k="s17-cl">of which it was still possible to read</span>.<svg class="ann"></svg></div><p class="tip">主干：The most valuable f… ＋ was ＋ the ship's log book…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">18</span><div><div id="s18" class="sent ann-top ann-bottom" data-id="s18" nce-s="21"><span class="adv" data-k="s18-adv">From this</span> <span class="sub" data-k="s18-sub">the captain</span> <span class="pred" data-k="s18-pred">was</span> <span class="obj" data-k="s18-obj">able </span><span class="clause tint-adv" data-k="s18-cl">to piece together all the information that had come to light</span>.<svg class="ann"></svg></div><p class="tip">主干：the captain ＋ was ＋ able　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div></article><article class="card"><div class="row"><span class="idx">19</span><div><div id="s19" class="sent ann-top" data-id="s19" nce-s="22"><span class="sub" data-k="s19-sub">The Karen</span> <span class="pred" data-k="s19-pred">had been sailing</span> <span class="adv" data-k="s19-adv">in a convoy</span> <span class="adv" data-k="s19-adv-3">to Russia</span> <span class="conj" data-k="s19-conj">when</span> she was torpedoed by an enemy submarine.<svg class="ann"></svg></div><p class="tip">主干：The Karen ＋ had been sailing　had been + 动词-ing，说到过去某时为止一直在做。　时间状语从句（when）：说主句动作发生的时间，注意从句用现在时表将来。</p></div></div><div class="row"><span class="idx">20</span><div><div id="s20" class="sent ann-top ann-bottom" data-id="s20" nce-s="23"><span class="sub" data-k="s20-sub">This</span> <span class="pred" data-k="s20-pred">was</span> <span class="adv" data-k="s20-adv">later</span> <span class="pred" data-k="s20-pred-3">confirmed</span> by a <span class="attr" data-k="s20-attr">naval</span> official <span class="attr" data-k="s20-attr-5">at the Ministry of Defence</span> <span class="conj" data-k="s20-conj">after</span> <span class="clause tint-adv" data-k="s20-cl">the Elkor had returned home</span>.<svg class="ann"></svg></div><p class="tip">主干：This ＋ was ＋ confirmed　was/were + 过去分词，强调动作的承受者，施动者用 by 短语引出。　时间状语从句（after）：说主句动作发生的时间，注意从句用现在时表将来。</p></div></div><div class="row"><span class="idx">21</span><div><div id="s21" class="sent ann-top ann-bottom" data-id="s21" nce-s="24"><span class="sub" data-k="s21-sub">All the items </span><span class="clause tint-attr" data-k="s21-cl">that were found</span> <span class="pred" data-k="s21-pred">were sent</span> <span class="adv" data-k="s21-adv">to the War Museum</span>.<svg class="ann"></svg></div><p class="tip">主干：All the items ＋ were sent　was/were + 过去分词，强调动作的承受者，施动者用 by 短语引出。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div></article></main>
+<div class="col-side"><aside class="side"><h3>句子骨架</h3><ul class="map"><li><span class="n">1</span><div><b>谓语＋主语＋谓语＋从句</b>一般过去时　宾语从句</div></li><li><span class="n">2</span><div><b>—</b>特殊疑问句</div></li><li><span class="n">3</span><div><b>主语＋谓语＋宾语</b>过去完成时</div></li><li><span class="n">4</span><div><b>主语＋从句＋谓语</b>一般过去时　定语从句</div></li><li><span class="n">5</span><div><b>主语＋谓语＋从句</b>过去完成时的被动　宾补从句（不定式）</div></li><li><span class="n">6</span><div><b>主语＋谓语</b>一般过去时　宾语从句</div></li><li><span class="n">7</span><div><b>主语＋谓语＋宾语</b>一般过去时　宾补从句（不定式）</div></li><li><span class="n">8</span><div><b>主语＋谓语＋谓语</b>被动语态（一般过去时）　时间状语从句</div></li><li><span class="n">9</span><div><b>从句＋主语＋谓语</b>一般过去时　让步状语从句</div></li><li><span class="n">10</span><div><b>主语＋谓语＋宾语＋从句</b>一般过去时　定语从句</div></li><li><span class="n">11</span><div><b>主语＋谓语＋宾语</b>一般过去时</div></li><li><span class="n">12</span><div><b>主语＋谓语＋宾语＋从句</b>一般过去时　定语从句</div></li><li><span class="n">13</span><div><b>主语＋谓语＋宾语＋宾语</b>一般过去时　宾补从句（不定式）</div></li><li><span class="n">14</span><div><b>主语＋谓语＋从句＋谓语＋从句＋从句＋主语＋谓语＋从句</b>被动语态（一般过去时） / 一般过去时　定语从句</div></li><li><span class="n">15</span><div><b>从句＋主语＋谓语＋宾语＋从句</b>一般过去时　定语从句</div></li><li><span class="n">16</span><div><b>主语＋谓语＋从句</b>一般过去时　定语从句</div></li><li><span class="n">17</span><div><b>主语＋谓语＋宾语＋从句</b>一般过去时　定语从句</div></li><li><span class="n">18</span><div><b>主语＋谓语＋宾语＋从句</b>一般过去时　宾补从句（不定式）</div></li><li><span class="n">19</span><div><b>主语＋谓语</b>过去完成进行时　时间状语从句</div></li><li><span class="n">20</span><div><b>主语＋谓语＋谓语＋从句</b>被动语态（一般过去时）　时间状语从句</div></li><li><span class="n">21</span><div><b>主语＋从句＋谓语</b>被动语态（一般过去时）　定语从句</div></li></ul></aside><aside class="side"><h3>生词和短语</h3><ul class="wlist"><li><div class="en">salvage <span class="ph">/ˈsælvɪdʒ/</span></div><div>v. 救助，营救；打捞</div></li><li><div class="en">cruiser <span class="ph">/ˈkruːzə/</span></div><div>n. 巡洋舰</div></li><li><div class="en">Barents <span class="ph">/ˈbærənts/</span></div><div>n. 巴伦支（海）</div></li><li><div class="en">find <span class="ph">/faɪnd/</span></div><div>n. 找到的物品</div></li><li><div class="en">sunken <span class="ph">/ˈsʌŋkən/</span></div><div>adj. 沉没的</div></li><li><div class="en">log book <span class="ph">/ˈlɒɡ bʊk/</span></div><div>n. 航海日志</div></li><li><div class="en">cargo <span class="ph">/ˈkɑːɡəʊ/</span></div><div>n. 货物</div></li><li><div class="en">piece <span class="ph">/piːs/</span></div><div>v. 拼成整体</div></li><li><div class="en">bullion <span class="ph">/ˈbʊliən/</span></div><div>n. 金条；银条</div></li><li><div class="en">convoy <span class="ph">/ˈkɒnvɔɪ/</span></div><div>n. 护航</div></li><li><div class="en">scour <span class="ph">/ˈskaʊə/</span></div><div>v. 彻底搜索</div></li><li><div class="en">torpedo <span class="ph">/tɔːˈpiːdəʊ/</span></div><div>v. 用鱼雷攻击</div></li><li><div class="en">chest <span class="ph">/tʃest/</span></div><div>n. 大箱子</div></li><li><div class="en">submarine <span class="ph">/ˌsʌbməˈriːn/</span></div><div>n. 潜水艇</div></li></ul></aside><aside class="side"><h3>课文注释</h3><ol class="note"><li>on its way home，返航途中。</li><li>for the sunken ship he was trying to find...，for 作“因为”讲，引导并列句；he was trying to find 是定语从句修饰主语 ship。</li><li>under the impression that，以为，认为。</li><li>be of great interest，很有趣。</li><li>parts of which it was possible to read，which 指先行词 log book，所引起的是定语从句，it 是形式主语，不定式 to read 是真实主语，parts of which 作 read 的宾语。</li><li>Ministry of Defence，国防部。</li><li>War Museum，军事博物馆。指伦敦的帝国军事博物馆，其中展出第一次世界大战和第二次世界大战的军事物品。</li></ol></aside></div>
+</div>
+<section class="panel translation" id="trans" hidden><h2>参考译文</h2><p>打捞工作彻底失败了。小船“埃尔科”号在巴伦支海搜寻了几个星期之后，正在返航途中。返航前，该船船长收到了大陆上发来的电报，指示他们放弃这次搜寻。船长知道日后还会再作尝试，因为他试图寻找的沉船上载有一批珍贵的金条。</p><p>尽管船长接到了电报，他还是决定再试一试。他们用结实的网把海床搜索了一遍。当一只箱子从海底被打捞上来时，甲板上人们激动不已。船员们开始认为沉船找着了，但海底沉箱内的物品证明他们弄错了。事实上，他们发现的是另一艘沉没多年的船。</p><p>木箱内装有水手艾伦·菲尔丁的私人财物，其中有书籍、衣服、照片以及水手收到的妻子的来信。“埃尔科”号船长命令船员尽量从沉船中打捞物品，但没发现什么值钱的东西，不过打捞出来的众多的物品还是引起了大家极大的兴趣。从捞起的一门大炮来看，船长认为那艘船一定是艘巡洋舰。另一只海底沉箱中装的是船上一位军官的财物，其中有一封写于1943年3月14日的信，但没有写完。从这封信中船长了解到沉船船名是“卡伦”号。打捞到的东西中最有价值的是船上的航海日志，其中有一部分仍然清晰可读。据此，船长可以将所有的那些已经搞清的材料拼凑起来。“卡伦”号当年在为其他船只护航驶往俄国途中突然遭到敌方潜水艇鱼雷的袭击。这一说法在“埃尔科”号返航后得到国防部一位海军官员的证实。那次打捞到的所有物品均被送往军事博物馆。</p></section>
+<div class="closing">第3册第32课 · 文本以课文朗读音频逐句为基准 · 语法标注由依存句法分析自动生成，只对结构清楚的句子画括号，拿不准的宁可空着 · 点句听读的时间按本地逐词转写重新对过轴</div>
+</div>
+<script>(function(){
+  var NS = 'http://www.w3.org/2000/svg';
+  var ANN = {"s1": [{"t": "brace", "sel": "s1-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s1-cl", "side": "bottom", "color": "#b45309", "label": "宾语从句"}], "s3": [{"t": "brace", "sel": "s3-pred", "side": "top", "color": "#0f766e", "label": "过去完成时"}], "s4": [{"t": "brace", "sel": "s4-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s4-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s4-adv", "to": "s4-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s5": [{"t": "brace", "sel": "s5-pred", "side": "top", "color": "#0f766e", "label": "过去完成时的被动"}, {"t": "brace", "sel": "s5-cl", "side": "bottom", "color": "#b45309", "label": "宾补从句（不定式）"}], "s6": [{"t": "brace", "sel": "s6-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}], "s7": [{"t": "brace", "sel": "s7-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s7-adv", "to": "s7-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s8": [{"t": "brace", "sel": "s8-pred", "side": "top", "color": "#0f766e", "label": "被动语态（一般过去时）"}, {"t": "arrow", "from": "s8-adv", "to": "s8-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s9": [{"t": "brace", "sel": "s9-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s9-cl", "side": "bottom", "color": "#b45309", "label": "让步状语从句"}], "s10": [{"t": "brace", "sel": "s10-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s10-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}], "s11": [{"t": "brace", "sel": "s11-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}], "s12": [{"t": "brace", "sel": "s12-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s12-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}], "s13": [{"t": "brace", "sel": "s13-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}], "s14": [{"t": "brace", "sel": "s14-pred", "side": "top", "color": "#0f766e", "label": "被动语态（一般过去时） / 一般过去时"}, {"t": "brace", "sel": "s14-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "brace", "sel": "s14-cl-5", "side": "bottom", "color": "#b45309", "label": "宾补从句（不定式）"}, {"t": "brace", "sel": "s14-cl-7", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "brace", "sel": "s14-cl-11", "side": "bottom", "color": "#b45309", "label": "宾语从句"}, {"t": "arrow", "from": "s14-adv", "to": "s14-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s15": [{"t": "brace", "sel": "s15-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s15-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "brace", "sel": "s15-cl-5", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s15-adv", "to": "s15-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s16": [{"t": "brace", "sel": "s16-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s16-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s16-adv", "to": "s16-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s17": [{"t": "brace", "sel": "s17-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s17-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}], "s18": [{"t": "brace", "sel": "s18-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s18-cl", "side": "bottom", "color": "#b45309", "label": "宾补从句（不定式）"}, {"t": "arrow", "from": "s18-adv", "to": "s18-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s19": [{"t": "brace", "sel": "s19-pred", "side": "top", "color": "#0f766e", "label": "过去完成进行时"}, {"t": "arrow", "from": "s19-adv", "to": "s19-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s20": [{"t": "brace", "sel": "s20-pred", "side": "top", "color": "#0f766e", "label": "被动语态（一般过去时）"}, {"t": "brace", "sel": "s20-cl", "side": "bottom", "color": "#b45309", "label": "时间状语从句"}, {"t": "arrow", "from": "s20-adv", "to": "s20-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s21": [{"t": "brace", "sel": "s21-pred", "side": "top", "color": "#0f766e", "label": "被动语态（一般过去时）"}, {"t": "brace", "sel": "s21-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s21-adv", "to": "s21-pred", "color": "#7c3aed", "label": "状语修饰谓语"}]};
+
+  function mk(tag, attrs){
+    const el = document.createElementNS(NS, tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+  function rectOf(sent, box, key){
+    const el = sent.querySelector('[data-k="' + key + '"]');
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return {x:r.left-box.left, y:r.top-box.top, w:r.width, h:r.height,
+            cx:r.left-box.left+r.width/2, bottom:r.bottom-box.top};
+  }
+  function drawBrace(svg, W, H, r, side, color, label, row){
+    let x1 = clamp(r.x + 2, 4, W - 4);
+    let x2 = clamp(r.x + r.w - 2, x1 + 24, W - 4);
+    const up = side === 'top';
+    const n = row || 0;                       // 同一句里第几条花括号：逐层下移，标签不再叠字
+    const y = up ? Math.max(14, r.y - 8 - n * 13) : Math.min(H - 10, r.bottom + 8 + n * 13);
+    const d = up ? -1 : 1;
+    const h1 = 8, tip = 14;
+    const mx = (x1 + x2) / 2;
+    const p = [
+      'M', x1, y,
+      'C', x1, y + d*h1, x1 + 8, y + d*h1, x1 + 13, y + d*h1,
+      'L', mx - 14, y + d*h1,
+      'C', mx - 7, y + d*h1, mx - 7, y + d*tip, mx, y + d*tip,
+      'C', mx + 7, y + d*tip, mx + 7, y + d*h1, mx + 14, y + d*h1,
+      'L', x2 - 13, y + d*h1,
+      'C', x2 - 8, y + d*h1, x2, y + d*h1, x2, y
+    ].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', 'stroke-linejoin':'round', opacity:.95}));
+    const tx = clamp(mx, 80, W - 80);
+    const ty = up ? y + d*tip - 9 : y + d*tip + 17;
+    const text = mk('text', {x:tx, y:ty, 'text-anchor':'middle', fill:color, 'font-size':12,
+      'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+      'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+    text.textContent = label;
+    svg.appendChild(text);
+  }
+  function curvePoint(p0,p1,p2,t){const u=1-t;return u*u*p0[0]+2*u*t*p1[0]+t*t*p2[0];}
+  function curvePointY(p0,p1,p2,t){const u=1-t;return u*u*p0[1]+2*u*t*p1[1]+t*t*p2[1];}
+  function drawArrow(svg, W, H, a, b, color, label, idx){
+    const x1 = a.cx, y1 = a.bottom + 6;
+    const x2 = b.cx, y2 = b.bottom + 6;
+    const sameLine = Math.abs(a.bottom - b.bottom) < 6;
+    const depth = sameLine ? 22 + idx*6 : 30 + idx*8;
+    const c1 = [x1, y1+depth], c2 = [x2, y2+depth];
+    const p = ['M',x1,y1,'C',c1[0],c1[1],c2[0],c2[1],x2,y2].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', opacity:.9}));
+    let dx = x2-c2[0], dy = y2-c2[1];
+    const len = Math.hypot(dx,dy)||1; dx/=len; dy/=len;
+    const size=7.5, spread=.46;
+    const ax = x2-dx*size*Math.cos(spread)-dy*size*Math.sin(spread);
+    const ay = y2-dy*size*Math.cos(spread)+dx*size*Math.sin(spread);
+    const bx = x2-dx*size*Math.cos(spread)+dy*size*Math.sin(spread);
+    const by = y2-dy*size*Math.cos(spread)-dx*size*Math.sin(spread);
+    svg.appendChild(mk('path', {d:`M ${x2} ${y2} L ${ax} ${ay} M ${x2} ${y2} L ${bx} ${by}`,
+      fill:'none', stroke:color, 'stroke-width':1.5, 'stroke-linecap':'round'}));
+    if (label){
+      const mx = curvePoint([x1,y1],c1,[x2,y2],.5);
+      const my = curvePointY([x1,y1],c1,[x2,y2],.5)+15;
+      const text = mk('text', {x:clamp(mx,66,W-66), y:Math.min(my,H-4), 'text-anchor':'middle',
+        fill:color, 'font-size':11.5,
+        'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+        'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+      text.textContent = label;
+      svg.appendChild(text);
+    }
+  }
+  function drawSent(sent){
+    const cfg = ANN[sent.dataset.id];
+    if (!cfg) return;
+    const box = sent.getBoundingClientRect();
+    const W = sent.clientWidth, H = sent.clientHeight;
+    const svg = sent.querySelector('svg.ann');
+    if (!svg) return;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width', W);
+    svg.setAttribute('height', H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const nb = {top:0, bottom:0};             // 上下各自的括号层数
+    cfg.forEach((an,i) => {
+      if (an.t === 'brace'){
+        const r = rectOf(sent, box, an.sel);
+        if (r) drawBrace(svg, W, H, r, an.side, an.color, an.label, nb[an.side]++);
+      } else {
+        const a = rectOf(sent, box, an.from);
+        const b = rectOf(sent, box, an.to);
+        if (a && b) drawArrow(svg, W, H, a, b, an.color, an.label, i);
+      }
+    });
+  }
+  function drawAll(){
+    document.querySelectorAll('.sent').forEach(drawSent);
+  }
+
+  const btnMark = document.getElementById('btnMark');
+  if (btnMark) btnMark.addEventListener('click', () => {
+    const off = document.body.classList.toggle('no-mark');
+    btnMark.classList.toggle('on', !off);
+    btnMark.textContent = off ? '标注：隐藏' : '标注：显示';
+  });
+  const btnTrans = document.getElementById('btnTrans');
+  const trans = document.getElementById('trans');
+  if (btnTrans && trans) btnTrans.addEventListener('click', () => {
+    const showing = !trans.hidden;
+    trans.hidden = showing;
+    btnTrans.classList.toggle('on', !showing);
+    btnTrans.textContent = showing ? '参考译文：展开' : '参考译文：收起';
+    if (!showing) trans.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  window.addEventListener('load', () => {
+    drawAll();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
+  });
+  let t;
+  window.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(drawAll, 120);
+  });
+})();</script>
+
+</body>
+</html>

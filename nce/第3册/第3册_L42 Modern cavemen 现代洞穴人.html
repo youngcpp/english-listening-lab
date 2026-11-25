@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>新概念 第3册第42课 Modern cavemen</title>
+<style>:root{
+    --ink:#1f2d3d;
+    --paper:#eee7d7;
+    --card:#fffdf7;
+    --line:#ddd2bb;
+    --sub:#2563eb;
+    --pred:#dc2626;
+    --obj:#047857;
+    --adv:#7c3aed;
+    --attr:#b45309;
+    --teal:#0f766e;
+    --conj:#64748b;
+    --quote:#be185d;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;color:var(--ink);
+    background:
+      radial-gradient(1100px 560px at 12% -8%, #f8f2e3 0%, transparent 60%),
+      radial-gradient(900px 520px at 92% 0%, #f1ead9 0%, transparent 55%),
+      var(--paper);
+    font-family:"Palatino Linotype","Palatino","Songti SC","STSong",serif;
+  }
+  .page{max-width:1220px;margin:0 auto;padding:48px 28px 90px;}
+
+  .kicker{font-size:12px;letter-spacing:2.4px;color:#8b7a5e;text-transform:uppercase;margin:0 0 10px;}
+  h1{font-size:40px;line-height:1.16;margin:0;font-weight:600;letter-spacing:-.3px;}
+  h1 .zh{display:inline-block;font-size:23px;font-weight:500;letter-spacing:2px;color:#7a5c33;margin-left:13px;vertical-align:4px;}
+  .standfirst{margin:14px 0 0;font-size:14.5px;line-height:1.9;color:#5b5344;max-width:900px;}
+  .standfirst b{color:#3f3628;}
+  .rule{height:5px;margin:22px 0 0;border-radius:3px;
+    background:linear-gradient(90deg,var(--sub),var(--pred) 24%,var(--obj) 46%,var(--adv) 64%,var(--attr) 82%,var(--teal));opacity:.85;}
+  .controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;}
+  .ctl{
+    font:600 12.5px/1 "Kaiti SC","STKaiti","Songti SC",serif;color:#5a4c36;
+    background:#fffdf6;border:1px solid #d8c9a9;border-radius:999px;
+    padding:8px 15px;cursor:pointer;letter-spacing:.6px;transition:.18s;
+  }
+  .ctl:hover{border-color:#b9a37a;transform:translateY(-1px);}
+  .ctl.on{background:#e9f4ec;border-color:#9cc7ab;color:#245c43;}
+
+  .legend{
+    display:flex;flex-wrap:wrap;gap:11px 22px;align-items:center;
+    background:#fffdf6;border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin:24px 0 0;font-size:13px;color:#443c2e;
+  }
+  .legend .item{display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .legend .hint{color:#6d6250;font-size:12.5px;}
+  .sample{font-size:15.5px;opacity:.95;}
+
+  .sub{border-bottom:3px double var(--sub);padding-bottom:1px;}
+  .pred{border-bottom:3px solid var(--pred);padding-bottom:1px;}
+  .obj{border-bottom:2px dotted var(--obj);padding-bottom:2px;}
+  .adv{border-bottom:2px dashed var(--adv);padding-bottom:2px;}
+  .attr{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--attr);
+    text-decoration-thickness:1.4px;text-underline-offset:5px;}
+  .q{background:linear-gradient(180deg,transparent 58%,rgba(244,114,182,.16) 58%);border-radius:2px;}
+  .tg{
+    display:inline-block;font:600 9px/1 "Kaiti SC","STKaiti",serif;color:#8a5a1a;
+    background:#f6ecd6;border:1px solid #e6d3ab;border-radius:4px;
+    padding:2px 4px;margin-left:4px;vertical-align:.55em;letter-spacing:.5px;
+  }
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin:24px 0 0;
+    box-shadow:0 10px 30px -24px rgba(64,44,12,.55);
+  }
+  .panel h2{margin:0 0 14px;font:600 13px/1 "Kaiti SC","STKaiti",serif;letter-spacing:2px;color:#7a5c33;}
+
+  /* ---------- 时间轴 ---------- */
+  .tl{display:flex;flex-direction:column;gap:14px;}
+  .lane{display:grid;grid-template-columns:130px minmax(0,1fr);gap:16px;align-items:center;}
+  .lane .lab{font:600 12.5px/1.35 "Kaiti SC","STKaiti",serif;color:#4b4130;text-align:right;}
+  .lane .lab span{display:block;font:400 10.5px/1.5 "Songti SC",serif;color:#8b7a5e;letter-spacing:.5px;}
+  .track{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:34px;}
+  .band{
+    display:inline-flex;align-items:center;gap:6px;
+    border:1.5px dashed #6aa899;background:#e7f4ef;color:#175e4b;
+    border-radius:999px;padding:7px 13px;font:600 12.5px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .band::before{content:"";width:7px;height:7px;border-radius:50%;background:#2f7a5e;}
+  .dot{
+    display:inline-flex;align-items:center;gap:6px;color:#7f1d1d;
+    background:#fff6f4;border:1px solid #ecc9c1;border-radius:999px;
+    padding:6px 11px;font:600 12px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .dot::before{content:"";width:6px;height:6px;border-radius:50%;background:#dc2626;}
+  .tl-cap{margin:14px 0 0;font-size:12.8px;line-height:1.85;color:#6d6250;}
+  .tl-cap b{color:#3f3628;}
+
+  /* ---------- 正文布局 ---------- */
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:26px;align-items:start;margin-top:26px;}
+  .col-main{min-width:0;}
+  .col-side{position:sticky;top:18px;display:flex;flex-direction:column;gap:16px;}
+
+  .card{
+    position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 30px 18px;margin:0 0 22px;
+    box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 10px 30px -24px rgba(64,44,12,.5);
+  }
+  .sec{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;border-bottom:1px dashed #ded2b8;padding-bottom:12px;margin-bottom:8px;}
+  .sec-no{font:600 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:1.4px;color:#b6a888;}
+  .sec h3{margin:0;font:600 17px/1.4 "Kaiti SC","STKaiti",serif;color:#2d2417;letter-spacing:.5px;}
+  .sec h3 em{font-style:normal;color:#8a7857;font-weight:400;font-size:12.5px;margin-left:8px;letter-spacing:0;}
+  .sec-note{margin-left:auto;font:400 11.5px/1.5 "Songti SC",serif;color:#9b8b6f;}
+
+  .row{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:8px 0 10px;}
+  .row + .row{border-top:1px dotted #e7ddc7;}
+  .idx{
+    font:600 11px/1 ui-monospace,"SF Mono",Menlo,monospace;color:#b6a888;
+    padding-top:24px;text-align:right;
+  }
+  .sent{
+    position:relative;font-size:19px;line-height:1.72;letter-spacing:.1px;
+    padding:6px 0 12px;
+  }
+  .sent.ann-top{padding-top:42px;}
+  .sent.ann-bottom{padding-bottom:70px;}
+  svg.ann{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+  .tip{margin:2px 0 0;font-size:12.2px;line-height:1.7;color:#8a7c66;}
+  .tip b{color:#6b5a3c;}
+
+  /* ---------- 侧栏 ---------- */
+  .side{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px;
+    box-shadow:0 8px 26px -22px rgba(64,44,12,.5);}
+  .side h3{margin:0 0 10px;font:600 12px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.8px;color:#7a5c33;}
+  .map{list-style:none;margin:0;padding:0;}
+  .map li{display:grid;grid-template-columns:20px 1fr;gap:8px;padding:7px 0;border-top:1px dotted #e7ddc7;font-size:12px;line-height:1.6;color:#5e5545;}
+  .map li:first-child{border-top:none;}
+  .map .n{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:#b6a888;padding-top:3px;}
+  .map b{display:block;font-weight:600;color:#3b3325;font-size:12.5px;}
+  .arc{display:flex;flex-wrap:wrap;gap:5px 3px;margin-top:2px;}
+  .arc span{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;color:#5c4b2f;background:#f7efdd;border:1px solid #e6d6b6;border-radius:999px;padding:4px 7px;letter-spacing:0;}
+  .arc i{font-style:normal;color:#b6a888;align-self:center;font-size:9px;}
+  .side p{margin:8px 0 0;font-size:11.8px;line-height:1.75;color:#7e7160;}
+
+  /* ---------- 译文 ---------- */
+  .translation p{font-size:13.5px;line-height:2;color:#4b4436;margin:0 0 8px;}
+  .translation .lab{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1px;color:#fff;background:#6b5a3c;border-radius:3px;padding:2px 5px 3px;margin-right:7px;vertical-align:1px;}
+
+  .closing{
+    margin-top:30px;padding:18px 22px;border-radius:12px;border:1px dashed #cdbf9f;
+    background:#fffdf6;font-size:12.8px;line-height:1.95;color:#5b5242;
+  }
+
+  body.no-mark .sent.ann-top{padding-top:8px;}
+  body.no-mark .sent.ann-bottom{padding-bottom:12px;}
+  body.no-mark .sub,body.no-mark .pred,body.no-mark .obj,body.no-mark .adv,body.no-mark .attr{text-decoration:none;border-bottom:none;}
+  body.no-mark .tg,body.no-mark svg.ann{display:none;}
+  body.no-mark .q{background:none;}
+
+  @media (max-width:1020px){
+    .layout{grid-template-columns:1fr;}
+    .col-side{position:static;flex-direction:row;flex-wrap:wrap;}
+    .col-side .side{flex:1 1 260px;}
+  }
+  @media (max-width:640px){
+    h1{font-size:32px;}
+    h1 .zh{display:block;margin:8px 0 0;vertical-align:0;}
+    .card{padding:18px 18px 12px;}
+    .lane{grid-template-columns:76px minmax(0,1fr);}
+    .lane .lab{text-align:left;}
+    .sent{font-size:17.5px;}
+    .sec-note{display:none;}
+  }
+  @media print{
+    body{background:#fff;}
+    .page{max-width:none;padding:0;}
+    .card,.panel{break-inside:avoid;box-shadow:none;}
+    .col-side{position:static;}
+    .controls{display:none;}
+    .translation[hidden]{display:block;}
+  }
+/* 本册补充 */
+
+  .ln{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 0;
+    font:600 11.5px/1.7 "Kaiti SC","STKaiti",serif;color:#6d6250;}
+  .ln .seg{display:flex;gap:6px;align-items:center;}
+  .ln .arr{color:#b6a888;font-style:normal;}
+  .c-sub{color:var(--sub);} .c-pred{color:var(--pred);} .c-obj{color:var(--obj);}
+  .c-adv{color:var(--adv);} .c-attr{color:var(--attr);} .c-cl{color:var(--teal);}
+  .map{list-style:none;margin:0;padding:0;}
+  .map li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;padding:7px 0;
+    border-top:1px dotted #e7ddc7;font-size:12px;line-height:1.6;color:#5e5545;}
+  .map li:first-child{border-top:none;}
+  .map .n{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:#b6a888;padding-top:3px;}
+
+
+  .sent .clause{border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .tint-attr{background:linear-gradient(180deg,transparent 56%,rgba(251,191,36,.34) 56%);}
+  .tint-adv{background:linear-gradient(180deg,transparent 56%,rgba(196,181,253,.38) 56%);}
+  .tint-obj{background:linear-gradient(180deg,transparent 56%,rgba(167,243,208,.42) 56%);}
+  .tint-app{background:linear-gradient(180deg,transparent 56%,rgba(253,186,116,.38) 56%);}
+  .sent .conj{color:var(--conj);font-style:italic;}
+  .sent .inton{display:inline-block;font-size:.7em;line-height:1;margin-left:5px;font-weight:700;}
+  .inton.up{color:#0f766e;} .inton.down{color:#b45309;}
+  .qline{display:flex;gap:10px;align-items:baseline;background:#fff8ec;border:1px dashed #e0c796;
+    border-radius:10px;padding:12px 16px;margin:20px 0 0;font-size:17px;color:#5b4a2d;}
+  .qline .lab{flex:0 0 auto;font:600 11px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.6px;
+    color:#fff;background:#a9843f;border-radius:4px;padding:4px 7px;}
+  .wlist{list-style:none;margin:0;padding:0;}
+  .wlist li{display:grid;gap:2px;padding:7px 0;border-top:1px dotted #e7ddc7;
+    font-size:12.4px;line-height:1.55;color:#5e5545;}
+  .wlist li:first-child{border-top:none;}
+  .wlist .en{font-weight:600;color:#2d2417;font-size:13px;}
+  .wlist .ph{color:#8a7c66;font-style:italic;}
+  .note{margin:0;padding-left:22px;color:#4e4638;font-size:12.6px;line-height:1.9;}
+  .note li{margin-bottom:6px;}
+  .warn{font:600 11px/1 "Kaiti SC",serif;color:#8a2f2f;background:#fdecec;border:1px solid #f0c9c9;
+    border-radius:4px;padding:3px 6px;margin-left:6px;}
+  body.no-mark .sent .inton{display:none;}
+
+</style>
+</head>
+<body>
+
+<!-- ==== 点句听读（自动生成，勿手改） ==== -->
+<div id="nce-bar">
+  <span id="nce-tag">点句听读</span>
+  <button id="nce-play">▶ 全文连播</button>
+  <button id="nce-loop">↻ 本句循环</button>
+  <span class="nce-sep"></span>
+  <label>语速 <select id="nce-rate"><option value="0.75">0.75×</option><option value="0.9">0.9×</option><option value="1" selected>1×</option><option value="1.2">1.2×</option></select></label>
+  <span id="nce-stat">…</span>
+  <span id="nce-hint">点任意一句只听那一句（整段排版也按你点的那句播）</span>
+</div>
+<audio id="nce-audio" src="../音频/b3_L42.m4a" preload="auto"></audio>
+<style>
+  #nce-bar{position:sticky;top:0;z-index:99;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    background:#12161d;color:#eef2f7;padding:9px 14px;font:13px/1.4 -apple-system,"PingFang SC",sans-serif;
+    border-bottom:1px solid #2b3340}
+  #nce-bar #nce-tag{font-weight:700;letter-spacing:.06em;color:#ffd36a}
+  #nce-bar button{background:#242c38;color:#eef2f7;border:1px solid #3a4557;border-radius:6px;
+    padding:5px 11px;cursor:pointer;font-size:13px}
+  #nce-bar button:hover{background:#313b4a}
+  #nce-bar button.on{background:#ffd36a;color:#12161d;border-color:#ffd36a;font-weight:600}
+  #nce-bar select{background:#242c38;color:#eef2f7;border:1px solid #3a4557;border-radius:5px;padding:3px 6px}
+  #nce-stat{color:#8fd3a8;font-variant-numeric:tabular-nums}
+  #nce-hint{margin-left:auto;color:#8b98ab}
+  .nce-sep{width:1px;height:18px;background:#3a4557}
+  [nce-s]{cursor:pointer;border-radius:4px;transition:background .15s,box-shadow .15s}
+  [nce-s]:hover{background:rgba(255,211,106,.14);box-shadow:0 0 0 1px rgba(255,211,106,.4) inset}
+  [nce-s].nce-now{background:rgba(255,211,106,.22);box-shadow:0 0 0 2px #ffd36a inset}
+  [nce-s].nce-done{opacity:.62}
+  @media print{#nce-bar{display:none}}
+</style>
+<script>
+function __nce_init(){
+(function(){
+  var S = [{"t": 11.8, "t0": 9.46, "text": "With what does the writer compare the Gouffre Berger?", "e": 14.92}, {"t": 14.94, "t0": 15.31, "text": "Cave exploration, or pot-holing, as it has come to be known, is a relatively new sport.", "e": 24.94}, {"t": 24.96, "t0": 23.34, "text": "Perhaps it is the desire for solitude or the chance of making an unexpected discovery that lures people down to the depths of the earth.", "e": 35.18}, {"t": 35.2, "t0": 34.42, "text": "It is impossible to give a satisfactory explanation for a pot-holer's motives.", "e": 40.48}, {"t": 40.5, "t0": 40.92, "text": "For him, caves have the same peculiar fascination which high mountains have for the climber.", "e": 48.04}, {"t": 48.06, "t0": 48.99, "text": "They arouse instincts which can only be dimly understood.", "e": 53.24}, {"t": 53.26, "t0": 54.42, "text": "Exploring really deep caves is not a task for the Sunday afternoon rambler.", "e": 59.68}, {"t": 59.7, "t0": 60.19, "text": "Such undertakings require the precise planning and foresight of military operations.", "e": 66.24}, {"t": 66.26, "t0": 68.04, "text": "It can take as long as eight days to rig up rope ladders and to establish supply bases before a descent can be made into a very deep cave.", "e": 77.8}, {"t": 77.82, "t0": 80.61, "text": "Precautions of this sort are necessary, for it is impossible to foretell the exact nature of the difficulties which will confront the pot-holer.", "e": 87.78}, {"t": 87.8, "t0": 92.06, "text": "The deepest known cave in the world is the Gouffre Berger near Grenoble.", "e": 93.6}, {"t": 93.62, "t0": 98.66, "text": "It extends to a depth of 3, 723 feet.", "e": 98.6}, {"t": 98.62, "t0": 104.33, "text": "This immense chasm has been formed by an underground stream which has tunnelled a course through a flaw in the rocks.", "e": 107.54}, {"t": 107.56, "t0": 113.65, "text": "The entrance to the cave is on a plateau in the Dauphine Alps.", "e": 113.06}, {"t": 113.08, "t0": 120.13, "text": "As it is only six feet across, it is barely noticeable.", "e": 117.1}, {"t": 117.12, "t0": 125.39, "text": "The cave might never have been discovered had not the entrance been spotted by the distinguished French pot-holer, Berger.", "e": 125.56}, {"t": 125.58, "t0": 135.0, "text": "Since its discovery, it has become a sort of pot-holers' Everest.", "e": 129.84}, {"t": 130.44, "t0": 140.66, "text": "Though a number of descents have been made, much of it still remains to be explored.", "e": 135.88}, {"t": 135.9, "t0": 147.85, "text": "A team of pot-holers recently went down the Gouffre Berger.", "e": 140.84}, {"t": 140.86, "t0": 153.27, "text": "After entering the narrow gap on the plateau,", "e": 144.18}, {"t": 144.2, "t0": 156.96, "text": "they climbed down the steep sides of the cave until they came to a narrow corridor.", "e": 149.8}, {"t": 149.82, "t0": 163.62, "text": "They had to edge their way along this,", "e": 152.74}, {"t": 152.76, "t0": 166.29, "text": "sometimes wading across shallow streams, or swimming across deep pools.", "e": 158.26}, {"t": 158.28, "t0": 172.62, "text": "Suddenly they came to a waterfall which dropped into an underground lake at the bottom of the cave.", "e": 166.36}, {"t": 166.38, "t0": 180.69, "text": "They plunged into the lake, and after loading their gear on an inflatable rubber dinghy, let the current carry them to the other side.", "e": 176.64}, {"t": 176.66, "t0": 191.67, "text": "To protect themselves from the icy water, they had to wear special rubber suits.", "e": 182.6}, {"t": 182.62, "t0": 198.58, "text": "At the far end of the lake, they came to huge piles of rubble which had been washed up by the water.", "e": 188.64}, {"t": 188.66, "t0": 206.87, "text": "In this part of the cave, they could hear an insistent booming sound", "e": 193.78}, {"t": 193.8, "t0": 212.17, "text": "which they found was caused by a small waterspout shooting down into a pool from the roof of the cave.", "e": 200.28}, {"t": 200.96, "t0": 220.42, "text": "Squeezing through a cleft in the rocks, the pot-holers arrived at an enormous cavern, the size of a huge concert hall.", "e": 209.56}, {"t": 209.58, "t0": 229.72, "text": "After switching on powerful arc lights,", "e": 212.7}, {"t": 212.72, "t0": 233.0, "text": "they saw great stalagmites--some of them over forty feet high--rising up like tree-trunks to meet the stalactites suspended from the roof.", "e": 222.26}, {"t": 222.28, "t0": 245.43, "text": "Round about, piles of limestone glistened in all the colours of the rainbow.", "e": 228.6}, {"t": 228.62, "t0": 252.14, "text": "In the eerie silence of the cavern, the only sound that could be heard was made by water which dripped continuously from the high dome above them.", "e": 239.18}];
+  var audio = document.getElementById('nce-audio');
+  var stat = document.getElementById('nce-stat');
+  var bPlay = document.getElementById('nce-play'), bLoop = document.getElementById('nce-loop');
+  var rate = document.getElementById('nce-rate');
+  var loop = false, streaming = false, cur = -1;
+  function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'');}
+  S.forEach(function(x){x.k = norm(x.text);});
+  var cands = [].slice.call(document.querySelectorAll('body *')).filter(function(el){
+    if (el.closest('#nce-bar') || el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return false;
+    if (el.querySelector('p, li, blockquote, .sent, .para')) return false;   // 只认最里层的整段/整句元素
+    var t = el.textContent || '';
+    return t.replace(/[^A-Za-z]/g, '').length >= 3 && t.length < 3000;
+  });
+  var used = {};
+  // 生成器已按字幕下标绑定好（新点读页）——直接认这些属性，不再靠文字猜
+  var pre = [].slice.call(document.querySelectorAll('[nce-s]'));
+  pre = pre.filter(function (el) {
+    var a = +el.getAttribute('nce-s');
+    return a >= 0 && a < S.length && el.getAttribute('nce-bar') === null;
+  });
+  if (pre.length) {
+    pre.forEach(function (el) {
+      var a = +el.getAttribute('nce-s');
+      var b = el.hasAttribute('nce-to') ? +el.getAttribute('nce-to') : a;
+      b = Math.min(b, S.length - 1);
+      for (var i = a; i <= b; i++) used[i] = el;
+      el.addEventListener('click', handlerFor(el));
+    });
+  } else {
+  // 按文档顺序 + 指针单调推进：外层元素先认领整句，内层碎片不会再抢，行被拆/被并都能对上
+  var p = 0;
+  cands.forEach(function(el){
+    if (p >= S.length) return;
+    var k = norm(el.textContent);
+    if (k.length < 3) return;
+    var start = -1;
+    for (var q = p; q < Math.min(p + 4, S.length); q++) {
+      var x = S[q].k;
+      if (!x) continue;
+      if (k === x) { start = q; break; }
+      if (x.length >= 6 && k.length >= x.length && k.indexOf(x) >= 0) { start = q; break; }
+      if (k.length >= 20 && x.length >= k.length && x.indexOf(k) === 0) { start = q; break; }
+    }
+    if (start < 0) return;
+    var end = start;
+    for (var r = start + 1; r < Math.min(start + 8, S.length); r++) {
+      var y = S[r].k;
+      if (y && y.length >= 6 && k.indexOf(y) >= 0) end = r; else break;
+    }
+    el.setAttribute('nce-s', start);
+    if (end > start) el.setAttribute('nce-to', end);
+    for (var i2 = start; i2 <= end; i2++) used[i2] = el;
+    p = end + 1;
+    el.addEventListener('click', handlerFor(el));
+  });
+  }
+  var bound = Object.keys(used).length;
+  stat.textContent = '已绑定 ' + bound + '/' + S.length + ' 句';
+  function ends(){
+    var dur = audio.duration || 0;
+    for (var i=0;i<S.length;i++) S[i].end = S[i].e ? S[i].e : ((i+1<S.length) ? S[i+1].t : (dur || S[i].t+8));
+  }
+  function mark(i){
+    [].slice.call(document.querySelectorAll('[nce-s].nce-now')).forEach(function(e){e.classList.remove('nce-now');});
+    var el = used[i]; if (el){el.classList.add('nce-now'); el.scrollIntoView({block:'nearest',behavior:'smooth'});}
+    cur = i;
+  }
+  function handlerFor(el){
+    return function(ev){
+      ev.stopPropagation();
+      var a = +el.getAttribute('nce-s');
+      var b = el.getAttribute('nce-to');
+      b = b === null ? a : +b;
+      if (b > a) {                     // 一个块里排了好几句（第4册整段排版）：看点到的那句
+        var g = groups(a, b, el);
+        if (g) {
+          var m = pickGroup(g, el, ev.clientX, ev.clientY);
+          b = (m + 1 < g.length) ? g[m + 1].i - 1 : b;
+          a = g[m].i;
+        }
+      }
+      playOne(a, b);
+    };
+  }
+  // 块内的「显示句」起点：上一行字幕没有句末标点 = 同一句被拆开的续行，不算新句
+  function isCont(t){ return !/[.!?:;]["')\]）”’\]]\s*$/.test((t||'').trim()) && !/[.!?]$/.test((t||'').trim()); }
+  function groups(a, b, el){
+    var ix = textIndex(el), pos = 0, out = [];
+    for (var i = a; i <= b; i++) {
+      if (i === a || !isCont(S[i-1].text)) {
+        var at = ix.n.indexOf(S[i].k, pos);
+        if (at < 0) return null;          // 对不上文字，退回整块播放
+        out.push({i: i, at: at}); pos = at + S[i].k.length;
+      }
+    }
+    return out.length > 1 ? out : null;
+  }
+  function textIndex(el){
+    if (el.__ix) return el.__ix;
+    var n = '', nodes = [], offs = [], w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), t;
+    while (t = w.nextNode()) {
+      var pe = t.parentElement;                       // 脚注序号 / ¶1 这类标记不算正文
+      if (pe && (pe.tagName === 'SUP' || pe.tagName === 'SUB' || /(^|\s)(fn|pn)(\s|$)/.test(pe.className || ''))) continue;
+      for (var i = 0; i < t.length; i++) {
+        var c = t.nodeValue[i].toLowerCase();
+        if (c >= 'a' && c <= 'z' || c >= '0' && c <= '9') { n += c; nodes.push(t); offs.push(i); }
+      }
+    }
+    el.__ix = {n: n, nodes: nodes, offs: offs};
+    return el.__ix;
+  }
+  function anchorRect(ix, at){
+    var node = ix.nodes[at], off = ix.offs[at];
+    if (!node || off === undefined) return null;
+    var r = document.createRange();
+    try { r.setStart(node, off); r.setEnd(node, Math.min(off + 1, node.length)); } catch(e){ return null; }
+    var box = r.getBoundingClientRect();
+    return (box && (box.height || box.width)) ? box : null;
+  }
+  // 用「每句第一个字母在屏幕上的位置」判断点到的是哪一句：版面再乱也不依赖光标命中
+  function pickGroup(g, el, x, y){
+    var ix = textIndex(el), box = g.map(function(q){ return anchorRect(ix, q.at); });
+    var cand = [];
+    for (var i = 0; i < g.length; i++) if (box[i] && box[i].top <= y + 4) cand.push(i);
+    if (!cand.length) return 0;
+    var top = -1e9;
+    cand.forEach(function(i){ if (box[i].top > top) top = box[i].top; });
+    var line = cand.filter(function(i){ return Math.abs(box[i].top - top) <= 3; });
+    var left = line.filter(function(i){ return box[i].left <= x + 4; });
+    var pool = left.length ? left : line, best = pool[0];
+    pool.forEach(function(i){
+      if (left.length) { if (box[i].left > box[best].left) best = i; }
+      else if (box[i].left < box[best].left) best = i;
+    });
+    return best;
+  }
+  function playOne(i, last){
+    if (last === undefined) last = i;
+    ends(); streaming = false; mark(i);
+    var el = used[i], stop = S[last].end + 0.25;   // 句尾留一点余量，别把最后一个词切掉
+    if (el) el.setAttribute('nce-stop', stop);
+    audio.currentTime = Math.max(0, S[i].t - 0.15);
+    audio.playbackRate = parseFloat(rate.value);
+    audio.play();
+  }
+  audio.addEventListener('timeupdate', function(){
+    if (audio.paused) return;
+    var now = audio.currentTime;
+    if (streaming){
+      var i = S.reduce(function(a,x,n){return (x.t<=now)?n:a;}, 0);
+      if (i !== cur) mark(i);
+      var last = S[S.length - 1];
+      ends();
+      if (last && now >= last.end - 0.05) audio.pause();   // 连播也只播到最后一句的结尾
+    } else if (cur >= 0) {
+      var el = used[cur], stop = el ? parseFloat(el.getAttribute('nce-stop') || S[cur].end) : S[cur].end;
+      if (loop){ if (now >= stop) { audio.currentTime = S[cur].t; } }
+      else if (now >= stop - 0.02){ audio.pause(); }
+    }
+    var m = Math.floor(now/60), s = ('0'+Math.floor(now%60)).slice(-2);
+    stat.textContent = '已绑定 ' + Object.keys(used).length + '/' + S.length + ' 句 · ' + m+':'+s;
+  });
+  bPlay.addEventListener('click', function(){
+    ends(); streaming = true; bPlay.classList.add('on');
+    audio.currentTime = S.length ? S[0].t - 0.2 : 0; audio.playbackRate = parseFloat(rate.value); audio.play();
+  });
+  bLoop.addEventListener('click', function(){
+    loop = !loop; bLoop.classList.toggle('on', loop);
+  });
+  audio.addEventListener('play', function(){ bPlay.classList.toggle('on', streaming); });
+  audio.addEventListener('pause', function(){ bPlay.classList.remove('on'); });
+  audio.addEventListener('error', function(){ stat.textContent = '音频未找到：'+audio.getAttribute('src'); });
+  rate.addEventListener('change', function(){ audio.playbackRate = parseFloat(rate.value); });
+})();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', __nce_init);
+else __nce_init();
+</script>
+<!-- ==== 点句听读 结束 ==== -->
+
+<div class="page">
+<header><p class="kicker">New Concept English · Book 3 · Lesson 42</p><h1>Modern cavemen<span class="zh">现代洞穴人</span></h1><p class="standfirst">本课 <b>29</b> 句（配音频 29 句）　·　主线时态 <b>一般现在时</b>　·　从句 <b>24</b> 处</p><div class="controls"><button class="ctl on" id="btnMark">标注：隐藏</button><button class="ctl" id="btnTrans">参考译文：展开</button></div><div class="rule"></div></header>
+<section class="legend"><span class="item"><span class="sample sub">Experts</span>主语</span><span class="item"><span class="sample pred">confirmed</span>谓语</span><span class="item"><span class="sample obj">the story</span>宾语</span><span class="item"><span class="sample adv">in the morning</span>状语</span><span class="item"><span class="sample attr">blackberry</span>定语</span><span class="item"><span class="sample clause tint-attr">who claimed…</span>从句整体</span><span class="item"><span class="sample conj">for</span>引导词</span><span class="item hint"><b>上方括号</b>＝时态／句型</span><span class="item hint"><b>弧线箭头</b>＝修饰关系</span><span class="item hint">点任意一句只听那一句</span></section>
+<section class="panel"><h2>本课从句一览</h2><ul class="map"><li><span class="n">2</span><div><b>时间状语从句（as）</b>it has come to be known</div></li><li><span class="n">3</span><div><b>定语从句</b>that lures people down to the depths of the earth</div></li><li><span class="n">4</span><div><b>宾补从句（不定式）</b>to give a satisfactory explanation for a pot-holer'…</div></li><li><span class="n">5</span><div><b>定语从句</b>which high mountains have for the climber</div></li><li><span class="n">6</span><div><b>定语从句</b>which can only be dimly understood</div></li><li><span class="n">9</span><div><b>时间状语从句（before）</b>to rig up rope ladders and to establish supply base…</div></li><li><span class="n">10</span><div><b>原因状语从句（for）</b>it is impossible to foretell the exact nature of th…</div></li><li><span class="n">13</span><div><b>定语从句</b>which has tunnelled a course through a flaw in the…</div></li><li><span class="n">15</span><div><b>时间状语从句（As）</b>it is only six feet across</div></li><li><span class="n">16</span><div><b>宾语从句</b>The cave might never have been discovered</div></li><li><span class="n">17</span><div><b>让步状语从句（Though）</b>a number of descents have been made</div></li><li><span class="n">17</span><div><b>宾补从句（不定式）</b>to be explored</div></li><li><span class="n">19</span><div><b>时间状语从句（until）</b>they came to a narrow corridor</div></li><li><span class="n">20</span><div><b>宾补从句（不定式）</b>to edge their way along this, sometimes wading acro…</div></li><li><span class="n">21</span><div><b>定语从句</b>which dropped into an underground lake at the botto…</div></li><li><span class="n">22</span><div><b>宾语从句</b>the current carry them to the other side</div></li></ul></section>
+
+<div class="layout">
+<main class="col-main"><article class="card"><div class="row"><span class="idx">1</span><div><div id="s1" class="sent ann-top" data-id="s1" nce-s="0">With what does the writer compare the Gouffre Berger?<svg class="ann"></svg></div><p class="tip">本课跟读句：先把语流读顺，句子成分这里不强行拆。</p></div></div><div class="row"><span class="idx">2</span><div><div id="s2" class="sent ann-top ann-bottom" data-id="s2" nce-s="1"><span class="sub" data-k="s2-sub">Cave exploration, or pot-holing, as </span><span class="clause tint-adv" data-k="s2-cl">it has come to be known</span>, <span class="pred" data-k="s2-pred">is</span> <span class="obj" data-k="s2-obj">a relatively new sport</span>.<svg class="ann"></svg></div><p class="tip">主干：Cave exploration, o… ＋ is ＋ a relatively new sp…　时间状语从句（as）：说主句动作发生的时间，注意从句用现在时表将来。</p></div></div><div class="row"><span class="idx">3</span><div><div id="s3" class="sent ann-top ann-bottom" data-id="s3" nce-s="2"><span class="adv" data-k="s3-adv">Perhaps</span> <span class="sub" data-k="s3-sub">it</span> <span class="pred" data-k="s3-pred">is</span> <span class="obj" data-k="s3-obj">the desire for solitude or the chance of making an unexpected discovery </span><span class="clause tint-attr" data-k="s3-cl">that lures people down to the depths of the earth</span>.<svg class="ann"></svg></div><p class="tip">主干：it ＋ is ＋ the desire for soli…　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">4</span><div><div id="s4" class="sent ann-top" data-id="s4" nce-s="3"><span class="sub" data-k="s4-sub">It</span> <span class="pred" data-k="s4-pred">is</span> <span class="obj" data-k="s4-obj">impossible</span> <span class="obj" data-k="s4-obj-3">to give a satisfactory explanation for a pot-holer's motives</span>.<svg class="ann"></svg></div><p class="tip">主干：It ＋ is ＋ impossible ＋ to give a satisfact…　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">5</span><div><div id="s5" class="sent ann-top ann-bottom" data-id="s5" nce-s="4"><span class="adv" data-k="s5-adv">For him</span>, <span class="sub" data-k="s5-sub">caves</span> <span class="pred" data-k="s5-pred">have</span> <span class="obj" data-k="s5-obj">the same peculiar fascination </span><span class="clause tint-attr" data-k="s5-cl">which high mountains have for the climber</span>.<svg class="ann"></svg></div><p class="tip">主干：caves ＋ have ＋ the same peculiar f…　说习惯、事实或现在的状态；主语第三人称单数时动词加 -s。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">6</span><div><div id="s6" class="sent ann-top ann-bottom" data-id="s6" nce-s="5"><span class="sub" data-k="s6-sub">They</span> <span class="pred" data-k="s6-pred">arouse</span> <span class="obj" data-k="s6-obj">instincts </span><span class="clause tint-attr" data-k="s6-cl">which can only be dimly understood</span>.<svg class="ann"></svg></div><p class="tip">主干：They ＋ arouse ＋ instincts　说习惯、事实或现在的状态；主语第三人称单数时动词加 -s。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">7</span><div><div id="s7" class="sent ann-top" data-id="s7" nce-s="6"><span class="sub" data-k="s7-sub">Exploring really deep caves</span> <span class="pred" data-k="s7-pred">is not</span> <span class="obj" data-k="s7-obj">a task for the Sunday afternoon rambler</span>.<svg class="ann"></svg></div><p class="tip">主干：Exploring really de… ＋ is not ＋ a task for the Sund…</p></div></div><div class="row"><span class="idx">8</span><div><div id="s8" class="sent ann-top" data-id="s8" nce-s="7"><span class="sub" data-k="s8-sub">Such undertakings</span> <span class="pred" data-k="s8-pred">require</span> <span class="obj" data-k="s8-obj">the precise planning and foresight of military operations</span>.<svg class="ann"></svg></div><p class="tip">主干：Such undertakings ＋ require ＋ the precise plannin…　说习惯、事实或现在的状态；主语第三人称单数时动词加 -s。</p></div></div><div class="row"><span class="idx">9</span><div><div id="s9" class="sent ann-top ann-bottom" data-id="s9" nce-s="8"><span class="sub" data-k="s9-sub">It</span> <span class="pred" data-k="s9-pred">can take</span> <span class="adv" data-k="s9-adv">as long as eight days</span> <span class="clause tint-adv" data-k="s9-cl">to rig up rope ladders and to establish supply bases before a descent can be made into a very deep cave</span>.<svg class="ann"></svg></div><p class="tip">主干：It ＋ can take　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。　时间状语从句（before）：说主句动作发生的时间，注意从句用现在时表将来。</p></div></div></article><article class="card"><div class="row"><span class="idx">10</span><div><div id="s10" class="sent ann-top ann-bottom" data-id="s10" nce-s="9"><span class="sub" data-k="s10-sub">Precautions of this sort</span> <span class="pred" data-k="s10-pred">are</span> <span class="obj" data-k="s10-obj">necessary</span>, <span class="conj" data-k="s10-conj">for</span> <span class="clause tint-adv" data-k="s10-cl">it is impossible to foretell the exact nature of the difficulties which will confront the pot-holer</span>.<svg class="ann"></svg></div><p class="tip">主干：Precautions of this… ＋ are ＋ necessary　原因状语从句（for）：给出理由，because 语气比 as / for 强。</p></div></div><div class="row"><span class="idx">11</span><div><div id="s11" class="sent ann-top" data-id="s11" nce-s="10"><span class="sub" data-k="s11-sub">The deepest known cave in the world</span> <span class="pred" data-k="s11-pred">is</span> <span class="obj" data-k="s11-obj">the Gouffre Berger near Grenoble</span>.<svg class="ann"></svg></div><p class="tip">主干：The deepest known c… ＋ is ＋ the Gouffre Berger…</p></div></div><div class="row"><span class="idx">12</span><div><div id="s12" class="sent ann-top" data-id="s12" nce-s="11"><span class="sub" data-k="s12-sub">It</span> <span class="pred" data-k="s12-pred">extends</span> <span class="adv" data-k="s12-adv">to a depth of 3,723 feet</span>.<svg class="ann"></svg></div><p class="tip">主干：It ＋ extends　说习惯、事实或现在的状态；主语第三人称单数时动词加 -s。</p></div></div><div class="row"><span class="idx">13</span><div><div id="s13" class="sent ann-top ann-bottom" data-id="s13" nce-s="12"><span class="sub" data-k="s13-sub">This immense chasm</span> <span class="pred" data-k="s13-pred">has been formed</span> by an <span class="attr" data-k="s13-attr">underground</span> stream <span class="clause tint-attr" data-k="s13-cl">which has tunnelled a course through a flaw in the rocks</span>.<svg class="ann"></svg></div><p class="tip">主干：This immense chasm ＋ has been formed　have/has been + 过去分词，主语是动作的承受者。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">14</span><div><div id="s14" class="sent ann-top" data-id="s14" nce-s="13"><span class="sub" data-k="s14-sub">The entrance to the cave</span> <span class="pred" data-k="s14-pred">is</span> <span class="adv" data-k="s14-adv">on a plateau in the Dauphiné Alps</span>.<svg class="ann"></svg></div><p class="tip">主干：The entrance to the… ＋ is</p></div></div><div class="row"><span class="idx">15</span><div><div id="s15" class="sent ann-top ann-bottom" data-id="s15" nce-s="14"><span class="conj" data-k="s15-conj">As</span> <span class="clause tint-adv" data-k="s15-cl">it is only six feet across</span>, <span class="sub" data-k="s15-sub">it</span> <span class="pred" data-k="s15-pred">is</span> <span class="obj" data-k="s15-obj">barely noticeable</span>.<svg class="ann"></svg></div><p class="tip">主干：it ＋ is ＋ barely noticeable　时间状语从句（As）：说主句动作发生的时间，注意从句用现在时表将来。</p></div></div><div class="row"><span class="idx">16</span><div><div id="s16" class="sent ann-top ann-bottom" data-id="s16" nce-s="15"><span class="clause tint-obj" data-k="s16-cl">The cave might never have been discovered</span> <span class="pred" data-k="s16-pred">had not</span> <span class="sub" data-k="s16-sub">the entrance</span> <span class="pred" data-k="s16-pred-3">been spotted</span> by the <span class="attr" data-k="s16-attr">distinguished</span> <span class="attr" data-k="s16-attr-5">French pot-holer</span>, Berger.<svg class="ann"></svg></div><p class="tip">主干：had not ＋ the entrance ＋ been spotted　had been + 过去分词，说在过去某时之前已被完成。　宾语从句：整个句子作动词的宾语，引导词 that 常可省略。</p></div></div><div class="row"><span class="idx">17</span><div><div id="s17" class="sent ann-top ann-bottom" data-id="s17" nce-s="16" nce-to="17"><span class="adv" data-k="s17-adv">Since its discovery</span>, <span class="sub" data-k="s17-sub">it</span> <span class="pred" data-k="s17-pred">has become</span> <span class="obj" data-k="s17-obj">a sort of pot-holers' Everest</span>. <span class="conj" data-k="s17-conj">Though</span> <span class="clause tint-adv" data-k="s17-cl">a number of descents have been made</span>, <span class="sub" data-k="s17-sub-6">much of it</span> <span class="pred" data-k="s17-pred-7">still remains</span> <span class="obj" data-k="s17-obj-8">to be explored</span>.<svg class="ann"></svg></div><p class="tip">主干：it ＋ has become ＋ a sort of pot-holer… ＋ much of it ＋ still remains ＋ to be explored　让步状语从句（Though）：退一步说“即使／尽管”，常见 although / even if / no matter…。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">18</span><div><div id="s18" class="sent ann-top" data-id="s18" nce-s="18"><span class="sub" data-k="s18-sub">A team of pot-holers</span> <span class="adv" data-k="s18-adv">recently</span> <span class="pred" data-k="s18-pred">went</span> <span class="adv" data-k="s18-adv-3">down the Gouffre Berger</span>.<svg class="ann"></svg></div><p class="tip">主干：A team of pot-holers ＋ went　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。</p></div></div></article><article class="card"><div class="row"><span class="idx">19</span><div><div id="s19" class="sent ann-top ann-bottom" data-id="s19" nce-s="19" nce-to="20"><span class="adv" data-k="s19-adv">After entering the narrow gap on the plateau</span>, <span class="sub" data-k="s19-sub">they</span> <span class="pred" data-k="s19-pred">climbed</span> <span class="adv" data-k="s19-adv-3">down the steep sides of the cave</span> <span class="conj" data-k="s19-conj">until</span> <span class="clause tint-adv" data-k="s19-cl">they came to a narrow corridor</span>.<svg class="ann"></svg></div><p class="tip">主干：they ＋ climbed　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　时间状语从句（until）：说主句动作发生的时间，注意从句用现在时表将来。</p></div></div><div class="row"><span class="idx">20</span><div><div id="s20" class="sent ann-top" data-id="s20" nce-s="21" nce-to="22"><span class="sub" data-k="s20-sub">They</span> <span class="pred" data-k="s20-pred">had</span> to edge their way <span class="attr" data-k="s20-attr">along this</span>, sometimes wading across <span class="attr" data-k="s20-attr-3">shallow</span> streams, or swimming across <span class="attr" data-k="s20-attr-4">deep</span> pools.<svg class="ann"></svg></div><p class="tip">主干：They ＋ had　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">21</span><div><div id="s21" class="sent ann-top ann-bottom" data-id="s21" nce-s="23"><span class="adv" data-k="s21-adv">Suddenly</span> <span class="sub" data-k="s21-sub">they</span> <span class="pred" data-k="s21-pred">came</span> <span class="adv" data-k="s21-adv-3">to a waterfall </span><span class="clause tint-attr" data-k="s21-cl">which dropped into an underground lake at the bottom of the cave</span>.<svg class="ann"></svg></div><p class="tip">主干：they ＋ came　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">22</span><div><div id="s22" class="sent ann-top ann-bottom" data-id="s22" nce-s="24"><span class="sub" data-k="s22-sub">They</span> <span class="pred" data-k="s22-pred">plunged</span> <span class="adv" data-k="s22-adv">into the lake</span>, and <span class="adv" data-k="s22-adv-3">after loading their gear on an inflatable rubber dinghy</span>, <span class="pred" data-k="s22-pred-4">let</span> <span class="clause tint-obj" data-k="s22-cl">the current carry them to the other side</span>.<svg class="ann"></svg></div><p class="tip">主干：They ＋ plunged ＋ let　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾语从句：整个句子作动词的宾语，引导词 that 常可省略。</p></div></div><div class="row"><span class="idx">23</span><div><div id="s23" class="sent ann-top ann-bottom" data-id="s23" nce-s="25"><span class="clause tint-adv" data-k="s23-cl">To protect themselves from the icy water</span>, <span class="sub" data-k="s23-sub">they</span> <span class="pred" data-k="s23-pred">had</span> <span class="obj" data-k="s23-obj">to wear special rubber suits</span>.<svg class="ann"></svg></div><p class="tip">主干：they ＋ had ＋ to wear special rub…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">24</span><div><div id="s24" class="sent ann-top ann-bottom" data-id="s24" nce-s="26"><span class="adv" data-k="s24-adv">At the far end of the lake</span>, <span class="sub" data-k="s24-sub">they</span> <span class="pred" data-k="s24-pred">came</span> <span class="adv" data-k="s24-adv-3">to huge piles of rubble </span><span class="clause tint-attr" data-k="s24-cl">which had been washed up by the water</span>.<svg class="ann"></svg></div><p class="tip">主干：they ＋ came　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">25</span><div><div id="s25" class="sent ann-top ann-bottom" data-id="s25" nce-s="27" nce-to="28"><span class="adv" data-k="s25-adv">In this part of the cave</span>, <span class="sub" data-k="s25-sub">they</span> <span class="pred" data-k="s25-pred">could hear</span> <span class="obj" data-k="s25-obj">an insistent booming sound </span><span class="clause tint-attr" data-k="s25-cl">which they found was caused by a small waterspout shooting down into a pool from the roof of the cave</span>.<svg class="ann"></svg></div><p class="tip">主干：they ＋ could hear ＋ an insistent boomin…　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">26</span><div><div id="s26" class="sent ann-top ann-bottom" data-id="s26" nce-s="29"><span class="clause tint-adv" data-k="s26-cl">Squeezing through a cleft in the rocks</span>, <span class="sub" data-k="s26-sub">the pot-holers</span> <span class="pred" data-k="s26-pred">arrived</span> <span class="adv" data-k="s26-adv">at an enormous cavern</span>, the size <span class="attr" data-k="s26-attr">of a huge concert hall</span>.<svg class="ann"></svg></div><p class="tip">主干：the pot-holers ＋ arrived　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语 of a huge conce… 修饰名词</p></div></div><div class="row"><span class="idx">27</span><div><div id="s27" class="sent ann-top ann-bottom" data-id="s27" nce-s="30" nce-to="31"><span class="adv" data-k="s27-adv">After switching on powerful arc lights</span>, <span class="sub" data-k="s27-sub">they</span> <span class="pred" data-k="s27-pred">saw</span> <span class="obj" data-k="s27-obj">great stalagmites — some of them over forty feet high — rising up like tree-trunks </span><span class="clause tint-adv" data-k="s27-cl">to meet the stalactites suspended from the roof</span>.<svg class="ann"></svg></div><p class="tip">主干：they ＋ saw ＋ great stalagmites —…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。</p></div></div></article><article class="card"><div class="row"><span class="idx">28</span><div><div id="s28" class="sent ann-top" data-id="s28" nce-s="32"><span class="pred" data-k="s28-pred">Round</span> <span class="adv" data-k="s28-adv">about</span>, <span class="adv" data-k="s28-adv-2">piles of limestone glistened in all the colours of the rainbow</span>.<svg class="ann"></svg></div><p class="tip">主干：Round　动词原形开头，主语 you 省略；否定用 Don't + 动词原形。</p></div></div><div class="row"><span class="idx">29</span><div><div id="s29" class="sent ann-top ann-bottom" data-id="s29" nce-s="33"><span class="adv" data-k="s29-adv">In the eerie silence of the cavern</span>, <span class="sub" data-k="s29-sub">the only sound </span><span class="clause tint-attr" data-k="s29-cl">that could be heard</span> <span class="pred" data-k="s29-pred">was made</span> by water <span class="clause tint-attr" data-k="s29-cl-4">which dripped continuously from the high dome above them</span>.<svg class="ann"></svg></div><p class="tip">主干：the only sound ＋ was made　was/were + 过去分词，强调动作的承受者，施动者用 by 短语引出。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div></article></main>
+<div class="col-side"><aside class="side"><h3>句子骨架</h3><ul class="map"><li><span class="n">1</span><div><b>—</b>疑问句</div></li><li><span class="n">2</span><div><b>主语＋从句＋谓语＋宾语</b>一般现在时　时间状语从句</div></li><li><span class="n">3</span><div><b>主语＋谓语＋宾语＋从句</b>一般现在时　定语从句</div></li><li><span class="n">4</span><div><b>主语＋谓语＋宾语＋宾语</b>一般现在时　宾补从句（不定式）</div></li><li><span class="n">5</span><div><b>主语＋谓语＋宾语＋从句</b>一般现在时　定语从句</div></li><li><span class="n">6</span><div><b>主语＋谓语＋宾语＋从句</b>一般现在时　定语从句</div></li><li><span class="n">7</span><div><b>主语＋谓语＋宾语</b>一般现在时</div></li><li><span class="n">8</span><div><b>主语＋谓语＋宾语</b>一般现在时</div></li><li><span class="n">9</span><div><b>主语＋谓语＋从句</b>情态动词 + 动词原形　时间状语从句</div></li><li><span class="n">10</span><div><b>主语＋谓语＋宾语＋从句</b>一般现在时　原因状语从句</div></li><li><span class="n">11</span><div><b>主语＋谓语＋宾语</b>一般现在时</div></li><li><span class="n">12</span><div><b>主语＋谓语</b>一般现在时</div></li><li><span class="n">13</span><div><b>主语＋谓语＋从句</b>现在完成时的被动　定语从句</div></li><li><span class="n">14</span><div><b>主语＋谓语</b>一般现在时</div></li><li><span class="n">15</span><div><b>从句＋主语＋谓语＋宾语</b>一般现在时　时间状语从句</div></li><li><span class="n">16</span><div><b>从句＋谓语＋主语＋谓语</b>过去完成时的被动　宾语从句</div></li><li><span class="n">17</span><div><b>主语＋谓语＋宾语＋从句＋主语＋谓语＋宾语</b>现在完成时 / 一般现在时　让步状语从句</div></li><li><span class="n">18</span><div><b>主语＋谓语</b>一般过去时</div></li><li><span class="n">19</span><div><b>主语＋谓语＋从句</b>一般过去时　时间状语从句</div></li><li><span class="n">20</span><div><b>主语＋谓语</b>一般过去时　宾补从句（不定式）</div></li><li><span class="n">21</span><div><b>主语＋谓语＋从句</b>一般过去时　定语从句</div></li><li><span class="n">22</span><div><b>主语＋谓语＋谓语＋从句</b>一般过去时　宾语从句</div></li><li><span class="n">23</span><div><b>从句＋主语＋谓语＋宾语</b>一般过去时　状语从句（分词/不定式，无引导词）</div></li><li><span class="n">24</span><div><b>主语＋谓语＋从句</b>一般过去时　定语从句</div></li><li><span class="n">25</span><div><b>主语＋谓语＋宾语＋从句</b>情态动词 + 动词原形　定语从句</div></li><li><span class="n">26</span><div><b>从句＋主语＋谓语</b>一般过去时　状语从句（分词/不定式，无引导词）</div></li><li><span class="n">27</span><div><b>主语＋谓语＋宾语＋从句</b>一般过去时　状语从句（分词/不定式，无引导词）</div></li><li><span class="n">28</span><div><b>谓语</b>动词原形</div></li><li><span class="n">29</span><div><b>主语＋从句＋谓语＋从句</b>被动语态（一般过去时）　定语从句</div></li></ul></aside><aside class="side"><h3>生词和短语</h3><ul class="wlist"><li><div class="en">caveman <span class="ph">/ˈkeɪvmæn/</span></div><div>n. （远古）洞穴人</div></li><li><div class="en">pot-holing <span class="ph">/ˈpɒtˌhəʊlɪŋ/</span></div><div>n. 洞穴探险运动</div></li><li><div class="en">solitude <span class="ph">/ˈsɒlɪtjuːd/</span></div><div>n. 孤独，寂寞</div></li><li><div class="en">lure <span class="ph">/lʊə/</span></div><div>v. 引诱，诱惑</div></li><li><div class="en">pot-holer <span class="ph">/ˈpɒtˌhəʊlə/</span></div><div>n. 洞穴探险者</div></li><li><div class="en">rambler <span class="ph">/ˈræmblə/</span></div><div>n. 漫步者，散步者</div></li><li><div class="en">undertaking <span class="ph">/ˌʌndəˈteɪkɪŋ/</span></div><div>n. 任务，工作</div></li><li><div class="en">foresight <span class="ph">/ˈfɔːsaɪt/</span></div><div>n. 预见；深谋远虑</div></li><li><div class="en">foretell <span class="ph">/fɔːˈtel/</span></div><div>foretold /fɔːˈtəʊld/, foretold v. 预言</div></li><li><div class="en">Grenoble <span class="ph">/ɡrəˈnəʊbl/</span></div><div>n. 格里诺布尔</div></li><li><div class="en">chasm <span class="ph">/ˈkæzəm/</span></div><div>n. 断层，裂口，陷坑</div></li><li><div class="en">flaw <span class="ph">/flɔː/</span></div><div>n. 小裂缝</div></li><li><div class="en">distinguished <span class="ph">/dɪˈstɪŋɡwɪʃt/</span></div><div>adj. 杰出的，著名的</div></li><li><div class="en">Everest <span class="ph">/ˈevərɪst/</span></div><div>n. 珠穆朗玛峰</div></li></ul></aside><aside class="side"><h3>课文注释</h3><ol class="note"><li>As it has come to be known，正如已逐渐为人所了解的那样，此处作插入语。</li><li>it is the desire ... or the chance ... that ...：这是强调句式，被强调的部分是句子的主语 the desire ... or the chance ...</li><li>rig up，装配，搭起。</li><li>Grenoble，格里诺布尔，是法国东南部伊泽尔河上的一座大城镇，尤以它的大学而著称。</li><li>The cave might never have been discovered had not the entrance been spotted by ...：如果不是……偶然发现这个洞口的话，这个洞也许永远不会为人所知。这是表示与过去事实不相符的虚拟语气结构，句中的非真实条件句 had n…</li><li>edge one's way，此处作“侧身徐徐向前移动”讲。</li><li>which they found was caused ... of the cave.：which was caused ... of the cave 是定语从句，修饰 sound；they found 此处作插入语。shooting down ... of the cave 是现在分词短语作…</li></ol></aside></div>
+</div>
+<section class="panel translation" id="trans" hidden><h2>参考译文</h2><p>洞穴勘查——或洞穴勘探——是一项比较新的体育活动。寻求独居独处的愿望或寻求意外发现机会的欲望吸引着人们来到地下深处。要想对洞穴探险者的动机作出满意的解释是不可能的。对洞穴探险者来说，洞穴有一种特殊的魅力，就像高山对于登山者有特殊的魅力一样。为什么洞穴能引发人的那种探险本能，人们对此只能有一种模模糊糊的理解。</p><p>探测非常深的洞穴不是那些在星期日下午漫步的人所能胜任的。这种活动需要有军事行动般的周密部署和预见能力。有时需要花费整整8天时间来搭起绳梯，建立供应基地，然后才能下到一个很深的洞穴里。作出这样的准备是必要的，因为无法预见到洞穴探险者究竟会遇到什么性质的困难。世界上最深的洞穴是格里诺布尔附近的高弗·伯杰洞，深达3,723英尺。这个深邃的洞穴是由一条地下暗泉冲刷岩石中的缝隙并使之慢慢变大而形成的。此洞的洞口在丹芬阿尔卑斯山的高原上，仅6英尺宽，很难被人发现。若不是法国著名洞穴探险家伯杰偶然发现了这个洞口，这个洞也许永远不会为人所知。自它被发现以来，已成为洞穴探险者的珠穆朗玛峰。人们多次进入洞内探险，但至今尚有不少东西有待勘探。</p><p>最近，一队洞穴探险者下到了高弗·伯杰洞里。他们从高原上的窄缝进去，顺着陡峭的洞壁往下爬，来到了一条狭窄的走廊上。他们不得不侧着身子往前走，有时涉过浅溪，有时游过深潭。突然，他们来到一道瀑布前，那瀑布奔泻而下，注入洞底一处地下湖里。他们跳入湖中，把各种器具装上一只充气橡皮艇，听任水流将他们带往对岸。湖水冰冷刺骨，他们必须穿上一种特制的橡皮服以保护自己。在湖的尽头，他们见到一大堆一大堆由湖水冲刷上岸的碎石。在这儿，他们可以听见一种连续不断的轰鸣声。后来他们发现这是由山洞顶部的一个小孔里喷出的水柱跌落到水潭中时发出的声音。洞穴探险者从岩石缝里挤身过去，来到一个巨大的洞里，其大小相当于一个音乐厅。他们打开强力弧光灯，看见一株株巨大的石笋，有的高达40英尺，像树干似的向上长着，与洞顶悬挂下来的钟乳石相接。周围是一堆堆石灰石，像彩虹一样闪闪发光。洞里有一种可怕的寂静，唯一可以听见的声响是高高的圆顶上不间断地滴水的嘀嗒声。</p></section>
+<div class="closing">第3册第42课 · 文本以课文朗读音频逐句为基准 · 语法标注由依存句法分析自动生成，只对结构清楚的句子画括号，拿不准的宁可空着 · 点句听读的时间按本地逐词转写重新对过轴</div>
+</div>
+<script>(function(){
+  var NS = 'http://www.w3.org/2000/svg';
+  var ANN = {"s2": [{"t": "brace", "sel": "s2-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "brace", "sel": "s2-cl", "side": "bottom", "color": "#b45309", "label": "时间状语从句"}], "s3": [{"t": "brace", "sel": "s3-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "brace", "sel": "s3-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s3-adv", "to": "s3-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s4": [{"t": "brace", "sel": "s4-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}], "s5": [{"t": "brace", "sel": "s5-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "brace", "sel": "s5-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s5-adv", "to": "s5-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s6": [{"t": "brace", "sel": "s6-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "brace", "sel": "s6-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}], "s7": [{"t": "brace", "sel": "s7-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}], "s8": [{"t": "brace", "sel": "s8-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}], "s9": [{"t": "brace", "sel": "s9-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}, {"t": "brace", "sel": "s9-cl", "side": "bottom", "color": "#b45309", "label": "时间状语从句"}, {"t": "arrow", "from": "s9-adv", "to": "s9-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s10": [{"t": "brace", "sel": "s10-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "brace", "sel": "s10-cl", "side": "bottom", "color": "#b45309", "label": "原因状语从句"}], "s11": [{"t": "brace", "sel": "s11-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}], "s12": [{"t": "brace", "sel": "s12-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "arrow", "from": "s12-adv", "to": "s12-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s13": [{"t": "brace", "sel": "s13-pred", "side": "top", "color": "#0f766e", "label": "现在完成时的被动"}, {"t": "brace", "sel": "s13-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}], "s14": [{"t": "brace", "sel": "s14-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "arrow", "from": "s14-adv", "to": "s14-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s15": [{"t": "brace", "sel": "s15-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "brace", "sel": "s15-cl", "side": "bottom", "color": "#b45309", "label": "时间状语从句"}], "s16": [{"t": "brace", "sel": "s16-pred", "side": "top", "color": "#0f766e", "label": "过去完成时的被动"}, {"t": "brace", "sel": "s16-cl", "side": "bottom", "color": "#b45309", "label": "宾语从句"}], "s17": [{"t": "brace", "sel": "s17-pred", "side": "top", "color": "#0f766e", "label": "现在完成时 / 一般现在时"}, {"t": "brace", "sel": "s17-cl", "side": "bottom", "color": "#b45309", "label": "让步状语从句"}, {"t": "arrow", "from": "s17-adv", "to": "s17-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s18": [{"t": "brace", "sel": "s18-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s18-adv", "to": "s18-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s19": [{"t": "brace", "sel": "s19-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s19-cl", "side": "bottom", "color": "#b45309", "label": "时间状语从句"}, {"t": "arrow", "from": "s19-adv", "to": "s19-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s20": [{"t": "brace", "sel": "s20-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}], "s21": [{"t": "brace", "sel": "s21-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s21-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s21-adv", "to": "s21-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s22": [{"t": "brace", "sel": "s22-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s22-cl", "side": "bottom", "color": "#b45309", "label": "宾语从句"}, {"t": "arrow", "from": "s22-adv", "to": "s22-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s23": [{"t": "brace", "sel": "s23-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s23-cl", "side": "bottom", "color": "#b45309", "label": "状语从句（分词/不定式，无引导词）"}], "s24": [{"t": "brace", "sel": "s24-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s24-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s24-adv", "to": "s24-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s25": [{"t": "brace", "sel": "s25-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}, {"t": "brace", "sel": "s25-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s25-adv", "to": "s25-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s26": [{"t": "brace", "sel": "s26-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s26-cl", "side": "bottom", "color": "#b45309", "label": "状语从句（分词/不定式，无引导词）"}, {"t": "arrow", "from": "s26-adv", "to": "s26-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s27": [{"t": "brace", "sel": "s27-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s27-cl", "side": "bottom", "color": "#b45309", "label": "状语从句（分词/不定式，无引导词）"}, {"t": "arrow", "from": "s27-adv", "to": "s27-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s28": [{"t": "brace", "sel": "s28-pred", "side": "top", "color": "#0f766e", "label": "动词原形"}, {"t": "arrow", "from": "s28-adv", "to": "s28-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s29": [{"t": "brace", "sel": "s29-pred", "side": "top", "color": "#0f766e", "label": "被动语态（一般过去时）"}, {"t": "brace", "sel": "s29-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "brace", "sel": "s29-cl-4", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s29-adv", "to": "s29-pred", "color": "#7c3aed", "label": "状语修饰谓语"}]};
+
+  function mk(tag, attrs){
+    const el = document.createElementNS(NS, tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+  function rectOf(sent, box, key){
+    const el = sent.querySelector('[data-k="' + key + '"]');
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return {x:r.left-box.left, y:r.top-box.top, w:r.width, h:r.height,
+            cx:r.left-box.left+r.width/2, bottom:r.bottom-box.top};
+  }
+  function drawBrace(svg, W, H, r, side, color, label, row){
+    let x1 = clamp(r.x + 2, 4, W - 4);
+    let x2 = clamp(r.x + r.w - 2, x1 + 24, W - 4);
+    const up = side === 'top';
+    const n = row || 0;                       // 同一句里第几条花括号：逐层下移，标签不再叠字
+    const y = up ? Math.max(14, r.y - 8 - n * 13) : Math.min(H - 10, r.bottom + 8 + n * 13);
+    const d = up ? -1 : 1;
+    const h1 = 8, tip = 14;
+    const mx = (x1 + x2) / 2;
+    const p = [
+      'M', x1, y,
+      'C', x1, y + d*h1, x1 + 8, y + d*h1, x1 + 13, y + d*h1,
+      'L', mx - 14, y + d*h1,
+      'C', mx - 7, y + d*h1, mx - 7, y + d*tip, mx, y + d*tip,
+      'C', mx + 7, y + d*tip, mx + 7, y + d*h1, mx + 14, y + d*h1,
+      'L', x2 - 13, y + d*h1,
+      'C', x2 - 8, y + d*h1, x2, y + d*h1, x2, y
+    ].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', 'stroke-linejoin':'round', opacity:.95}));
+    const tx = clamp(mx, 80, W - 80);
+    const ty = up ? y + d*tip - 9 : y + d*tip + 17;
+    const text = mk('text', {x:tx, y:ty, 'text-anchor':'middle', fill:color, 'font-size':12,
+      'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+      'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+    text.textContent = label;
+    svg.appendChild(text);
+  }
+  function curvePoint(p0,p1,p2,t){const u=1-t;return u*u*p0[0]+2*u*t*p1[0]+t*t*p2[0];}
+  function curvePointY(p0,p1,p2,t){const u=1-t;return u*u*p0[1]+2*u*t*p1[1]+t*t*p2[1];}
+  function drawArrow(svg, W, H, a, b, color, label, idx){
+    const x1 = a.cx, y1 = a.bottom + 6;
+    const x2 = b.cx, y2 = b.bottom + 6;
+    const sameLine = Math.abs(a.bottom - b.bottom) < 6;
+    const depth = sameLine ? 22 + idx*6 : 30 + idx*8;
+    const c1 = [x1, y1+depth], c2 = [x2, y2+depth];
+    const p = ['M',x1,y1,'C',c1[0],c1[1],c2[0],c2[1],x2,y2].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', opacity:.9}));
+    let dx = x2-c2[0], dy = y2-c2[1];
+    const len = Math.hypot(dx,dy)||1; dx/=len; dy/=len;
+    const size=7.5, spread=.46;
+    const ax = x2-dx*size*Math.cos(spread)-dy*size*Math.sin(spread);
+    const ay = y2-dy*size*Math.cos(spread)+dx*size*Math.sin(spread);
+    const bx = x2-dx*size*Math.cos(spread)+dy*size*Math.sin(spread);
+    const by = y2-dy*size*Math.cos(spread)-dx*size*Math.sin(spread);
+    svg.appendChild(mk('path', {d:`M ${x2} ${y2} L ${ax} ${ay} M ${x2} ${y2} L ${bx} ${by}`,
+      fill:'none', stroke:color, 'stroke-width':1.5, 'stroke-linecap':'round'}));
+    if (label){
+      const mx = curvePoint([x1,y1],c1,[x2,y2],.5);
+      const my = curvePointY([x1,y1],c1,[x2,y2],.5)+15;
+      const text = mk('text', {x:clamp(mx,66,W-66), y:Math.min(my,H-4), 'text-anchor':'middle',
+        fill:color, 'font-size':11.5,
+        'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+        'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+      text.textContent = label;
+      svg.appendChild(text);
+    }
+  }
+  function drawSent(sent){
+    const cfg = ANN[sent.dataset.id];
+    if (!cfg) return;
+    const box = sent.getBoundingClientRect();
+    const W = sent.clientWidth, H = sent.clientHeight;
+    const svg = sent.querySelector('svg.ann');
+    if (!svg) return;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width', W);
+    svg.setAttribute('height', H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const nb = {top:0, bottom:0};             // 上下各自的括号层数
+    cfg.forEach((an,i) => {
+      if (an.t === 'brace'){
+        const r = rectOf(sent, box, an.sel);
+        if (r) drawBrace(svg, W, H, r, an.side, an.color, an.label, nb[an.side]++);
+      } else {
+        const a = rectOf(sent, box, an.from);
+        const b = rectOf(sent, box, an.to);
+        if (a && b) drawArrow(svg, W, H, a, b, an.color, an.label, i);
+      }
+    });
+  }
+  function drawAll(){
+    document.querySelectorAll('.sent').forEach(drawSent);
+  }
+
+  const btnMark = document.getElementById('btnMark');
+  if (btnMark) btnMark.addEventListener('click', () => {
+    const off = document.body.classList.toggle('no-mark');
+    btnMark.classList.toggle('on', !off);
+    btnMark.textContent = off ? '标注：隐藏' : '标注：显示';
+  });
+  const btnTrans = document.getElementById('btnTrans');
+  const trans = document.getElementById('trans');
+  if (btnTrans && trans) btnTrans.addEventListener('click', () => {
+    const showing = !trans.hidden;
+    trans.hidden = showing;
+    btnTrans.classList.toggle('on', !showing);
+    btnTrans.textContent = showing ? '参考译文：展开' : '参考译文：收起';
+    if (!showing) trans.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  window.addEventListener('load', () => {
+    drawAll();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
+  });
+  let t;
+  window.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(drawAll, 120);
+  });
+})();</script>
+
+</body>
+</html>

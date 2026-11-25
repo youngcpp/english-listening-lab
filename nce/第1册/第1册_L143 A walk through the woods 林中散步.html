@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>新概念 第1册第143课 A walk through the woods</title>
+<style>:root{
+    --ink:#1f2d3d;
+    --paper:#eee7d7;
+    --card:#fffdf7;
+    --line:#ddd2bb;
+    --sub:#2563eb;
+    --pred:#dc2626;
+    --obj:#047857;
+    --adv:#7c3aed;
+    --attr:#b45309;
+    --teal:#0f766e;
+    --conj:#64748b;
+    --quote:#be185d;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;color:var(--ink);
+    background:
+      radial-gradient(1100px 560px at 12% -8%, #f8f2e3 0%, transparent 60%),
+      radial-gradient(900px 520px at 92% 0%, #f1ead9 0%, transparent 55%),
+      var(--paper);
+    font-family:"Palatino Linotype","Palatino","Songti SC","STSong",serif;
+  }
+  .page{max-width:1220px;margin:0 auto;padding:48px 28px 90px;}
+
+  .kicker{font-size:12px;letter-spacing:2.4px;color:#8b7a5e;text-transform:uppercase;margin:0 0 10px;}
+  h1{font-size:40px;line-height:1.16;margin:0;font-weight:600;letter-spacing:-.3px;}
+  h1 .zh{display:inline-block;font-size:23px;font-weight:500;letter-spacing:2px;color:#7a5c33;margin-left:13px;vertical-align:4px;}
+  .standfirst{margin:14px 0 0;font-size:14.5px;line-height:1.9;color:#5b5344;max-width:900px;}
+  .standfirst b{color:#3f3628;}
+  .rule{height:5px;margin:22px 0 0;border-radius:3px;
+    background:linear-gradient(90deg,var(--sub),var(--pred) 24%,var(--obj) 46%,var(--adv) 64%,var(--attr) 82%,var(--teal));opacity:.85;}
+  .controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;}
+  .ctl{
+    font:600 12.5px/1 "Kaiti SC","STKaiti","Songti SC",serif;color:#5a4c36;
+    background:#fffdf6;border:1px solid #d8c9a9;border-radius:999px;
+    padding:8px 15px;cursor:pointer;letter-spacing:.6px;transition:.18s;
+  }
+  .ctl:hover{border-color:#b9a37a;transform:translateY(-1px);}
+  .ctl.on{background:#e9f4ec;border-color:#9cc7ab;color:#245c43;}
+
+  .legend{
+    display:flex;flex-wrap:wrap;gap:11px 22px;align-items:center;
+    background:#fffdf6;border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin:24px 0 0;font-size:13px;color:#443c2e;
+  }
+  .legend .item{display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .legend .hint{color:#6d6250;font-size:12.5px;}
+  .sample{font-size:15.5px;opacity:.95;}
+
+  .sub{border-bottom:3px double var(--sub);padding-bottom:1px;}
+  .pred{border-bottom:3px solid var(--pred);padding-bottom:1px;}
+  .obj{border-bottom:2px dotted var(--obj);padding-bottom:2px;}
+  .adv{border-bottom:2px dashed var(--adv);padding-bottom:2px;}
+  .attr{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--attr);
+    text-decoration-thickness:1.4px;text-underline-offset:5px;}
+  .q{background:linear-gradient(180deg,transparent 58%,rgba(244,114,182,.16) 58%);border-radius:2px;}
+  .tg{
+    display:inline-block;font:600 9px/1 "Kaiti SC","STKaiti",serif;color:#8a5a1a;
+    background:#f6ecd6;border:1px solid #e6d3ab;border-radius:4px;
+    padding:2px 4px;margin-left:4px;vertical-align:.55em;letter-spacing:.5px;
+  }
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin:24px 0 0;
+    box-shadow:0 10px 30px -24px rgba(64,44,12,.55);
+  }
+  .panel h2{margin:0 0 14px;font:600 13px/1 "Kaiti SC","STKaiti",serif;letter-spacing:2px;color:#7a5c33;}
+
+  /* ---------- 时间轴 ---------- */
+  .tl{display:flex;flex-direction:column;gap:14px;}
+  .lane{display:grid;grid-template-columns:130px minmax(0,1fr);gap:16px;align-items:center;}
+  .lane .lab{font:600 12.5px/1.35 "Kaiti SC","STKaiti",serif;color:#4b4130;text-align:right;}
+  .lane .lab span{display:block;font:400 10.5px/1.5 "Songti SC",serif;color:#8b7a5e;letter-spacing:.5px;}
+  .track{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:34px;}
+  .band{
+    display:inline-flex;align-items:center;gap:6px;
+    border:1.5px dashed #6aa899;background:#e7f4ef;color:#175e4b;
+    border-radius:999px;padding:7px 13px;font:600 12.5px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .band::before{content:"";width:7px;height:7px;border-radius:50%;background:#2f7a5e;}
+  .dot{
+    display:inline-flex;align-items:center;gap:6px;color:#7f1d1d;
+    background:#fff6f4;border:1px solid #ecc9c1;border-radius:999px;
+    padding:6px 11px;font:600 12px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .dot::before{content:"";width:6px;height:6px;border-radius:50%;background:#dc2626;}
+  .tl-cap{margin:14px 0 0;font-size:12.8px;line-height:1.85;color:#6d6250;}
+  .tl-cap b{color:#3f3628;}
+
+  /* ---------- 正文布局 ---------- */
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:26px;align-items:start;margin-top:26px;}
+  .col-main{min-width:0;}
+  .col-side{position:sticky;top:18px;display:flex;flex-direction:column;gap:16px;}
+
+  .card{
+    position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 30px 18px;margin:0 0 22px;
+    box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 10px 30px -24px rgba(64,44,12,.5);
+  }
+  .sec{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;border-bottom:1px dashed #ded2b8;padding-bottom:12px;margin-bottom:8px;}
+  .sec-no{font:600 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:1.4px;color:#b6a888;}
+  .sec h3{margin:0;font:600 17px/1.4 "Kaiti SC","STKaiti",serif;color:#2d2417;letter-spacing:.5px;}
+  .sec h3 em{font-style:normal;color:#8a7857;font-weight:400;font-size:12.5px;margin-left:8px;letter-spacing:0;}
+  .sec-note{margin-left:auto;font:400 11.5px/1.5 "Songti SC",serif;color:#9b8b6f;}
+
+  .row{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:8px 0 10px;}
+  .row + .row{border-top:1px dotted #e7ddc7;}
+  .idx{
+    font:600 11px/1 ui-monospace,"SF Mono",Menlo,monospace;color:#b6a888;
+    padding-top:24px;text-align:right;
+  }
+  .sent{
+    position:relative;font-size:19px;line-height:1.72;letter-spacing:.1px;
+    padding:6px 0 12px;
+  }
+  .sent.ann-top{padding-top:42px;}
+  .sent.ann-bottom{padding-bottom:70px;}
+  svg.ann{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+  .tip{margin:2px 0 0;font-size:12.2px;line-height:1.7;color:#8a7c66;}
+  .tip b{color:#6b5a3c;}
+
+  /* ---------- 侧栏 ---------- */
+  .side{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px;
+    box-shadow:0 8px 26px -22px rgba(64,44,12,.5);}
+  .side h3{margin:0 0 10px;font:600 12px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.8px;color:#7a5c33;}
+  .map{list-style:none;margin:0;padding:0;}
+  .map li{display:grid;grid-template-columns:20px 1fr;gap:8px;padding:7px 0;border-top:1px dotted #e7ddc7;font-size:12px;line-height:1.6;color:#5e5545;}
+  .map li:first-child{border-top:none;}
+  .map .n{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:#b6a888;padding-top:3px;}
+  .map b{display:block;font-weight:600;color:#3b3325;font-size:12.5px;}
+  .arc{display:flex;flex-wrap:wrap;gap:5px 3px;margin-top:2px;}
+  .arc span{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;color:#5c4b2f;background:#f7efdd;border:1px solid #e6d6b6;border-radius:999px;padding:4px 7px;letter-spacing:0;}
+  .arc i{font-style:normal;color:#b6a888;align-self:center;font-size:9px;}
+  .side p{margin:8px 0 0;font-size:11.8px;line-height:1.75;color:#7e7160;}
+
+  /* ---------- 译文 ---------- */
+  .translation p{font-size:13.5px;line-height:2;color:#4b4436;margin:0 0 8px;}
+  .translation .lab{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1px;color:#fff;background:#6b5a3c;border-radius:3px;padding:2px 5px 3px;margin-right:7px;vertical-align:1px;}
+
+  .closing{
+    margin-top:30px;padding:18px 22px;border-radius:12px;border:1px dashed #cdbf9f;
+    background:#fffdf6;font-size:12.8px;line-height:1.95;color:#5b5242;
+  }
+
+  body.no-mark .sent.ann-top{padding-top:8px;}
+  body.no-mark .sent.ann-bottom{padding-bottom:12px;}
+  body.no-mark .sub,body.no-mark .pred,body.no-mark .obj,body.no-mark .adv,body.no-mark .attr{text-decoration:none;border-bottom:none;}
+  body.no-mark .tg,body.no-mark svg.ann{display:none;}
+  body.no-mark .q{background:none;}
+
+  @media (max-width:1020px){
+    .layout{grid-template-columns:1fr;}
+    .col-side{position:static;flex-direction:row;flex-wrap:wrap;}
+    .col-side .side{flex:1 1 260px;}
+  }
+  @media (max-width:640px){
+    h1{font-size:32px;}
+    h1 .zh{display:block;margin:8px 0 0;vertical-align:0;}
+    .card{padding:18px 18px 12px;}
+    .lane{grid-template-columns:76px minmax(0,1fr);}
+    .lane .lab{text-align:left;}
+    .sent{font-size:17.5px;}
+    .sec-note{display:none;}
+  }
+  @media print{
+    body{background:#fff;}
+    .page{max-width:none;padding:0;}
+    .card,.panel{break-inside:avoid;box-shadow:none;}
+    .col-side{position:static;}
+    .controls{display:none;}
+    .translation[hidden]{display:block;}
+  }
+/* 本册补充 */
+
+  .thread{display:flex;flex-direction:column;gap:14px;margin:26px 0 0;max-width:960px;}
+  .bub{display:flex;gap:12px;align-items:flex-start;max-width:88%;width:fit-content;}
+  .bub.a{align-self:flex-start;}
+  .bub.b{align-self:flex-end;flex-direction:row-reverse;}
+  .who{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;
+    font:600 11px/1.2 "Kaiti SC","STKaiti",serif;color:#8b7a5e;padding-top:6px;}
+  .av{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
+    font:600 12px/1 "Avenir Next",sans-serif;color:#fff;}
+  .bub.a .av{background:#8a6a44;} .bub.b .av{background:#9a5c6b;}
+  .bb{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:10px 20px 6px;min-width:150px;box-shadow:0 8px 24px -18px rgba(64,44,12,.5);}
+  .bub.b .bb{text-align:left;}
+  .bb .sent{font-size:21px;padding:4px 0 8px;}
+  .bb .zh{margin:0 0 6px;font:400 13px/1.7 "Songti SC",serif;color:#94846a;}
+  .pat{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;margin:10px 0 0;
+    padding:12px 14px;border:1px dashed #ded2b8;border-radius:10px;background:#fffdf6;}
+  .pat .main{font-size:19px;}
+  .pat .note{font-size:12.4px;color:#7e7160;flex-basis:100%;}
+  .slot{display:inline-block;min-width:96px;text-align:center;color:#0b5c4c;
+    border-bottom:2px dashed var(--teal);padding:0 8px;background:#eaf6f2;border-radius:5px;}
+
+
+  .sent .clause{border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .tint-attr{background:linear-gradient(180deg,transparent 56%,rgba(251,191,36,.34) 56%);}
+  .tint-adv{background:linear-gradient(180deg,transparent 56%,rgba(196,181,253,.38) 56%);}
+  .tint-obj{background:linear-gradient(180deg,transparent 56%,rgba(167,243,208,.42) 56%);}
+  .tint-app{background:linear-gradient(180deg,transparent 56%,rgba(253,186,116,.38) 56%);}
+  .sent .conj{color:var(--conj);font-style:italic;}
+  .sent .inton{display:inline-block;font-size:.7em;line-height:1;margin-left:5px;font-weight:700;}
+  .inton.up{color:#0f766e;} .inton.down{color:#b45309;}
+  .qline{display:flex;gap:10px;align-items:baseline;background:#fff8ec;border:1px dashed #e0c796;
+    border-radius:10px;padding:12px 16px;margin:20px 0 0;font-size:17px;color:#5b4a2d;}
+  .qline .lab{flex:0 0 auto;font:600 11px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.6px;
+    color:#fff;background:#a9843f;border-radius:4px;padding:4px 7px;}
+  .wlist{list-style:none;margin:0;padding:0;}
+  .wlist li{display:grid;gap:2px;padding:7px 0;border-top:1px dotted #e7ddc7;
+    font-size:12.4px;line-height:1.55;color:#5e5545;}
+  .wlist li:first-child{border-top:none;}
+  .wlist .en{font-weight:600;color:#2d2417;font-size:13px;}
+  .wlist .ph{color:#8a7c66;font-style:italic;}
+  .note{margin:0;padding-left:22px;color:#4e4638;font-size:12.6px;line-height:1.9;}
+  .note li{margin-bottom:6px;}
+  .warn{font:600 11px/1 "Kaiti SC",serif;color:#8a2f2f;background:#fdecec;border:1px solid #f0c9c9;
+    border-radius:4px;padding:3px 6px;margin-left:6px;}
+  body.no-mark .sent .inton{display:none;}
+
+</style>
+</head>
+<body>
+
+<!-- ==== 点句听读（自动生成，勿手改） ==== -->
+<div id="nce-bar">
+  <span id="nce-tag">点句听读</span>
+  <button id="nce-play">▶ 全文连播</button>
+  <button id="nce-loop">↻ 本句循环</button>
+  <span class="nce-sep"></span>
+  <label>语速 <select id="nce-rate"><option value="0.75">0.75×</option><option value="0.9">0.9×</option><option value="1" selected>1×</option><option value="1.2">1.2×</option></select></label>
+  <span id="nce-stat">…</span>
+  <span id="nce-hint">点任意一句只听那一句（整段排版也按你点的那句播）</span>
+</div>
+<audio id="nce-audio" src="../音频/b1_L143.m4a" preload="auto"></audio>
+<style>
+  #nce-bar{position:sticky;top:0;z-index:99;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    background:#12161d;color:#eef2f7;padding:9px 14px;font:13px/1.4 -apple-system,"PingFang SC",sans-serif;
+    border-bottom:1px solid #2b3340}
+  #nce-bar #nce-tag{font-weight:700;letter-spacing:.06em;color:#ffd36a}
+  #nce-bar button{background:#242c38;color:#eef2f7;border:1px solid #3a4557;border-radius:6px;
+    padding:5px 11px;cursor:pointer;font-size:13px}
+  #nce-bar button:hover{background:#313b4a}
+  #nce-bar button.on{background:#ffd36a;color:#12161d;border-color:#ffd36a;font-weight:600}
+  #nce-bar select{background:#242c38;color:#eef2f7;border:1px solid #3a4557;border-radius:5px;padding:3px 6px}
+  #nce-stat{color:#8fd3a8;font-variant-numeric:tabular-nums}
+  #nce-hint{margin-left:auto;color:#8b98ab}
+  .nce-sep{width:1px;height:18px;background:#3a4557}
+  [nce-s]{cursor:pointer;border-radius:4px;transition:background .15s,box-shadow .15s}
+  [nce-s]:hover{background:rgba(255,211,106,.14);box-shadow:0 0 0 1px rgba(255,211,106,.4) inset}
+  [nce-s].nce-now{background:rgba(255,211,106,.22);box-shadow:0 0 0 2px #ffd36a inset}
+  [nce-s].nce-done{opacity:.62}
+  @media print{#nce-bar{display:none}}
+</style>
+<script>
+function __nce_init(){
+(function(){
+  var S = [{"t": 19.34, "t0": 19.84, "text": "I live in a very old town which is surrounded by beautiful woods.", "e": 25.0}, {"t": 25.02, "t0": 28.0, "text": "It is a famous beauty spot.", "e": 28.22}, {"t": 28.72, "t0": 32.06, "text": "On Sundays, hundreds of people come from the city to see our town and to walk through the woods.", "e": 34.9}, {"t": 34.92, "t0": 42.5, "text": "Visitors have been asked to keep the woods clean and tidy.", "e": 40.16}, {"t": 40.18, "t0": 49.55, "text": "Litter baskets have been placed under the trees, but people still throw their rubbish everywhere.", "e": 47.42}, {"t": 47.44, "t0": 58.99, "text": "Last Wednesday, I went for a walk in the woods.", "e": 51.3}, {"t": 51.32, "t0": 65.51, "text": "What I saw made me very sad.", "e": 54.86}, {"t": 54.88, "t0": 70.74, "text": "I counted seven old cars and three old refrigerators.", "e": 60.18}, {"t": 60.2, "t0": 78.12, "text": "The litter baskets were empty and the ground was covered with pieces of paper,", "e": 66.38}, {"t": 66.4, "t0": 85.8, "text": "cigarette ends, old tyres, empty bottles and rusty tins.", "e": 72.28}, {"t": 72.88, "t0": 94.49, "text": "Among the rubbish, I found a sign which said, 'Anyone who leaves litter in these woods will be prosecuted!'", "e": 80.7}];
+  var audio = document.getElementById('nce-audio');
+  var stat = document.getElementById('nce-stat');
+  var bPlay = document.getElementById('nce-play'), bLoop = document.getElementById('nce-loop');
+  var rate = document.getElementById('nce-rate');
+  var loop = false, streaming = false, cur = -1;
+  function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'');}
+  S.forEach(function(x){x.k = norm(x.text);});
+  var cands = [].slice.call(document.querySelectorAll('body *')).filter(function(el){
+    if (el.closest('#nce-bar') || el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return false;
+    if (el.querySelector('p, li, blockquote, .sent, .para')) return false;   // 只认最里层的整段/整句元素
+    var t = el.textContent || '';
+    return t.replace(/[^A-Za-z]/g, '').length >= 3 && t.length < 3000;
+  });
+  var used = {};
+  // 生成器已按字幕下标绑定好（新点读页）——直接认这些属性，不再靠文字猜
+  var pre = [].slice.call(document.querySelectorAll('[nce-s]'));
+  pre = pre.filter(function (el) {
+    var a = +el.getAttribute('nce-s');
+    return a >= 0 && a < S.length && el.getAttribute('nce-bar') === null;
+  });
+  if (pre.length) {
+    pre.forEach(function (el) {
+      var a = +el.getAttribute('nce-s');
+      var b = el.hasAttribute('nce-to') ? +el.getAttribute('nce-to') : a;
+      b = Math.min(b, S.length - 1);
+      for (var i = a; i <= b; i++) used[i] = el;
+      el.addEventListener('click', handlerFor(el));
+    });
+  } else {
+  // 按文档顺序 + 指针单调推进：外层元素先认领整句，内层碎片不会再抢，行被拆/被并都能对上
+  var p = 0;
+  cands.forEach(function(el){
+    if (p >= S.length) return;
+    var k = norm(el.textContent);
+    if (k.length < 3) return;
+    var start = -1;
+    for (var q = p; q < Math.min(p + 4, S.length); q++) {
+      var x = S[q].k;
+      if (!x) continue;
+      if (k === x) { start = q; break; }
+      if (x.length >= 6 && k.length >= x.length && k.indexOf(x) >= 0) { start = q; break; }
+      if (k.length >= 20 && x.length >= k.length && x.indexOf(k) === 0) { start = q; break; }
+    }
+    if (start < 0) return;
+    var end = start;
+    for (var r = start + 1; r < Math.min(start + 8, S.length); r++) {
+      var y = S[r].k;
+      if (y && y.length >= 6 && k.indexOf(y) >= 0) end = r; else break;
+    }
+    el.setAttribute('nce-s', start);
+    if (end > start) el.setAttribute('nce-to', end);
+    for (var i2 = start; i2 <= end; i2++) used[i2] = el;
+    p = end + 1;
+    el.addEventListener('click', handlerFor(el));
+  });
+  }
+  var bound = Object.keys(used).length;
+  stat.textContent = '已绑定 ' + bound + '/' + S.length + ' 句';
+  function ends(){
+    var dur = audio.duration || 0;
+    for (var i=0;i<S.length;i++) S[i].end = S[i].e ? S[i].e : ((i+1<S.length) ? S[i+1].t : (dur || S[i].t+8));
+  }
+  function mark(i){
+    [].slice.call(document.querySelectorAll('[nce-s].nce-now')).forEach(function(e){e.classList.remove('nce-now');});
+    var el = used[i]; if (el){el.classList.add('nce-now'); el.scrollIntoView({block:'nearest',behavior:'smooth'});}
+    cur = i;
+  }
+  function handlerFor(el){
+    return function(ev){
+      ev.stopPropagation();
+      var a = +el.getAttribute('nce-s');
+      var b = el.getAttribute('nce-to');
+      b = b === null ? a : +b;
+      if (b > a) {                     // 一个块里排了好几句（第4册整段排版）：看点到的那句
+        var g = groups(a, b, el);
+        if (g) {
+          var m = pickGroup(g, el, ev.clientX, ev.clientY);
+          b = (m + 1 < g.length) ? g[m + 1].i - 1 : b;
+          a = g[m].i;
+        }
+      }
+      playOne(a, b);
+    };
+  }
+  // 块内的「显示句」起点：上一行字幕没有句末标点 = 同一句被拆开的续行，不算新句
+  function isCont(t){ return !/[.!?:;]["')\]）”’\]]\s*$/.test((t||'').trim()) && !/[.!?]$/.test((t||'').trim()); }
+  function groups(a, b, el){
+    var ix = textIndex(el), pos = 0, out = [];
+    for (var i = a; i <= b; i++) {
+      if (i === a || !isCont(S[i-1].text)) {
+        var at = ix.n.indexOf(S[i].k, pos);
+        if (at < 0) return null;          // 对不上文字，退回整块播放
+        out.push({i: i, at: at}); pos = at + S[i].k.length;
+      }
+    }
+    return out.length > 1 ? out : null;
+  }
+  function textIndex(el){
+    if (el.__ix) return el.__ix;
+    var n = '', nodes = [], offs = [], w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), t;
+    while (t = w.nextNode()) {
+      var pe = t.parentElement;                       // 脚注序号 / ¶1 这类标记不算正文
+      if (pe && (pe.tagName === 'SUP' || pe.tagName === 'SUB' || /(^|\s)(fn|pn)(\s|$)/.test(pe.className || ''))) continue;
+      for (var i = 0; i < t.length; i++) {
+        var c = t.nodeValue[i].toLowerCase();
+        if (c >= 'a' && c <= 'z' || c >= '0' && c <= '9') { n += c; nodes.push(t); offs.push(i); }
+      }
+    }
+    el.__ix = {n: n, nodes: nodes, offs: offs};
+    return el.__ix;
+  }
+  function anchorRect(ix, at){
+    var node = ix.nodes[at], off = ix.offs[at];
+    if (!node || off === undefined) return null;
+    var r = document.createRange();
+    try { r.setStart(node, off); r.setEnd(node, Math.min(off + 1, node.length)); } catch(e){ return null; }
+    var box = r.getBoundingClientRect();
+    return (box && (box.height || box.width)) ? box : null;
+  }
+  // 用「每句第一个字母在屏幕上的位置」判断点到的是哪一句：版面再乱也不依赖光标命中
+  function pickGroup(g, el, x, y){
+    var ix = textIndex(el), box = g.map(function(q){ return anchorRect(ix, q.at); });
+    var cand = [];
+    for (var i = 0; i < g.length; i++) if (box[i] && box[i].top <= y + 4) cand.push(i);
+    if (!cand.length) return 0;
+    var top = -1e9;
+    cand.forEach(function(i){ if (box[i].top > top) top = box[i].top; });
+    var line = cand.filter(function(i){ return Math.abs(box[i].top - top) <= 3; });
+    var left = line.filter(function(i){ return box[i].left <= x + 4; });
+    var pool = left.length ? left : line, best = pool[0];
+    pool.forEach(function(i){
+      if (left.length) { if (box[i].left > box[best].left) best = i; }
+      else if (box[i].left < box[best].left) best = i;
+    });
+    return best;
+  }
+  function playOne(i, last){
+    if (last === undefined) last = i;
+    ends(); streaming = false; mark(i);
+    var el = used[i], stop = S[last].end + 0.25;   // 句尾留一点余量，别把最后一个词切掉
+    if (el) el.setAttribute('nce-stop', stop);
+    audio.currentTime = Math.max(0, S[i].t - 0.15);
+    audio.playbackRate = parseFloat(rate.value);
+    audio.play();
+  }
+  audio.addEventListener('timeupdate', function(){
+    if (audio.paused) return;
+    var now = audio.currentTime;
+    if (streaming){
+      var i = S.reduce(function(a,x,n){return (x.t<=now)?n:a;}, 0);
+      if (i !== cur) mark(i);
+      var last = S[S.length - 1];
+      ends();
+      if (last && now >= last.end - 0.05) audio.pause();   // 连播也只播到最后一句的结尾
+    } else if (cur >= 0) {
+      var el = used[cur], stop = el ? parseFloat(el.getAttribute('nce-stop') || S[cur].end) : S[cur].end;
+      if (loop){ if (now >= stop) { audio.currentTime = S[cur].t; } }
+      else if (now >= stop - 0.02){ audio.pause(); }
+    }
+    var m = Math.floor(now/60), s = ('0'+Math.floor(now%60)).slice(-2);
+    stat.textContent = '已绑定 ' + Object.keys(used).length + '/' + S.length + ' 句 · ' + m+':'+s;
+  });
+  bPlay.addEventListener('click', function(){
+    ends(); streaming = true; bPlay.classList.add('on');
+    audio.currentTime = S.length ? S[0].t - 0.2 : 0; audio.playbackRate = parseFloat(rate.value); audio.play();
+  });
+  bLoop.addEventListener('click', function(){
+    loop = !loop; bLoop.classList.toggle('on', loop);
+  });
+  audio.addEventListener('play', function(){ bPlay.classList.toggle('on', streaming); });
+  audio.addEventListener('pause', function(){ bPlay.classList.remove('on'); });
+  audio.addEventListener('error', function(){ stat.textContent = '音频未找到：'+audio.getAttribute('src'); });
+  rate.addEventListener('change', function(){ audio.playbackRate = parseFloat(rate.value); });
+})();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', __nce_init);
+else __nce_init();
+</script>
+<!-- ==== 点句听读 结束 ==== -->
+
+<div class="page">
+<header><p class="kicker">New Concept English · Book 1 · Lesson 143</p><h1>A walk through the woods<span class="zh">林中散步</span></h1><p class="standfirst">本课 <b>10</b> 句（配音频 10 句）　·　主线时态 <b>一般过去时</b>　·　从句 <b>4</b> 处</p><div class="controls"><button class="ctl on" id="btnMark">标注：隐藏</button></div><div class="rule"></div></header>
+<section class="legend"><span class="item"><span class="sample sub">The boy</span>主语</span><span class="item"><span class="sample pred">is</span>谓语</span><span class="item"><span class="sample obj">a book</span>宾语</span><span class="item"><span class="sample adv">at the moment</span>状语</span><span class="item"><span class="sample inton up">↗</span>一般疑问句升调</span><span class="item"><span class="sample inton down">↘</span>陈述句/特殊疑问句降调</span><span class="item hint"><b>上方括号</b>＝时态／句型</span><span class="item hint"><b>弧线箭头</b>＝修饰关系</span><span class="item hint">点任意一句只听那一句</span></section>
+<section class="panel focus"><h2>本课句型与语调</h2><ol><li><b>陈述句</b>（10 句）：例：I live in a very old town which is surround…</li></ol><div class="pat"><div class="main">主语+谓语</div><div class="note">例：I live in a very old town which is surrounded by beautiful…</div></div><div class="pat"><div class="main">主语+谓语+宾语</div><div class="note">例：It is a famous beauty spot.</div></div><div class="pat"><div class="main">主语+谓语+谓语+宾语</div><div class="note">例：Litter baskets have been placed under the trees, but people…</div></div><div class="pat"><div class="main">主语+谓语+宾语+谓语</div><div class="note">例：The litter baskets were empty and the ground was covered wi…</div></div></section>
+<div class="qline"><span class="lab">导问</span><span>What was so funny about the words on the sign?</span></div>
+<div class="layout">
+<main class="thread"><article class="bub a"><div class="who"><span class="av">A</span>1</div><div class="bb"><div id="s1" class="sent ann-top ann-bottom" data-id="s1" nce-s="0"><span class="sub" data-k="s1-sub">I</span> <span class="pred" data-k="s1-pred">live</span> <span class="adv" data-k="s1-adv">in a very old town </span><span class="clause tint-attr" data-k="s1-cl">which is surrounded by beautiful woods</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：I ＋ live　说习惯、事实或现在的状态；主语第三人称单数时动词加 -s。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>2</div><div class="bb"><div id="s2" class="sent ann-top" data-id="s2" nce-s="1"><span class="sub" data-k="s2-sub">It</span> <span class="pred" data-k="s2-pred">is</span> <span class="obj" data-k="s2-obj">a famous beauty spot</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：It ＋ is ＋ a famous beauty spot</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>3</div><div class="bb"><div id="s3" class="sent ann-top ann-bottom" data-id="s3" nce-s="2"><span class="adv" data-k="s3-adv">On Sundays</span>, <span class="sub" data-k="s3-sub">hundreds of people</span> <span class="pred" data-k="s3-pred">come</span> <span class="adv" data-k="s3-adv-3">from the city</span> <span class="clause tint-adv" data-k="s3-cl">to see our town and to walk through the woods</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：hundreds of people ＋ come　说习惯、事实或现在的状态；主语第三人称单数时动词加 -s。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>4</div><div class="bb"><div id="s4" class="sent ann-top" data-id="s4" nce-s="3"><span class="sub" data-k="s4-sub">Visitors</span> <span class="pred" data-k="s4-pred">have been asked</span> <span class="obj" data-k="s4-obj">to keep the woods clean and tidy</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：Visitors ＋ have been asked ＋ to keep the woods c…　have/has been + 过去分词，主语是动作的承受者。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>5</div><div class="bb"><div id="s5" class="sent ann-top" data-id="s5" nce-s="4"><span class="sub" data-k="s5-sub">Litter baskets</span> <span class="pred" data-k="s5-pred">have been placed</span> <span class="adv" data-k="s5-adv">under the trees</span>, but people <span class="pred" data-k="s5-pred-3">still throw</span> <span class="obj" data-k="s5-obj">their rubbish</span> everywhere.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：Litter baskets ＋ have been placed ＋ still throw ＋ their rubbish　have/has been + 过去分词，主语是动作的承受者。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>6</div><div class="bb"><div id="s6" class="sent ann-top" data-id="s6" nce-s="5"><span class="adv" data-k="s6-adv">Last Wednesday</span>, <span class="sub" data-k="s6-sub">I</span> <span class="pred" data-k="s6-pred">went</span> <span class="adv" data-k="s6-adv-3">for a walk in the woods</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：I ＋ went　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>7</div><div class="bb"><div id="s7" class="sent ann-top" data-id="s7" nce-s="6"><span class="sub" data-k="s7-sub">What I saw</span> <span class="pred" data-k="s7-pred">made</span> me very sad.<span class="inton down" title="特殊疑问句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：What I saw ＋ made　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>8</div><div class="bb"><div id="s8" class="sent ann-top" data-id="s8" nce-s="7"><span class="sub" data-k="s8-sub">I</span> <span class="pred" data-k="s8-pred">counted</span> <span class="obj" data-k="s8-obj">seven old cars and three old refrigerators</span>.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：I ＋ counted ＋ seven old cars and…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。</p></div></article><article class="bub a"><div class="who"><span class="av">A</span>9</div><div class="bb"><div id="s9" class="sent ann-top" data-id="s9" nce-s="8" nce-to="9"><span class="sub" data-k="s9-sub">The litter baskets</span> <span class="pred" data-k="s9-pred">were</span> <span class="obj" data-k="s9-obj">empty</span> and the ground <span class="pred" data-k="s9-pred-3">was covered</span> <span class="adv" data-k="s9-adv">with pieces of paper</span>, cigarette ends, <span class="attr" data-k="s9-attr">old</span> tyres, <span class="attr" data-k="s9-attr-6">empty</span> bottles and <span class="attr" data-k="s9-attr-7">rusty</span> tins.<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：The litter baskets ＋ were ＋ empty ＋ was covered　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语 old 修饰名词</p></div></article><article class="bub b"><div class="who"><span class="av">B</span>10</div><div class="bb"><div id="s10" class="sent ann-top ann-bottom" data-id="s10" nce-s="10"><span class="adv" data-k="s10-adv">Among the rubbish</span>, <span class="sub" data-k="s10-sub">I</span> <span class="pred" data-k="s10-pred">found</span> <span class="obj" data-k="s10-obj">a sign </span><span class="clause tint-attr" data-k="s10-cl">which said, 'Anyone who leaves litter in these woods will be prosecuted</span>!'<span class="inton down" title="陈述句用降调">↘</span><svg class="ann"></svg></div><p class="tip">主干：I ＋ found ＋ a sign　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></article></main>
+<div class="col-side"><aside class="side"><h3>句子骨架</h3><ul class="map"><li><span class="n">1</span><div><b>主语＋谓语＋从句</b>一般现在时　定语从句</div></li><li><span class="n">2</span><div><b>主语＋谓语＋宾语</b>一般现在时</div></li><li><span class="n">3</span><div><b>主语＋谓语＋从句</b>一般现在时　状语从句（分词/不定式，无引导词）</div></li><li><span class="n">4</span><div><b>主语＋谓语＋宾语</b>现在完成时的被动　宾补从句（不定式）</div></li><li><span class="n">5</span><div><b>主语＋谓语＋谓语＋宾语</b>现在完成时的被动</div></li><li><span class="n">6</span><div><b>主语＋谓语</b>一般过去时</div></li><li><span class="n">7</span><div><b>主语＋谓语</b>一般过去时</div></li><li><span class="n">8</span><div><b>主语＋谓语＋宾语</b>一般过去时</div></li><li><span class="n">9</span><div><b>主语＋谓语＋宾语＋谓语</b>一般过去时</div></li><li><span class="n">10</span><div><b>主语＋谓语＋宾语＋从句</b>一般过去时　定语从句</div></li></ul></aside></div>
+</div>
+
+<div class="closing">第1册第143课 · 文本以课文朗读音频逐句为基准 · 语法标注由依存句法分析自动生成，只对结构清楚的句子画括号，拿不准的宁可空着 · 点句听读的时间按本地逐词转写重新对过轴</div>
+</div>
+<script>(function(){
+  var NS = 'http://www.w3.org/2000/svg';
+  var ANN = {"s1": [{"t": "brace", "sel": "s1-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "brace", "sel": "s1-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s1-adv", "to": "s1-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s2": [{"t": "brace", "sel": "s2-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}], "s3": [{"t": "brace", "sel": "s3-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "brace", "sel": "s3-cl", "side": "bottom", "color": "#b45309", "label": "状语从句（分词/不定式，无引导词）"}, {"t": "arrow", "from": "s3-adv", "to": "s3-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s4": [{"t": "brace", "sel": "s4-pred", "side": "top", "color": "#0f766e", "label": "现在完成时的被动"}], "s5": [{"t": "brace", "sel": "s5-pred", "side": "top", "color": "#0f766e", "label": "现在完成时的被动"}, {"t": "arrow", "from": "s5-adv", "to": "s5-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s6": [{"t": "brace", "sel": "s6-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s6-adv", "to": "s6-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s7": [{"t": "brace", "sel": "s7-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}], "s8": [{"t": "brace", "sel": "s8-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}], "s9": [{"t": "brace", "sel": "s9-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s9-adv", "to": "s9-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s10": [{"t": "brace", "sel": "s10-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s10-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s10-adv", "to": "s10-pred", "color": "#7c3aed", "label": "状语修饰谓语"}]};
+
+  function mk(tag, attrs){
+    const el = document.createElementNS(NS, tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+  function rectOf(sent, box, key){
+    const el = sent.querySelector('[data-k="' + key + '"]');
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return {x:r.left-box.left, y:r.top-box.top, w:r.width, h:r.height,
+            cx:r.left-box.left+r.width/2, bottom:r.bottom-box.top};
+  }
+  function drawBrace(svg, W, H, r, side, color, label, row){
+    let x1 = clamp(r.x + 2, 4, W - 4);
+    let x2 = clamp(r.x + r.w - 2, x1 + 24, W - 4);
+    const up = side === 'top';
+    const n = row || 0;                       // 同一句里第几条花括号：逐层下移，标签不再叠字
+    const y = up ? Math.max(14, r.y - 8 - n * 13) : Math.min(H - 10, r.bottom + 8 + n * 13);
+    const d = up ? -1 : 1;
+    const h1 = 8, tip = 14;
+    const mx = (x1 + x2) / 2;
+    const p = [
+      'M', x1, y,
+      'C', x1, y + d*h1, x1 + 8, y + d*h1, x1 + 13, y + d*h1,
+      'L', mx - 14, y + d*h1,
+      'C', mx - 7, y + d*h1, mx - 7, y + d*tip, mx, y + d*tip,
+      'C', mx + 7, y + d*tip, mx + 7, y + d*h1, mx + 14, y + d*h1,
+      'L', x2 - 13, y + d*h1,
+      'C', x2 - 8, y + d*h1, x2, y + d*h1, x2, y
+    ].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', 'stroke-linejoin':'round', opacity:.95}));
+    const tx = clamp(mx, 80, W - 80);
+    const ty = up ? y + d*tip - 9 : y + d*tip + 17;
+    const text = mk('text', {x:tx, y:ty, 'text-anchor':'middle', fill:color, 'font-size':12,
+      'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+      'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+    text.textContent = label;
+    svg.appendChild(text);
+  }
+  function curvePoint(p0,p1,p2,t){const u=1-t;return u*u*p0[0]+2*u*t*p1[0]+t*t*p2[0];}
+  function curvePointY(p0,p1,p2,t){const u=1-t;return u*u*p0[1]+2*u*t*p1[1]+t*t*p2[1];}
+  function drawArrow(svg, W, H, a, b, color, label, idx){
+    const x1 = a.cx, y1 = a.bottom + 6;
+    const x2 = b.cx, y2 = b.bottom + 6;
+    const sameLine = Math.abs(a.bottom - b.bottom) < 6;
+    const depth = sameLine ? 22 + idx*6 : 30 + idx*8;
+    const c1 = [x1, y1+depth], c2 = [x2, y2+depth];
+    const p = ['M',x1,y1,'C',c1[0],c1[1],c2[0],c2[1],x2,y2].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', opacity:.9}));
+    let dx = x2-c2[0], dy = y2-c2[1];
+    const len = Math.hypot(dx,dy)||1; dx/=len; dy/=len;
+    const size=7.5, spread=.46;
+    const ax = x2-dx*size*Math.cos(spread)-dy*size*Math.sin(spread);
+    const ay = y2-dy*size*Math.cos(spread)+dx*size*Math.sin(spread);
+    const bx = x2-dx*size*Math.cos(spread)+dy*size*Math.sin(spread);
+    const by = y2-dy*size*Math.cos(spread)-dx*size*Math.sin(spread);
+    svg.appendChild(mk('path', {d:`M ${x2} ${y2} L ${ax} ${ay} M ${x2} ${y2} L ${bx} ${by}`,
+      fill:'none', stroke:color, 'stroke-width':1.5, 'stroke-linecap':'round'}));
+    if (label){
+      const mx = curvePoint([x1,y1],c1,[x2,y2],.5);
+      const my = curvePointY([x1,y1],c1,[x2,y2],.5)+15;
+      const text = mk('text', {x:clamp(mx,66,W-66), y:Math.min(my,H-4), 'text-anchor':'middle',
+        fill:color, 'font-size':11.5,
+        'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+        'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+      text.textContent = label;
+      svg.appendChild(text);
+    }
+  }
+  function drawSent(sent){
+    const cfg = ANN[sent.dataset.id];
+    if (!cfg) return;
+    const box = sent.getBoundingClientRect();
+    const W = sent.clientWidth, H = sent.clientHeight;
+    const svg = sent.querySelector('svg.ann');
+    if (!svg) return;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width', W);
+    svg.setAttribute('height', H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const nb = {top:0, bottom:0};             // 上下各自的括号层数
+    cfg.forEach((an,i) => {
+      if (an.t === 'brace'){
+        const r = rectOf(sent, box, an.sel);
+        if (r) drawBrace(svg, W, H, r, an.side, an.color, an.label, nb[an.side]++);
+      } else {
+        const a = rectOf(sent, box, an.from);
+        const b = rectOf(sent, box, an.to);
+        if (a && b) drawArrow(svg, W, H, a, b, an.color, an.label, i);
+      }
+    });
+  }
+  function drawAll(){
+    document.querySelectorAll('.sent').forEach(drawSent);
+  }
+
+  const btnMark = document.getElementById('btnMark');
+  if (btnMark) btnMark.addEventListener('click', () => {
+    const off = document.body.classList.toggle('no-mark');
+    btnMark.classList.toggle('on', !off);
+    btnMark.textContent = off ? '标注：隐藏' : '标注：显示';
+  });
+  const btnTrans = document.getElementById('btnTrans');
+  const trans = document.getElementById('trans');
+  if (btnTrans && trans) btnTrans.addEventListener('click', () => {
+    const showing = !trans.hidden;
+    trans.hidden = showing;
+    btnTrans.classList.toggle('on', !showing);
+    btnTrans.textContent = showing ? '参考译文：展开' : '参考译文：收起';
+    if (!showing) trans.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  window.addEventListener('load', () => {
+    drawAll();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
+  });
+  let t;
+  window.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(drawAll, 120);
+  });
+})();</script>
+
+</body>
+</html>

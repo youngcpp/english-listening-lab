@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>新概念 第3册第29课 Funny or not?</title>
+<style>:root{
+    --ink:#1f2d3d;
+    --paper:#eee7d7;
+    --card:#fffdf7;
+    --line:#ddd2bb;
+    --sub:#2563eb;
+    --pred:#dc2626;
+    --obj:#047857;
+    --adv:#7c3aed;
+    --attr:#b45309;
+    --teal:#0f766e;
+    --conj:#64748b;
+    --quote:#be185d;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;color:var(--ink);
+    background:
+      radial-gradient(1100px 560px at 12% -8%, #f8f2e3 0%, transparent 60%),
+      radial-gradient(900px 520px at 92% 0%, #f1ead9 0%, transparent 55%),
+      var(--paper);
+    font-family:"Palatino Linotype","Palatino","Songti SC","STSong",serif;
+  }
+  .page{max-width:1220px;margin:0 auto;padding:48px 28px 90px;}
+
+  .kicker{font-size:12px;letter-spacing:2.4px;color:#8b7a5e;text-transform:uppercase;margin:0 0 10px;}
+  h1{font-size:40px;line-height:1.16;margin:0;font-weight:600;letter-spacing:-.3px;}
+  h1 .zh{display:inline-block;font-size:23px;font-weight:500;letter-spacing:2px;color:#7a5c33;margin-left:13px;vertical-align:4px;}
+  .standfirst{margin:14px 0 0;font-size:14.5px;line-height:1.9;color:#5b5344;max-width:900px;}
+  .standfirst b{color:#3f3628;}
+  .rule{height:5px;margin:22px 0 0;border-radius:3px;
+    background:linear-gradient(90deg,var(--sub),var(--pred) 24%,var(--obj) 46%,var(--adv) 64%,var(--attr) 82%,var(--teal));opacity:.85;}
+  .controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;}
+  .ctl{
+    font:600 12.5px/1 "Kaiti SC","STKaiti","Songti SC",serif;color:#5a4c36;
+    background:#fffdf6;border:1px solid #d8c9a9;border-radius:999px;
+    padding:8px 15px;cursor:pointer;letter-spacing:.6px;transition:.18s;
+  }
+  .ctl:hover{border-color:#b9a37a;transform:translateY(-1px);}
+  .ctl.on{background:#e9f4ec;border-color:#9cc7ab;color:#245c43;}
+
+  .legend{
+    display:flex;flex-wrap:wrap;gap:11px 22px;align-items:center;
+    background:#fffdf6;border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin:24px 0 0;font-size:13px;color:#443c2e;
+  }
+  .legend .item{display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .legend .hint{color:#6d6250;font-size:12.5px;}
+  .sample{font-size:15.5px;opacity:.95;}
+
+  .sub{border-bottom:3px double var(--sub);padding-bottom:1px;}
+  .pred{border-bottom:3px solid var(--pred);padding-bottom:1px;}
+  .obj{border-bottom:2px dotted var(--obj);padding-bottom:2px;}
+  .adv{border-bottom:2px dashed var(--adv);padding-bottom:2px;}
+  .attr{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:var(--attr);
+    text-decoration-thickness:1.4px;text-underline-offset:5px;}
+  .q{background:linear-gradient(180deg,transparent 58%,rgba(244,114,182,.16) 58%);border-radius:2px;}
+  .tg{
+    display:inline-block;font:600 9px/1 "Kaiti SC","STKaiti",serif;color:#8a5a1a;
+    background:#f6ecd6;border:1px solid #e6d3ab;border-radius:4px;
+    padding:2px 4px;margin-left:4px;vertical-align:.55em;letter-spacing:.5px;
+  }
+
+  .panel{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;margin:24px 0 0;
+    box-shadow:0 10px 30px -24px rgba(64,44,12,.55);
+  }
+  .panel h2{margin:0 0 14px;font:600 13px/1 "Kaiti SC","STKaiti",serif;letter-spacing:2px;color:#7a5c33;}
+
+  /* ---------- 时间轴 ---------- */
+  .tl{display:flex;flex-direction:column;gap:14px;}
+  .lane{display:grid;grid-template-columns:130px minmax(0,1fr);gap:16px;align-items:center;}
+  .lane .lab{font:600 12.5px/1.35 "Kaiti SC","STKaiti",serif;color:#4b4130;text-align:right;}
+  .lane .lab span{display:block;font:400 10.5px/1.5 "Songti SC",serif;color:#8b7a5e;letter-spacing:.5px;}
+  .track{display:flex;flex-wrap:wrap;gap:8px;align-items:center;min-height:34px;}
+  .band{
+    display:inline-flex;align-items:center;gap:6px;
+    border:1.5px dashed #6aa899;background:#e7f4ef;color:#175e4b;
+    border-radius:999px;padding:7px 13px;font:600 12.5px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .band::before{content:"";width:7px;height:7px;border-radius:50%;background:#2f7a5e;}
+  .dot{
+    display:inline-flex;align-items:center;gap:6px;color:#7f1d1d;
+    background:#fff6f4;border:1px solid #ecc9c1;border-radius:999px;
+    padding:6px 11px;font:600 12px/1 "Avenir Next","Helvetica Neue",sans-serif;
+  }
+  .dot::before{content:"";width:6px;height:6px;border-radius:50%;background:#dc2626;}
+  .tl-cap{margin:14px 0 0;font-size:12.8px;line-height:1.85;color:#6d6250;}
+  .tl-cap b{color:#3f3628;}
+
+  /* ---------- 正文布局 ---------- */
+  .layout{display:grid;grid-template-columns:minmax(0,1fr) 296px;gap:26px;align-items:start;margin-top:26px;}
+  .col-main{min-width:0;}
+  .col-side{position:sticky;top:18px;display:flex;flex-direction:column;gap:16px;}
+
+  .card{
+    position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:22px 30px 18px;margin:0 0 22px;
+    box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 10px 30px -24px rgba(64,44,12,.5);
+  }
+  .sec{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 14px;border-bottom:1px dashed #ded2b8;padding-bottom:12px;margin-bottom:8px;}
+  .sec-no{font:600 10.5px/1 ui-monospace,"SF Mono",Menlo,monospace;letter-spacing:1.4px;color:#b6a888;}
+  .sec h3{margin:0;font:600 17px/1.4 "Kaiti SC","STKaiti",serif;color:#2d2417;letter-spacing:.5px;}
+  .sec h3 em{font-style:normal;color:#8a7857;font-weight:400;font-size:12.5px;margin-left:8px;letter-spacing:0;}
+  .sec-note{margin-left:auto;font:400 11.5px/1.5 "Songti SC",serif;color:#9b8b6f;}
+
+  .row{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:8px 0 10px;}
+  .row + .row{border-top:1px dotted #e7ddc7;}
+  .idx{
+    font:600 11px/1 ui-monospace,"SF Mono",Menlo,monospace;color:#b6a888;
+    padding-top:24px;text-align:right;
+  }
+  .sent{
+    position:relative;font-size:19px;line-height:1.72;letter-spacing:.1px;
+    padding:6px 0 12px;
+  }
+  .sent.ann-top{padding-top:42px;}
+  .sent.ann-bottom{padding-bottom:70px;}
+  svg.ann{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none;}
+  .tip{margin:2px 0 0;font-size:12.2px;line-height:1.7;color:#8a7c66;}
+  .tip b{color:#6b5a3c;}
+
+  /* ---------- 侧栏 ---------- */
+  .side{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 20px;
+    box-shadow:0 8px 26px -22px rgba(64,44,12,.5);}
+  .side h3{margin:0 0 10px;font:600 12px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.8px;color:#7a5c33;}
+  .map{list-style:none;margin:0;padding:0;}
+  .map li{display:grid;grid-template-columns:20px 1fr;gap:8px;padding:7px 0;border-top:1px dotted #e7ddc7;font-size:12px;line-height:1.6;color:#5e5545;}
+  .map li:first-child{border-top:none;}
+  .map .n{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:#b6a888;padding-top:3px;}
+  .map b{display:block;font-weight:600;color:#3b3325;font-size:12.5px;}
+  .arc{display:flex;flex-wrap:wrap;gap:5px 3px;margin-top:2px;}
+  .arc span{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;color:#5c4b2f;background:#f7efdd;border:1px solid #e6d6b6;border-radius:999px;padding:4px 7px;letter-spacing:0;}
+  .arc i{font-style:normal;color:#b6a888;align-self:center;font-size:9px;}
+  .side p{margin:8px 0 0;font-size:11.8px;line-height:1.75;color:#7e7160;}
+
+  /* ---------- 译文 ---------- */
+  .translation p{font-size:13.5px;line-height:2;color:#4b4436;margin:0 0 8px;}
+  .translation .lab{font:600 10.5px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1px;color:#fff;background:#6b5a3c;border-radius:3px;padding:2px 5px 3px;margin-right:7px;vertical-align:1px;}
+
+  .closing{
+    margin-top:30px;padding:18px 22px;border-radius:12px;border:1px dashed #cdbf9f;
+    background:#fffdf6;font-size:12.8px;line-height:1.95;color:#5b5242;
+  }
+
+  body.no-mark .sent.ann-top{padding-top:8px;}
+  body.no-mark .sent.ann-bottom{padding-bottom:12px;}
+  body.no-mark .sub,body.no-mark .pred,body.no-mark .obj,body.no-mark .adv,body.no-mark .attr{text-decoration:none;border-bottom:none;}
+  body.no-mark .tg,body.no-mark svg.ann{display:none;}
+  body.no-mark .q{background:none;}
+
+  @media (max-width:1020px){
+    .layout{grid-template-columns:1fr;}
+    .col-side{position:static;flex-direction:row;flex-wrap:wrap;}
+    .col-side .side{flex:1 1 260px;}
+  }
+  @media (max-width:640px){
+    h1{font-size:32px;}
+    h1 .zh{display:block;margin:8px 0 0;vertical-align:0;}
+    .card{padding:18px 18px 12px;}
+    .lane{grid-template-columns:76px minmax(0,1fr);}
+    .lane .lab{text-align:left;}
+    .sent{font-size:17.5px;}
+    .sec-note{display:none;}
+  }
+  @media print{
+    body{background:#fff;}
+    .page{max-width:none;padding:0;}
+    .card,.panel{break-inside:avoid;box-shadow:none;}
+    .col-side{position:static;}
+    .controls{display:none;}
+    .translation[hidden]{display:block;}
+  }
+/* 本册补充 */
+
+  .ln{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0 0;
+    font:600 11.5px/1.7 "Kaiti SC","STKaiti",serif;color:#6d6250;}
+  .ln .seg{display:flex;gap:6px;align-items:center;}
+  .ln .arr{color:#b6a888;font-style:normal;}
+  .c-sub{color:var(--sub);} .c-pred{color:var(--pred);} .c-obj{color:var(--obj);}
+  .c-adv{color:var(--adv);} .c-attr{color:var(--attr);} .c-cl{color:var(--teal);}
+  .map{list-style:none;margin:0;padding:0;}
+  .map li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:8px;padding:7px 0;
+    border-top:1px dotted #e7ddc7;font-size:12px;line-height:1.6;color:#5e5545;}
+  .map li:first-child{border-top:none;}
+  .map .n{font:600 10.5px/1 ui-monospace,Menlo,monospace;color:#b6a888;padding-top:3px;}
+
+
+  .sent .clause{border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
+  .tint-attr{background:linear-gradient(180deg,transparent 56%,rgba(251,191,36,.34) 56%);}
+  .tint-adv{background:linear-gradient(180deg,transparent 56%,rgba(196,181,253,.38) 56%);}
+  .tint-obj{background:linear-gradient(180deg,transparent 56%,rgba(167,243,208,.42) 56%);}
+  .tint-app{background:linear-gradient(180deg,transparent 56%,rgba(253,186,116,.38) 56%);}
+  .sent .conj{color:var(--conj);font-style:italic;}
+  .sent .inton{display:inline-block;font-size:.7em;line-height:1;margin-left:5px;font-weight:700;}
+  .inton.up{color:#0f766e;} .inton.down{color:#b45309;}
+  .qline{display:flex;gap:10px;align-items:baseline;background:#fff8ec;border:1px dashed #e0c796;
+    border-radius:10px;padding:12px 16px;margin:20px 0 0;font-size:17px;color:#5b4a2d;}
+  .qline .lab{flex:0 0 auto;font:600 11px/1 "Kaiti SC","STKaiti",serif;letter-spacing:1.6px;
+    color:#fff;background:#a9843f;border-radius:4px;padding:4px 7px;}
+  .wlist{list-style:none;margin:0;padding:0;}
+  .wlist li{display:grid;gap:2px;padding:7px 0;border-top:1px dotted #e7ddc7;
+    font-size:12.4px;line-height:1.55;color:#5e5545;}
+  .wlist li:first-child{border-top:none;}
+  .wlist .en{font-weight:600;color:#2d2417;font-size:13px;}
+  .wlist .ph{color:#8a7c66;font-style:italic;}
+  .note{margin:0;padding-left:22px;color:#4e4638;font-size:12.6px;line-height:1.9;}
+  .note li{margin-bottom:6px;}
+  .warn{font:600 11px/1 "Kaiti SC",serif;color:#8a2f2f;background:#fdecec;border:1px solid #f0c9c9;
+    border-radius:4px;padding:3px 6px;margin-left:6px;}
+  body.no-mark .sent .inton{display:none;}
+
+</style>
+</head>
+<body>
+
+<!-- ==== 点句听读（自动生成，勿手改） ==== -->
+<div id="nce-bar">
+  <span id="nce-tag">点句听读</span>
+  <button id="nce-play">▶ 全文连播</button>
+  <button id="nce-loop">↻ 本句循环</button>
+  <span class="nce-sep"></span>
+  <label>语速 <select id="nce-rate"><option value="0.75">0.75×</option><option value="0.9">0.9×</option><option value="1" selected>1×</option><option value="1.2">1.2×</option></select></label>
+  <span id="nce-stat">…</span>
+  <span id="nce-hint">点任意一句只听那一句（整段排版也按你点的那句播）</span>
+</div>
+<audio id="nce-audio" src="../音频/b3_L29.m4a" preload="auto"></audio>
+<style>
+  #nce-bar{position:sticky;top:0;z-index:99;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    background:#12161d;color:#eef2f7;padding:9px 14px;font:13px/1.4 -apple-system,"PingFang SC",sans-serif;
+    border-bottom:1px solid #2b3340}
+  #nce-bar #nce-tag{font-weight:700;letter-spacing:.06em;color:#ffd36a}
+  #nce-bar button{background:#242c38;color:#eef2f7;border:1px solid #3a4557;border-radius:6px;
+    padding:5px 11px;cursor:pointer;font-size:13px}
+  #nce-bar button:hover{background:#313b4a}
+  #nce-bar button.on{background:#ffd36a;color:#12161d;border-color:#ffd36a;font-weight:600}
+  #nce-bar select{background:#242c38;color:#eef2f7;border:1px solid #3a4557;border-radius:5px;padding:3px 6px}
+  #nce-stat{color:#8fd3a8;font-variant-numeric:tabular-nums}
+  #nce-hint{margin-left:auto;color:#8b98ab}
+  .nce-sep{width:1px;height:18px;background:#3a4557}
+  [nce-s]{cursor:pointer;border-radius:4px;transition:background .15s,box-shadow .15s}
+  [nce-s]:hover{background:rgba(255,211,106,.14);box-shadow:0 0 0 1px rgba(255,211,106,.4) inset}
+  [nce-s].nce-now{background:rgba(255,211,106,.22);box-shadow:0 0 0 2px #ffd36a inset}
+  [nce-s].nce-done{opacity:.62}
+  @media print{#nce-bar{display:none}}
+</style>
+<script>
+function __nce_init(){
+(function(){
+  var S = [{"t": 10.44, "t0": 9.34, "text": "What is the basis of 'sick' humour?", "e": 17.6}, {"t": 17.62, "t0": 14.46, "text": "Whether we find a joke funny or not largely depends on where we have been brought up.", "e": 23.76}, {"t": 23.78, "t0": 21.14, "text": "The sense of humour is mysteriously bound up with national characteristics.", "e": 28.82}, {"t": 28.84, "t0": 27.58, "text": "A Frenchman, for instance, might find it hard to laugh at a Russian joke.", "e": 33.98}, {"t": 34.0, "t0": 33.15, "text": "In the same way, a Russian might fail to see anything amusing in a joke", "e": 38.7}, {"t": 38.72, "t0": 38.74, "text": "which would make an Englishman laugh to tears.", "e": 42.7}, {"t": 42.72, "t0": 43.08, "text": "Most funny stories are based on comic situations.", "e": 46.62}, {"t": 46.64, "t0": 47.99, "text": "In spite of national differences, certain funny situations have a universal appeal.", "e": 52.72}, {"t": 52.74, "t0": 54.56, "text": "No matter where you live,", "e": 55.56}, {"t": 55.58, "t0": 56.47, "text": "you would find it difficult not to laugh at, say, Charlie Chaplin's early films.", "e": 61.08}, {"t": 61.28, "t0": 63.16, "text": "However, a new type of humour, which stems largely from U.S., has recently come into fashion.", "e": 67.66}, {"t": 67.68, "t0": 71.51, "text": "It is called 'sick humour'. Comedians base their jokes on tragic situations like violent death or serious accidents.", "e": 77.48}, {"t": 77.5, "t0": 82.68, "text": "Many people find this sort of joke distasteful.", "e": 80.72}, {"t": 80.74, "t0": 87.3, "text": "The following example of 'sick humour' will enable you to judge for yourself.", "e": 85.64}, {"t": 85.66, "t0": 93.87, "text": "A man who had broken his right leg was taken to hospital a few weeks before Christmas.", "e": 92.44}, {"t": 92.46, "t0": 100.55, "text": "From the moment he arrived there,", "e": 94.06}, {"t": 94.08, "t0": 102.86, "text": "he kept on pestering his doctor to tell him when he would be able to go home.", "e": 99.4}, {"t": 99.42, "t0": 108.84, "text": "He dreaded having to spend Christmas in hospital.", "e": 102.74}, {"t": 102.76, "t0": 112.72, "text": "Though the doctor did his best, the patient's recovery was slow.", "e": 106.84}, {"t": 106.86, "t0": 117.98, "text": "On Christmas day, the man still had his right leg in plaster.", "e": 111.22}, {"t": 111.24, "t0": 123.68, "text": "He spent a miserable day in bed thinking of all the fun he was missing.", "e": 115.92}, {"t": 115.94, "t0": 129.44, "text": "The following day, however, the doctor consoled him by telling him", "e": 119.58}, {"t": 119.6, "t0": 134.27, "text": "that his chances of being able to leave hospital in time for New Year celebrations were good.", "e": 124.66}, {"t": 124.68, "t0": 141.56, "text": "The man took heart and sure enough, on New Year's Eve he was able to hobble along to a party.", "e": 131.18}, {"t": 131.2, "t0": 149.68, "text": "To compensate for his unpleasant experiences in hospital,", "e": 135.66}, {"t": 135.68, "t0": 154.63, "text": "the man drank a little more than was good for him.", "e": 138.52}, {"t": 138.54, "t0": 158.28, "text": "In the process, he enjoyed himself thoroughly and kept telling everybody how much he hated hospitals.", "e": 145.24}, {"t": 145.26, "t0": 167.15, "text": "He was still mumbling something about hospitals at the end of the party when he slipped on a piece of ice and broke his left leg.", "e": 154.56}];
+  var audio = document.getElementById('nce-audio');
+  var stat = document.getElementById('nce-stat');
+  var bPlay = document.getElementById('nce-play'), bLoop = document.getElementById('nce-loop');
+  var rate = document.getElementById('nce-rate');
+  var loop = false, streaming = false, cur = -1;
+  function norm(s){return (s||'').toLowerCase().replace(/[^a-z0-9]+/g,'');}
+  S.forEach(function(x){x.k = norm(x.text);});
+  var cands = [].slice.call(document.querySelectorAll('body *')).filter(function(el){
+    if (el.closest('#nce-bar') || el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return false;
+    if (el.querySelector('p, li, blockquote, .sent, .para')) return false;   // 只认最里层的整段/整句元素
+    var t = el.textContent || '';
+    return t.replace(/[^A-Za-z]/g, '').length >= 3 && t.length < 3000;
+  });
+  var used = {};
+  // 生成器已按字幕下标绑定好（新点读页）——直接认这些属性，不再靠文字猜
+  var pre = [].slice.call(document.querySelectorAll('[nce-s]'));
+  pre = pre.filter(function (el) {
+    var a = +el.getAttribute('nce-s');
+    return a >= 0 && a < S.length && el.getAttribute('nce-bar') === null;
+  });
+  if (pre.length) {
+    pre.forEach(function (el) {
+      var a = +el.getAttribute('nce-s');
+      var b = el.hasAttribute('nce-to') ? +el.getAttribute('nce-to') : a;
+      b = Math.min(b, S.length - 1);
+      for (var i = a; i <= b; i++) used[i] = el;
+      el.addEventListener('click', handlerFor(el));
+    });
+  } else {
+  // 按文档顺序 + 指针单调推进：外层元素先认领整句，内层碎片不会再抢，行被拆/被并都能对上
+  var p = 0;
+  cands.forEach(function(el){
+    if (p >= S.length) return;
+    var k = norm(el.textContent);
+    if (k.length < 3) return;
+    var start = -1;
+    for (var q = p; q < Math.min(p + 4, S.length); q++) {
+      var x = S[q].k;
+      if (!x) continue;
+      if (k === x) { start = q; break; }
+      if (x.length >= 6 && k.length >= x.length && k.indexOf(x) >= 0) { start = q; break; }
+      if (k.length >= 20 && x.length >= k.length && x.indexOf(k) === 0) { start = q; break; }
+    }
+    if (start < 0) return;
+    var end = start;
+    for (var r = start + 1; r < Math.min(start + 8, S.length); r++) {
+      var y = S[r].k;
+      if (y && y.length >= 6 && k.indexOf(y) >= 0) end = r; else break;
+    }
+    el.setAttribute('nce-s', start);
+    if (end > start) el.setAttribute('nce-to', end);
+    for (var i2 = start; i2 <= end; i2++) used[i2] = el;
+    p = end + 1;
+    el.addEventListener('click', handlerFor(el));
+  });
+  }
+  var bound = Object.keys(used).length;
+  stat.textContent = '已绑定 ' + bound + '/' + S.length + ' 句';
+  function ends(){
+    var dur = audio.duration || 0;
+    for (var i=0;i<S.length;i++) S[i].end = S[i].e ? S[i].e : ((i+1<S.length) ? S[i+1].t : (dur || S[i].t+8));
+  }
+  function mark(i){
+    [].slice.call(document.querySelectorAll('[nce-s].nce-now')).forEach(function(e){e.classList.remove('nce-now');});
+    var el = used[i]; if (el){el.classList.add('nce-now'); el.scrollIntoView({block:'nearest',behavior:'smooth'});}
+    cur = i;
+  }
+  function handlerFor(el){
+    return function(ev){
+      ev.stopPropagation();
+      var a = +el.getAttribute('nce-s');
+      var b = el.getAttribute('nce-to');
+      b = b === null ? a : +b;
+      if (b > a) {                     // 一个块里排了好几句（第4册整段排版）：看点到的那句
+        var g = groups(a, b, el);
+        if (g) {
+          var m = pickGroup(g, el, ev.clientX, ev.clientY);
+          b = (m + 1 < g.length) ? g[m + 1].i - 1 : b;
+          a = g[m].i;
+        }
+      }
+      playOne(a, b);
+    };
+  }
+  // 块内的「显示句」起点：上一行字幕没有句末标点 = 同一句被拆开的续行，不算新句
+  function isCont(t){ return !/[.!?:;]["')\]）”’\]]\s*$/.test((t||'').trim()) && !/[.!?]$/.test((t||'').trim()); }
+  function groups(a, b, el){
+    var ix = textIndex(el), pos = 0, out = [];
+    for (var i = a; i <= b; i++) {
+      if (i === a || !isCont(S[i-1].text)) {
+        var at = ix.n.indexOf(S[i].k, pos);
+        if (at < 0) return null;          // 对不上文字，退回整块播放
+        out.push({i: i, at: at}); pos = at + S[i].k.length;
+      }
+    }
+    return out.length > 1 ? out : null;
+  }
+  function textIndex(el){
+    if (el.__ix) return el.__ix;
+    var n = '', nodes = [], offs = [], w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null), t;
+    while (t = w.nextNode()) {
+      var pe = t.parentElement;                       // 脚注序号 / ¶1 这类标记不算正文
+      if (pe && (pe.tagName === 'SUP' || pe.tagName === 'SUB' || /(^|\s)(fn|pn)(\s|$)/.test(pe.className || ''))) continue;
+      for (var i = 0; i < t.length; i++) {
+        var c = t.nodeValue[i].toLowerCase();
+        if (c >= 'a' && c <= 'z' || c >= '0' && c <= '9') { n += c; nodes.push(t); offs.push(i); }
+      }
+    }
+    el.__ix = {n: n, nodes: nodes, offs: offs};
+    return el.__ix;
+  }
+  function anchorRect(ix, at){
+    var node = ix.nodes[at], off = ix.offs[at];
+    if (!node || off === undefined) return null;
+    var r = document.createRange();
+    try { r.setStart(node, off); r.setEnd(node, Math.min(off + 1, node.length)); } catch(e){ return null; }
+    var box = r.getBoundingClientRect();
+    return (box && (box.height || box.width)) ? box : null;
+  }
+  // 用「每句第一个字母在屏幕上的位置」判断点到的是哪一句：版面再乱也不依赖光标命中
+  function pickGroup(g, el, x, y){
+    var ix = textIndex(el), box = g.map(function(q){ return anchorRect(ix, q.at); });
+    var cand = [];
+    for (var i = 0; i < g.length; i++) if (box[i] && box[i].top <= y + 4) cand.push(i);
+    if (!cand.length) return 0;
+    var top = -1e9;
+    cand.forEach(function(i){ if (box[i].top > top) top = box[i].top; });
+    var line = cand.filter(function(i){ return Math.abs(box[i].top - top) <= 3; });
+    var left = line.filter(function(i){ return box[i].left <= x + 4; });
+    var pool = left.length ? left : line, best = pool[0];
+    pool.forEach(function(i){
+      if (left.length) { if (box[i].left > box[best].left) best = i; }
+      else if (box[i].left < box[best].left) best = i;
+    });
+    return best;
+  }
+  function playOne(i, last){
+    if (last === undefined) last = i;
+    ends(); streaming = false; mark(i);
+    var el = used[i], stop = S[last].end + 0.25;   // 句尾留一点余量，别把最后一个词切掉
+    if (el) el.setAttribute('nce-stop', stop);
+    audio.currentTime = Math.max(0, S[i].t - 0.15);
+    audio.playbackRate = parseFloat(rate.value);
+    audio.play();
+  }
+  audio.addEventListener('timeupdate', function(){
+    if (audio.paused) return;
+    var now = audio.currentTime;
+    if (streaming){
+      var i = S.reduce(function(a,x,n){return (x.t<=now)?n:a;}, 0);
+      if (i !== cur) mark(i);
+      var last = S[S.length - 1];
+      ends();
+      if (last && now >= last.end - 0.05) audio.pause();   // 连播也只播到最后一句的结尾
+    } else if (cur >= 0) {
+      var el = used[cur], stop = el ? parseFloat(el.getAttribute('nce-stop') || S[cur].end) : S[cur].end;
+      if (loop){ if (now >= stop) { audio.currentTime = S[cur].t; } }
+      else if (now >= stop - 0.02){ audio.pause(); }
+    }
+    var m = Math.floor(now/60), s = ('0'+Math.floor(now%60)).slice(-2);
+    stat.textContent = '已绑定 ' + Object.keys(used).length + '/' + S.length + ' 句 · ' + m+':'+s;
+  });
+  bPlay.addEventListener('click', function(){
+    ends(); streaming = true; bPlay.classList.add('on');
+    audio.currentTime = S.length ? S[0].t - 0.2 : 0; audio.playbackRate = parseFloat(rate.value); audio.play();
+  });
+  bLoop.addEventListener('click', function(){
+    loop = !loop; bLoop.classList.toggle('on', loop);
+  });
+  audio.addEventListener('play', function(){ bPlay.classList.toggle('on', streaming); });
+  audio.addEventListener('pause', function(){ bPlay.classList.remove('on'); });
+  audio.addEventListener('error', function(){ stat.textContent = '音频未找到：'+audio.getAttribute('src'); });
+  rate.addEventListener('change', function(){ audio.playbackRate = parseFloat(rate.value); });
+})();
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', __nce_init);
+else __nce_init();
+</script>
+<!-- ==== 点句听读 结束 ==== -->
+
+<div class="page">
+<header><p class="kicker">New Concept English · Book 3 · Lesson 29</p><h1>Funny or not?<span class="zh">是否可笑？</span></h1><p class="standfirst">本课 <b>26</b> 句（配音频 26 句）　·　主线时态 <b>一般过去时</b>　·　从句 <b>18</b> 处</p><div class="controls"><button class="ctl on" id="btnMark">标注：隐藏</button><button class="ctl" id="btnTrans">参考译文：展开</button></div><div class="rule"></div></header>
+<section class="legend"><span class="item"><span class="sample sub">Experts</span>主语</span><span class="item"><span class="sample pred">confirmed</span>谓语</span><span class="item"><span class="sample obj">the story</span>宾语</span><span class="item"><span class="sample adv">in the morning</span>状语</span><span class="item"><span class="sample attr">blackberry</span>定语</span><span class="item"><span class="sample clause tint-attr">who claimed…</span>从句整体</span><span class="item"><span class="sample conj">for</span>引导词</span><span class="item hint"><b>上方括号</b>＝时态／句型</span><span class="item hint"><b>弧线箭头</b>＝修饰关系</span><span class="item hint">点任意一句只听那一句</span></section>
+<section class="panel"><h2>本课从句一览</h2><ul class="map"><li><span class="n">4</span><div><b>状语从句（分词/不定式，无引导词）</b>to laugh at a Russian joke</div></li><li><span class="n">5</span><div><b>宾补从句（不定式）</b>to see anything amusing in a joke which would make…</div></li><li><span class="n">8</span><div><b>宾语从句</b>where you live</div></li><li><span class="n">8</span><div><b>宾补从句（不定式）</b>not to laugh at, say, Charlie Chaplin's early films</div></li><li><span class="n">15</span><div><b>宾补从句（不定式）</b>to judge for yourself</div></li><li><span class="n">16</span><div><b>定语从句</b>who had broken his right leg</div></li><li><span class="n">17</span><div><b>宾语从句</b>From the moment he arrived there</div></li><li><span class="n">17</span><div><b>宾补从句（不定式）</b>pestering his doctor to tell him when he would be a…</div></li><li><span class="n">18</span><div><b>宾补从句（不定式）</b>having to spend Christmas in hospital</div></li><li><span class="n">19</span><div><b>让步状语从句（Though）</b>the doctor did his best</div></li><li><span class="n">21</span><div><b>宾补从句（不定式）</b>thinking of all the fun he was missing</div></li><li><span class="n">22</span><div><b>宾补从句（不定式）</b>to leave hospital in time</div></li><li><span class="n">22</span><div><b>宾语从句（that）</b>his chances of being able to leave hospital in time…</div></li><li><span class="n">23</span><div><b>宾补从句（不定式）</b>to hobble along to a party</div></li><li><span class="n">24</span><div><b>原因状语从句（for）</b>To compensate for his unpleasant experiences in hos…</div></li><li><span class="n">24</span><div><b>比较状语从句（than）</b>was good for him</div></li></ul></section>
+
+<div class="layout">
+<main class="col-main"><article class="card"><div class="row"><span class="idx">1</span><div><div id="s1" class="sent ann-top" data-id="s1" nce-s="0"><span class="obj" data-k="s1-obj">What</span> <span class="pred" data-k="s1-pred">is</span> <span class="sub" data-k="s1-sub">the basis of 'sick' humour</span>?<svg class="ann"></svg></div><p class="tip">主干：What ＋ is ＋ the basis of 'sick'…　疑问词放句首，语序为“疑问词 + 一般疑问句语序”。</p></div></div><div class="row"><span class="idx">2</span><div><div id="s2" class="sent ann-top" data-id="s2" nce-s="1"><span class="sub" data-k="s2-sub">Whether we find a joke funny or</span> <span class="pred" data-k="s2-pred">not</span> <span class="adv" data-k="s2-adv">largely</span> <span class="pred" data-k="s2-pred-3">depends</span> <span class="adv" data-k="s2-adv-4">on where we have been brought up</span>.<svg class="ann"></svg></div><p class="tip">主干：Whether we find a j… ＋ not ＋ depends　说习惯、事实或现在的状态；主语第三人称单数时动词加 -s。</p></div></div><div class="row"><span class="idx">3</span><div><div id="s3" class="sent ann-top" data-id="s3" nce-s="2"><span class="sub" data-k="s3-sub">The sense of humour</span> <span class="pred" data-k="s3-pred">is</span> <span class="adv" data-k="s3-adv">mysteriously</span> <span class="pred" data-k="s3-pred-3">bound up</span> <span class="adv" data-k="s3-adv-4">with national characteristics</span>.<svg class="ann"></svg></div><p class="tip">主干：The sense of humour ＋ is ＋ bound up　am/is/are + 过去分词，说经常被认为/被做的动作。</p></div></div><div class="row"><span class="idx">4</span><div><div id="s4" class="sent ann-top ann-bottom" data-id="s4" nce-s="3"><span class="sub" data-k="s4-sub">A Frenchman</span>, <span class="adv" data-k="s4-adv">for instance</span>, <span class="pred" data-k="s4-pred">might find</span> it hard <span class="clause tint-adv" data-k="s4-cl">to laugh at a Russian joke</span>.<svg class="ann"></svg></div><p class="tip">主干：A Frenchman ＋ might find　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。</p></div></div><div class="row"><span class="idx">5</span><div><div id="s5" class="sent ann-top" data-id="s5" nce-s="4" nce-to="5"><span class="adv" data-k="s5-adv">In the same way</span>, <span class="sub" data-k="s5-sub">a Russian</span> <span class="pred" data-k="s5-pred">might fail</span> <span class="obj" data-k="s5-obj">to see anything amusing in a joke which would make an Englishman laugh to tears</span>.<svg class="ann"></svg></div><p class="tip">主干：a Russian ＋ might fail ＋ to see anything amu…　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">6</span><div><div id="s6" class="sent ann-top" data-id="s6" nce-s="6"><span class="sub" data-k="s6-sub">Most funny stories</span> <span class="pred" data-k="s6-pred">are based</span> <span class="adv" data-k="s6-adv">on comic situations</span>.<svg class="ann"></svg></div><p class="tip">主干：Most funny stories ＋ are based　am/is/are + 过去分词，说经常被认为/被做的动作。</p></div></div><div class="row"><span class="idx">7</span><div><div id="s7" class="sent ann-top" data-id="s7" nce-s="7"><span class="adv" data-k="s7-adv">In spite of national differences</span>, <span class="sub" data-k="s7-sub">certain funny situations</span> <span class="pred" data-k="s7-pred">have</span> <span class="obj" data-k="s7-obj">a universal appeal</span>.<svg class="ann"></svg></div><p class="tip">主干：certain funny situa… ＋ have ＋ a universal appeal　说习惯、事实或现在的状态；主语第三人称单数时动词加 -s。</p></div></div><div class="row"><span class="idx">8</span><div><div id="s8" class="sent ann-top ann-bottom" data-id="s8" nce-s="8" nce-to="9"><span class="adv" data-k="s8-adv">No matter </span><span class="clause tint-obj" data-k="s8-cl">where you live</span>, <span class="sub" data-k="s8-sub">you</span> <span class="pred" data-k="s8-pred">would find</span> it difficult <span class="clause tint-adv" data-k="s8-cl-4">not to laugh at, say, Charlie Chaplin's early films</span>.<svg class="ann"></svg></div><p class="tip">主干：you ＋ would find　can/may/must/should 等后接动词原形，语气、能力、推测都由情态动词承担。　宾语从句：整个句子作动词的宾语，引导词 that 常可省略。</p></div></div><div class="row"><span class="idx">9</span><div><div id="s9" class="sent ann-top" data-id="s9" nce-s="10">However, a new type of humour, which stems largely from the U.<svg class="ann"></svg></div><p class="tip">本课跟读句：先把语流读顺，句子成分这里不强行拆。</p></div></div></article><article class="card"><div class="row"><span class="idx">10</span><div><div id="s10" class="sent ann-top" data-id="s10" nce-s="10">S.<svg class="ann"></svg></div><p class="tip">本课跟读句：先把语流读顺，句子成分这里不强行拆。</p></div></div><div class="row"><span class="idx">11</span><div><div id="s11" class="sent ann-top" data-id="s11" nce-s="10">, <span class="pred" data-k="s11-pred">has</span> <span class="adv" data-k="s11-adv">recently</span> <span class="pred" data-k="s11-pred-2">come</span> <span class="adv" data-k="s11-adv-3">into fashion</span>.<svg class="ann"></svg></div><p class="tip">主干：has ＋ come　have/has + 过去分词，说过去的事对现在造成影响，或从过去延续到现在。</p></div></div><div class="row"><span class="idx">12</span><div><div id="s12" class="sent ann-top" data-id="s12" nce-s="11"><span class="sub" data-k="s12-sub">It</span> <span class="pred" data-k="s12-pred">is called</span> '<span class="attr" data-k="s12-attr">sick</span> humour'.<svg class="ann"></svg></div><p class="tip">主干：It ＋ is called　am/is/are + 过去分词，说经常被认为/被做的动作。　定语 sick 修饰名词</p></div></div><div class="row"><span class="idx">13</span><div><div id="s13" class="sent ann-top" data-id="s13" nce-s="11"><span class="sub" data-k="s13-sub">Comedians</span> <span class="pred" data-k="s13-pred">base</span> <span class="obj" data-k="s13-obj">their jokes on tragic situations like violent death or serious accidents</span>.<svg class="ann"></svg></div><p class="tip">主干：Comedians ＋ base ＋ their jokes on trag…　原形出现在祈使句、不定式或情态动词之后。</p></div></div><div class="row"><span class="idx">14</span><div><div id="s14" class="sent ann-top" data-id="s14" nce-s="12"><span class="sub" data-k="s14-sub">Many people</span> <span class="pred" data-k="s14-pred">find</span> this sort <span class="attr" data-k="s14-attr">of joke</span> distasteful.<svg class="ann"></svg></div><p class="tip">主干：Many people ＋ find　说习惯、事实或现在的状态；主语第三人称单数时动词加 -s。　定语 of joke 修饰名词</p></div></div><div class="row"><span class="idx">15</span><div><div id="s15" class="sent ann-top" data-id="s15" nce-s="13"><span class="sub" data-k="s15-sub">The following example of 'sick humour</span>' <span class="pred" data-k="s15-pred">will enable</span> <span class="obj" data-k="s15-obj">you</span> <span class="obj" data-k="s15-obj-3">to judge for yourself</span>.<svg class="ann"></svg></div><p class="tip">主干：The following examp… ＋ will enable ＋ you ＋ to judge for yourse…　will + 动词原形，说将来的动作或临时的判断。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">16</span><div><div id="s16" class="sent ann-top ann-bottom" data-id="s16" nce-s="14"><span class="sub" data-k="s16-sub">A man </span><span class="clause tint-attr" data-k="s16-cl">who had broken his right leg</span> <span class="pred" data-k="s16-pred">was taken</span> <span class="obj" data-k="s16-obj">to hospital</span> <span class="adv" data-k="s16-adv">a few weeks before Christmas</span>.<svg class="ann"></svg></div><p class="tip">主干：A man ＋ was taken ＋ to hospital　was/were + 过去分词，强调动作的承受者，施动者用 by 短语引出。　定语从句：跟在名词后面，用 who/which/that 等说明是哪个（些）人或物。</p></div></div><div class="row"><span class="idx">17</span><div><div id="s17" class="sent ann-top ann-bottom" data-id="s17" nce-s="15" nce-to="16"><span class="clause tint-obj" data-k="s17-cl">From the moment he arrived there</span>, <span class="sub" data-k="s17-sub">he</span> <span class="pred" data-k="s17-pred">kept on</span> <span class="obj" data-k="s17-obj">pestering his doctor to tell him when he would be able to go home</span>.<svg class="ann"></svg></div><p class="tip">主干：he ＋ kept on ＋ pestering his docto…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾语从句：整个句子作动词的宾语，引导词 that 常可省略。</p></div></div><div class="row"><span class="idx">18</span><div><div id="s18" class="sent ann-top" data-id="s18" nce-s="17"><span class="sub" data-k="s18-sub">He</span> <span class="pred" data-k="s18-pred">dreaded</span> <span class="obj" data-k="s18-obj">having to spend Christmas in hospital</span>.<svg class="ann"></svg></div><p class="tip">主干：He ＋ dreaded ＋ having to spend Chr…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div></article><article class="card"><div class="row"><span class="idx">19</span><div><div id="s19" class="sent ann-top ann-bottom" data-id="s19" nce-s="18"><span class="conj" data-k="s19-conj">Though</span> <span class="clause tint-adv" data-k="s19-cl">the doctor did his best</span>, <span class="sub" data-k="s19-sub">the patient's recovery</span> <span class="pred" data-k="s19-pred">was</span> <span class="obj" data-k="s19-obj">slow</span>.<svg class="ann"></svg></div><p class="tip">主干：the patient's recov… ＋ was ＋ slow　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　让步状语从句（Though）：退一步说“即使／尽管”，常见 although / even if / no matter…。</p></div></div><div class="row"><span class="idx">20</span><div><div id="s20" class="sent ann-top" data-id="s20" nce-s="19"><span class="adv" data-k="s20-adv">On Christmas Day</span>, <span class="sub" data-k="s20-sub">the man</span> <span class="pred" data-k="s20-pred">still had</span> <span class="obj" data-k="s20-obj">his right leg in plaster</span>.<svg class="ann"></svg></div><p class="tip">主干：the man ＋ still had ＋ his right leg in pl…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。</p></div></div><div class="row"><span class="idx">21</span><div><div id="s21" class="sent ann-top" data-id="s21" nce-s="20"><span class="sub" data-k="s21-sub">He</span> <span class="pred" data-k="s21-pred">spent</span> <span class="obj" data-k="s21-obj">a miserable day in bed</span> <span class="obj" data-k="s21-obj-3">thinking of all the fun he was missing</span>.<svg class="ann"></svg></div><p class="tip">主干：He ＋ spent ＋ a miserable day in… ＋ thinking of all the…　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">22</span><div><div id="s22" class="sent ann-top ann-bottom" data-id="s22" nce-s="21" nce-to="22"><span class="adv" data-k="s22-adv">The following day</span>, <span class="adv" data-k="s22-adv-1">however</span>, <span class="sub" data-k="s22-sub">the doctor</span> <span class="pred" data-k="s22-pred">consoled</span> <span class="obj" data-k="s22-obj">him</span> <span class="adv" data-k="s22-adv-5">by telling him that </span><span class="clause tint-obj" data-k="s22-cl">his chances of being able to leave hospital in time for New Year celebrations were good</span>.<svg class="ann"></svg></div><p class="tip">主干：the doctor ＋ consoled ＋ him　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">23</span><div><div id="s23" class="sent ann-top ann-bottom" data-id="s23" nce-s="23"><span class="sub" data-k="s23-sub">The man</span> <span class="pred" data-k="s23-pred">took</span> <span class="obj" data-k="s23-obj">heart</span> and, sure enough, <span class="adv" data-k="s23-adv">on New Year's Eve</span> he <span class="pred" data-k="s23-pred-4">was</span> able <span class="clause tint-adv" data-k="s23-cl">to hobble along to a party</span>.<svg class="ann"></svg></div><p class="tip">主干：The man ＋ took ＋ heart ＋ was　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">24</span><div><div id="s24" class="sent ann-top ann-bottom" data-id="s24" nce-s="24" nce-to="25"><span class="clause tint-adv" data-k="s24-cl">To compensate for his unpleasant experiences in hospital</span>, <span class="sub" data-k="s24-sub">the man</span> <span class="pred" data-k="s24-pred">drank</span> <span class="adv" data-k="s24-adv">a little more than </span><span class="clause tint-adv" data-k="s24-cl-6">was good for him</span>.<svg class="ann"></svg></div><p class="tip">主干：the man ＋ drank　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　原因状语从句（for）：给出理由，because 语气比 as / for 强。</p></div></div><div class="row"><span class="idx">25</span><div><div id="s25" class="sent ann-top ann-bottom" data-id="s25" nce-s="26"><span class="adv" data-k="s25-adv">In the process</span>, <span class="sub" data-k="s25-sub">he</span> <span class="pred" data-k="s25-pred">enjoyed</span> <span class="obj" data-k="s25-obj">himself</span> <span class="adv" data-k="s25-adv-4">thoroughly</span> and <span class="pred" data-k="s25-pred-5">kept</span> <span class="clause tint-adv" data-k="s25-cl">telling everybody how much he hated hospitals</span>.<svg class="ann"></svg></div><p class="tip">主干：he ＋ enjoyed ＋ himself ＋ kept　说过去某时发生、已结束的动作，常与 last week / yesterday / in 1994 同用。　宾补从句（不定式）：动词后接不定式作宾语补足语。</p></div></div><div class="row"><span class="idx">26</span><div><div id="s26" class="sent ann-top" data-id="s26" nce-s="27"><span class="sub" data-k="s26-sub">He</span> <span class="pred" data-k="s26-pred">was still mumbling</span> <span class="obj" data-k="s26-obj">something about hospitals</span> <span class="adv" data-k="s26-adv">at the end of the party</span> <span class="conj" data-k="s26-conj">when</span> he slipped on a piece of ice and broke his left leg.<svg class="ann"></svg></div><p class="tip">主干：He ＋ was still mumbling ＋ something about hos…　was/were + 动词-ing，说过去某一时刻正发生的动作，常作故事背景。　时间状语从句（when）：说主句动作发生的时间，注意从句用现在时表将来。</p></div></div></article></main>
+<div class="col-side"><aside class="side"><h3>句子骨架</h3><ul class="map"><li><span class="n">1</span><div><b>宾语＋谓语＋主语</b>一般现在时</div></li><li><span class="n">2</span><div><b>主语＋谓语＋谓语</b>一般现在时</div></li><li><span class="n">3</span><div><b>主语＋谓语＋谓语</b>被动语态（一般现在时）</div></li><li><span class="n">4</span><div><b>主语＋谓语＋从句</b>情态动词 + 动词原形　状语从句（分词/不定式，无引导词）</div></li><li><span class="n">5</span><div><b>主语＋谓语＋宾语</b>情态动词 + 动词原形　宾补从句（不定式）</div></li><li><span class="n">6</span><div><b>主语＋谓语</b>被动语态（一般现在时）</div></li><li><span class="n">7</span><div><b>主语＋谓语＋宾语</b>一般现在时</div></li><li><span class="n">8</span><div><b>从句＋主语＋谓语＋从句</b>情态动词 + 动词原形　宾语从句</div></li><li><span class="n">9</span><div><b>—</b>片段</div></li><li><span class="n">10</span><div><b>—</b>片段</div></li><li><span class="n">11</span><div><b>谓语＋谓语</b>现在完成时</div></li><li><span class="n">12</span><div><b>主语＋谓语</b>被动语态（一般现在时）</div></li><li><span class="n">13</span><div><b>主语＋谓语＋宾语</b>动词原形</div></li><li><span class="n">14</span><div><b>主语＋谓语</b>一般现在时</div></li><li><span class="n">15</span><div><b>主语＋谓语＋宾语＋宾语</b>一般将来时　宾补从句（不定式）</div></li><li><span class="n">16</span><div><b>主语＋从句＋谓语＋宾语</b>被动语态（一般过去时）　定语从句</div></li><li><span class="n">17</span><div><b>从句＋主语＋谓语＋宾语</b>一般过去时　宾语从句</div></li><li><span class="n">18</span><div><b>主语＋谓语＋宾语</b>一般过去时　宾补从句（不定式）</div></li><li><span class="n">19</span><div><b>从句＋主语＋谓语＋宾语</b>一般过去时　让步状语从句</div></li><li><span class="n">20</span><div><b>主语＋谓语＋宾语</b>一般过去时</div></li><li><span class="n">21</span><div><b>主语＋谓语＋宾语＋宾语</b>一般过去时　宾补从句（不定式）</div></li><li><span class="n">22</span><div><b>主语＋谓语＋宾语＋从句</b>一般过去时　宾补从句（不定式）</div></li><li><span class="n">23</span><div><b>主语＋谓语＋宾语＋谓语＋从句</b>一般过去时　宾补从句（不定式）</div></li><li><span class="n">24</span><div><b>从句＋主语＋谓语＋从句</b>一般过去时　原因状语从句</div></li><li><span class="n">25</span><div><b>主语＋谓语＋宾语＋谓语＋从句</b>一般过去时　宾补从句（不定式）</div></li><li><span class="n">26</span><div><b>主语＋谓语＋宾语</b>过去进行时　时间状语从句</div></li></ul></aside><aside class="side"><h3>生词和短语</h3><ul class="wlist"><li><div class="en">largely <span class="ph">/ˈlɑːdʒli/</span></div><div>adv. 在很大程度上</div></li><li><div class="en">comic <span class="ph">/ˈkɒmɪk/</span></div><div>adj. 喜剧的，可笑的</div></li><li><div class="en">universal <span class="ph">/ˌjuːnɪˈvɜːsl/</span></div><div>adj. 普遍的</div></li><li><div class="en">comedian <span class="ph">/kəˈmiːdiən/</span></div><div>n. 滑稽演员，喜剧演员</div></li><li><div class="en">distasteful <span class="ph">/dɪsˈteɪstfl/</span></div><div>adj. 讨厌的</div></li><li><div class="en">pester <span class="ph">/ˈpestə/</span></div><div>v. 一再要求，纠缠</div></li><li><div class="en">dread <span class="ph">/dred/</span></div><div>v. 惧怕</div></li><li><div class="en">recovery <span class="ph">/rɪˈkʌvəri/</span></div><div>n. 康复</div></li><li><div class="en">plaster <span class="ph">/ˈplɑːstə/</span></div><div>n. 熟石膏</div></li><li><div class="en">console <span class="ph">/kənˈsəʊl/</span></div><div>v. 安慰，慰问</div></li><li><div class="en">hobble <span class="ph">/ˈhɒbl/</span></div><div>v. 瘸着腿走</div></li><li><div class="en">compensate <span class="ph">/ˈkɒmpenseɪt/</span></div><div>v. 补偿</div></li><li><div class="en">mumble <span class="ph">/ˈmʌmbl/</span></div><div>v. 喃喃而语</div></li></ul></aside><aside class="side"><h3>课文注释</h3><ol class="note"><li>whether we find a joke funny or not，这是一个名词性的从句，在句子中作主语。</li><li>be bound up with，与……联系在一起。</li><li>you would find it difficult not to laugh at, say, Charlie Chaplin's early films. 比如说，你看了查理·卓别林的早期电影很难不发笑。句中的 say 是插入语，可译作“比如说”。查理·卓别林是电影史上最有名的演员之一。他在…</li><li>stem from，起源于。</li><li>come into fashion，开始流行，时兴起来。</li><li>judge for yourself，你自己来判断。</li><li>take heart，振作精神。</li><li>the man drank a little more than was good for him. 这个人稍微多喝了一点酒。
+此句 than 后面省略了主语 what，be good for sb. 是“对某人有益”的意思。</li></ol></aside></div>
+</div>
+<section class="panel translation" id="trans" hidden><h2>参考译文</h2><p>我们觉得一则笑话是否好笑，很大程度上取决于我们是在哪儿长大的。幽默感与民族有着神秘莫测的联系。譬如，法国人听完一则俄国笑话可能很难发笑。同样的道理，一则可以令英国人笑出泪来的笑话，俄国人听了可能觉得没有什么可笑之处。</p><p>大部分令人发笑的故事都是根据喜剧情节编写的。尽管民族不同，有些滑稽情节却能产生普遍的效果。比如说，不管你生活在哪里，你看了查理·卓别林的早期电影很难不发笑。然而，近来一种新式幽默流行了起来，这种幽默主要来自美国。它被叫作“病态幽默”。喜剧演员根据悲剧情节诸如暴死、重大事故等来编造笑话。许多人认为这种笑话是低级庸俗的。下面是个“病态幽默”的实例，你可以据此自己作出判断。</p><p>圣诞节前几周，某人摔断了右腿被送进医院。从他进医院那一刻起，他就缠住医生，让医生告诉他什么时候能回家。他十分害怕在医院过圣诞。尽管医生竭力医治，但病人恢复缓慢。圣诞节那天，他的右腿还上着石膏，他在床上郁郁不乐地躺了一天，想着他错过的种种欢乐。然而，第二天，医生安慰他说，出院欢度新年的可能性还是很大的，那人听后振作了精神。果然，除夕时他可以一瘸一拐地去参加晚会了。为了补偿住院这一段不愉快的经历，那人喝得稍许多了一点。在晚会上他尽情娱乐，一再告诉大家他是多么讨厌医院。晚会结束时，他嘴里还在嘟囔着医院的事，突然踩到一块冰上滑倒了，摔断了左腿。</p></section>
+<div class="closing">第3册第29课 · 文本以课文朗读音频逐句为基准 · 语法标注由依存句法分析自动生成，只对结构清楚的句子画括号，拿不准的宁可空着 · 点句听读的时间按本地逐词转写重新对过轴</div>
+</div>
+<script>(function(){
+  var NS = 'http://www.w3.org/2000/svg';
+  var ANN = {"s1": [{"t": "brace", "sel": "s1-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}], "s2": [{"t": "brace", "sel": "s2-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "arrow", "from": "s2-adv", "to": "s2-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s3": [{"t": "brace", "sel": "s3-pred", "side": "top", "color": "#0f766e", "label": "被动语态（一般现在时）"}, {"t": "arrow", "from": "s3-adv", "to": "s3-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s4": [{"t": "brace", "sel": "s4-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}, {"t": "brace", "sel": "s4-cl", "side": "bottom", "color": "#b45309", "label": "状语从句（分词/不定式，无引导词）"}, {"t": "arrow", "from": "s4-adv", "to": "s4-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s5": [{"t": "brace", "sel": "s5-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}, {"t": "arrow", "from": "s5-adv", "to": "s5-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s6": [{"t": "brace", "sel": "s6-pred", "side": "top", "color": "#0f766e", "label": "被动语态（一般现在时）"}, {"t": "arrow", "from": "s6-adv", "to": "s6-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s7": [{"t": "brace", "sel": "s7-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}, {"t": "arrow", "from": "s7-adv", "to": "s7-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s8": [{"t": "brace", "sel": "s8-pred", "side": "top", "color": "#0f766e", "label": "情态动词 + 动词原形"}, {"t": "brace", "sel": "s8-cl", "side": "bottom", "color": "#b45309", "label": "宾语从句"}, {"t": "brace", "sel": "s8-cl-4", "side": "bottom", "color": "#b45309", "label": "宾补从句（不定式）"}, {"t": "arrow", "from": "s8-adv", "to": "s8-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s11": [{"t": "brace", "sel": "s11-pred", "side": "top", "color": "#0f766e", "label": "现在完成时"}, {"t": "arrow", "from": "s11-adv", "to": "s11-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s12": [{"t": "brace", "sel": "s12-pred", "side": "top", "color": "#0f766e", "label": "被动语态（一般现在时）"}], "s13": [{"t": "brace", "sel": "s13-pred", "side": "top", "color": "#0f766e", "label": "动词原形"}], "s14": [{"t": "brace", "sel": "s14-pred", "side": "top", "color": "#0f766e", "label": "一般现在时"}], "s15": [{"t": "brace", "sel": "s15-pred", "side": "top", "color": "#0f766e", "label": "一般将来时"}], "s16": [{"t": "brace", "sel": "s16-pred", "side": "top", "color": "#0f766e", "label": "被动语态（一般过去时）"}, {"t": "brace", "sel": "s16-cl", "side": "bottom", "color": "#b45309", "label": "定语从句"}, {"t": "arrow", "from": "s16-adv", "to": "s16-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s17": [{"t": "brace", "sel": "s17-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s17-cl", "side": "bottom", "color": "#b45309", "label": "宾语从句"}], "s18": [{"t": "brace", "sel": "s18-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}], "s19": [{"t": "brace", "sel": "s19-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s19-cl", "side": "bottom", "color": "#b45309", "label": "让步状语从句"}], "s20": [{"t": "brace", "sel": "s20-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "arrow", "from": "s20-adv", "to": "s20-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s21": [{"t": "brace", "sel": "s21-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}], "s22": [{"t": "brace", "sel": "s22-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s22-cl", "side": "bottom", "color": "#b45309", "label": "宾语从句"}, {"t": "arrow", "from": "s22-adv", "to": "s22-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s23": [{"t": "brace", "sel": "s23-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s23-cl", "side": "bottom", "color": "#b45309", "label": "宾补从句（不定式）"}, {"t": "arrow", "from": "s23-adv", "to": "s23-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s24": [{"t": "brace", "sel": "s24-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s24-cl", "side": "bottom", "color": "#b45309", "label": "原因状语从句"}, {"t": "brace", "sel": "s24-cl-6", "side": "bottom", "color": "#b45309", "label": "比较状语从句"}, {"t": "arrow", "from": "s24-adv", "to": "s24-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s25": [{"t": "brace", "sel": "s25-pred", "side": "top", "color": "#0f766e", "label": "一般过去时"}, {"t": "brace", "sel": "s25-cl", "side": "bottom", "color": "#b45309", "label": "宾补从句（不定式）"}, {"t": "arrow", "from": "s25-adv", "to": "s25-pred", "color": "#7c3aed", "label": "状语修饰谓语"}], "s26": [{"t": "brace", "sel": "s26-pred", "side": "top", "color": "#0f766e", "label": "过去进行时"}, {"t": "arrow", "from": "s26-adv", "to": "s26-pred", "color": "#7c3aed", "label": "状语修饰谓语"}]};
+
+  function mk(tag, attrs){
+    const el = document.createElementNS(NS, tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+  function rectOf(sent, box, key){
+    const el = sent.querySelector('[data-k="' + key + '"]');
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return {x:r.left-box.left, y:r.top-box.top, w:r.width, h:r.height,
+            cx:r.left-box.left+r.width/2, bottom:r.bottom-box.top};
+  }
+  function drawBrace(svg, W, H, r, side, color, label, row){
+    let x1 = clamp(r.x + 2, 4, W - 4);
+    let x2 = clamp(r.x + r.w - 2, x1 + 24, W - 4);
+    const up = side === 'top';
+    const n = row || 0;                       // 同一句里第几条花括号：逐层下移，标签不再叠字
+    const y = up ? Math.max(14, r.y - 8 - n * 13) : Math.min(H - 10, r.bottom + 8 + n * 13);
+    const d = up ? -1 : 1;
+    const h1 = 8, tip = 14;
+    const mx = (x1 + x2) / 2;
+    const p = [
+      'M', x1, y,
+      'C', x1, y + d*h1, x1 + 8, y + d*h1, x1 + 13, y + d*h1,
+      'L', mx - 14, y + d*h1,
+      'C', mx - 7, y + d*h1, mx - 7, y + d*tip, mx, y + d*tip,
+      'C', mx + 7, y + d*tip, mx + 7, y + d*h1, mx + 14, y + d*h1,
+      'L', x2 - 13, y + d*h1,
+      'C', x2 - 8, y + d*h1, x2, y + d*h1, x2, y
+    ].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', 'stroke-linejoin':'round', opacity:.95}));
+    const tx = clamp(mx, 80, W - 80);
+    const ty = up ? y + d*tip - 9 : y + d*tip + 17;
+    const text = mk('text', {x:tx, y:ty, 'text-anchor':'middle', fill:color, 'font-size':12,
+      'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+      'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+    text.textContent = label;
+    svg.appendChild(text);
+  }
+  function curvePoint(p0,p1,p2,t){const u=1-t;return u*u*p0[0]+2*u*t*p1[0]+t*t*p2[0];}
+  function curvePointY(p0,p1,p2,t){const u=1-t;return u*u*p0[1]+2*u*t*p1[1]+t*t*p2[1];}
+  function drawArrow(svg, W, H, a, b, color, label, idx){
+    const x1 = a.cx, y1 = a.bottom + 6;
+    const x2 = b.cx, y2 = b.bottom + 6;
+    const sameLine = Math.abs(a.bottom - b.bottom) < 6;
+    const depth = sameLine ? 22 + idx*6 : 30 + idx*8;
+    const c1 = [x1, y1+depth], c2 = [x2, y2+depth];
+    const p = ['M',x1,y1,'C',c1[0],c1[1],c2[0],c2[1],x2,y2].join(' ');
+    svg.appendChild(mk('path', {d:p, fill:'none', stroke:color, 'stroke-width':1.5,
+      'stroke-linecap':'round', opacity:.9}));
+    let dx = x2-c2[0], dy = y2-c2[1];
+    const len = Math.hypot(dx,dy)||1; dx/=len; dy/=len;
+    const size=7.5, spread=.46;
+    const ax = x2-dx*size*Math.cos(spread)-dy*size*Math.sin(spread);
+    const ay = y2-dy*size*Math.cos(spread)+dx*size*Math.sin(spread);
+    const bx = x2-dx*size*Math.cos(spread)+dy*size*Math.sin(spread);
+    const by = y2-dy*size*Math.cos(spread)-dx*size*Math.sin(spread);
+    svg.appendChild(mk('path', {d:`M ${x2} ${y2} L ${ax} ${ay} M ${x2} ${y2} L ${bx} ${by}`,
+      fill:'none', stroke:color, 'stroke-width':1.5, 'stroke-linecap':'round'}));
+    if (label){
+      const mx = curvePoint([x1,y1],c1,[x2,y2],.5);
+      const my = curvePointY([x1,y1],c1,[x2,y2],.5)+15;
+      const text = mk('text', {x:clamp(mx,66,W-66), y:Math.min(my,H-4), 'text-anchor':'middle',
+        fill:color, 'font-size':11.5,
+        'font-family':'"Kaiti SC","STKaiti","Songti SC",serif',
+        'paint-order':'stroke', stroke:'#fffdf7', 'stroke-width':3.5, 'stroke-linejoin':'round'});
+      text.textContent = label;
+      svg.appendChild(text);
+    }
+  }
+  function drawSent(sent){
+    const cfg = ANN[sent.dataset.id];
+    if (!cfg) return;
+    const box = sent.getBoundingClientRect();
+    const W = sent.clientWidth, H = sent.clientHeight;
+    const svg = sent.querySelector('svg.ann');
+    if (!svg) return;
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    svg.setAttribute('width', W);
+    svg.setAttribute('height', H);
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    const nb = {top:0, bottom:0};             // 上下各自的括号层数
+    cfg.forEach((an,i) => {
+      if (an.t === 'brace'){
+        const r = rectOf(sent, box, an.sel);
+        if (r) drawBrace(svg, W, H, r, an.side, an.color, an.label, nb[an.side]++);
+      } else {
+        const a = rectOf(sent, box, an.from);
+        const b = rectOf(sent, box, an.to);
+        if (a && b) drawArrow(svg, W, H, a, b, an.color, an.label, i);
+      }
+    });
+  }
+  function drawAll(){
+    document.querySelectorAll('.sent').forEach(drawSent);
+  }
+
+  const btnMark = document.getElementById('btnMark');
+  if (btnMark) btnMark.addEventListener('click', () => {
+    const off = document.body.classList.toggle('no-mark');
+    btnMark.classList.toggle('on', !off);
+    btnMark.textContent = off ? '标注：隐藏' : '标注：显示';
+  });
+  const btnTrans = document.getElementById('btnTrans');
+  const trans = document.getElementById('trans');
+  if (btnTrans && trans) btnTrans.addEventListener('click', () => {
+    const showing = !trans.hidden;
+    trans.hidden = showing;
+    btnTrans.classList.toggle('on', !showing);
+    btnTrans.textContent = showing ? '参考译文：展开' : '参考译文：收起';
+    if (!showing) trans.scrollIntoView({behavior:'smooth', block:'nearest'});
+  });
+
+  window.addEventListener('load', () => {
+    drawAll();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawAll);
+  });
+  let t;
+  window.addEventListener('resize', () => {
+    clearTimeout(t);
+    t = setTimeout(drawAll, 120);
+  });
+})();</script>
+
+</body>
+</html>
